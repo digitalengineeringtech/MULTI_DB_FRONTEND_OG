@@ -1,0 +1,38 @@
+[
+    {  
+        "fuel_type":"Octane (92)",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    },
+     {
+        "fuel_type":"Octane (92)",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    }, {
+        "fuel_type":"Octane (92)",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    },
+     {
+        "fuel_type":"Octane (95)",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    }
+   
+]

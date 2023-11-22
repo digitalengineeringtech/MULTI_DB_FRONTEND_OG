@@ -1,0 +1,23 @@
+export const EnglishHeader = {
+    home: "Home",
+    reports: "Reports",
+    daily_sale_report: "Daily Sale Report",
+    daily_sale_categories_report: "Daily Sale Categories Report",
+    online_monitoring_sale_report: "Online Monitoring Sale Report",
+    weekly_sale_report: "Weekly Sale Report",
+    sale_summary_by_station: "Sale Summary By Staion",
+    statement_report: "Nozzle Details Report",
+    tank_data: "Tank Data",
+    fuel_receive_report: "Fuel Receive Report",
+    fuel_balance_report: "Fuel Balance Report",
+    stock_balance_report: "Stock Balance Report",
+    fuel_type_balance: "Fuel Type Balance",
+    daily_sale_summary_report: "Daily Sale Summary Report",
+    dashboard: "Dashboard",
+    myanmar: "မြန်မာ",
+    english: "English",
+    setting: "Setting",
+    user_manual: "User Manual",
+    user_choose:"User Choose",
+    log_out: "Logout"
+};

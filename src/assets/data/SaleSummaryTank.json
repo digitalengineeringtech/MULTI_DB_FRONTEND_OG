@@ -1,0 +1,80 @@
+[
+    {   "tank":"Tank 1",
+        "type":"Octane (92)",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    },
+     {
+        "type":"Octane (92)",
+        "tank":"Tank 2",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    }, {
+        "type":"Octane (92)",
+        "tank":"Tank 3",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    },
+     {
+        "type":"Octane (95)",
+        "tank":"Tank 4",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    },
+     {
+        "tank":"Tank 5",
+        "type":"Octane (95)",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    },
+     {
+        "type":"Diesel",
+        "tank":"Tank 6",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    },
+     {
+        "type":"Premium",
+        "tank":"Tank 7",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    },
+     {
+        "type":"Premium",
+        "tank":"Tank 8",
+        "opening":"00.000",
+        "receive":"00.000",
+        "sale":"00.000",
+        "tank_balance":"00.000",
+        "adjustment":"00.000",
+        "closing_balance":"00.000"
+    }
+]

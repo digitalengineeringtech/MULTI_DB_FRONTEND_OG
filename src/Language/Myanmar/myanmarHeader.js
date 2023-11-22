@@ -1,0 +1,23 @@
+export const MyanmarHeader = {
+    home: "ပင်မ",
+    reports: "စာရင်း",
+    daily_sale_report: "နေ့စဉ် အရောင်းစာရင်း",
+    daily_sale_categories_report: "ကဏ္ဍအလိုက် အရောင်းစာရင်း",
+    online_monitoring_sale_report: "online monitoring အရောင်းစာရင်း",
+    weekly_sale_report: "အပတ်စဉ် အရောင်းစာရင်း",
+    sale_summary_by_station: "ရက်ချုပ် အရောင်းစာရင်း",
+    statement_report: "ဆီဂေါက်အသေးစိတ်စာရင်း",
+    tank_data: "ဆီကန် အချက်အလက်",
+    fuel_receive_report: "ဆီဝင်လက်ခံ စာရင်း",
+    fuel_balance_report: "ဆီလက်ကျန် စာရင်း",
+    stock_balance_report: "Stockလက်ကျန် စာရင်း",
+    fuel_type_balance: "ဆီအမျိုးအစား လက်ကျန် စာရင်း",
+    daily_sale_summary_report: "နေ့စဉ် အကျဉ်းချုပ် စာရင်း",
+    dashboard: "ဒက်စ်ဘုတ်",
+    myanmar: "မြန်မာ",
+    english: "English",
+    setting: "ချိန်ညှိချက်",
+    user_manual: "အသုံးပြုပုံ",
+    user_choose:"ရွေးမည်",
+    log_out: "ထွက်မည်"
+};

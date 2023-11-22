@@ -1,0 +1,15 @@
+export const MyanamrDailySaleSummaryReport = {
+    main_title: "နေ့စဉ်အကျဉ်းချုပ်စာရင်း",
+    start_date: "စတင်ရက်",
+    end_date: "ပြီးဆုံးရက်",
+    station: "စတေရှင်",
+    search: "ရှာဖွေသည်",
+    fuel_type: "ဆီအမျိုးအစား",
+    license_no: "လိုင်စင်နံပါတ်",
+    date: "ရက်စွဲ",
+    count: "အရေအတွက်",
+    liter: "လီတာ",
+    price: "စျေး",
+    toExcel: "Excel သို့ပြောင်းရန်",
+    toPrint:"Print ထုတ်ရန်",
+};

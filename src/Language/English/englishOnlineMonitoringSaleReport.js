@@ -1,0 +1,25 @@
+export const EnglishOnlineMonitoringSaleReport = {
+    mainTitle: "Online Monitoring Sale Report",
+    startDate: "Start Date",
+    endDate: "End Date",
+    station: "Station",
+    liter: "Liter",
+    gallon: "Gallon",
+    search: "Search",
+    no: "No",
+    importCompany: "Import Company",
+    companyName: "Company Name",
+    stationName: "Station Name",
+    location: "Location",
+    divisionState: "Division / State",
+    pprdLicense: "PPRD License",
+    ownShopPartnerShop: "Own Shop / Partner Shop",
+    storageCapacity: "Storage Capacity",
+    fuelBalance: "of Fuel Balance",
+    sales: "Sales from",
+    averageSale: "Average Sale Per Day",
+    remark: "Remark",
+    toExcel: "To Excel",
+    toPrint:"To Print"
+};
+

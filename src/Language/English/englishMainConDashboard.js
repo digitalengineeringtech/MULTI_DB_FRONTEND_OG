@@ -1,0 +1,15 @@
+export const EnglishMainConDashboard = {
+    dashboard: "Dashboard",
+    greeting: "Welcome to Dashboard",
+    to_reports: "To Report",
+    total_vehicles: "Total Vehicles",
+    total_liters: "Total Liters",
+    total_gallon: "Total Gallon",
+    total_sale: "Total Sale",
+    vehicle_type: "Vehicle Types",
+    today_table: "Today Table",
+    total_sales: "Total Sales",
+    today_vehicle: "Today Vehicle",
+    total_vehicle: "Total Vehicle",
+    seven_day: "(7-Days)",
+}

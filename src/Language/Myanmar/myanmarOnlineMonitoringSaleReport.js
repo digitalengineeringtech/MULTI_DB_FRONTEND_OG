@@ -1,0 +1,25 @@
+export const MyanmarOnlineMonitoringSaleReport = {
+    mainTitle: "Online Monitoring စနစ်တပ်ဆင်ထားသည့် စက်သုံးဆီအရောင်းဆိုင်များ၏ ရောင်းချမူစာရင်း",
+    startDate: "စတင်ရက်",
+    endDate: "ပြီးဆုံးရက်",
+    station: "စတေရှင်",
+    liter: "လီတာ",
+    gallon: "ဂါလန်",
+    search: "ရှာဖွေသည်",
+    no: "စဉ်",
+    importCompany: "Import Company",
+    companyName: "ကုမ္ပဏီအမည်",
+    stationName: "ဆိုင်အမည်",
+    location: "တည်နေရာ",
+    divisionState: "တိုင်း/ပြည်နယ်",
+    pprdLicense: "PPRD လိုင်စင်အမှတ်",
+    ownShopPartnerShop: "Own Shop/Partner Shop",
+    storageCapacity: "သိုလှောင်နိုင်မူပမာဏ",
+    fuelBalance: "ရက်နေ့စက်သုံးဆီလက်ကျန်",
+    sales: "အထိရောင်းအား",
+    averageSale: "တစ်ရက်ပျမ်းမျှရောင်းအား",
+    remark: "မှတ်ချက်",
+    toExcel: "Excel သို့ပြောင်းရန်",
+    toPrint:"Print ထုတ်ရန်"
+};
+
