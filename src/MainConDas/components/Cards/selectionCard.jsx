@@ -30,17 +30,18 @@ function SelectionCard({
   }
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const name = urlParams.get("name");
+  const name = window.location.pathname.split("/");
+  console.log(name, "this is name");
   const [{ data_g_11, loading_g_11, error_g_11 }, fetchIt_G_11] = UseGet_11();
   const [mChecked, setMChecked] = useState(obj.permission?.includes("manager"));
-  const [pChecked, setPChecked] = useState(obj.permission?.includes("manager"));
+  const [pChecked, setPChecked] = useState(obj.permission?.includes("pprd"));
   console.log(mChecked, "this is mcheck");
 
   const handleAdd = (e, keye) => {
     // patchIt_1(``, { _id: e._id, keye: keye }, user.token)
     instance
       .patch(
-        `/station-detail/permission?accessDb=${name}`,
+        `/station-detail/permission?accessDb=${name[1]}`,
         { _id: e._id, keye: keye },
         {
           headers: {
@@ -58,6 +59,8 @@ function SelectionCard({
         console.log(e);
       });
   };
+
+  useEffect(() => {}, []);
 
   return (
     // <div className=" drop-shadow cursor-pointer border-[0.5px] bg-white hover:translate-y-[-10px] duration-500  hover:drop-shadow-lg  bg overflow-hidden h-[150px]  group  mx-auto p-1    w-full     ">
@@ -131,7 +134,10 @@ function SelectionCard({
           <label class="switch">
             <input
               checked={mChecked}
-              onChange={(event) => setMChecked(event.currentTarget.checked)}
+              onChange={(event) => {
+                setMChecked(event.currentTarget.checked);
+                handleAdd(obj, "manager");
+              }}
               type="checkbox"
             />
             <span class="slider"></span>
@@ -154,7 +160,10 @@ function SelectionCard({
           <label class="switch">
             <input
               checked={pChecked}
-              onChange={(event) => setPChecked(event.currentTarget.checked)}
+              onChange={(event) => {
+                setPChecked(event.currentTarget.checked);
+                handleAdd(obj, "pprd");
+              }}
               type="checkbox"
             />
             <span class="slider"></span>

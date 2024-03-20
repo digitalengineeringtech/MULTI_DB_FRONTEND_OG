@@ -11,7 +11,10 @@ import { useNavigate } from "react-router-dom";
 import { EnglishMainConDashboard } from "../../../../Language/English/englishMainConDashboard";
 import { useDispatch, useSelector } from "react-redux";
 import { MyanmarMainConDashboard } from "../../../../Language/Myanmar/myanmarMainConDashboard";
+
 import "./MainBoard.css";
+import NewVehicleChart from "../../Charts/NewVechicleChart";
+import SaleChart from "../../Charts/SaleChart";
 function MainBoard() {
   const [language, setLanguage] = useState(EnglishMainConDashboard);
 
@@ -71,8 +74,12 @@ function MainBoard() {
         total_sale={language.total_sale}
         total_vehicles={language.total_vehicle}
       />
-      <VehiclesCharts title={language.vehicle_type} />
-      <div className="w-[97%] gap-5 mt-4 flex mx-auto">
+      {/* <VehiclesCharts title={language.vehicle_type} /> */}
+      <div className=" flex gap-4 px-5">
+        <SaleChart />
+        <NewVehicleChart />
+      </div>
+      <div className="w-[97%]  gap-5 mt-4 flex mx-auto">
         <TodayTable
           total_sales={language.total_sale}
           totday_table={language.today_table}
