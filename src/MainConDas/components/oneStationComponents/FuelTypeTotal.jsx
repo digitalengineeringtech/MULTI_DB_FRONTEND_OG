@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import FuelTypeTotalTable from '../Tables/FuelTypeTotal.table'
-import CalenderComponent from '../../../components/PageComponents/CalenderComponent'
-import { AiOutlineSearch } from 'react-icons/ai';
-import UsePost from '../hooks/UsePost';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Loading from '../../../components/Loading';
-
+import React, { useEffect, useState } from "react";
+import FuelTypeTotalTable from "../Tables/FuelTypeTotal.table";
+import CalenderComponent from "../../../components/PageComponents/CalenderComponent";
+import { AiOutlineSearch } from "react-icons/ai";
+import UsePost from "../hooks/UsePost";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Loading from "../../../components/Loading";
 
 let start = new Date();
 start.setHours(0);
@@ -18,7 +17,7 @@ end.setHours(23);
 end.setMinutes(0);
 end = new Date(end);
 
-function FuelTypeTotal({title,language}) {
+function FuelTypeTotal({ title, language }) {
   const [endDate, setEndDate] = useState(end);
   const [startDate, setStartDate] = useState(start);
   const [okData, setOkData] = useState([]);
@@ -34,13 +33,11 @@ function FuelTypeTotal({title,language}) {
   const [totalPrice, SetTotalPrice] = useState(0);
   const [station, setStation] = useState(0);
 
- const user = useSelector((state) => state.login);
- const navigate = useNavigate();
- const dispatch = useDispatch();
-  
+  const user = useSelector((state) => state.login);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [{ data_g, loading_g, error_g }, fetchIt] = UsePost();
-  
 
   useEffect(() => {
     if (!user.login) {
@@ -49,32 +46,33 @@ function FuelTypeTotal({title,language}) {
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const station = urlParams.get('station');
+    const station = urlParams.get("station");
 
     setStation(station);
 
-    fetchIt(`/detail-sale/by-date/?sDate=${startDate}&eDate=${endDate}&stationDetailId=${station}`, user.token);
+    fetchIt(
+      `/detail-sale/by-date/?sDate=${startDate}&eDate=${endDate}&stationDetailId=${station}`,
+      user.token
+    );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, navigate, dispatch]);
 
   const handleSearch = () => {
-    fetchIt(`/detail-sale/by-date/?sDate=${startDate}&eDate=${endDate}&stationDetailId=${station}`,user.token)
+    fetchIt(
+      `/detail-sale/by-date/?sDate=${startDate}&eDate=${endDate}&stationDetailId=${station}`,
+      user.token
+    );
   };
-  
+
   useEffect(() => {
     if (data_g.result) {
       setOkData(data_g.result);
     }
     setThisLoading(loading_g);
   }, [data_g, loading_g, error_g]);
-  
 
-
-    useEffect(() => {
-
-
-
+  useEffect(() => {
     let ninety2 = 0;
     let ninety2_price = 0;
     let ninety5 = 0;
@@ -84,62 +82,65 @@ function FuelTypeTotal({title,language}) {
     let premium = 0;
     let premium_price = 0;
     let totalPrice = 0;
-    
-   
 
+    if (okData) {
+      okData.forEach((obj) => {
+        if (obj.fuelType === "001-Octane Ron(92)") {
+          ninety2 += obj.saleLiter;
+          ninety2_price = obj.salePrice;
+        }
+        if (obj.fuelType === "002-Octane Ron(95)") {
+          ninety5 += obj.saleLiter;
+          ninety5_price = obj.salePrice;
+        }
+        if (obj.fuelType === "004-Diesel") {
+          diesel += obj.saleLiter;
+          diesel_price = obj.salePrice;
+        }
+        if (obj.fuelType === "005-Premium Diesel") {
+          premium += obj.saleLiter;
+          premium_price = obj.salePrice;
+        }
+        totalPrice += obj.totalPrice;
+      });
 
-
-    if (okData ) {
-       okData.forEach((obj) => {
-        
-      if (obj.fuelType === '001-Octane Ron(92)') {
-        ninety2 += obj.saleLiter;
-        ninety2_price = obj.salePrice;
-      }
-      if (obj.fuelType === '002-Octane Ron(95)') {
-        ninety5 += obj.saleLiter;
-        ninety5_price = obj.salePrice;
-      }
-      if (obj.fuelType === '004-Diesel') {
-        diesel += obj.saleLiter;
-        diesel_price = obj.salePrice;
-      }
-      if (obj.fuelType === '005-Premium Diesel') {
-        premium += obj.saleLiter;
-        premium_price = obj.salePrice;
-      }
-      totalPrice += obj.totalPrice;
-    });
-      
-      
-    SetNinety2LotalLiter(ninety2.toFixed(3));
-    SetNinety5LotalLiter(ninety5.toFixed(3));
-    SetDieselLotalLiter(diesel.toFixed(3));
-    SetphshLotalLiter(premium.toFixed(3));
-    SetTotalPrice(totalPrice.toFixed(3));
-    setNinety2Price(ninety2_price);
-    setNinety5Price(ninety5_price);
-    setDieselPrice(diesel_price);
-    setPhsdPrice(premium_price);
-    
-    } 
+      SetNinety2LotalLiter(ninety2.toFixed(3));
+      SetNinety5LotalLiter(ninety5.toFixed(3));
+      SetDieselLotalLiter(diesel.toFixed(3));
+      SetphshLotalLiter(premium.toFixed(3));
+      SetTotalPrice(totalPrice.toFixed(3));
+      setNinety2Price(ninety2_price);
+      setNinety5Price(ninety5_price);
+      setDieselPrice(diesel_price);
+      setPhsdPrice(premium_price);
+    }
   }, [okData]);
 
-
-
   return (
- <div className=' py-2 drop-shadow-md m-4 w-[50%]'>
-       <div className='w-[97%] drop-shadow-md mt-[30px] gap-5  flex justify-around items-center mx-auto relative'>
-        <CalenderComponent value={startDate} setValue={setStartDate} title={language.start_date} />
-        <CalenderComponent value={endDate} setValue={setEndDate} title={language.end_date} />
+    <div className=" py-2 drop-shadow-md m-4 w-[50%]">
+      <div className="w-[97%] drop-shadow-md mt-[30px] gap-5  flex justify-around items-center mx-auto relative">
+        <CalenderComponent
+          value={startDate}
+          setValue={setStartDate}
+          title={language.start_date}
+        />
+        <CalenderComponent
+          value={endDate}
+          setValue={setEndDate}
+          title={language.end_date}
+        />
       </div>
-      <div className='w-[97%] mx-auto px-7'>
-          <button onClick={handleSearch} className='flex gap-1 text-sm items-center justify-center bg-blue-800 hover:bg-blue-700 text-white mt-8 p-2 rounded'><AiOutlineSearch size={20} />SEARCH</button>
-    </div>
-      <div className='w-[97%]  drop-shadow-md  overflow-hidden flex flex-wrap justify-center items-center mx-auto relative mt-5'>
-        {
-          thisLoading?<Loading/>:''
-       }
+      <div className="w-[97%] mx-auto px-7">
+        <button
+          onClick={handleSearch}
+          className="flex gap-1 text-sm items-center justify-center bg-blue-800 hover:bg-blue-700 text-white mt-8 p-2 rounded"
+        >
+          <AiOutlineSearch size={20} />
+          SEARCH
+        </button>
+      </div>
+      <div className="w-[97%]  drop-shadow-md  overflow-hidden flex flex-wrap justify-center items-center mx-auto relative mt-5">
+        {thisLoading ? <Loading /> : ""}
         <FuelTypeTotalTable
           okData={okData}
           title={language.fuel_type_total}
@@ -160,10 +161,10 @@ function FuelTypeTotal({title,language}) {
           phsdLiter={phsdLotalLiter}
           phsdPrice={phsdPrice}
           totalPrice={totalPrice}
-        />     
-              </div>
- </div>
-  )
+        />
+      </div>
+    </div>
+  );
 }
 
-export default FuelTypeTotal
+export default FuelTypeTotal;

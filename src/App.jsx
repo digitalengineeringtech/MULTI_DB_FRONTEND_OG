@@ -1,44 +1,39 @@
-import React from 'react'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Login from './pages/Login'
-import Home from './pages/Home'
-import { BrowserRouter,Route,Routes } from 'react-router-dom'
-import LoginStore from './redux/stores/LoginStore'
-import { Provider, useSelector } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-import { persistStore } from 'redux-persist'
-import FuelDataReport from './pages/DataInput/FuelData.report'
+import React from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoginStore from "./redux/stores/LoginStore";
+import { Provider, useSelector } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+import FuelDataReport from "./pages/DataInput/FuelData.report";
 // import DailySaleReport from './pages/DailySaleReport'
-import DailyThisDay from './pages/DailyThisDay.report'
-import SearchReports from './pages/SearchReports'
-import DailySummaryByStationReport from './pages/DailySummeryByStationReport'
-import Adjustment from './pages/Adjustment'
-import TankBalance from './pages/TankBalance'
-import 'primereact/resources/themes/lara-light-indigo/theme.css';   // theme
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
-import WeeklySaleReport from './pages/WeeklySaleReport'
-import StatementReport from './pages/StatementReport'
-import 'primereact/resources/primereact.css';
-import FuelBalanceReport from './pages/FuelBalanceReport'
-import TankBalanceReport from './pages/TankBalanceReport'
-import FuelTypeBalanceReport from './pages/FuelTypeBalanceReport'
-import Test from './pages/Test'
-import UserManual from './components/UserManual/UserManual'
-import Dashboard from './Dashboard/Dashboard'
-import DailySaleReportOne from './pages/DailySaleReport1'
-import DailySaleCategoriesReport1 from './pages/DailySaleCategoriesReport1'
-import OnlineMonitoringSaleReport from './pages/OnlineMonitoringSaleReport'
-import FuelInDailyReport from './pages/Lap'
-import Routerdo from './Routerdo'
-
+import DailyThisDay from "./pages/DailyThisDay.report";
+import SearchReports from "./pages/SearchReports";
+import DailySummaryByStationReport from "./pages/DailySummeryByStationReport";
+import Adjustment from "./pages/Adjustment";
+import TankBalance from "./pages/TankBalance";
+import "primereact/resources/themes/lara-light-indigo/theme.css"; // theme
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import WeeklySaleReport from "./pages/WeeklySaleReport";
+import StatementReport from "./pages/StatementReport";
+import "primereact/resources/primereact.css";
+import FuelBalanceReport from "./pages/FuelBalanceReport";
+import TankBalanceReport from "./pages/TankBalanceReport";
+import FuelTypeBalanceReport from "./pages/FuelTypeBalanceReport";
+import Test from "./pages/Test";
+import UserManual from "./components/UserManual/UserManual";
+import Dashboard from "./Dashboard/Dashboard";
+import DailySaleReportOne from "./pages/DailySaleReport1";
+import DailySaleCategoriesReport1 from "./pages/DailySaleCategoriesReport1";
+import OnlineMonitoringSaleReport from "./pages/OnlineMonitoringSaleReport";
+import FuelInDailyReport from "./pages/Lap";
+import Routerdo from "./Routerdo";
 
 function App() {
-  
-
-  
-
   let persistor = persistStore(LoginStore);
 
   return (
@@ -71,11 +66,11 @@ function App() {
          
     </BrowserRouter> */}
         <BrowserRouter>
-            <Routerdo/>
+          <Routerdo />
         </BrowserRouter>
       </PersistGate>
-   </Provider>
-  )
+    </Provider>
+  );
 }
 
-export default App
+export default App;
