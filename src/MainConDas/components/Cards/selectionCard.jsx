@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import image from "../../../assets/images/gas-station.png";
 import "./style.css";
 import { LuMenu } from "react-icons/lu";
+import instance from "../../../axios";
+import UseGet_11 from "../hooks/UseGet_B_1";
 
 function SelectionCard({
   img,
@@ -12,10 +14,50 @@ function SelectionCard({
   devicCount,
   nozzleCount,
   link,
+  obj,
   onClick,
+  loc,
   code = 1,
 }) {
   const user = useSelector((state) => state.login);
+
+  function truncateIfNeeded(word) {
+    if (word.length > 15) {
+      return word.substring(0, 15) + "...";
+    } else {
+      return word.padEnd(15, " ");
+    }
+  }
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const name = urlParams.get("name");
+  const [{ data_g_11, loading_g_11, error_g_11 }, fetchIt_G_11] = UseGet_11();
+  const [mChecked, setMChecked] = useState(obj.permission?.includes("manager"));
+  const [pChecked, setPChecked] = useState(obj.permission?.includes("manager"));
+  console.log(mChecked, "this is mcheck");
+
+  const handleAdd = (e, keye) => {
+    // patchIt_1(``, { _id: e._id, keye: keye }, user.token)
+    instance
+      .patch(
+        `/station-detail/permission?accessDb=${name}`,
+        { _id: e._id, keye: keye },
+        {
+          headers: {
+            Authorization: "Bearer " + user.token,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.con) {
+          fetchIt_G_11(`/station-detail/get/all`, name, user.token);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     // <div className=" drop-shadow cursor-pointer border-[0.5px] bg-white hover:translate-y-[-10px] duration-500  hover:drop-shadow-lg  bg overflow-hidden h-[150px]  group  mx-auto p-1    w-full     ">
@@ -66,25 +108,55 @@ function SelectionCard({
           <img src={image} className="w-full p-3" alt="dfdf" />
         </div>
         <div className="col-span-8 flex-col flex rounded-lg bg-[#e0f6ff] ps-4 justify-center">
-          <div className="font-mono text-[#40a3fb] font-semibold">.....</div>
+          <div className="font-mono text-[#40a3fb] font-semibold">
+            {truncateIfNeeded(loc)}
+          </div>
           <div className="font-mono text-sm">Device Count : {devicCount}</div>
           <div className="font-mono  text-sm">Nozzle Count : {nozzleCount}</div>
         </div>
       </div>
-      <div className="col-span-8 flex-col flex rounded-lg w-full mt-4 p-4 bg-[#e0f6ff] justify-center">
-        <div className="font-mono bg-[#e0f6ff] flex justify-between items-center text-[#40a3fb] font-semibold ">
-          Manager{" "}
+      <div
+        className={`col-span-8 flex-col flex rounded-lg w-full mt-4 p-4 ${
+          mChecked ? "bg-[#e0f6ff]" : "bg-[#f3f3f3]"
+        } justify-center`}
+      >
+        <div
+          className={`${
+            mChecked
+              ? "text-[#40a3fb]  bg-[#e0f6ff] "
+              : "text-gray-400 bg-[#f3f3f3] "
+          } font-mono  flex justify-between items-center  font-semibold `}
+        >
+          Manager
           <label class="switch">
-            <input type="checkbox" />
+            <input
+              checked={mChecked}
+              onChange={(event) => setMChecked(event.currentTarget.checked)}
+              type="checkbox"
+            />
             <span class="slider"></span>
           </label>
         </div>
       </div>
-      <div className="col-span-8 flex-col flex rounded-lg w-full mt-3 p-4 bg-[#f3f3f3] justify-center">
-        <div className="font-mono bg-[#f3f3f3] flex justify-between items-center text-gray-400 font-semibold ">
+      <div
+        className={`col-span-8 flex-col flex rounded-lg w-full mt-3 p-4 ${
+          pChecked ? "bg-[#e0f6ff]" : "bg-[#f3f3f3]"
+        } justify-center`}
+      >
+        <div
+          className={`font-mono ${
+            pChecked
+              ? "text-[#40a3fb]  bg-[#e0f6ff] "
+              : "text-gray-400 bg-[#f3f3f3] "
+          } flex justify-between items-center font-semibold `}
+        >
           PPRD{" "}
           <label class="switch">
-            <input type="checkbox" />
+            <input
+              checked={pChecked}
+              onChange={(event) => setPChecked(event.currentTarget.checked)}
+              type="checkbox"
+            />
             <span class="slider"></span>
           </label>
         </div>

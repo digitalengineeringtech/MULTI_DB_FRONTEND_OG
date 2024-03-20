@@ -36,7 +36,7 @@ function MainBoard() {
         dashboard={language.dashboard}
         greeting={language.greeting}
       />
-      <div className="mt-2 bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% p-2 w-[98%] hover:rounded-md group-hover:rounded-md drop-shadow-md mx-auto cursor-pointer">
+      <div className="mt-2 bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% p-2 w-[98%] rounded-md group-hover:rounded-md drop-shadow-md mx-auto cursor-pointer">
         {/* <p
           onClick={() => navigate("/kyawsan/main-con/home")}
           className="font-bold hover:gap-4 duration-300  underline cursor-pointer flex items-center  gap-2"

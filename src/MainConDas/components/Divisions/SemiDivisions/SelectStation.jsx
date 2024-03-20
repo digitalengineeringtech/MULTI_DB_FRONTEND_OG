@@ -27,7 +27,7 @@ function SelectStation({ navigation, setNavigation }) {
       setOkData(data_get_1.result);
     }
   }, [data_get_1, loading_get_1, error_get_1]);
-
+  console.log(okData, "..........................................");
   return (
     <div className="w-[100%] min-h-[90svh] bg-gray-300">
       <div className="py-[50px]  mx-auto flex  flex-wrap justify-center gap-5  items-center">
@@ -58,9 +58,11 @@ function SelectStation({ navigation, setNavigation }) {
 
                 setNavigation(2);
               }}
+              obj={e}
               devicCount={e.deviceCount}
               nozzleCount={e.nozzleCount}
               title={e.name}
+              loc={e.location}
               img={GasStation}
               buttontext={"Check out"}
               link={"/kyawsan/salessummarbystation"}
