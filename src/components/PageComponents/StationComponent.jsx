@@ -14,7 +14,13 @@ function StationComponent({ value, setValue, title }) {
 
   useEffect(() => {
     const token = user.token;
-
+    function truncateIfNeeded(word) {
+      if (word.length > 9) {
+        return word.substring(0, 9) + "..";
+      } else {
+        return word.padEnd(9, " ");
+      }
+    }
     const fetchData = async () => {
       const response = await instance.get(
         `/station-detail/get/all?accessDb=${user.accessDb}&name=${user.name}`,
@@ -29,9 +35,13 @@ function StationComponent({ value, setValue, title }) {
       console.log(response.data);
 
       const datas = response.data.result;
-
+      console.log(
+        defaultOption,
+        pruposes,
+        "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      );
       const formattedData = datas.map((item) => ({
-        name: item.name,
+        name: item.name + " " + truncateIfNeeded(item.location),
         code: item._id,
         location: item.location,
         lienseNo: item.lienseNo,
@@ -45,7 +55,7 @@ function StationComponent({ value, setValue, title }) {
           user.name === "user"
         ) {
           defauilt.push({
-            name: item.name,
+            name: item.name + " " + truncateIfNeeded(item.location),
             code: item._id,
             location: item.location,
             lienseNo: item.lienseNo,
@@ -53,7 +63,7 @@ function StationComponent({ value, setValue, title }) {
         }
         if (user.stationId === item._id) {
           defauilt.push({
-            name: item.name,
+            name: item.name + " " + truncateIfNeeded(item.location),
             code: item._id,
             location: item.location,
             lienseNo: item.lienseNo,
@@ -79,7 +89,7 @@ function StationComponent({ value, setValue, title }) {
           <Dropdown
             value={value}
             onChange={(e) => setValue(e.value)}
-            options={jj}
+            // options={jj}
             optionLabel="name"
             className="!h-[30px] w-[250px] flex items-center justify-center"
             placeholder="Please Select Station"
