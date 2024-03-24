@@ -129,96 +129,17 @@ function Header({ show = true }) {
                 <li>{nativeLanguage.home}</li>
               </Link>
               {/* <Link  to="/kyawsan/home" className='bg-white text-black px-3 py-2 rounded-lg'> <li>Dashboard</li></Link> */}
-
-              <li onClick={() => setMenuTrue(!menuTrue)} className="px-3 py-2">
-                <p className={reportBg}>
-                  {nativeLanguage.reports} <MdOutlineArrowDropDown />
-                </p>
-                {menuTrue ? (
-                  <ul className="bg-blue-900 z-50 mt-1  drop-shadow-none !duration-150  group-hover:flex text-white absolute p-3 text-sm rounded-md flex-col items-start gap-2">
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/dailysalereport`}
-                    >
-                      <li>{nativeLanguage.daily_sale_report}</li>
-                    </Link>
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/categoriesreport`}
-                    >
-                      <li>{nativeLanguage.daily_sale_categories_report}</li>
-                    </Link>
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/onlinemonitoringsalereport`}
-                    >
-                      <li>{nativeLanguage.online_monitoring_sale_report}</li>
-                    </Link>
-                    <Link className={LinkTheme} to={`/${user.accessDb}/weekly`}>
-                      <li>{nativeLanguage.weekly_sale_report}</li>
-                    </Link>
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/salessummarbystation`}
-                    >
-                      <li>{nativeLanguage.sale_summary_by_station}</li>
-                    </Link>
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/statementreport`}
-                    >
-                      <li>{nativeLanguage.statement_report}</li>
-                    </Link>
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/real-tank`}
-                    >
-                      <li>{nativeLanguage.tank_data}</li>
-                    </Link>
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/fueldatareport`}
-                    >
-                      <li>{nativeLanguage.fuel_receive_report}</li>
-                    </Link>
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/fuelbalance`}
-                    >
-                      <li>{nativeLanguage.fuel_balance_report}</li>
-                    </Link>
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/tankbalancereport`}
-                    >
-                      <li>{nativeLanguage.stock_balance_report}</li>
-                    </Link>
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/fueltypebalance`}
-                    >
-                      <li>{nativeLanguage.fuel_type_balance}</li>
-                    </Link>
-
-                    {/* <Link className={LinkTheme} to="/kyawsan/searchreports"><li>Sale Summary Report</li></Link> */}
-
-                    <Link
-                      className={LinkTheme}
-                      to={`/${user.accessDb}/dailysalesummaryreport`}
-                    >
-                      <li>{nativeLanguage.daily_sale_summary_report}</li>
-                    </Link>
-
-                    {/* <Link className={LinkTheme} to="/kyawsan/adjustment"><li>Adjustment Report</li></Link> */}
-                    {/* {
-                                who === "admin"?<li className=' cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black'><Link to="/salesummeryreport">Sale Summery</Link></li>
-:''
-                              } */}
-                  </ul>
-                ) : (
-                  ""
-                )}
-              </li>
+              {user.name === "pprd" || user.name === "user" ? (
+                <Link
+                  to="/user/choose"
+                  className="  cursor-pointer hover:text-gray-100 hover:bg-blue-900 text-gray-700 px-3 py-2 rounded-lg "
+                >
+                  {" "}
+                  <li>{nativeLanguage.user_choose}</li>
+                </Link>
+              ) : (
+                ""
+              )}
               {/* {
                 who === "admin"?<li className=' cursor-pointer duration-300 hover:bg-white px-3 h-[40px] flex items-center  rounded-md w-[150px] hover:text-black'><Link to="/salesummeryreport">Sale Summery</Link></li>
 :''
@@ -256,7 +177,7 @@ function Header({ show = true }) {
                   {/* <li onClick={(e)=>setLanguage(e.target.innerText)} className='  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black '>中国人</li> */}
                 </ul>
               </li>
-              <li className="p-2  group ">
+              {/* <li className="p-2  group ">
                 <p className="flex items-center relative justify-center gap-2 cursor-pointer ">
                   {nativeLanguage.setting}
                   <MdOutlineArrowDropDown />
@@ -294,6 +215,15 @@ function Header({ show = true }) {
                     {nativeLanguage.log_out}
                   </li>
                 </ul>
+              </li> */}
+              <li
+                className=" cursor-pointer duration-300 hover:bg-red-400  px-3  h-[40px] flex items-center  rounded-md hover:text-white"
+                onClick={() => {
+                  navigate("/");
+                  dispatch(LogoutUser());
+                }}
+              >
+                {nativeLanguage.log_out}
               </li>
             </ul>
           ) : (
@@ -325,13 +255,21 @@ function Header({ show = true }) {
 
               <Link
                 to="/usermanual"
-                className="   text-black  cursor-pointer duration-300  px-3  h-[40px] flex items-center  rounded-md hover:text-blue-900 "
+                className="   text-black hover:bg-blue-900 hover:text-white  cursor-pointer duration-300  px-3  h-[40px] flex items-center  rounded-md  "
               >
                 {" "}
                 <li>{nativeLanguage.user_manual}</li>
               </Link>
-
-              <li className="p-2  group">
+              <li
+                className=" cursor-pointer hover:bg-red-400  duration-300 px-3 hover:text-white h-[40px] flex items-center  rounded-md "
+                onClick={() => {
+                  navigate("/");
+                  dispatch(LogoutUser());
+                }}
+              >
+                {nativeLanguage.log_out}
+              </li>
+              {/* <li className="p-2  group">
                 <p className="flex items-center relative justify-center gap-2 cursor-pointer ">
                   {nativeLanguage.setting}
                   <MdOutlineArrowDropDown />
@@ -353,7 +291,7 @@ function Header({ show = true }) {
                     {nativeLanguage.log_out}
                   </li>
                 </ul>
-              </li>
+              </li> */}
             </ul>
           )}
         </div>
