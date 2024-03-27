@@ -14,7 +14,13 @@ function StationComponent({ value, setValue, title }) {
 
   useEffect(() => {
     const token = user.token;
-
+    function truncateIfNeeded(word) {
+      if (word.length > 9) {
+        return word.substring(0, 9) + "..";
+      } else {
+        return word.padEnd(9, " ");
+      }
+    }
     const fetchData = async () => {
       const response = await instance.get(
         `/station-detail/get/all?accessDb=${user.accessDb}&name=${user.name}`,
@@ -28,9 +34,9 @@ function StationComponent({ value, setValue, title }) {
 
 
       const datas = response.data.result;
-
+      
       const formattedData = datas.map((item) => ({
-        name: item.name,
+        name: item.name + " " + truncateIfNeeded(item.location),
         code: item._id,
         location: item.location,
         lienseNo: item.lienseNo,
@@ -44,7 +50,7 @@ function StationComponent({ value, setValue, title }) {
           user.name === "user"
         ) {
           defauilt.push({
-            name: item.name,
+            name: item.name + " " + truncateIfNeeded(item.location),
             code: item._id,
             location: item.location,
             lienseNo: item.lienseNo,
@@ -52,7 +58,7 @@ function StationComponent({ value, setValue, title }) {
         }
         if (user.stationId === item._id) {
           defauilt.push({
-            name: item.name,
+            name: item.name + " " + truncateIfNeeded(item.location),
             code: item._id,
             location: item.location,
             lienseNo: item.lienseNo,
@@ -99,3 +105,4 @@ function StationComponent({ value, setValue, title }) {
 }
 
 export default StationComponent;
+ 
