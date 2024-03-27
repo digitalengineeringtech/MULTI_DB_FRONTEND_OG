@@ -26,7 +26,6 @@ function StationComponent({ value, setValue, title }) {
         }
       );
 
-      console.log(response.data);
 
       const datas = response.data.result;
 
