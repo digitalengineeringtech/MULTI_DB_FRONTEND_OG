@@ -26,7 +26,6 @@ function Login() {
     user.append("email", name.value);
     user.append("password", password.value);
     // const user = { email: name.value, password: password.value };
-    console.log(user);
     instance
       .post("/user/login", user)
       .then(function (response) {

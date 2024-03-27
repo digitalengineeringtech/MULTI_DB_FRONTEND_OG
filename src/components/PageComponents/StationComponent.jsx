@@ -32,14 +32,9 @@ function StationComponent({ value, setValue, title }) {
         }
       );
 
-      console.log(response.data);
 
       const datas = response.data.result;
-      console.log(
-        defaultOption,
-        pruposes,
-        "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
-      );
+      
       const formattedData = datas.map((item) => ({
         name: item.name + " " + truncateIfNeeded(item.location),
         code: item._id,
@@ -89,7 +84,7 @@ function StationComponent({ value, setValue, title }) {
           <Dropdown
             value={value}
             onChange={(e) => setValue(e.value)}
-            // options={jj}
+            options={jj}
             optionLabel="name"
             className="!h-[30px] w-[250px] flex items-center justify-center"
             placeholder="Please Select Station"
@@ -110,3 +105,4 @@ function StationComponent({ value, setValue, title }) {
 }
 
 export default StationComponent;
+ 

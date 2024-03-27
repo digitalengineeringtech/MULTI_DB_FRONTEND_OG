@@ -161,9 +161,6 @@ export default function DailySaleReportOne() {
     filename: "Daily Sale Report",
     sheet: "Daily Sale Report",
   });
-  console.log("====================================");
-  console.log(startDate, end);
-  console.log("====================================");
   return (
     <>
       <PageContainer
