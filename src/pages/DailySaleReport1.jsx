@@ -214,15 +214,15 @@ export default function DailySaleReportOne() {
               value={selectedFuelType}
               setValue={setSelectedFuelType}
             />
-            <StationComponent
-              title={language.station}
-              value={selectedStation}
-              setValue={setSelectedStation}
-            />
             <Casher
               title={language.casher}
               value={casher}
               setValue={setCasher}
+            />
+            <StationComponent
+              title={language.station}
+              value={selectedStation}
+              setValue={setSelectedStation}
             />
           </div>
           {isSelectedStation && (
