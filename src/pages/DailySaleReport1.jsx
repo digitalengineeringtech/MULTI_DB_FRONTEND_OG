@@ -28,6 +28,8 @@ import { englishDailySaleReport } from "../Language/English/englishDailySaleRepo
 import { myanmarDailySaleReport } from "../Language/Myanmar/myanmarDailySaleReport";
 import { title } from "process";
 import Header from "../components/Header";
+import instance from "../axios";
+import Casher from "../components/PageComponents/Casher";
 
 let start = new Date();
 start.setHours(0);
@@ -66,6 +68,7 @@ export default function DailySaleReportOne() {
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(50);
   const [totalLength, setTotalLength] = useState(0);
+  const [casher, setCasher] = useState();
 
   const user = useSelector((state) => state.login);
   const datas = useSelector(getAllKyawSan027DailySaleReports);
@@ -92,6 +95,17 @@ export default function DailySaleReportOne() {
     };
   }, [user, navigate, dispatch]);
 
+  // useEffect(async () => {
+  //   const token = user.token;
+  //   const { data } = await instance.get(`/casher-code?key=casherCode`, {
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //       Authorization: "Bearer " + token,
+  //     },
+  //   });
+  //   data.con && setCasher(data.result);
+  // }, []);
+
   const handleClick = () => {
     if (selectedStation.code === "Please") {
       setIsSelectedStation(true);
@@ -107,6 +121,7 @@ export default function DailySaleReportOne() {
           endDate,
           selectedStation,
           user.accessDb,
+          casher,
         ];
 
         setloading(true);
@@ -195,6 +210,11 @@ export default function DailySaleReportOne() {
               title={language.fuel_type}
               value={selectedFuelType}
               setValue={setSelectedFuelType}
+            />
+            <Casher
+              title={language.casher}
+              value={casher}
+              setValue={setCasher}
             />
             <StationComponent
               title={language.station}
