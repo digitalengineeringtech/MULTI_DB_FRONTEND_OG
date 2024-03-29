@@ -14,6 +14,7 @@ function StationComponent({ value, setValue, title }) {
 
   useEffect(() => {
     const token = user.token;
+    
     function truncateIfNeeded(word) {
       if (word.length > 9) {
         return word.substring(0, 9) + "..";
@@ -41,6 +42,10 @@ function StationComponent({ value, setValue, title }) {
         location: item.location,
         lienseNo: item.lienseNo,
       }));
+
+
+
+
 
       let defauilt = [];
       datas.forEach((item) => {
