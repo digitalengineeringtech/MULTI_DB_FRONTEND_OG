@@ -26,8 +26,7 @@ export const fetchDailySaleReports = createAsyncThunk(
     const fuelTypeRoute = fuelType === "Please" ? "" : `&fuelType=${fuelType}`;
 
     const nozzleNoRoute = nozzleNo === "Please" ? "" : `&nozzleNo=${nozzleNo}`;
-    const casherRoute =
-      nozzleNo === undefined ? "" : `&casherCode=${cahserCode}`;
+    const casherRoute = cahserCode === null ? "" : `&casherCode=${cahserCode}`;
 
     const response = await instance.get(
       `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}`,
