@@ -68,7 +68,7 @@ export default function DailySaleReportOne() {
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(50);
   const [totalLength, setTotalLength] = useState(0);
-  const [casher, setCasher] = useState();
+  const [casher, setCasher] = useState(null);
 
   const user = useSelector((state) => state.login);
   const datas = useSelector(getAllKyawSan027DailySaleReports);

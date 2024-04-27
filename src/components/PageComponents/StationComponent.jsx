@@ -14,7 +14,7 @@ function StationComponent({ value, setValue, title }) {
 
   useEffect(() => {
     const token = user.token;
-    
+
     function truncateIfNeeded(word) {
       if (word.length > 9) {
         return word.substring(0, 9) + "..";
@@ -33,19 +33,14 @@ function StationComponent({ value, setValue, title }) {
         }
       );
 
-
       const datas = response.data.result;
-      
+
       const formattedData = datas.map((item) => ({
         name: item.name + " " + truncateIfNeeded(item.location),
         code: item._id,
         location: item.location,
         lienseNo: item.lienseNo,
       }));
-
-
-
-
 
       let defauilt = [];
       datas.forEach((item) => {
@@ -87,6 +82,7 @@ function StationComponent({ value, setValue, title }) {
       <div className="calendar-container">
         {user.name === "manager" ? (
           <Dropdown
+            filter
             value={value}
             onChange={(e) => setValue(e.value)}
             options={jj}
@@ -96,6 +92,7 @@ function StationComponent({ value, setValue, title }) {
           />
         ) : (
           <Dropdown
+            filter
             value={value}
             onChange={(e) => setValue(e.value)}
             options={pruposes}
@@ -110,4 +107,3 @@ function StationComponent({ value, setValue, title }) {
 }
 
 export default StationComponent;
- 

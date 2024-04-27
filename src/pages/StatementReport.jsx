@@ -110,7 +110,7 @@ function StatementReport() {
             <CalenderComponent value={endDate} setValue={setEndDate}  title={language.end_date} />
             <StationComponent title={language.station} value={selectedStation} setValue={setSelectedStation} />
         </div>
-         {
+        {
           isSelectedStation && <div className='flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center'><FcInfo/> Please Select Station</div>
         }
           <div className="flex-2">

@@ -1,0 +1,21 @@
+export const MyanmarTotalizerDifferent = {
+    mainTitle:"Totalizer ခြားနားခြင်း",
+    startDate: "စတင်ရက်",
+    endDate: "ပြီးဆုံးရက်",
+    station: "စတေရှင်",
+    fuel_type: "ဆီအမျိုးအစား",
+    search: "ရှာဖွေသည်",
+    station_name: "စတေရှင် နာမည်",
+    nozzle_no: "ဆီဂေါက် နံပါတ်",
+    fuel_type: "ဆီအမျိုးအစား",
+    price_per_liter: "တစ်လီတာ ရောင်းစျေး",
+    total_sale_liter: "စုစုပေါင်းလီတာ ရောင်းစျေး",
+    total_price: "စုစုပေါင်းစျေး",
+    totalizer_opening: "Totalizer အဖွင့်",
+    totalizer_closing: "Totalizer အပိတ်",
+    totalizer_different:"Totalizer ခြားနားခြင်း",
+    toExcel: "Excel သို့ပြောင်းရန်",
+    toPrint: "Print ထုတ်ရန်",
+    liter: "လီတာ",
+    kyat:"ကျပ်"
+}

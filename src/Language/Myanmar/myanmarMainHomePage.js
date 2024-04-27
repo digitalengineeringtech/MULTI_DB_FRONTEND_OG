@@ -4,6 +4,7 @@ export const MyanmarMainHomePage = {
     online_monitoring_sale_report: "online monitoring အရောင်းစာရင်း",
     weekly_sale_report: "အပတ်စဉ် အရောင်းစာရင်း",
     sale_summary_by_station: "ရက်ချုပ် အရောင်းစာရင်း",
+    diffrent_totalizer:"Totalizer ခြားနားခြင်း",
     statement_report: "ဆီဂေါက် အသေးစိတ်စာရင်း",
     tank_data: "ဆီကန် အချက်အလက်",
     fuel_receive_report: "ဆီဝင်လက်ခံ စာရင်း",

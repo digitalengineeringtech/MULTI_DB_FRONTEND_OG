@@ -1,0 +1,21 @@
+export const EnglishTotalizerDifferent = {
+    mainTitle:"Totalizer Different",
+    startDate: "Start Date",
+    endDate: "End Date",
+    station: "Station",
+    fuel_type: "Fuel Type",
+    search: "SEARCH",
+    station_name: "Station Name",
+    nozzle_no: "Nozzle No",
+    fuel_type: "Fuel Type",
+    price_per_liter: "Price Per Liter",
+    total_sale_liter: "Total Sale Liter",
+    total_price: "Total Price",
+    totalizer_opening: "Totalizer Opening",
+    totalizer_closing: "Totalizer Closing",
+    totalizer_different:"Totalizer Different",
+    toExcel: "To Excel",
+    liter: "Li",
+    kyat:"Kyats",
+    toPrint:"To Print"
+}
