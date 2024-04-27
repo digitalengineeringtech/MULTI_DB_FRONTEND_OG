@@ -5,6 +5,7 @@ export const EnglishMainHomePage = {
     weekly_sale_report: "Weekly Sale Report",
     sale_summary_by_station: "Sale Summary By Station",
     statement_report: "Nozzle Details Report",
+    diffrent_totalizer:"Different Totalizers",
     tank_data: "Tank Data",
     fuel_receive_report: "Fuel Receive Report",
     fuel_balance_report: "Fuel Balance Report",

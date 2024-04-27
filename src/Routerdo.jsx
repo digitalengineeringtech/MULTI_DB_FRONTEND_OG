@@ -43,6 +43,7 @@ import { StationSetUpChoose } from "./Admin/pages/StationSetUpChoose";
 import AdminBanned from "./Admin/pages/AdminBanned";
 import { AdminChooseBanned } from "./Admin/pages/AdminChooseBanned";
 import StationBannedDetail from "./Admin/pages/StationBannedDetail";
+import DifferentTotalizer from "./pages/DifferentTotalizer";
 
 function Routerdo() {
   const user = useSelector((state) => state.login);
@@ -131,6 +132,10 @@ function Routerdo() {
         <Route
           path={`/${user.accessDb}/onlinemonitoringsalereport`}
           element={<OnlineMonitoringSaleReport />}
+        ></Route>
+        <Route
+          path={`/${user.accessDb}/differentTotalizer`}
+          element={<DifferentTotalizer />}
         ></Route>
         <Route
           path={`/${user.accessDb}/categoriesreport`}

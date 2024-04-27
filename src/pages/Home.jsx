@@ -19,6 +19,7 @@ import ATG from '../assets/images/tank-svgrepo-com.png'
 import { MyanmarMainHomePage } from '../Language/Myanmar/myanmarMainHomePage';
 import { EnglishMainHomePage } from '../Language/English/englishMainHomePage';
 import Header from '../components/Header';
+import Different from '../assets/images/difference.png';
 import { MdArrowBack } from 'react-icons/md';
 import { ChinesehMainHomePage } from '../Language/Chinese/chineseMainHomePage';
 import { redirect } from 'react-router-dom';
@@ -61,7 +62,6 @@ function Home() {
         {/* Daily Sale Report */}
       <div className='container px-3 mx-auto'>
           <div className='data_input'>
-
             <h1 className=' font-bold  mt-[30px] flex justify-start items-center px-4 container mx-auto text-2xl  mb-[30px] text-white'>{language.reports}</h1>
 
           <div className='flex flex-wrap gap-3 justify-center items-center'>
@@ -73,6 +73,9 @@ function Home() {
             </div>
                 <div  className='w-[300px]'>
                  <Homecards title={language.online_monitoring_sale_report} img={Monitoring} buttontext={language.check_now} link={`/${user.accessDb}/onlinemonitoringsalereport`}/>  
+            </div>
+            <div  className='w-[300px]'>
+                 <Homecards title={language.diffrent_totalizer} img={Different} buttontext={language.check_now} link={`/${user.accessDb}/differentTotalizer`}/>  
             </div>
               <div className='w-[300px]'>
                  <Homecards title={language.weekly_sale_report} img={Calender} buttontext={language.check_now} link={`/${user.accessDb}/weekly`}/>  

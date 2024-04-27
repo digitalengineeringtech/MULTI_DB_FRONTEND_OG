@@ -11,7 +11,7 @@ function CalenderComponent({ title, value, setValue }) {
         <Calendar
           def
           id="calendar-12h"
-          className="!h-[30px]"
+          className="!h-[30px] "
           value={value}
           showIcon
           onChange={(e) => setValue(e.value)}

@@ -39,6 +39,7 @@ function Casher({ value, setValue, title }) {
       <div className="calendar-container">
         {user.name === "manager" ? (
           <Dropdown
+            filter
             value={value}
             onChange={(e) => setValue(e.value)}
             // options={jj}
@@ -48,6 +49,7 @@ function Casher({ value, setValue, title }) {
           />
         ) : (
           <Dropdown
+            filter
             value={value}
             onChange={(e) => setValue(e.value)}
             options={pruposes}
