@@ -396,6 +396,7 @@ const moviesSlice = createSlice({
 });
 
 export const { addMovies, removeOldDats } = moviesSlice.actions;
+
 export const getAllKyawSan027DailySaleReports = (state) =>
   state.kyawSan027DailySaleReports.kyawSan027DailySaleReports;
 export const getAllDynamicNozzles = (state) =>
