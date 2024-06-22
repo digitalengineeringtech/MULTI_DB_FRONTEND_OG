@@ -133,7 +133,7 @@ export default function SaleDetail() {
     }
   };
 
-  console.log(okData)
+  console.log(okData);
 
   useEffect(() => {
     // if (datas === "error") {
@@ -185,7 +185,7 @@ export default function SaleDetail() {
         language={false}
         value={language}
         setValue={setLanguage}
-        title={language.main_title}
+        title={language.detail_title}
       >
         <InputContainer>
           <div className="flex flex-wrap gap-[20px]">
@@ -245,6 +245,7 @@ export default function SaleDetail() {
               language={language}
               stationName={selectedStation.name}
               tableRef={tableRef}
+              totalLength={totalLength}
               currentData={okData}
             />
             <PaginatorComponent

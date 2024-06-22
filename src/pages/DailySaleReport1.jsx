@@ -1,277 +1,224 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import "react-calendar/dist/Calendar.css";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+// TankBalanceReport
+import "react-calendar/dist/Calendar.css";
+import { LogoutUser } from "../redux/slices/LoginSlice";
+import Loading from "../components/Loading";
 import PageContainer from "../components/PageComponents/PageContainer";
 import InputContainer from "../components/PageComponents/InputContainer";
 import CalenderComponent from "../components/PageComponents/CalenderComponent";
-import PurposeOfUseComponent from "../components/PageComponents/PurposeOfUseComponent";
-import NozzleComponent from "../components/PageComponents/NozzleComponent";
 import FuelTypeComponent from "../components/PageComponents/FuelTypeComponent";
-import Loading from "../components/Loading";
-import { LogoutUser } from "../redux/slices/LoginSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useReactToPrint } from "react-to-print";
-import { useDownloadExcel } from "react-export-table-to-excel";
-import { RiFileExcel2Fill } from "react-icons/ri";
-import { AiFillPrinter } from "react-icons/ai";
 import StationComponent from "../components/PageComponents/StationComponent";
+import TankComponent from "../components/PageComponents/TankComponent";
 import { FiSearch } from "react-icons/fi";
+import FuelBalanceReportTable from "../components/tables/FuelBalanceReport.table";
 import {
-  fetchDailySaleReportPagination,
-  fetchDailySaleReports,
+  fetchFuelBalanceByTimeRange,
   getAllKyawSan027DailySaleReports,
   removeOldDats,
 } from "../redux/slices/KyawSan027Slice";
 import { FcInfo } from "react-icons/fc";
-import DailySaleReportTable from "../components/tables/DailySaleReport.table";
-import PaginatorComponent from "../components/PageComponents/PaginatorComponent";
-import { englishDailySaleReport } from "../Language/English/englishDailySaleReport";
-import { myanmarDailySaleReport } from "../Language/Myanmar/myanmarDailySaleReport";
-import { title } from "process";
-import Header from "../components/Header";
-import instance from "../axios";
-import Casher from "../components/PageComponents/Casher";
+import { EnglishFuelBalance } from "../Language/English/englishFuelBalanceReport";
+import { MyanmarFuelBalanceRport } from "../Language/Myanmar/myanmarFuelBalanceReport";
 
 let start = new Date();
 start.setHours(0);
 start.setMinutes(0);
 start = new Date(start);
-
 let end = new Date();
 end.setHours(23);
-end.setMinutes(0);
+end.setMinutes(59);
 end = new Date(end);
 
-export default function DailySaleReportOne() {
-  const [endDate, setEndDate] = useState(end);
-  const [startDate, setStartDate] = useState(start);
-  const [selectedNodeKeys, setSelectedNodeKeys] = useState({
-    name: "All",
-    code: "Please",
-  });
-  const [selectedNozzle, setSelectedNozzle] = useState({
-    name: "All",
-    code: "Please",
-  });
-  const [selectedFuelType, setSelectedFuelType] = useState({
-    name: "All",
-    code: "Please",
-  });
+function FuelBalanceReport() {
+  const fuelData = [
+    {
+      fuelType: "001-Octane Ron(92)",
+    },
+    {
+      fuelType: "002-Octane Ron(95)",
+    },
+    {
+      fuelType: "004-Diesel",
+    },
+    {
+      fuelType: "005-Premium Diesel",
+    },
+  ];
+
+  const user = useSelector((state) => state.login);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const tableRef = useRef();
+  const [loading, setloading] = useState(false);
+  const [okData, setOkData] = useState();
+  const [calenderOne, setCalenderOne] = useState(start);
+  const [calenderTwo, setCalenderTwo] = useState(end);
+  const [fuelType, setFuelType] = useState({ name: "All", code: "Please" });
+  const [tankName, setTankName] = useState({ name: "All", code: "Please" });
   const [selectedStation, setSelectedStation] = useState({
     name: "All",
     code: "Please",
   });
+  const [language, setLanguage] = useState(EnglishFuelBalance);
   const [isSelectedStation, setIsSelectedStation] = useState(false);
-  const [language, setLanguage] = useState(englishDailySaleReport);
-  const [loading, setloading] = useState(false);
-  const [okData, setOkData] = useState([]);
-  const tableRef = useRef();
-  const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(50);
-  const [totalLength, setTotalLength] = useState(0);
-  const [casher, setCasher] = useState(null);
-
-  const user = useSelector((state) => state.login);
   const datas = useSelector(getAllKyawSan027DailySaleReports);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const station = urlParams.get("id");
-  const name = urlParams.get("name");
 
   useEffect(() => {
     if (!user.login) {
       navigate("/");
     }
     if (user.language === "Myanmar" || user.language === "မြန်မာ") {
-      setLanguage(myanmarDailySaleReport);
+      setLanguage(MyanmarFuelBalanceRport);
     } else if (user.language === "English" || user.language === "အင်္ဂလိပ်") {
-      setLanguage(englishDailySaleReport);
+      setLanguage(EnglishFuelBalance);
     }
     dispatch(removeOldDats());
     return () => {
       dispatch(removeOldDats());
     };
-  }, [user, navigate, dispatch]);
-
-  // useEffect(async () => {
-  //   const token = user.token;
-  //   const { data } = await instance.get(`/casher-code?key=casherCode`, {
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //       Authorization: "Bearer " + token,
-  //     },
-  //   });
-  //   data.con && setCasher(data.result);
-  // }, []);
+  }, [navigate, user, dispatch]);
 
   const handleClick = () => {
-    if (selectedStation.code === "Please") {
-      setIsSelectedStation(true);
-    } else {
-      setIsSelectedStation(false);
-      const fetchData = async () => {
-        const bomb = [
-          user.token,
-          selectedNodeKeys.code,
-          selectedFuelType.code,
-          selectedNozzle.code,
-          startDate,
-          endDate,
-          selectedStation,
-          user.accessDb,
-          casher,
-        ];
-
+    if (calenderOne) {
+      if (selectedStation.code === "Please") {
+        setIsSelectedStation(true);
+      } else {
         setloading(true);
-        await dispatch(fetchDailySaleReports(bomb));
-        setloading(false);
-      };
-      fetchData();
+        setIsSelectedStation(false);
+
+        const fetchData = async () => {
+          const bomb = [
+            user.token,
+            calenderOne,
+            selectedStation,
+            fuelType,
+            tankName,
+            user.accessDb,
+            calenderTwo,
+          ];
+          setloading(true);
+          await dispatch(fetchFuelBalanceByTimeRange(bomb));
+          setloading(false);
+        };
+        fetchData();
+      }
     }
   };
 
   useEffect(() => {
-    // if (datas === "error") {
-    //   dispatch(LogoutUser());
-    // }
-
+    if (datas === "error") {
+      dispatch(LogoutUser());
+    }
     if (datas?.result?.length > 0) {
-      setOkData(datas.result);
-      setTotalLength(datas.totalCount);
+      let pureArray = [...datas.result]; // Create a shallow copy of the array
+      // pureArray.sort((a, b) => a.tankNo - b.tankNo); // Sort the new array
+      setOkData(pureArray.reverse());
+      console.log(pureArray, "lllllllllllllllllllllllllllllllllllll"); // Update the state with the new sorted array
+    } else {
+      setOkData([]);
     }
   }, [datas, dispatch]);
 
-  const onPageChange = (event) => {
-    setFirst(event.first);
-    setRows(event.rows);
+  const calcu =
+    okData &&
+    fuelData.map((e) => {
+      const combine = okData
+        ?.filter((c) => e.fuelType == c.fuelType)
+        .map((item) => item.cash)
+        .reduce((pv, cv) => pv + cv, 0);
 
-    const pageNo = event.page + 1;
+      const receive = okData
+        ?.filter((c) => e.fuelType == c.fuelType)
+        .map((item) => item.fuelIn)
+        .reduce((pv, cv) => pv + cv, 0);
 
-    const fetchData = async () => {
-      const bomb = [
-        pageNo,
-        user.token,
-        startDate,
-        endDate,
-        selectedNodeKeys.code,
-        selectedFuelType.code,
-        selectedNozzle.code,
-        selectedStation,
-      ];
-      setloading(true);
-      await dispatch(fetchDailySaleReportPagination(bomb));
-      setloading(false);
-    };
-    fetchData();
-  };
+      const open = okData?.filter((c) => e.fuelType == c.fuelType)[0]?.opening;
 
-  const handlePrint = useReactToPrint({
-    content: () => tableRef.current,
-  });
+      const close = okData
+        ?.filter((c) => e.fuelType == c.fuelType)
+        .reverse()[0]?.balance;
 
-  const { onDownload } = useDownloadExcel({
-    currentTableRef: tableRef.current,
-    filename: "Daily Sale Report",
-    sheet: "Daily Sale Report",
-  });
+      return {
+        fuelType: e.fuelType,
+        totalCash: combine,
+        receiveVolume: receive,
+        open: open,
+        close: close,
+      };
+    });
+
+  console.log(okData, ",kkkkkkkkkkkkkkk,,,,,,,,,,,,");
+  console.log(calcu, ",,,,,,,,,,,,,,,,,,,,,,,,,,,");
+
   return (
-    <>
-      <PageContainer
-        language={false}
-        value={language}
-        setValue={setLanguage}
-        title={language.main_title}
-      >
-        <InputContainer>
-          <div className="flex flex-wrap gap-[20px]">
-            <CalenderComponent
-              value={startDate}
-              setValue={setStartDate}
-              title={language.start_date}
-            />
-            <CalenderComponent
-              value={endDate}
-              setValue={setEndDate}
-              title={language.end_date}
-            />
-            <PurposeOfUseComponent
-              title={language.purpose_of_use}
-              value={selectedNodeKeys}
-              setValue={setSelectedNodeKeys}
-            />
-            <NozzleComponent
-              title={language.nozzle_no}
-              value={selectedNozzle}
-              setValue={setSelectedNozzle}
-            />
-            <FuelTypeComponent
-              title={language.fuel_type}
-              value={selectedFuelType}
-              setValue={setSelectedFuelType}
-            />
-            <Casher
-              title={language.casher}
-              value={casher}
-              setValue={setCasher}
-            />
-            <StationComponent
-              title={language.station}
-              value={selectedStation}
-              setValue={setSelectedStation}
-            />
+    <PageContainer language={false} title={language.sub}>
+      <InputContainer>
+        <div className="flex flex-wrap gap-[20px]">
+          <CalenderComponent
+            title={language.s_date}
+            value={calenderOne}
+            setValue={setCalenderOne}
+          />
+          <CalenderComponent
+            title={language.e_date}
+            value={calenderTwo}
+            setValue={setCalenderTwo}
+          />
+          {/* <FuelTypeComponent
+            title={language.fuel_type}
+            value={fuelType}
+            setValue={setFuelType}
+          /> */}
+          {/* <TankComponent
+            language={language.tank_no}
+            value={tankName}
+            setValue={setTankName}
+          /> */}
+          <StationComponent
+            title={language.station}
+            value={selectedStation}
+            setValue={setSelectedStation}
+          />
+        </div>
+        {isSelectedStation && (
+          <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
+            <FcInfo /> Please Select Station
           </div>
-          {isSelectedStation && (
-            <div className="flex animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
-              <FcInfo /> Please Select Station
-            </div>
-          )}
-          <div className="flex-2">
-            <button
-              onClick={handleClick}
-              className="w-[120px] h-[40px] mt-2 text-md  bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
-            >
-              <FiSearch className=" scale-150" /> {language.search}
-            </button>
-          </div>
-        </InputContainer>
-        {datas?.result?.length > 1 && (
-          <>
-            <DailySaleReportTable
-              language={language}
-              stationName={selectedStation.name}
-              tableRef={tableRef}
-              currentData={okData}
-            />
-            <PaginatorComponent
-              language={language}
-              totalLength={totalLength}
-              onPageChange={onPageChange}
-              first={first}
-              rows={rows}
-            />
-            <div className="flex p-3  text-[16px] mt-[10px] mb-[50px] items-center justify-start gap-3">
-              <button
-                onClick={() => onDownload()}
-                className="flex items-center justify-center gap-2 text-md"
-              >
-                {language.toExcel}
-                <RiFileExcel2Fill size={30} />
-              </button>
-              <button
-                onClick={handlePrint}
-                className="flex items-center justify-center gap-2 text-md"
-              >
-                {language.toPrint}
-                <AiFillPrinter size={30} />
-              </button>
-            </div>
-          </>
         )}
+        <div className="flex-2">
+          <button
+            onClick={handleClick}
+            className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
+          >
+            <FiSearch className=" scale-150" />
+            {language.search}
+          </button>
+        </div>
+      </InputContainer>
 
-        {loading ? <Loading /> : ""}
-      </PageContainer>
-    </>
+      {okData?.length > 0 ? (
+        <>
+          {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
+          <FuelBalanceReportTable
+            language={language}
+            tableRef={tableRef}
+            okData={okData}
+            calcu={calcu}
+          />
+        </>
+      ) : (
+        ""
+      )}
+
+      {loading ? <Loading /> : ""}
+    </PageContainer>
   );
 }
+
+export default FuelBalanceReport;

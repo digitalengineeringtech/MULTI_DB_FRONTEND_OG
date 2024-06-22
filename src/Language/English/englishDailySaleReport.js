@@ -1,5 +1,6 @@
 export const englishDailySaleReport = {
   main_title: "Daily Sale Report",
+  detail_title: "Sale Detail Report",
   start_date: "Start Date",
   end_date: "End Date",
   purpose_of_use: "Purpose of Use",

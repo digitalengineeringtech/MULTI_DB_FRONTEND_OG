@@ -35,7 +35,7 @@ function DailySaleReportTable({
         <table ref={tableRef} class="text-md report-table">
           <thead>
             <tr>
-              <th>No</th>
+              {/* <th>No</th> */}
               <th>{language.Station_name}</th>
               <th>{language.pprd_no}</th>
               <th>{language.sale_date_time}</th>
@@ -94,7 +94,7 @@ function DailySaleReportTable({
                 <tr key={index}>
                   {/* <th>{object.stationDetailId.}</th>
                    */}
-                  <td className=" text-left">{index + 1}</td>
+                  {/* <td className=" text-left">{index + 1}</td> */}
                   <td className=" text-left">{object.stationDetailId?.name}</td>
                   <td className=" text-center">
                     {object.stationDetailId?.lienseNo}

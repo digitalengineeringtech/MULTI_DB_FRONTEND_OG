@@ -1,5 +1,6 @@
 export const myanmarDailySaleReport = {
   main_title: "နေ့စဉ်အရောင်းစာရင်း",
+  detail_title: "အရောင်းအသေးစိတ်အစီရင်ခံစာ",
   start_date: "စတင်ရက်",
   end_date: "ပြီးဆုံးရက်",
   purpose_of_use: "ယာဉ်အမျိုးအစား",

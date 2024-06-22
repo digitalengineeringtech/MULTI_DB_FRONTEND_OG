@@ -5,6 +5,7 @@ function DetailSaleReportTable({
   currentData,
   stationName,
   tableRef,
+  totalLength,
   language,
 }) {
   const [who, setWho] = useState();
@@ -32,7 +33,7 @@ function DetailSaleReportTable({
         <table ref={tableRef} class="text-md report-table">
           <thead>
             <tr>
-              <th>No</th>
+              {/* <th>No</th> */}
               <th>{language.Station_name}</th>
               <th>{language.pprd_no}</th>
               <th>{language.Township}</th>
@@ -95,11 +96,7 @@ function DetailSaleReportTable({
                 <tr key={index}>
                   {/* <th>{object.stationDetailId.}</th>
                    */}
-                  <td className=" text-left">
-                    {object?.vocono.split("/")[3] -
-                      (object?.vocono.split("/")[3] - (index + 1))}
-                  </td>
-
+                  {/* <td className=" text-left">{totalLength -}</td> */}
                   <td className=" text-left">{object.stationDetailId?.name}</td>
                   <td className=" text-center">
                     {object.stationDetailId?.lienseNo}

@@ -125,6 +125,7 @@ export const fetchFuelBalanceByTimeRange = createAsyncThunk(
   async (bomb) => {
     const token = bomb[0];
     const startDate = bomb[1];
+    const endDate = bomb[6];
     const stationSelection = bomb[2];
     const fuelType = bomb[3];
     const tankNo = bomb[4];
@@ -135,9 +136,12 @@ export const fetchFuelBalanceByTimeRange = createAsyncThunk(
     const tankNoRoute =
       tankNo.code === "Please" ? "" : `&tankNo=${tankNo.code}`;
     const accessDbRoute = accessDb ? `&accessDb=${accessDb}` : ``;
-
+    console.log("====================================");
+    console.log(startDate, endDate);
+    console.log("====================================");
     let isoStartDate = startDate.toLocaleDateString("fr-CA");
-
+    let isoEndDate = endDate.toLocaleDateString("fr-CA");
+    console.log(typeof isoStartDate, "this is iso date");
     const response = await instance.get(
       `/fuel-balance/pagi/1?sDate=${isoStartDate}&stationId=${stationSelection.code}${fuelTypeRoute}${tankNoRoute}${accessDbRoute}`,
       {
@@ -147,7 +151,17 @@ export const fetchFuelBalanceByTimeRange = createAsyncThunk(
         },
       }
     );
-    return response.data;
+    const { data } = await instance.get(
+      `/fuel-balance/by-date?sDate=${startDate}&eDate=${endDate}&stationId=${stationSelection.code}${fuelTypeRoute}${tankNoRoute}${accessDbRoute}`,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    console.log(data);
+    return data;
   }
 );
 
