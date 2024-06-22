@@ -13,14 +13,15 @@ export const englishDailySaleReport = {
   title: "Daily Sale Report Tabel of ",
   total_record: "Total Records",
   pprd_no: "PPRD License No",
-  vocono: "Vocno",
+  vocono: "Invoice ID",
+  cashType: "Sale Type",
   sale_date_time: "Sale Date Time",
   vehicle_no: "Vehicle No",
-  sale_gallon: "Sale Gallon",
-  sale_liter: "Sale Liter",
-  sale_price: "Sale Price",
-  total_price: "Total Price",
-  totalizer_liter: "Totalizer Liter",
+  sale_gallon: "Sale (Gallon)",
+  sale_liter: "Sale (Liter)",
+  sale_price: "Selling Price (kyat)",
+  total_price: "Total Amount (kyat)",
+  totalizer_liter: "Totalizer No. (Liter)",
   totalizer_amount: "Totalizer Amount",
   Station_name: "Station Name", //update
   Township: "Township",
@@ -30,5 +31,5 @@ export const englishDailySaleReport = {
   Sale: "Sale Volume (Gallon)",
   Adj: "Adjustment (Gallon)",
   Remark: "Remark",
-  receive: "Received (Gallon)"
+  receive: "Received (Gallon)",
 };

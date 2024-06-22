@@ -25,26 +25,31 @@ function DetailSaleReportTable({
               {language.title}
             </p>
           ) : (
-            <p>Daily Sale Report Table of {stationName}</p>
+            <p>Sale Detail Report Table of {stationName}</p>
           )}
         </h2>
 
         <table ref={tableRef} class="text-md report-table">
           <thead>
             <tr>
+              <th>No</th>
+              <th>{language.Station_name}</th>
               <th>{language.pprd_no}</th>
-              <th>{language.vocono}</th>
+              <th>{language.Township}</th>
+              <th>{language.State}</th>
               <th>{language.sale_date_time}</th>
+              <th>{language.vocono}</th>
               <th>{language.vehicle_no}</th>
-              <th>{language.purpose_of_use}</th>
+              {/* <th>{language.purpose_of_use}</th> */}
+              <th>{language.cashType}</th>
               <th>{language.nozzle_no}</th>
               <th>{language.fuel_type}</th>
-              <th>{language.sale_gallon}</th>
-              <th>{language.sale_liter}</th>
               <th>{language.sale_price}</th>
               <th>{language.total_price}</th>
+              <th>{language.sale_liter}</th>
+              <th>{language.sale_gallon}</th>
               <th>{language.totalizer_liter}</th>
-              <th>{language.totalizer_amount}</th>
+              {/* <th>{language.totalizer_amount}</th> */}
               {who === "admin" ? (
                 <>
                   {" "}
@@ -85,24 +90,28 @@ function DetailSaleReportTable({
               const time = dateObj?.toISOString().slice(11, 19);
 
               const formattedDate = `${day}-${month}-${year} ${time}`;
-
+              const state = currentData[0]?.stationDetailId.location.split(",");
               return (
                 <tr key={index}>
                   {/* <th>{object.stationDetailId.}</th>
                    */}
                   <td className=" text-left">
+                    {object?.vocono.split("/")[3] -
+                      (object?.vocono.split("/")[3] - (index + 1))}
+                  </td>
+
+                  <td className=" text-left">{object.stationDetailId?.name}</td>
+                  <td className=" text-center">
                     {object.stationDetailId?.lienseNo}
                   </td>
-                  <td className=" text-left">{object?.vocono}</td>
+                  <td className=" text-left">{state[0]}</td>
+                  <td className=" text-center">{state[state.length - 1]}</td>
                   <td className=" text-left">{formattedDate}</td>
-                  <td className=" text-left">{object?.carNo}</td>
-                  <td className=" text-left">{object?.vehicleType}</td>
-                  <td className=" text-left">{object?.nozzleNo}</td>
+                  <td className=" text-left">{object?.vocono}</td>
+                  <td className=" text-center">{object?.carNo}</td>
+                  <td className=" text-center">{object?.cashType}</td>
+                  <td className=" text-center">{object?.nozzleNo}</td>
                   <td className=" text-left">{object?.fuelType}</td>
-                  <td className=" text-right">
-                    {(parseFloat(object?.saleLiter) / 4.16).toFixed(3)}
-                  </td>
-                  <td className="text-right">{object?.saleLiter}</td>
                   <td className="text-right">
                     {object?.salePrice.toLocaleString(undefined, {
                       maximumFractionDigits: 3,
@@ -113,14 +122,18 @@ function DetailSaleReportTable({
                       maximumFractionDigits: 3,
                     })}
                   </td>
+                  <td className="text-right">{object?.saleLiter}</td>
+                  <td className=" text-right">
+                    {(parseFloat(object?.saleLiter) / 4.16).toFixed(3)}
+                  </td>
                   <td className="text-right">
                     {object?.totalizer_liter?.toFixed(3)}
                   </td>
-                  <td className="text-right">
+                  {/* <td className="text-right">
                     {object?.totalizer_amount?.toLocaleString(undefined, {
                       maximumFractionDigits: 3,
                     })}
-                  </td>
+                  </td> */}
                   {who === "admin" ? (
                     <>
                       {" "}

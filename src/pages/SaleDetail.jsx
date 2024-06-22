@@ -30,6 +30,7 @@ import { title } from "process";
 import Header from "../components/Header";
 import instance from "../axios";
 import Casher from "../components/PageComponents/Casher";
+import DetailSaleReportTable from "../components/tables/DetailSaleReport.table";
 
 let start = new Date();
 start.setHours(0);
@@ -131,6 +132,8 @@ export default function SaleDetail() {
       fetchData();
     }
   };
+
+  console.log(okData)
 
   useEffect(() => {
     // if (datas === "error") {
@@ -238,7 +241,7 @@ export default function SaleDetail() {
         </InputContainer>
         {datas?.result?.length > 1 && (
           <>
-            <DailySaleReportTable
+            <DetailSaleReportTable
               language={language}
               stationName={selectedStation.name}
               tableRef={tableRef}

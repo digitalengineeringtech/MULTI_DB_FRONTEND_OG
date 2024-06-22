@@ -12,6 +12,7 @@ export const myanmarDailySaleReport = {
   search: "ရှာဖွေသည်",
   title: "၏နေ့စဉ် အရောင်းမှတ်တမ်း ဇယား",
   total_record: "စုစုပေါင်း မှတ်တမ်း",
+  cashType: "အရောင်းအမျိုးအစား",
   pprd_no: "PPRD လိုင်စင်နံပါတ်",
   vocono: "ဘောင်ချာ",
   sale_date_time: "ရောင်းချိန်",
