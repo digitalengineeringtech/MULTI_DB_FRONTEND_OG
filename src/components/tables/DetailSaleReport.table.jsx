@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-function DailySaleReportTable({
+function DetailSaleReportTable({
   currentData,
   stationName,
   tableRef,
@@ -14,9 +14,6 @@ function DailySaleReportTable({
   useEffect(() => {
     setWho(user.name);
   }, [user]);
-
-  const state = currentData[0]?.stationDetailId.location.split(",");
-  console.log(currentData, "......");
 
   return (
     <>
@@ -35,20 +32,19 @@ function DailySaleReportTable({
         <table ref={tableRef} class="text-md report-table">
           <thead>
             <tr>
-              <th>No</th>
-              <th>{language.Station_name}</th>
               <th>{language.pprd_no}</th>
+              <th>{language.vocono}</th>
               <th>{language.sale_date_time}</th>
-              <th>{language.Township}</th>
-              <th>{language.State}</th>
+              <th>{language.vehicle_no}</th>
+              <th>{language.purpose_of_use}</th>
+              <th>{language.nozzle_no}</th>
               <th>{language.fuel_type}</th>
-              <th>{language.Open}</th>
-              <th>{language.receive}</th>
-              <th>{language.Sale}</th>
-              <th>{language.Adj}</th>
-              <th>{language.Close}</th>
-              <th>{language.Remark}</th>
-              {/* <th>{language.totalizer_amount}</th> */}
+              <th>{language.sale_gallon}</th>
+              <th>{language.sale_liter}</th>
+              <th>{language.sale_price}</th>
+              <th>{language.total_price}</th>
+              <th>{language.totalizer_liter}</th>
+              <th>{language.totalizer_amount}</th>
               {who === "admin" ? (
                 <>
                   {" "}
@@ -94,16 +90,15 @@ function DailySaleReportTable({
                 <tr key={index}>
                   {/* <th>{object.stationDetailId.}</th>
                    */}
-                  <td className=" text-left">{index + 1}</td>
-                  <td className=" text-left">{object.stationDetailId?.name}</td>
-                  <td className=" text-center">
+                  <td className=" text-left">
                     {object.stationDetailId?.lienseNo}
                   </td>
+                  <td className=" text-left">{object?.vocono}</td>
                   <td className=" text-left">{formattedDate}</td>
-                  <td className=" text-left">{state[0]}</td>
-                  <td className=" text-center">{state[state.length - 1]}</td>
-                  <td className=" text-left">{object?.fuelType}</td>
+                  <td className=" text-left">{object?.carNo}</td>
+                  <td className=" text-left">{object?.vehicleType}</td>
                   <td className=" text-left">{object?.nozzleNo}</td>
+                  <td className=" text-left">{object?.fuelType}</td>
                   <td className=" text-right">
                     {(parseFloat(object?.saleLiter) / 4.16).toFixed(3)}
                   </td>
@@ -121,11 +116,11 @@ function DailySaleReportTable({
                   <td className="text-right">
                     {object?.totalizer_liter?.toFixed(3)}
                   </td>
-                  {/* <td className="text-right">
+                  <td className="text-right">
                     {object?.totalizer_amount?.toLocaleString(undefined, {
                       maximumFractionDigits: 3,
                     })}
-                  </td> */}
+                  </td>
                   {who === "admin" ? (
                     <>
                       {" "}
@@ -153,4 +148,4 @@ function DailySaleReportTable({
   );
 }
 
-export default DailySaleReportTable;
+export default DetailSaleReportTable;

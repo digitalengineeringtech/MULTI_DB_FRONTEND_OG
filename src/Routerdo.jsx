@@ -28,6 +28,7 @@ import BackToDash from "./Dashboard/Components/BackToDash";
 import HomePageAd from "./Admin/pages/HomePageAd";
 import AdminHeader from "./Admin/components/AdminHeader";
 import AccountAd from "./Admin/pages/AccountAd";
+import SaleDetail from './pages/SaleDetail'
 import StationsAdmin from "./Admin/pages/StationsAdmin";
 import DashBoardAd from "./Admin/pages/DashBoardAd";
 import StationSetUpAd from "./Admin/pages/StationSetUpAd";
@@ -104,6 +105,10 @@ function Routerdo() {
         <Route
           path={`/${user.accessDb}/dailysalereport`}
           element={<DailySaleReportOne />}
+        ></Route>
+        <Route
+          path={`/${user.accessDb}/saledetail`}
+          element={<SaleDetail  />}
         ></Route>
         <Route
           path={`/${user.accessDb}/fueldatareport`}

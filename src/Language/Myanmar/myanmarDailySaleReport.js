@@ -22,4 +22,13 @@ export const myanmarDailySaleReport = {
   total_price: "စုစုပေါင်းအရောင်း",
   totalizer_liter: "Totalizer လီတာ",
   totalizer_amount: "Totalizer ပမာဏ",
+  Station_name: "ဆိုင်အမည်", //update
+  Township: "မြို့နယ်",
+  State: "ပြည်နယ်/တိုင်း",
+  Open: "အဖွင့် စတော့ (ဂါလံ)",
+  Close: "အပိတ်စတော့ (ဂါလံ)",
+  Sale: "ရောင်းချမှုပမာဏ (ဂါလံ)",
+  Adj: "ချိန်ညှိမှု (ဂါလံ)",
+  Remark: "မှတ်ချက်",
+  receive: "ဆီလက်ခံ (ဂါလံ)",
 };

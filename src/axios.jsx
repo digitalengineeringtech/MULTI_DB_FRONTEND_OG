@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  // baseURL:"http://192.168.0.100:9000/api"
+  // baseURL: "http://192.168.1.146:9000/api",
   baseURL: "https://detfsmm.com/api",
 });
 
@@ -12,4 +12,5 @@ const instance = axios.create({
 // Singapore SSl Port - http://detfsmm.com/api  //now
 // Singapore SSl Port - http://detfsmm.com/api
 //raspberrppi - http://192.168.100.62:9000/api
+
 export default instance;
