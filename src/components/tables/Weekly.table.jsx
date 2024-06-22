@@ -75,7 +75,7 @@ function WeeklyTable({
   });
 
   return (
-    <div className="mt-[60px] relative w-full overflow-x-scroll h-[230px]">
+    <div className="mt-[60px] relative w-full overflow-x-scroll h-[240px]">
       <table ref={tRef} className="absolute w-[2500px]">
         <thead>
           <tr>
@@ -88,7 +88,16 @@ function WeeklyTable({
             <th rowSpan={2}>{language.Township}</th>
             <th rowSpan={2}>{language.State}</th>
             <th rowSpan={2}>{language.own}</th>
-            <th colSpan={4}>{language.average_sale_per_day}</th>
+            <th colSpan={4}>{language.capacity}</th>
+            <th colSpan={4}>
+              {" "}
+              {
+                <p>
+                  From {calenderOne.toDateString()} to{" "}
+                  {calenderTwo.toDateString()} Balance (Gallon)
+                </p>
+              }
+            </th>
             <th colSpan={4}>
               {language.no === "စဉ်" ? (
                 <p>
@@ -102,23 +111,21 @@ function WeeklyTable({
                 </p>
               )}
             </th>
-
             <th colSpan={4}>{language.average_sale_per_day}</th>
-            <th colSpan={4}>{language.average_sale_per_day}</th>
-            <th rowSpan={2}>{language.no}</th>
-            <th rowSpan={2}>{language.no}</th>
+            <th rowSpan={2}>{language.req}</th>
+            <th rowSpan={2}>{language.Remark}</th>
           </tr>
           <tr>
-            {capacity.map((e) => (
+            {capacity?.map((e) => (
               <th>{e.fuelType}</th>
             ))}
-            {capacity.map((e) => (
+            {capacity?.map((e) => (
               <th>{e.fuelType}</th>
             ))}
-            {capacity.map((e) => (
+            {capacity?.map((e) => (
               <th>{e.fuelType}</th>
             ))}
-            {capacity.map((e) => (
+            {capacity?.map((e) => (
               <th>{e.fuelType}</th>
             ))}
           </tr>
@@ -134,14 +141,38 @@ function WeeklyTable({
             <td className=" text-left">{state[0]}</td>
             <td className=" text-center">{state[state.length - 1]}</td>
             <td className=" text-center">Partner Shop</td>
-            <td>{time === 0 ? n2.toFixed(3) : (n2 / time).toFixed(3)}</td>
-            <td>{time === 0 ? n5.toFixed(3) : (n5 / time).toFixed(3)}</td>
-            <td>{time === 0 ? hsd.toFixed(3) : (hsd / time).toFixed(3)}</td>
-            <td>{time === 0 ? phsd.toFixed(3) : (phsd / time).toFixed(3)}</td>
-            <td>{n2 ? n2.toFixed(3) : "0.00"}</td>
-            <td>{n5 ? n5.toFixed(3) : "0.00"}</td>
-            <td>{hsd ? hsd.toFixed(3) : "0.00"}</td>
-            <td>{phsd ? phsd.toFixed(3) : "0.00"}</td>
+            {capacity?.map((e) => (
+              <td>{(e.capacity / 4.16).toFixed(3)}</td>
+            ))}
+            {capacity?.map((e) => (
+              <td>{(e.balance / 4.16).toFixed(3)}</td>
+            ))}
+            <td>{n2 ? (n2 / 4.16).toFixed(3) : "0.00"}</td>
+            <td>{n5 ? (n5 / 4.16).toFixed(3) : "0.00"}</td>
+            <td>{hsd ? (hsd / 4.16).toFixed(3) : "0.00"}</td>
+            <td>{phsd ? (phsd / 4.16).toFixed(3) : "0.00"}</td>
+            <td>
+              {time === 0
+                ? (n2 / 4.16).toFixed(3)
+                : (n2 / time / 4.16).toFixed(3)}
+            </td>
+            <td>
+              {time === 0
+                ? (n5 / 4.16).toFixed(3)
+                : (n5 / time / 4.16).toFixed(3)}
+            </td>
+            <td>
+              {time === 0
+                ? (hsd / 4.16).toFixed(3)
+                : (hsd / time / 4.16).toFixed(3)}
+            </td>
+            <td>
+              {time === 0
+                ? (phsd / 4.16).toFixed(3)
+                : (phsd / time / 4.16).toFixed(3)}
+            </td>
+            <td>-</td>
+            <td>-</td>
           </tr>
         </tbody>
       </table>

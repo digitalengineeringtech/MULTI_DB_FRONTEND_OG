@@ -12,7 +12,7 @@ export const EnglishWeeklySaleReport = {
   liter: "Li",
   total_sale: "Total Sale From",
   to: "to",
-  average_sale_per_day: "Average Sale Per Day",
+  average_sale_per_day: "Average Sale Per Day (Gallon)",
   toExcel: "To Excel",
   toPrint: "To Print",
   Station_name: "Station Name", //update
@@ -24,5 +24,7 @@ export const EnglishWeeklySaleReport = {
   Adj: "Adjustment (Gallon)",
   Remark: "Remark",
   receive: "Received (Gallon)",
-  own: "Own Shop / Partner Shop"
+  capacity: "Storage Capacity (Gallon)",
+  own: "Own Shop / Partner Shop",
+  req: "PO Requested Day(s)",
 };

@@ -12,7 +12,7 @@ export const MyanmarWeeklySaleReport = {
   liter: "လီတာ",
   total_sale: "စုစုပေါင်းအရောင်း",
   to: "မှ",
-  average_sale_per_day: "တစ်ရက်ပျမ်းမျှ အရောင်း",
+  average_sale_per_day: "တစ်ရက်ပျမ်းမျှ အရောင်း (ဂါလံ)",
   toExcel: "Excel သို့ပြောင်းရန်",
   toPrint: "Print ထုတ်ရန်",
   Station_name: "ဆိုင်အမည်", //update
@@ -24,5 +24,7 @@ export const MyanmarWeeklySaleReport = {
   Adj: "ချိန်ညှိမှု (ဂါလံ)",
   Remark: "မှတ်ချက်",
   receive: "ဆီလက်ခံ (ဂါလံ)",
+  capacity: "သိုလှောင်နိုင်မှု (ဂါလံ)",
   own: "ကိုယ်ပိုင်ဆိုင်/အဖော်ဆိုင်",
+  req: "POစစ်ဆေးသည့်နေ့",
 };
