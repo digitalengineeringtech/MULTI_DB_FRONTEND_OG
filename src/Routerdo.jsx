@@ -28,7 +28,7 @@ import BackToDash from "./Dashboard/Components/BackToDash";
 import HomePageAd from "./Admin/pages/HomePageAd";
 import AdminHeader from "./Admin/components/AdminHeader";
 import AccountAd from "./Admin/pages/AccountAd";
-import SaleDetail from './pages/SaleDetail'
+import SaleDetail from "./pages/SaleDetail";
 import StationsAdmin from "./Admin/pages/StationsAdmin";
 import DashBoardAd from "./Admin/pages/DashBoardAd";
 import StationSetUpAd from "./Admin/pages/StationSetUpAd";
@@ -45,6 +45,7 @@ import AdminBanned from "./Admin/pages/AdminBanned";
 import { AdminChooseBanned } from "./Admin/pages/AdminChooseBanned";
 import StationBannedDetail from "./Admin/pages/StationBannedDetail";
 import DifferentTotalizer from "./pages/DifferentTotalizer";
+import PumpReport from "./pages/PumpReport";
 
 function Routerdo() {
   const user = useSelector((state) => state.login);
@@ -108,7 +109,7 @@ function Routerdo() {
         ></Route>
         <Route
           path={`/${user.accessDb}/saledetail`}
-          element={<SaleDetail  />}
+          element={<SaleDetail />}
         ></Route>
         <Route
           path={`/${user.accessDb}/fueldatareport`}
@@ -153,6 +154,10 @@ function Routerdo() {
         <Route
           path={`/${user.accessDb}/fuelbalance`}
           element={<FuelBalanceReport />}
+        ></Route>
+        <Route
+          path={`/${user.accessDb}/pumpreport`}
+          element={<PumpReport />}
         ></Route>
         <Route path="/kyawsan/adjustment" element={<Adjustment />}></Route>
         <Route

@@ -14,4 +14,5 @@ export const MyanmarMainHomePage = {
   daily_sale_summary_report: "နေ့စဉ် အကျဉ်းချုပ် စာရင်း",
   check_now: "ကြည့်မည်",
   sale_detail: "အရောင်းအသေးစိတ်",
+  pump_report: "လောင်စာပန့် အစီရင်ခံစာ",
 };

@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import 'swiper/css';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import "swiper/css";
 import "swiper/css/pagination";
-import Homecards from '../components/Cards/Homecards';
-import paper from "../assets/images/paper.png"
-import SaleSummary from '../assets/images/laptop-document-svgrepo-com (1).png'
-import ChartBarChart from '../assets/images/chart-bar-chart-svgrepo-com.png'
-import BarChartStand from '../assets/images/bars-chart-stand-svgrepo-com.png'
-import ChartGraphic from '../assets/images/chart-graphic-svgrepo-com.png'
-import GasStation from '../assets/images/gas-station-svgrepo-com.png'
-import ShiftLeader from '../assets/images/gas-station-svgrepo-com-2.png'
-import Category from '../assets/images/car-repair-car-svgrepo-com.png'
-import Calender from '../assets/images/weekly-calendar-day-svgrepo-com.png';
-import Speed from '../assets/images/speedometer-svgrepo-com.png';
-import TankStock from '../assets/images/stockchart-svgrepo-com.png'
-import Monitoring from '../assets/images/monitoring-seo-and-web-svgrepo-com.png';
-import ATG from '../assets/images/tank-svgrepo-com.png'
-import { MyanmarMainHomePage } from '../Language/Myanmar/myanmarMainHomePage';
-import { EnglishMainHomePage } from '../Language/English/englishMainHomePage';
-import Header from '../components/Header';
-import Different from '../assets/images/difference.png';
-import { MdArrowBack } from 'react-icons/md';
-import { ChinesehMainHomePage } from '../Language/Chinese/chineseMainHomePage';
-import { redirect } from 'react-router-dom';
+import Homecards from "../components/Cards/Homecards";
+import paper from "../assets/images/paper.png";
+import SaleSummary from "../assets/images/laptop-document-svgrepo-com (1).png";
+import ChartBarChart from "../assets/images/chart-bar-chart-svgrepo-com.png";
+import BarChartStand from "../assets/images/bars-chart-stand-svgrepo-com.png";
+import ChartGraphic from "../assets/images/chart-graphic-svgrepo-com.png";
+import GasStation from "../assets/images/gas-station-svgrepo-com.png";
+import ShiftLeader from "../assets/images/gas-station-svgrepo-com-2.png";
+import Category from "../assets/images/car-repair-car-svgrepo-com.png";
+import pump from "../assets/images/gas-fuel.png";
+import Calender from "../assets/images/weekly-calendar-day-svgrepo-com.png";
+import Speed from "../assets/images/speedometer-svgrepo-com.png";
+import TankStock from "../assets/images/stockchart-svgrepo-com.png";
+import Monitoring from "../assets/images/monitoring-seo-and-web-svgrepo-com.png";
+import ATG from "../assets/images/tank-svgrepo-com.png";
+import { MyanmarMainHomePage } from "../Language/Myanmar/myanmarMainHomePage";
+import { EnglishMainHomePage } from "../Language/English/englishMainHomePage";
+import Header from "../components/Header";
+import Different from "../assets/images/difference.png";
+import { MdArrowBack } from "react-icons/md";
+import { ChinesehMainHomePage } from "../Language/Chinese/chineseMainHomePage";
+import { redirect } from "react-router-dom";
 
 function Home() {
   const user = useSelector((state) => state.login);
@@ -40,21 +41,22 @@ function Home() {
       setLanguage(MyanmarMainHomePage);
     } else if (user.language === "English" || user.language === "အင်္ဂလိပ်") {
       setLanguage(EnglishMainHomePage);
-    
     } else if (user.language === "中国人" || user.language === "အင်္ဂလိပ်") {
       setLanguage(ChinesehMainHomePage);
     }
-
   }, [navigate, user]);
 
   const headerPaths = [
-    '/kyawsan/main-con/home',
+    "/kyawsan/main-con/home",
     // Add other paths where you want to show the header
   ];
 
   const shouldShowHeader = headerPaths.includes(location.pathname);
 
-   const home = user.name !== "a  dmin"?"home_page pb-[100px] items-center  flex justify-center ":"home_page items-center pb-[100px]  flex justify-center "
+  const home =
+    user.name !== "a  dmin"
+      ? "home_page pb-[100px] items-center  flex justify-center "
+      : "home_page items-center pb-[100px]  flex justify-center ";
 
   return (
     <>
@@ -90,6 +92,14 @@ function Home() {
                   img={Category}
                   buttontext={language.check_now}
                   link={`/${user.accessDb}/categoriesreport`}
+                />
+              </div>
+              <div className="w-[300px]">
+                <Homecards
+                  title={language.pump_report}
+                  img={pump}
+                  buttontext={language.check_now}
+                  link={`/${user.accessDb}/pumpreport`}
                 />
               </div>
               <div className="w-[300px]">
@@ -194,4 +204,4 @@ function Home() {
   );
 }
 
-export default Home
+export default Home;

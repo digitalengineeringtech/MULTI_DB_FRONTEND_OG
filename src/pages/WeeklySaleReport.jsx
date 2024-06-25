@@ -104,7 +104,7 @@ function WeeklySaleReport() {
           console.log(data, "this is data ................");
           // await dispatch(fetchDailySaleReportByTimeRange(bomb));
           setloading(false);
-          setFuel(data.result);
+          setFuel(data?.result);
           setIsSearch(false);
         };
         fetchData();
@@ -127,8 +127,8 @@ function WeeklySaleReport() {
 
   useEffect(() => {
     setloading(loading_g);
-    if (data_g.result) {
-      setOkData(data_g.result);
+    if (data_g?.result) {
+      setOkData(data_g?.result);
     }
   }, [data_g, loading_g, error_g]);
 

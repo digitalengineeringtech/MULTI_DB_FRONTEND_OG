@@ -33,4 +33,5 @@ export const myanmarDailySaleReport = {
   Adj: "ချိန်ညှိမှု (ဂါလံ)",
   Remark: "မှတ်ချက်",
   receive: "ဆီလက်ခံ (ဂါလံ)",
+  pump_title: "ပန့်အစီရင်ခံစာ",
 };

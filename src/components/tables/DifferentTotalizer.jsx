@@ -4,9 +4,8 @@ import { RiFileExcel2Fill } from "react-icons/ri";
 import { AiFillPrinter } from "react-icons/ai";
 import React, { useEffect, useRef } from "react";
 
-
 function DifferentTotalizerTable({ okData, statement, language }) {
-    const tRef = useRef();
+  const tRef = useRef();
   const handlePrintTwo = useReactToPrint({
     content: () => tRef.current,
   });
@@ -55,13 +54,13 @@ function DifferentTotalizerTable({ okData, statement, language }) {
               <>
                 <td className="text-right">{e.totalizer_opening}</td>
                 <td className="text-right">{e.totalizer_closing}</td>
-                <td className="text-right">{
-                
-                isNaN(e.totalizer_opening - e.totalizer_closing) ? "-" : (e.totalizer_opening - e.totalizer_closing).toFixed(3)
-
-                }</td>
+                <td className="text-right">
+                  {/* {isNaN(e.totalizer_opening - e.totalizer_closing)
+                    ? "-"
+                    : (e.totalizer_opening - e.totalizer_closing).toFixed(3)} */}
+                  {e.totalizer_different || "-"}
+                </td>
               </>
-             
             ) : (
               <></>
             )}
@@ -85,7 +84,7 @@ function DifferentTotalizerTable({ okData, statement, language }) {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default DifferentTotalizerTable
+export default DifferentTotalizerTable;

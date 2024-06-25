@@ -20,6 +20,7 @@ import { LogoutUser } from "../redux/slices/LoginSlice";
 import Loading from "../components/Loading";
 import DifferentTotalizerTable from "../components/tables/DifferentTotalizer";
 import { useNavigate } from "react-router-dom";
+import PumpTable from "../components/tables/Pump.table";
 
 let start = new Date();
 start.setHours(0);
@@ -31,7 +32,7 @@ end.setHours(23);
 end.setMinutes(0);
 end = new Date(end);
 
-function DifferentTotalizer() {
+function PumpReport() {
   const [startDate, setStartDate] = useState(start);
   const [endDate, setEndDate] = useState(end);
   const [language, setLanguage] = useState(EnglishTotalizerDifferent);
@@ -125,7 +126,7 @@ function DifferentTotalizer() {
       language={false}
       value={changeLanguage}
       setValue={setChangeLanguage}
-      title={language.mainTitle}
+      title={language.sub_title}
     >
       <InputContainer>
         <div className="flex flex-wrap gap-[20px]">
@@ -166,11 +167,7 @@ function DifferentTotalizer() {
         <>
           {/* <ShiftLeader selectedStation={selectedStation} isSearch={isSearch} calenderTwo={endDate} tableRef={tableRef} okData={okData}/>
            */}
-          <DifferentTotalizerTable
-            language={language}
-            statement
-            okData={okData}
-          />
+          <PumpTable language={language} sDate={startDate} eDate={endDate} statement okData={okData} />
         </>
       ) : (
         ""
@@ -181,4 +178,4 @@ function DifferentTotalizer() {
   );
 }
 
-export default DifferentTotalizer;
+export default PumpReport;

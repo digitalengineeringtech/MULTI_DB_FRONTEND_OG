@@ -248,6 +248,11 @@ export const fetchDynamicNozzles = createAsyncThunk(
     let isoStartDate = startDate;
     let isoEndDate = endDate;
 
+    console.log(isoEndDate, isoStartDate, "this is iso date");
+    console.log(
+      `/detail-sale/statement-report?sDate=${isoStartDate}&eDate=${isoEndDate}&stationDetailId=${stationDetailId}&accessDb=${accessDb}`
+    );
+
     const response = await instance.get(
       `/detail-sale/statement-report?sDate=${isoStartDate}&eDate=${isoEndDate}&stationDetailId=${stationDetailId}&accessDb=${accessDb}`,
       {

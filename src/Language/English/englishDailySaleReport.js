@@ -33,4 +33,5 @@ export const englishDailySaleReport = {
   Adj: "Adjustment (Gallon)",
   Remark: "Remark",
   receive: "Received (Gallon)",
+  pump_title: "Pump Report"
 };
