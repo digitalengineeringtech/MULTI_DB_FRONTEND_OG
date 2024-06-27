@@ -141,16 +141,18 @@ export const fetchFuelBalanceByTimeRange = createAsyncThunk(
     console.log("====================================");
     let isoStartDate = startDate.toLocaleDateString("fr-CA");
     let isoEndDate = endDate.toLocaleDateString("fr-CA");
+    const end = isoEndDate ? `$eDate=${isoEndDate}` : ``;
+
     console.log(typeof isoStartDate, "this is iso date");
-    const response = await instance.get(
-      `/fuel-balance/pagi/1?sDate=${isoStartDate}&stationId=${stationSelection.code}${fuelTypeRoute}${tankNoRoute}${accessDbRoute}`,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
+    // const response = await instance.get(
+    //   `/fuel-balance/pagi/1?sDate=${isoStartDate}&stationId=${stationSelection.code}${end}${fuelTypeRoute}${tankNoRoute}${accessDbRoute}`,
+    //   {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //       Authorization: "Bearer " + token,
+    //     },
+    //   }
+    // );
     const { data } = await instance.get(
       `/fuel-balance/by-date?sDate=${startDate}&eDate=${endDate}&stationId=${stationSelection.code}${fuelTypeRoute}${tankNoRoute}${accessDbRoute}`,
       {
@@ -160,7 +162,7 @@ export const fetchFuelBalanceByTimeRange = createAsyncThunk(
         },
       }
     );
-    console.log(data);
+    console.log(data, '.htoo kahnt');
     return data;
   }
 );

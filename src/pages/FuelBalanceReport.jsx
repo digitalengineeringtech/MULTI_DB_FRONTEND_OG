@@ -30,6 +30,11 @@ start.setHours(0);
 start.setMinutes(0);
 start = new Date(start);
 
+let end = new Date();
+end.setHours(23);
+end.setMinutes(59);
+end = new Date(end);
+
 function FuelBalanceReport() {
   const user = useSelector((state) => state.login);
   const navigate = useNavigate();
@@ -39,6 +44,7 @@ function FuelBalanceReport() {
   const [loading, setloading] = useState(false);
   const [okData, setOkData] = useState();
   const [calenderOne, setCalenderOne] = useState(start);
+  const [calenderTwo, setCalenderTwo] = useState(end);
   const [fuelType, setFuelType] = useState({ name: "All", code: "Please" });
   const [tankName, setTankName] = useState({ name: "All", code: "Please" });
   const [selectedStation, setSelectedStation] = useState({
@@ -64,6 +70,9 @@ function FuelBalanceReport() {
     };
   }, [navigate, user, dispatch]);
 
+  let sd = new Date(calenderOne);
+  let ed = new Date(calenderTwo);
+
   const handleClick = () => {
     if (calenderOne) {
       if (selectedStation.code === "Please") {
@@ -75,11 +84,12 @@ function FuelBalanceReport() {
         const fetchData = async () => {
           const bomb = [
             user.token,
-            calenderOne,
+            sd,
             selectedStation,
             fuelType,
             tankName,
             user.accessDb,
+            ed,
           ];
           setloading(true);
           await dispatch(fetchFuelBalanceByTimeRange(bomb));
@@ -89,6 +99,8 @@ function FuelBalanceReport() {
       }
     }
   };
+
+  console.log(datas);
 
   useEffect(() => {
     if (datas === "error") {
@@ -103,8 +115,10 @@ function FuelBalanceReport() {
     }
   }, [datas, dispatch]);
 
+  console.log(".lllllllllllllllllllllllllllll", okData);
+
   return (
-    <PageContainer language={false} title={language.main_title}>
+    <PageContainer language={false} title={language.title}>
       <InputContainer>
         <div className="flex flex-wrap gap-[20px]">
           <CalenderComponent
@@ -112,16 +126,21 @@ function FuelBalanceReport() {
             value={calenderOne}
             setValue={setCalenderOne}
           />
+          <CalenderComponent
+            title={language.date}
+            value={calenderTwo}
+            setValue={setCalenderTwo}
+          />
           <FuelTypeComponent
             title={language.fuel_type}
             value={fuelType}
             setValue={setFuelType}
           />
-          <TankComponent
+          {/* <TankComponent
             language={language.tank_no}
             value={tankName}
             setValue={setTankName}
-          />
+          /> */}
           <StationComponent
             title={language.station}
             value={selectedStation}

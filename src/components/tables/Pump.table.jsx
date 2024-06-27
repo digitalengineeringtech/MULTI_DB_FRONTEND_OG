@@ -399,6 +399,14 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
           <td>-</td>
           <td>-</td>
         </tr>
+        <tr className="bg-gray-200">
+          <td colspan={10} className="text-lg font-semibold">
+            Grand Total
+          </td>
+          <td colspan={4} className="text-center text-lg font-semibold">
+            {okData.map((e) => e.totalSaleLiter).reduce((pv, cv) => pv + cv, 0)}
+          </td>
+        </tr>
       </table>
       <div className="flex p-3  text-[16px] mt-[30px] mb-[50px] items-center justify-start gap-3">
         <button
