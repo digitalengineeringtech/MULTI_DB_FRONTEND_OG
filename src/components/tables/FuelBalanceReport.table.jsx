@@ -17,6 +17,8 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
     sheet: `Fuel Balance Report`,
   });
 
+
+
   const { stationId } = okData[0];
   console.log("====================================");
   console.log(okData, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
@@ -91,7 +93,7 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
                   {/* <td className="text-left">Tank {ok.tankNo}</td> */}
                   <td className=" text-center">{stationId?.lienseNo}</td>
                   <td className=" text-left">{state[0]}</td>
-                  <td className=" text-center">{state[state.length - 1]}</td>
+                  <td className=" text-center">{state[state?.length - 1]}</td>
                   <td className="text-left">{ok.fuelType}</td>
                   <td className="text-right">{(ok.open / 4.546).toFixed(3)}</td>
                   <td className="text-right">
@@ -121,7 +123,7 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
                 <tr key={index}>
                   <td className="text-left">{stationId?.name}</td>
                   <td className=" text-center">{stationId?.lienseNo}</td>
-                  <td className=" text-center">{state[state.length - 1]}</td>
+                  <td className=" text-center">{state[state?.length - 1]}</td>
                   <td className="text-left">Tank {ok.tankNo}</td>
                   <td className="text-left">{ok.fuelType}</td>
                   <td className="text-right">{ok.opening?.toFixed(3)}</td>
@@ -154,7 +156,7 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
               <tr key={index}>
                 <td className="text-left">{stationId?.name}</td>
                 <td className=" text-center">{stationId?.lienseNo}</td>
-                <td className=" text-center">{state[state.length - 1]}</td>
+                <td className=" text-center">{state[state?.length - 1]}</td>
                 <td className="text-left">Tank {ok.tankNo}</td>
                 <td className="text-left">{ok.fuelType}</td>
                 <td className="text-right">{ok.opening?.toFixed(3)}</td>
@@ -187,7 +189,7 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
               <tr key={index}>
                 <td className="text-left">{stationId?.name}</td>
                 <td className=" text-center">{stationId?.lienseNo}</td>
-                <td className=" text-center">{state[state.length - 1]}</td>
+                <td className=" text-center">{state[state?.length - 1]}</td>
                 <td className="text-left">Tank {ok.tankNo}</td>
                 <td className="text-left">{ok.fuelType}</td>
                 <td className="text-right">{ok.opening?.toFixed(3)}</td>
@@ -220,7 +222,7 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
               <tr key={index}>
                 <td className="text-left">{stationId?.name}</td>
                 <td className=" text-center">{stationId?.lienseNo}</td>
-                <td className=" text-center">{state[state.length - 1]}</td>
+                <td className=" text-center">{state[state?.length - 1]}</td>
                 <td className="text-left">Tank {ok.tankNo}</td>
                 <td className="text-left">{ok.fuelType}</td>
                 <td className="text-right">{ok.opening?.toFixed(3)}</td>
@@ -253,7 +255,7 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
               <tr key={index}>
                 <td className="text-left">{stationId?.name}</td>
                 <td className=" text-center">{stationId?.lienseNo}</td>
-                <td className=" text-center">{state[state.length - 1]}</td>
+                <td className=" text-center">{state[state?.length - 1]}</td>
                 <td className="text-left">Tank {ok.tankNo}</td>
                 <td className="text-left">{ok.fuelType}</td>
                 <td className="text-right">{ok.opening?.toFixed(3)}</td>

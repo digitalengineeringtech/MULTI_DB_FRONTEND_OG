@@ -2,6 +2,7 @@ export const EnglishFuelBalance = {
   sub: "Daily Sale Report",
   main_title: "Fuel Balance Report",
   title: "Tank Report",
+  t: "Fuel In Report",
   date: "Date",
   s_date: "From Date",
   e_date: "To Date",
@@ -31,5 +32,5 @@ export const EnglishFuelBalance = {
   receive: "Received (Gallon)",
   closing_li: "Closing Liter",
   dif: "Difference Liter",
-  gl: "Gain/Loss"
+  gl: "Gain/Loss",
 };

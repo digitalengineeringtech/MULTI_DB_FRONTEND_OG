@@ -164,7 +164,7 @@ function FuelBalanceReport() {
         cash: combine,
         fuelIn: receive,
         opening: open,
-        stationId: okData[0].stationId,
+        stationId: data_g_2?.result[0]?.stationId,
         balance: close,
       };
     });
