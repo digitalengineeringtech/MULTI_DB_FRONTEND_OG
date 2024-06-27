@@ -23,6 +23,28 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
   console.log("====================================");
   const state = stationId?.location?.split(",");
 
+  const n2 = okData?.filter((ea) => ea.fuelType == "001-Octane Ron(92)");
+  const n5 = okData?.filter((ea) => ea.fuelType == "002-Octane Ron(95)");
+  const hsd = okData?.filter((ea) => ea.fuelType == "004-Diesel");
+  const phsd = okData?.filter((ea) => ea.fuelType == "005-Premium Diesel");
+
+  const n2Total = okData
+    ?.filter((ea) => ea.fuelType == "001-Octane Ron(92)")
+    .map((e) => e.cash)
+    .reduce((pv, cv) => pv + cv, 0);
+  const n5Total = okData
+    ?.filter((ea) => ea.fuelType == "002-Octane Ron(95)")
+    .map((e) => e.cash)
+    .reduce((pv, cv) => pv + cv, 0);
+  const hsdTotal = okData
+    ?.filter((ea) => ea.fuelType == "004-Diesel")
+    .map((e) => e.cash)
+    .reduce((pv, cv) => pv + cv, 0);
+  const phsdTotal = okData
+    ?.filter((ea) => ea.fuelType == "005-Premium Diesel")
+    .map((e) => e.cash)
+    .reduce((pv, cv) => pv + cv, 0);
+
   return (
     <>
       <div className="mb-[150px]">
@@ -118,6 +140,149 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
                   <td className="text-right">-</td>
                 </tr>
               ))}
+          {!calcu && (
+            <tr className="bg-gray-200">
+              <td colspan={9} className="text-lg">
+                Sub Total Octane Ron 92
+              </td>
+              <td className="text-center font-semibold">{n2Total}</td>
+              <td colspan={2}> </td>
+            </tr>
+          )}
+          {okData?.length > 0 &&
+            n2?.map((ok, index) => (
+              <tr key={index}>
+                <td className="text-left">{stationId?.name}</td>
+                <td className=" text-center">{stationId?.lienseNo}</td>
+                <td className=" text-center">{state[state.length - 1]}</td>
+                <td className="text-left">Tank {ok.tankNo}</td>
+                <td className="text-left">{ok.fuelType}</td>
+                <td className="text-right">{ok.opening?.toFixed(3)}</td>
+                <td className="text-right">
+                  {ok.fuelIn === 0 ? "-" : ok.fuelIn?.toFixed(3)}
+                </td>
+                <td className="text-right">{ok.balance?.toFixed(3)}</td>
+                {/* <td className="text-right">
+                    {(ok.opening - ok.balance)?.toFixed(3)}
+                  </td> */}
+                <td className="text-right">{ok.cash?.toFixed(3)}</td>
+                <td className="text-right">{ok.cash?.toFixed(3)}</td>
+                <td className="text-right">
+                  {(ok.balance - ok.opening - ok.fuelIn + ok.cash).toFixed(3)}
+                </td>
+                <td className="text-right">-</td>
+              </tr>
+            ))}
+          {!calcu && (
+            <tr className="bg-gray-200">
+              <td colspan={9} className="text-lg">
+                Sub Total Octane Ron 95
+              </td>
+              <td className="text-center font-semibold">{n5Total}</td>
+              <td colspan={2}></td>
+            </tr>
+          )}
+          {okData?.length > 0 &&
+            n5?.map((ok, index) => (
+              <tr key={index}>
+                <td className="text-left">{stationId?.name}</td>
+                <td className=" text-center">{stationId?.lienseNo}</td>
+                <td className=" text-center">{state[state.length - 1]}</td>
+                <td className="text-left">Tank {ok.tankNo}</td>
+                <td className="text-left">{ok.fuelType}</td>
+                <td className="text-right">{ok.opening?.toFixed(3)}</td>
+                <td className="text-right">
+                  {ok.fuelIn === 0 ? "-" : ok.fuelIn?.toFixed(3)}
+                </td>
+                <td className="text-right">{ok.balance?.toFixed(3)}</td>
+                {/* <td className="text-right">
+                    {(ok.opening - ok.balance)?.toFixed(3)}
+                  </td> */}
+                <td className="text-right">{ok.cash?.toFixed(3)}</td>
+                <td className="text-right">{ok.cash?.toFixed(3)}</td>
+                <td className="text-right">
+                  {(ok.balance - ok.opening - ok.fuelIn + ok.cash).toFixed(3)}
+                </td>
+                <td className="text-right">-</td>
+              </tr>
+            ))}
+          {!calcu && (
+            <tr className="bg-gray-200">
+              <td colspan={9} className="text-lg">
+                Sub Total Diesel
+              </td>
+              <td className="text-center font-semibold">{hsdTotal}</td>
+              <td colspan={2}></td>
+            </tr>
+          )}
+          {okData?.length > 0 &&
+            hsd?.map((ok, index) => (
+              <tr key={index}>
+                <td className="text-left">{stationId?.name}</td>
+                <td className=" text-center">{stationId?.lienseNo}</td>
+                <td className=" text-center">{state[state.length - 1]}</td>
+                <td className="text-left">Tank {ok.tankNo}</td>
+                <td className="text-left">{ok.fuelType}</td>
+                <td className="text-right">{ok.opening?.toFixed(3)}</td>
+                <td className="text-right">
+                  {ok.fuelIn === 0 ? "-" : ok.fuelIn?.toFixed(3)}
+                </td>
+                <td className="text-right">{ok.balance?.toFixed(3)}</td>
+                {/* <td className="text-right">
+                    {(ok.opening - ok.balance)?.toFixed(3)}
+                  </td> */}
+                <td className="text-right">{ok.cash?.toFixed(3)}</td>
+                <td className="text-right">{ok.cash?.toFixed(3)}</td>
+                <td className="text-right">
+                  {(ok.balance - ok.opening - ok.fuelIn + ok.cash).toFixed(3)}
+                </td>
+                <td className="text-right">-</td>
+              </tr>
+            ))}
+          {!calcu && (
+            <tr className="bg-gray-200">
+              <td colspan={9} className="text-lg">
+                Sub Total Premium Diesel
+              </td>
+              <td className="text-center font-semibold">{phsdTotal}</td>
+              <td colspan={2}></td>
+            </tr>
+          )}
+          {okData?.length > 0 &&
+            phsd?.map((ok, index) => (
+              <tr key={index}>
+                <td className="text-left">{stationId?.name}</td>
+                <td className=" text-center">{stationId?.lienseNo}</td>
+                <td className=" text-center">{state[state.length - 1]}</td>
+                <td className="text-left">Tank {ok.tankNo}</td>
+                <td className="text-left">{ok.fuelType}</td>
+                <td className="text-right">{ok.opening?.toFixed(3)}</td>
+                <td className="text-right">
+                  {ok.fuelIn === 0 ? "-" : ok.fuelIn?.toFixed(3)}
+                </td>
+                <td className="text-right">{ok.balance?.toFixed(3)}</td>
+                {/* <td className="text-right">
+                    {(ok.opening - ok.balance)?.toFixed(3)}
+                  </td> */}
+                <td className="text-right">{ok.cash?.toFixed(3)}</td>
+                <td className="text-right">{ok.cash?.toFixed(3)}</td>
+                <td className="text-right">
+                  {(ok.balance - ok.opening - ok.fuelIn + ok.cash).toFixed(3)}
+                </td>
+                <td className="text-right">-</td>
+              </tr>
+            ))}
+          {!calcu && (
+            <tr className="bg-gray-200">
+              <td colspan={9} className="text-lg">
+                Grand Total
+              </td>
+              <td className="text-center font-semibold">
+                {okData.map((e) => e.cash).reduce((pv, cv) => pv + cv, 0)}
+              </td>
+              <td colspan={2}></td>
+            </tr>
+          )}
         </table>
         {/* <p className='flex justify-end mt-[30px] underline px-[100px] hover:font-semibold'><Link className='flex gap-3 items-center hover:gap-5 duration-300' to="/kyawsan/tankdemo">Check with Model <AiOutlineArrowRight/></Link></p> */}
         <div className="flex text-[16px] p-3 mt-[30px] mb-[50px] items-center justify-start gap-3">
