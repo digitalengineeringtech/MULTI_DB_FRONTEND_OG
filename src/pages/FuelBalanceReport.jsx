@@ -24,6 +24,7 @@ import {
 import { FcInfo } from "react-icons/fc";
 import { EnglishFuelBalance } from "../Language/English/englishFuelBalanceReport";
 import { MyanmarFuelBalanceRport } from "../Language/Myanmar/myanmarFuelBalanceReport";
+import UsePost_2 from "../MainConDas/components/hooks/UsePost_2";
 
 let start = new Date();
 start.setHours(0);
@@ -54,6 +55,9 @@ function FuelBalanceReport() {
   const [language, setLanguage] = useState(EnglishFuelBalance);
   const [isSelectedStation, setIsSelectedStation] = useState(false);
   const datas = useSelector(getAllKyawSan027DailySaleReports);
+  const [{ data_g_2, loading_g_2, error_g_2 }, fetchIt_2] = UsePost_2();
+
+  let isoStartDate = start.toLocaleDateString("fr-CA");
 
   useEffect(() => {
     if (!user.login) {
@@ -80,7 +84,10 @@ function FuelBalanceReport() {
       } else {
         setloading(true);
         setIsSelectedStation(false);
-
+        fetchIt_2(
+          `/fuel-balance/pagi/1?sDate=${isoStartDate}&stationId=${selectedStation?.code}`,
+          user.token
+        );
         const fetchData = async () => {
           const bomb = [
             user.token,
@@ -116,6 +123,55 @@ function FuelBalanceReport() {
   }, [datas, dispatch]);
 
   console.log(".lllllllllllllllllllllllllllll", okData);
+
+  const fuelData = [
+    {
+      fuelType: "001-Octane Ron(92)",
+    },
+    {
+      fuelType: "002-Octane Ron(95)",
+    },
+    {
+      fuelType: "004-Diesel",
+    },
+    {
+      fuelType: "005-Premium Diesel",
+    },
+  ];
+
+  const calcu =
+    okData &&
+    data_g_2?.result?.map((e) => {
+      const combine = okData
+        ?.filter((c) => e.tankNo == c.tankNo)
+        .map((item) => item.cash)
+        .reduce((pv, cv) => pv + cv, 0);
+
+      const receive = okData
+        ?.filter((c) => e.tankNo == c.tankNo)
+        .map((item) => item.fuelIn)
+        .reduce((pv, cv) => pv + cv, 0);
+
+      const open = okData?.filter((c) => e.tankNo == c.tankNo)[0]?.opening;
+
+      const close = okData
+        ?.filter((c) => e.tankNo == c.tankNo)
+        .reverse()[0]?.balance;
+
+      return {
+        fuelType: e.fuelType,
+        tankNo: e.tankNo,
+        cash: combine,
+        fuelIn: receive,
+        opening: open,
+        stationId: okData[0].stationId,
+        balance: close,
+      };
+    });
+
+  console.log("===ssssssssss=================================");
+  console.log(calcu);
+  console.log("====sssss================================");
 
   return (
     <PageContainer language={false} title={language.title}>
@@ -169,7 +225,7 @@ function FuelBalanceReport() {
           <FuelBalanceReportTable
             language={language}
             tableRef={tableRef}
-            okData={okData}
+            okData={calcu}
           />
         </>
       ) : (

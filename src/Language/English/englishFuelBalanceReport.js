@@ -29,4 +29,7 @@ export const EnglishFuelBalance = {
   Adj: "Adjustment (Gallon)",
   Remark: "Remark",
   receive: "Received (Gallon)",
+  closing_li: "Closing Liter",
+  dif: "Difference Liter",
+  gl: "Gain/Loss"
 };

@@ -25,4 +25,7 @@ export const MyanmarFuelBalanceRport = {
   Adj: "ချိန်ညှိမှု (ဂါလံ)",
   Remark: "မှတ်ချက်",
   receive: "ဆီလက်ခံ (ဂါလံ)",
+  closing_li: "Closing Liter",
+  dif: "Difference Liter",
+  gl: "Gain/Loss",
 };

@@ -8,7 +8,7 @@ export const EnglishMainHomePage = {
   diffrent_totalizer: "Different Totalizers",
   tank_data: "Tank Data",
   fuel_receive_report: "Fuel Receive Report",
-  fuel_balance_report: "Fuel Balance Report",
+  fuel_balance_report: "Tank Report",
   stock_balance_report: "Stock Balance Report",
   fuel_type_balance: "Fuel Type Balance",
   daily_sale_summary_report: "Daily Sale Summary Report",
