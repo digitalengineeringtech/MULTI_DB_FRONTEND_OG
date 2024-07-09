@@ -4,7 +4,13 @@ import { AiFillPrinter } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
 import { useDownloadExcel } from "react-export-table-to-excel";
 
-function FuelBalanceReportTable({ okData, tank, language, calcu }) {
+function FuelBalanceReportTable({
+  okData,
+  tank,
+  language,
+  calcu,
+  fuelbalance,
+}) {
   const tRef = useRef();
 
   const handlePrint = useReactToPrint({
@@ -17,12 +23,7 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
     sheet: `Fuel Balance Report`,
   });
 
-
-
-  const { stationId } = okData[0];
-  console.log("====================================");
-  console.log(okData, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-  console.log("====================================");
+  const { stationId } = okData ? okData[0] : "0";
   const state = stationId?.location?.split(",");
 
   const n2 = okData?.filter((ea) => ea.fuelType == "001-Octane Ron(92)");
@@ -86,7 +87,7 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
             </thead>
           )}
 
-          {calcu
+          {!fuelbalance
             ? calcu?.map((ok, index) => (
                 <tr key={index}>
                   <td className="text-left">{stationId?.name}</td>
@@ -151,7 +152,9 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
               <td colspan={2}> </td>
             </tr>
           )}
-          {okData?.length > 0 &&
+
+          {fuelbalance &&
+            okData?.length > 0 &&
             n2?.map((ok, index) => (
               <tr key={index}>
                 <td className="text-left">{stationId?.name}</td>
@@ -184,7 +187,8 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
               <td colspan={2}></td>
             </tr>
           )}
-          {okData?.length > 0 &&
+          {fuelbalance &&
+            okData?.length > 0 &&
             n5?.map((ok, index) => (
               <tr key={index}>
                 <td className="text-left">{stationId?.name}</td>
@@ -217,7 +221,8 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
               <td colspan={2}></td>
             </tr>
           )}
-          {okData?.length > 0 &&
+          {fuelbalance &&
+            okData?.length > 0 &&
             hsd?.map((ok, index) => (
               <tr key={index}>
                 <td className="text-left">{stationId?.name}</td>
@@ -250,7 +255,8 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
               <td colspan={2}></td>
             </tr>
           )}
-          {okData?.length > 0 &&
+          {fuelbalance &&
+            okData?.length > 0 &&
             phsd?.map((ok, index) => (
               <tr key={index}>
                 <td className="text-left">{stationId?.name}</td>
@@ -280,7 +286,7 @@ function FuelBalanceReportTable({ okData, tank, language, calcu }) {
                 Grand Total
               </td>
               <td className="text-center font-semibold">
-                {okData.map((e) => e.cash).reduce((pv, cv) => pv + cv, 0)}
+                {okData?.map((e) => e.cash).reduce((pv, cv) => pv + cv, 0)}
               </td>
               <td colspan={2}></td>
             </tr>

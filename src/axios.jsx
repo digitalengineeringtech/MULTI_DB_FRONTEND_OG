@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  // baseURL: "http://192.168.1.146:9000/api",
-  baseURL: "https://detfsmm.com/api",
+  baseURL: "http://192.168.1.146:8000/api",
+  // baseURL: "https://detfsmm.com/api",
 });
 
 // https://detfsmm.com/api

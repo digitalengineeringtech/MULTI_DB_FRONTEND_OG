@@ -206,6 +206,7 @@ function FuelBalanceReport() {
         <>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
           <FuelBalanceReportTable
+            fuelbalance={false}
             language={language}
             tableRef={tableRef}
             okData={okData}
