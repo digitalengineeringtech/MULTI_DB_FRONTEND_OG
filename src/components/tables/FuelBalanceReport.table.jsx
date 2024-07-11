@@ -23,6 +23,10 @@ function FuelBalanceReportTable({
     sheet: `Fuel Balance Report`,
   });
 
+  console.log('====================================');
+  console.log(okData);
+  console.log('====================================');
+
   const { stationId } = okData ? okData[0] : "0";
   const state = stationId?.location?.split(",");
 
@@ -100,7 +104,7 @@ function FuelBalanceReportTable({
                   <td className="text-right">
                     {ok.fuelIn === 0
                       ? "-"
-                      : (ok.receiveVolume / 4.546)?.toFixed(3)}
+                      : (ok.receiveVolume / 4.546)?.toFixed(3) }
                   </td>
                   <td className="text-right">
                     {ok.fuelIn === 0 ? "-" : (ok.totalCash / 4.546)?.toFixed(3)}
@@ -148,7 +152,9 @@ function FuelBalanceReportTable({
               <td colspan={9} className="text-lg">
                 Sub Total Octane Ron 92
               </td>
-              <td className="text-center font-semibold">{n2Total}</td>
+              <td className="text-center font-semibold">
+                {n2Total.toFixed(3)}
+              </td>
               <td colspan={2}> </td>
             </tr>
           )}
@@ -183,7 +189,9 @@ function FuelBalanceReportTable({
               <td colspan={9} className="text-lg">
                 Sub Total Octane Ron 95
               </td>
-              <td className="text-center font-semibold">{n5Total}</td>
+              <td className="text-center font-semibold">
+                {n5Total.toFixed(3)}
+              </td>
               <td colspan={2}></td>
             </tr>
           )}
@@ -217,7 +225,9 @@ function FuelBalanceReportTable({
               <td colspan={9} className="text-lg">
                 Sub Total Diesel
               </td>
-              <td className="text-center font-semibold">{hsdTotal}</td>
+              <td className="text-center font-semibold">
+                {hsdTotal.toFixed(3)}
+              </td>
               <td colspan={2}></td>
             </tr>
           )}
@@ -251,7 +261,9 @@ function FuelBalanceReportTable({
               <td colspan={9} className="text-lg">
                 Sub Total Premium Diesel
               </td>
-              <td className="text-center font-semibold">{phsdTotal}</td>
+              <td className="text-center font-semibold">
+                {phsdTotal.toFixed(3)}
+              </td>
               <td colspan={2}></td>
             </tr>
           )}
@@ -286,7 +298,10 @@ function FuelBalanceReportTable({
                 Grand Total
               </td>
               <td className="text-center font-semibold">
-                {okData?.map((e) => e.cash).reduce((pv, cv) => pv + cv, 0)}
+                {okData
+                  ?.map((e) => e.cash)
+                  .reduce((pv, cv) => pv + cv, 0)
+                  .toFixed(3)}
               </td>
               <td colspan={2}></td>
             </tr>

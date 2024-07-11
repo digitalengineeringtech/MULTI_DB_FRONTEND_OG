@@ -404,7 +404,7 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
             Grand Total
           </td>
           <td colspan={4} className="text-center text-lg font-semibold">
-            {okData.map((e) => e.totalSaleLiter).reduce((pv, cv) => pv + cv, 0)}
+            {okData.map((e) => e.totalSaleLiter).reduce((pv, cv) => pv + cv, 0)?.toFixed(3)}
           </td>
         </tr>
       </table>

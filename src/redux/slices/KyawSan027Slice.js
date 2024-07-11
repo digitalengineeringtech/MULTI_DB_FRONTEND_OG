@@ -136,9 +136,6 @@ export const fetchFuelBalanceByTimeRange = createAsyncThunk(
     const tankNoRoute =
       tankNo.code === "Please" ? "" : `&tankNo=${tankNo.code}`;
     const accessDbRoute = accessDb ? `&accessDb=${accessDb}` : ``;
-    console.log("====================================");
-    console.log(startDate, endDate);
-    console.log("====================================");
     let isoStartDate = startDate.toLocaleDateString("fr-CA");
     let isoEndDate = endDate.toLocaleDateString("fr-CA");
     const end = isoEndDate ? `$eDate=${isoEndDate}` : ``;
@@ -162,7 +159,6 @@ export const fetchFuelBalanceByTimeRange = createAsyncThunk(
         },
       }
     );
-    console.log(data, '.htoo kahnt');
     return data;
   }
 );
