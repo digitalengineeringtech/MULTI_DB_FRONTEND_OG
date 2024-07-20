@@ -10,6 +10,10 @@ function NozzleTable({ okData, statement, language }) {
     content: () => tRef.current,
   });
 
+  console.log("====================================");
+  console.log(okData);
+  console.log("====================================");
+
   const onDownloadTwo = useDownloadExcel({
     currentTableRef: tRef.current,
     filename: `Daily Sale Summary by Station Nozzle Report`,
@@ -49,12 +53,12 @@ function NozzleTable({ okData, statement, language }) {
             <td className="text-left">{e.stationId}</td>
             <td className="text-left">{e.nozzle}</td>
             <td className="text-left">{e.fuelType}</td>
-            <td className="text-right">{e.price == 0 ? "-" : e.price}</td>
+            <td className="text-right">{e.price == 0 ? "0" : e.price}</td>
             <td className="text-right">
-              {e.totalSaleLiter == 0 ? "-" : e.totalSaleLiter}
+              {e.totalSaleLiter == 0 ? "0" : e.totalSaleLiter}
             </td>
             <td className="text-right">
-              {e.totalSalePrice == 0 ? "-" : e.totalSalePrice}
+              {e.totalSalePrice == 0 ? "0" : e.totalSalePrice}
             </td>
             {statement ? (
               <>

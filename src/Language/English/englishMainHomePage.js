@@ -13,7 +13,8 @@ export const EnglishMainHomePage = {
   fuel_type_balance: "Fuel Type Balance",
   daily_sale_summary_report: "Daily Sale Summary Report",
   check_now: "Check Now", //checknot查看
-  reports: "Reports",
+  PPRD_reports: "PPRD 7 Reports",
+  reports: " Other Reports",
   sale_detail: "Sale Detail",
   pump_report: "Pump Report",
 };

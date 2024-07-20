@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchDailySaleReportByTimeRange,
   fetchDynamicNozzles,
+  fetchFuelBalanceByTimeRange,
   getAllKyawSan027DailySaleReports,
   removeOldDats,
 } from "../redux/slices/KyawSan027Slice";
@@ -21,6 +22,8 @@ import Loading from "../components/Loading";
 import DifferentTotalizerTable from "../components/tables/DifferentTotalizer";
 import { useNavigate } from "react-router-dom";
 import PumpTable from "../components/tables/Pump.table";
+import NozzleTable from "../components/tables/NozzleTable";
+import UsePost_2 from "../MainConDas/components/hooks/UsePost_2";
 
 let start = new Date();
 start.setHours(0);
@@ -49,7 +52,10 @@ function PumpReport() {
   const [isSearch, setIsSearch] = useState(new Date());
   const [loading, setloading] = useState(false);
   const [okData, setOkData] = useState();
+  const [fuelType, setFuelType] = useState({ name: "All", code: "Please" });
+  const [tankName, setTankName] = useState({ name: "All", code: "Please" });
   const navigate = useNavigate();
+  const [{ data_g_2, loading_g_2, error_g_2 }, fetchIt_2] = UsePost_2();
 
   const datas = useSelector(getAllKyawSan027DailySaleReports);
 
@@ -97,10 +103,38 @@ function PumpReport() {
         fetchData();
       }
     }
+    if (startDate) {
+      if (selectedStation.code === "Please") {
+        setIsSelectedStation(true);
+      } else {
+        setloading(true);
+        setIsSelectedStation(false);
+        let isoStartDate = start.toLocaleDateString("fr-CA");
+        fetchIt_2(
+          `/fuel-balance/pagi/1?sDate=${isoStartDate}&stationId=${selectedStation?.code}`,
+          user.token
+        );
+        // const fetchData = async () => {
+        //   const bomb = [
+        //     user.token,
+        //     startDate,
+        //     selectedStation,
+        //     fuelType,
+        //     tankName,
+        //     user.accessDb,
+        //     endDate,
+        //   ];
+        //   setloading(true);
+        //   await dispatch(fetchFuelBalanceByTimeRange(bomb));
+        //   setloading(false);
+        // };
+        // fetchData();
+      }
+    }
   };
 
-  console.log("====================================");
-  console.log(okData);
+  console.log("====data================================");
+  console.log(okData, data_g_2.result, datas);
   console.log("====================================");
 
   useEffect(() => {
@@ -167,7 +201,17 @@ function PumpReport() {
         <>
           {/* <ShiftLeader selectedStation={selectedStation} isSearch={isSearch} calenderTwo={endDate} tableRef={tableRef} okData={okData}/>
            */}
-          <PumpTable language={language} sDate={startDate} eDate={endDate} statement okData={okData} />
+          {/* normal */}
+          <PumpTable
+            language={language}
+            sDate={startDate}
+            eDate={endDate}
+            statement
+            data_g_2={data_g_2.result}
+            okData={okData}
+          />
+
+          {/* <NozzleTable language={language} statement okData={okData} /> */}
         </>
       ) : (
         ""

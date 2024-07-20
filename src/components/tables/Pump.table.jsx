@@ -4,7 +4,7 @@ import { RiFileExcel2Fill } from "react-icons/ri";
 import { AiFillPrinter } from "react-icons/ai";
 import React, { useEffect, useRef } from "react";
 
-function PumpTable({ okData, statement, sDate, eDate, language }) {
+function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
   const tRef = useRef();
   const handlePrintTwo = useReactToPrint({
     content: () => tRef.current,
@@ -32,23 +32,61 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
   const hsd = okData?.filter((ea) => ea.fuelType == "004-Diesel");
   const phsd = okData?.filter((ea) => ea.fuelType == "005-Premium Diesel");
 
-  console.log(n2, n5, hsd, phsd);
+  console.log(okData, "........");
 
   const n2Total = okData
     ?.filter((ea) => ea.fuelType == "001-Octane Ron(92)")
     .map((e) => e.totalSaleLiter)
     .reduce((pv, cv) => pv + cv, 0);
+  const n2Test = n2
+    ?.filter((ea) => ea.fuelType == "001-Octane Ron(92)")
+    .map((e) => e.pumptest)
+    .reduce((pv, cv) => pv + cv, 0);
+  const n2Other = n2
+    ?.filter((ea) => ea.fuelType == "001-Octane Ron(92)")
+    .map((e) => Number(e.other))
+    .reduce((pv, cv) => pv + cv, 0);
+
   const n5Total = okData
     ?.filter((ea) => ea.fuelType == "002-Octane Ron(95)")
     .map((e) => e.totalSaleLiter)
     .reduce((pv, cv) => pv + cv, 0);
+
+  const n5Test = n5
+    ?.filter((ea) => ea.fuelType == "002-Octane Ron(95)")
+    .map((e) => e.pumptest)
+    .reduce((pv, cv) => pv + cv, 0);
+  const n5Other = n5
+    ?.filter((ea) => ea.fuelType == "002-Octane Ron(95)")
+    .map((e) => e.other)
+    .reduce((pv, cv) => pv + cv, 0);
+
   const hsdTotal = okData
     ?.filter((ea) => ea.fuelType == "004-Diesel")
     .map((e) => e.totalSaleLiter)
     .reduce((pv, cv) => pv + cv, 0);
+
+  const hsdTest = hsd
+    ?.filter((ea) => ea.fuelType == "004-Diesel")
+    .map((e) => e.pumptest)
+    .reduce((pv, cv) => pv + cv, 0);
+  const hsdOther = hsd
+    ?.filter((ea) => ea.fuelType == "004-Diesel")
+    .map((e) => e.other)
+    .reduce((pv, cv) => pv + cv, 0);
+
   const phsdTotal = okData
     ?.filter((ea) => ea.fuelType == "005-Premium Diesel")
     .map((e) => e.totalSaleLiter)
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const phsdTest = phsd
+    ?.filter((ea) => ea.fuelType == "005-Premium Diesel")
+    .map((e) => e.pumptest)
+    .reduce((pv, cv) => pv + cv, 0);
+  const phsdOther = phsd
+    ?.filter((ea) => ea.fuelType == "005-Premium Diesel")
+    .map((e) => e.other)
     .reduce((pv, cv) => pv + cv, 0);
 
   return (
@@ -98,33 +136,37 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
               <td className=" text-left">
                 From <span> {isoStartDate}</span> to <span>{isoEndDate}</span>
               </td>
-              <td className="text-right">{e.price == 0 ? "-" : e.price}</td>
+              <td className="text-right">{e.price == 0 ? "0" : e.price}</td>
               {statement ? (
                 <>
                   <td className="text-right">{e.totalizer_opening}</td>
                   <td className="text-right">{e.totalizer_closing}</td>
                   <td className="text-right">
                     {/* {isNaN(e.totalizer_opening - e.totalizer_closing)
-                    ? "-"
+                    ? "0"
                     : (e.totalizer_opening - e.totalizer_closing).toFixed(3)} */}
-                    {e.totalizer_different || "-"}
+                    {e.totalizer_different || "0"}
                   </td>
                 </>
               ) : (
                 <></>
               )}
               <td className="text-right">
-                {e.totalSaleLiter == 0 ? "-" : e.totalSaleLiter}
+                {e.totalSaleLiter == 0 ? "0" : e.totalSaleLiter}
               </td>
               <td className="text-right">
                 {e.totalSaleLiter == 0
-                  ? "-"
+                  ? "0"
                   : (e.totalSaleLiter / 4.16).toFixed(3)}
               </td>
               <td className="text-center">
-                {(e.pumptest == 0 ? "-" : e.pumptest) || "-"}
+                {(e.pumptest == 0 ? "0" : e.pumptest) || "0"}
               </td>
-              <td className="text-center">-</td>
+              <td className="text-center">
+                {Number(e.other)?.toFixed(3) == "NaN"
+                  ? "0"
+                  : Number(e.other)?.toFixed(3)}
+              </td>
             </tr>
           ))
         ) : (
@@ -143,7 +185,7 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
             <td className="text-right"></td>
             <td className="text-right">
               {/* {isNaN(e.totalizer_opening - e.totalizer_closing)
-                    ? "-"
+                    ? "0"
                     : (e.totalizer_opening - e.totalizer_closing).toFixed(3)} */}
             </td>
 
@@ -161,8 +203,8 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
           <td className="text-right font-semibold">
             {(n2Total / 4.16).toFixed(3)}
           </td>
-          <td>-</td>
-          <td>-</td>
+          <td>{n2Test.toFixed(3) || "0"}</td>
+          <td>{n2Other.toFixed(3) || "0"}</td>
         </tr>
         {n5.length > 0 ? (
           n5.map((e, index) => (
@@ -177,33 +219,37 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
               <td className=" text-left">
                 From <span> {isoStartDate}</span> to <span>{isoEndDate}</span>
               </td>
-              <td className="text-right">{e.price == 0 ? "-" : e.price}</td>
+              <td className="text-right">{e.price == 0 ? "0" : e.price}</td>
               {statement ? (
                 <>
                   <td className="text-right">{e.totalizer_opening}</td>
                   <td className="text-right">{e.totalizer_closing}</td>
                   <td className="text-right">
                     {/* {isNaN(e.totalizer_opening - e.totalizer_closing)
-                    ? "-"
+                    ? "0"
                     : (e.totalizer_opening - e.totalizer_closing).toFixed(3)} */}
-                    {e.totalizer_different || "-"}
+                    {e.totalizer_different || "0"}
                   </td>
                 </>
               ) : (
                 <></>
               )}
               <td className="text-right">
-                {e.totalSaleLiter == 0 ? "-" : e.totalSaleLiter}
+                {e.totalSaleLiter == 0 ? "0" : e.totalSaleLiter}
               </td>
               <td className="text-right">
                 {e.totalSaleLiter == 0
-                  ? "-"
+                  ? "0"
                   : (e.totalSaleLiter / 4.16).toFixed(3)}
               </td>
               <td className="text-center">
-                {(e.pumptest == 0 ? "-" : e.pumptest) || "-"}
+                {(e.pumptest == 0 ? "0" : e.pumptest) || "0"}
               </td>
-              <td className="text-center">-</td>
+              <td className="text-center">
+                {Number(e.other)?.toFixed(3) == "NaN"
+                  ? "0"
+                  : Number(e.other)?.toFixed(3)}
+              </td>
             </tr>
           ))
         ) : (
@@ -222,7 +268,7 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
             <td className="text-right"></td>
             <td className="text-right">
               {/* {isNaN(e.totalizer_opening - e.totalizer_closing)
-                    ? "-"
+                    ? "0"
                     : (e.totalizer_opening - e.totalizer_closing).toFixed(3)} */}
             </td>
 
@@ -240,8 +286,8 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
           <td className="text-right font-semibold">
             {(n5Total / 4.16).toFixed(3)}
           </td>
-          <td>-</td>
-          <td>-</td>
+          <td>{n5Test.toFixed(3) || "0"}</td>
+          <td>{n5Other.toFixed(3) || "0"}</td>
         </tr>
         {hsd.length > 0 ? (
           hsd.map((e, index) => (
@@ -256,33 +302,37 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
               <td className=" text-left">
                 From <span> {isoStartDate}</span> to <span>{isoEndDate}</span>
               </td>
-              <td className="text-right">{e.price == 0 ? "-" : e.price}</td>
+              <td className="text-right">{e.price == 0 ? "0" : e.price}</td>
               {statement ? (
                 <>
                   <td className="text-right">{e.totalizer_opening}</td>
                   <td className="text-right">{e.totalizer_closing}</td>
                   <td className="text-right">
                     {/* {isNaN(e.totalizer_opening - e.totalizer_closing)
-                    ? "-"
+                    ? "0"
                     : (e.totalizer_opening - e.totalizer_closing).toFixed(3)} */}
-                    {e.totalizer_different || "-"}
+                    {e.totalizer_different || "0"}
                   </td>
                 </>
               ) : (
                 <></>
               )}
               <td className="text-right">
-                {e.totalSaleLiter == 0 ? "-" : e.totalSaleLiter}
+                {e.totalSaleLiter == 0 ? "0" : e.totalSaleLiter}
               </td>
               <td className="text-right">
                 {e.totalSaleLiter == 0
-                  ? "-"
+                  ? "0"
                   : (e.totalSaleLiter / 4.16).toFixed(3)}
               </td>
               <td className="text-center">
-                {(e.pumptest == 0 ? "-" : e.pumptest) || "-"}
+                {(e.pumptest == 0 ? "0" : e.pumptest) || "0"}
               </td>
-              <td className="text-center">-</td>
+              <td className="text-center">
+                {Number(e.other)?.toFixed(3) == "NaN"
+                  ? "0"
+                  : Number(e.other)?.toFixed(3)}
+              </td>
             </tr>
           ))
         ) : (
@@ -301,7 +351,7 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
             <td className="text-right"></td>
             <td className="text-right">
               {/* {isNaN(e.totalizer_opening - e.totalizer_closing)
-                    ? "-"
+                    ? "0"
                     : (e.totalizer_opening - e.totalizer_closing).toFixed(3)} */}
             </td>
 
@@ -319,8 +369,8 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
           <td className="text-right font-semibold">
             {(hsdTotal / 4.16).toFixed(3)}
           </td>
-          <td>-</td>
-          <td>-</td>
+          <td>{hsdTest.toFixed(3) || "0"}</td>
+          <td>{hsdOther.toFixed(3) || "0"}</td>
         </tr>
         {phsd.length > 0 ? (
           phsd.map((e, index) => (
@@ -335,33 +385,37 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
               <td className=" text-left">
                 From <span> {isoStartDate}</span> to <span>{isoEndDate}</span>
               </td>
-              <td className="text-right">{e.price == 0 ? "-" : e.price}</td>
+              <td className="text-right">{e.price == 0 ? "0" : e.price}</td>
               {statement ? (
                 <>
                   <td className="text-right">{e.totalizer_opening}</td>
                   <td className="text-right">{e.totalizer_closing}</td>
                   <td className="text-right">
                     {/* {isNaN(e.totalizer_opening - e.totalizer_closing)
-                    ? "-"
+                    ? "0"
                     : (e.totalizer_opening - e.totalizer_closing).toFixed(3)} */}
-                    {e.totalizer_different || "-"}
+                    {e.totalizer_different || "0"}
                   </td>
                 </>
               ) : (
                 <></>
               )}
               <td className="text-right">
-                {e.totalSaleLiter == 0 ? "-" : e.totalSaleLiter}
+                {e.totalSaleLiter == 0 ? "0" : e.totalSaleLiter}
               </td>
               <td className="text-right">
                 {e.totalSaleLiter == 0
-                  ? "-"
+                  ? "0"
                   : (e.totalSaleLiter / 4.16).toFixed(3)}
               </td>
               <td className="text-center">
-                {(e.pumptest == 0 ? "-" : e.pumptest) || "-"}
+                {(e.pumptest == 0 ? "0" : e.pumptest) || "0"}
               </td>
-              <td className="text-center">-</td>
+              <td className="text-center">
+                {Number(e.other)?.toFixed(3) == "NaN"
+                  ? "0"
+                  : Number(e.other)?.toFixed(3)}
+              </td>
             </tr>
           ))
         ) : (
@@ -380,7 +434,7 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
             <td className="text-right"></td>
             <td className="text-right">
               {/* {isNaN(e.totalizer_opening - e.totalizer_closing)
-                    ? "-"
+                    ? "0"
                     : (e.totalizer_opening - e.totalizer_closing).toFixed(3)} */}
             </td>
 
@@ -398,8 +452,8 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
           <td className="text-right font-semibold">
             {(phsdTotal / 4.16).toFixed(3)}
           </td>
-          <td>-</td>
-          <td>-</td>
+          <td>{phsdTest.toFixed(3) || "0"}</td>
+          <td>{phsdOther.toFixed(3) || "0"}</td>
         </tr>
         <tr className="bg-gray-200">
           <td colspan={10} className="text-lg font-semibold">

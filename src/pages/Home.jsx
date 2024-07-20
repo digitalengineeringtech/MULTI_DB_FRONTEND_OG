@@ -65,8 +65,8 @@ function Home() {
         {/* Daily Sale Report */}
         <div className="container px-3 mx-auto">
           <div className="data_input">
-            <h1 className=" font-bold  mt-[30px] flex justify-start items-center px-4 container mx-auto text-2xl  mb-[30px] text-white">
-              {language.reports}
+            <h1 className=" font-bold  mt-[30px] flex justify-center items-center px-4 container mx-auto text-3xl  mb-[30px] text-white">
+              {language.PPRD_reports}
             </h1>
 
             <div className="flex flex-wrap gap-3 justify-center items-center">
@@ -80,10 +80,34 @@ function Home() {
               </div>
               <div className="w-[300px]">
                 <Homecards
+                  title={language.fuel_receive_report}
+                  img={BarChartStand}
+                  buttontext={language.check_now}
+                  link={`/${user.accessDb}/fueldatareport`}
+                />
+              </div>
+              <div className="w-[300px]">
+                <Homecards
                   title={language.daily_sale_report}
                   img={ChartBarChart}
                   buttontext={language.check_now}
                   link={`/${user.accessDb}/dailysalereport`}
+                />
+              </div>
+              <div className="w-[300px]">
+                <Homecards
+                  title={language.pump_report}
+                  img={pump}
+                  buttontext={language.check_now}
+                  link={`/${user.accessDb}/pumpreport`}
+                />
+              </div>
+              <div className="w-[300px]">
+                <Homecards
+                  title={language.tank_data}
+                  img={ATG}
+                  buttontext={language.check_now}
+                  link={`/${user.accessDb}/real-tank`}
                 />
               </div>
               <div className="w-[300px]">
@@ -96,12 +120,28 @@ function Home() {
               </div>
               <div className="w-[300px]">
                 <Homecards
-                  title={language.pump_report}
-                  img={pump}
+                  title={language.weekly_sale_report}
+                  img={Calender}
                   buttontext={language.check_now}
-                  link={`/${user.accessDb}/pumpreport`}
+                  link={`/${user.accessDb}/weekly`}
                 />
               </div>
+            </div>
+
+            <div className="flex justify-center my-3 items-center gap-3"></div>
+            <div className="flex justify-start my-3 items-center gap-3">
+              <div className="w-[25%]"></div>
+              <div className="w-[25%]"></div>
+            </div>
+          </div>
+
+          {/* bottom */}
+          <div className="data_input">
+            <h1 className=" font-bold  mt-[30px] flex justify-center items-center px-4 container mx-auto text-3xl  mb-[30px] text-white">
+              {language.reports}
+            </h1>
+
+            <div className="flex flex-wrap gap-3 justify-center items-center">
               <div className="w-[300px]">
                 <Homecards
                   title={language.online_monitoring_sale_report}
@@ -120,14 +160,6 @@ function Home() {
               </div>
               <div className="w-[300px]">
                 <Homecards
-                  title={language.weekly_sale_report}
-                  img={Calender}
-                  buttontext={language.check_now}
-                  link={`/${user.accessDb}/weekly`}
-                />
-              </div>
-              <div className="w-[300px]">
-                <Homecards
                   title={language.sale_summary_by_station}
                   img={GasStation}
                   buttontext={language.check_now}
@@ -140,22 +172,6 @@ function Home() {
                   img={ShiftLeader}
                   buttontext={language.check_now}
                   link={`/${user.accessDb}/statementreport`}
-                />
-              </div>
-              <div className="w-[300px]">
-                <Homecards
-                  title={language.tank_data}
-                  img={ATG}
-                  buttontext={language.check_now}
-                  link={`/${user.accessDb}/real-tank`}
-                />
-              </div>
-              <div className="w-[300px]">
-                <Homecards
-                  title={language.fuel_receive_report}
-                  img={BarChartStand}
-                  buttontext={language.check_now}
-                  link={`/${user.accessDb}/fueldatareport`}
                 />
               </div>
               <div className="w-[300px]">
