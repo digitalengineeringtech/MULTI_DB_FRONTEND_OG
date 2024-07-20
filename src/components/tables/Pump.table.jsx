@@ -32,6 +32,8 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
   const hsd = okData?.filter((ea) => ea.fuelType == "004-Diesel");
   const phsd = okData?.filter((ea) => ea.fuelType == "005-Premium Diesel");
 
+  console.log(n2, n5, hsd, phsd);
+
   const n2Total = okData
     ?.filter((ea) => ea.fuelType == "001-Octane Ron(92)")
     .map((e) => e.totalSaleLiter)
@@ -155,7 +157,7 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
           <td colspan={10} className="text-lg">
             Sub Total Octane Ron 92
           </td>
-          <td className="text-right font-semibold">{n2Total}</td>
+          <td className="text-right font-semibold">{n2Total.toFixed(3)}</td>
           <td className="text-right font-semibold">
             {(n2Total / 4.16).toFixed(3)}
           </td>
@@ -404,7 +406,10 @@ function PumpTable({ okData, statement, sDate, eDate, language }) {
             Grand Total
           </td>
           <td colspan={4} className="text-center text-lg font-semibold">
-            {okData.map((e) => e.totalSaleLiter).reduce((pv, cv) => pv + cv, 0)?.toFixed(3)}
+            {okData
+              .map((e) => e.totalSaleLiter)
+              .reduce((pv, cv) => pv + cv, 0)
+              ?.toFixed(3)}
           </td>
         </tr>
       </table>

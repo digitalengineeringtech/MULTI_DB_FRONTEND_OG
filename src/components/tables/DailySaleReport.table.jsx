@@ -119,7 +119,7 @@ function DailySaleReportTable({
                     })}
                   </td>
                   <td className="text-right">
-                    {object?.totalizer_liter?.toFixed(3)}
+                    {object?.devTotalizar_liter?.toFixed(3)}
                   </td>
                   {/* <td className="text-right">
                     {object?.totalizer_amount?.toLocaleString(undefined, {

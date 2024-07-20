@@ -46,8 +46,8 @@ function DailyReportRegularTable({currentData}) {
                 <td>{object.saleLiter}</td>
                 <td>{object.salePrice}</td>
                 <td>{object.totalPrice}</td>
-                <td>{object.totalizer_liter}</td>
-                <td>{object.totalizer_liter}</td>
+                <td>{object.devTotalizar_liter}</td>
+                <td>{object.devTotalizar_liter}</td>
               </tr>
             })
     }
