@@ -92,12 +92,12 @@ function FuelBalanceReport() {
         const fetchData = async () => {
           const bomb = [
             user.token,
-            sd,
+            calenderOne,
             selectedStation,
             fuelType,
             tankName,
             user.accessDb,
-            ed,
+            calenderTwo,
           ];
           setloading(true);
           await dispatch(fetchFuelBalanceByTimeRange(bomb));
@@ -225,7 +225,7 @@ function FuelBalanceReport() {
         </div>
       </InputContainer>
 
-      {okData?.length > 0 ? (
+      {calcu?.length > 0 ? (
         <>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
           <FuelInTable

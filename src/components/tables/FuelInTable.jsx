@@ -19,12 +19,7 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
     sheet: `Fuel Balance Report`,
   });
 
-  const [stationId, setStationId] = useState();
-
-  if (okData?.length > 0) {
-    const { stationId } = okData[0];
-    setStationId(stationId);
-  }
+  const { stationId } = okData[0];
 
   const state = stationId?.location?.split(",");
 
@@ -96,7 +91,7 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
                   <td className="text-left">{stationId?.name}</td>
                   {/* <td className="text-left">Tank {ok.tankNo}</td> */}
                   <td className=" text-center">{stationId?.lienseNo}</td>
-                  <td className=" text-left">{state[0]}</td>
+                  <td className=" text-left">{state ? state[0] : "-"}</td>
                   <td className=" text-center">{state[state?.length - 1]}</td>
                   <td className="text-left">{ok.fuelType}</td>
                   <td className="text-right">{(ok.open / 4.546).toFixed(3)}</td>
@@ -127,18 +122,22 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
                 <tr key={index}>
                   <td className="text-left">{stationId?.name}</td>
                   <td className=" text-center">{stationId?.lienseNo}</td>
-                  <td className=" text-left">{state[0]}</td>
+                  <td className=" text-left">{state ? state[0] : "-"}</td>
                   <td className=" text-center">{state[state?.length - 1]}</td>
                   <td className=" text-left">{isoStartDate}</td>
                   <td className=" text-left">{isoEndDate}</td>
                   <td className="text-left">{ok.fuelType}</td>
                   <td className="text-left">Tank {ok.tankNo}</td>
                   <td className="text-left">{ok.capacity}</td>
-                  <td className="text-right">{ok.opening?.toFixed(3)}</td>
                   <td className="text-right">
-                    {ok.fuelIn === 0 ? "-" : ok.fuelIn?.toFixed(3)}
+                    {(ok.opening / 4.546)?.toFixed(3)}
                   </td>
-                  <td className="text-right">{ok.cash?.toFixed(3)}</td>
+                  <td className="text-right">
+                    {ok.fuelIn === 0 ? "-" : (ok.fuelIn / 4.546)?.toFixed(3)}
+                  </td>
+                  <td className="text-right">
+                    {(ok.cash / 4.546)?.toFixed(3)}
+                  </td>
                   <td className="text-right">{ok.balance?.toFixed(3)}</td>
                   {/* <td className="text-right">
                     {(ok.opening - ok.balance)?.toFixed(3)}
