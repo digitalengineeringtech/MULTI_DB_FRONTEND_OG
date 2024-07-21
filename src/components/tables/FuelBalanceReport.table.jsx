@@ -23,9 +23,9 @@ function FuelBalanceReportTable({
     sheet: `Fuel Balance Report`,
   });
 
-  console.log('====================================');
+  console.log("====================================");
   console.log(okData);
-  console.log('====================================');
+  console.log("====================================");
 
   const { stationId } = okData ? okData[0] : "0";
   const state = stationId?.location?.split(",");
@@ -60,7 +60,7 @@ function FuelBalanceReportTable({
             <thead>
               <tr>
                 <th>{language.Station_name}</th>
-                <th>{language.pprd_no}</th>
+                <th width="50">{language.pprd_no}</th>
                 <th>{language.Township}</th>
                 <th>{language.State}</th>
                 <th>{language.fuel_type}</th>
@@ -104,7 +104,7 @@ function FuelBalanceReportTable({
                   <td className="text-right">
                     {ok.fuelIn === 0
                       ? "-"
-                      : (ok.receiveVolume / 4.546)?.toFixed(3) }
+                      : (ok.receiveVolume / 4.546)?.toFixed(3)}
                   </td>
                   <td className="text-right">
                     {ok.fuelIn === 0 ? "-" : (ok.totalCash / 4.546)?.toFixed(3)}

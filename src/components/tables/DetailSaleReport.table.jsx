@@ -35,7 +35,7 @@ function DetailSaleReportTable({
             <tr>
               {/* <th>No</th> */}
               <th>{language.Station_name}</th>
-              <th>{language.pprd_no}</th>
+              <th width="50">{language.pprd_no}</th>
               <th>{language.Township}</th>
               <th>{language.State}</th>
               <th>{language.sale_date_time}</th>
@@ -43,7 +43,7 @@ function DetailSaleReportTable({
               <th>{language.vehicle_no}</th>
               {/* <th>{language.purpose_of_use}</th> */}
               <th>{language.cashType}</th>
-              <th>{language.nozzle_no}</th>
+              <th width="50">{language.nozzle_no}</th>
               <th>{language.fuel_type}</th>
               <th>{language.sale_price}</th>
               <th>{language.total_price}</th>

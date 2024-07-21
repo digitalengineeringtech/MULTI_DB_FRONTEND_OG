@@ -169,7 +169,7 @@ function FuelBalanceReport() {
         cash: combine,
         fuelIn: receive,
         opening: open,
-        stationId: data_g_2.length != 0 && data_g_2?.result[0]?.stationId,
+        stationId: data_g_2.length != 0 ? data_g_2?.result[0]?.stationId : "-",
         balance: close,
         capacity: capacity,
       };
@@ -228,7 +228,13 @@ function FuelBalanceReport() {
       {okData?.length > 0 ? (
         <>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
-          <FuelInTable language={language} tableRef={tableRef} okData={calcu} sd={calenderOne} ed={calenderTwo} />
+          <FuelInTable
+            language={language}
+            tableRef={tableRef}
+            okData={calcu}
+            sd={calenderOne}
+            ed={calenderTwo}
+          />
         </>
       ) : (
         ""

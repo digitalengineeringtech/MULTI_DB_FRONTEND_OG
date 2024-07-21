@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { RiFileExcel2Fill } from "react-icons/ri";
 import { AiFillPrinter } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
@@ -19,10 +19,13 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
     sheet: `Fuel Balance Report`,
   });
 
-  const { stationId } = okData[0];
-  console.log("====================================");
-  console.log(okData, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-  console.log("====================================");
+  const [stationId, setStationId] = useState();
+
+  if (okData?.length > 0) {
+    const { stationId } = okData[0];
+    setStationId(stationId);
+  }
+
   const state = stationId?.location?.split(",");
 
   const n2 = okData?.filter((ea) => ea.fuelType == "001-Octane Ron(92)");
@@ -71,7 +74,7 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
             <thead>
               <tr>
                 <th>{language.Station_name}</th>
-                <th>{language.pprd_no}</th>
+                <th width="50">{language.pprd_no}</th>
                 <th>{language.Township}</th>
                 <th>{language.State}</th>
                 <th colSpan={2}>{language.date}</th>

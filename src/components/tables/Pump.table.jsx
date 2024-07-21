@@ -94,9 +94,9 @@ function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
       <table ref={tRef}>
         <tr>
           <th>{language.station_name}</th>
-          <th>{language.pprd_no}</th>
+          <th width="50">{language.pprd_no}</th>
           <th>{language.State}</th>
-          <th>{language.nozzle_no}</th>
+          <th width="50">{language.nozzle_no}</th>
           <th>{language.fuel_type}</th>
           <th>{language.sale_date_time}</th>
           <th>{language.price}</th>
