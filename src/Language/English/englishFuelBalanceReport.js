@@ -2,6 +2,7 @@ export const EnglishFuelBalance = {
   sub: "Daily Sale Report",
   main_title: "Fuel Balance Report",
   title: "Fuel In Report",
+  title1: "Daily Sale Report",
   t: "Fuel In Report",
   date: "Date",
   s_date: "From Date",

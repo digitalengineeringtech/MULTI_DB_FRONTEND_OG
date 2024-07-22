@@ -46,6 +46,7 @@ import { AdminChooseBanned } from "./Admin/pages/AdminChooseBanned";
 import StationBannedDetail from "./Admin/pages/StationBannedDetail";
 import DifferentTotalizer from "./pages/DifferentTotalizer";
 import PumpReport from "./pages/PumpReport";
+import DailySaleReportTemp from "./pages/DailySaleReportTemp";
 
 function Routerdo() {
   const user = useSelector((state) => state.login);
@@ -105,7 +106,8 @@ function Routerdo() {
         <Route path={`/${user.accessDb}/home`} element={<Home />}></Route>
         <Route
           path={`/${user.accessDb}/dailysalereport`}
-          element={<DailySaleReportOne />}
+          element={<DailySaleReportTemp />}
+          // element={<DailySaleReportOne />}
         ></Route>
         <Route
           path={`/${user.accessDb}/saledetail`}
