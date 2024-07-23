@@ -142,14 +142,14 @@ function Home() {
             </h1>
 
             <div className="flex flex-wrap gap-3 justify-center items-center">
-              <div className="w-[300px]">
+              {/* <div className="w-[300px]">
                 <Homecards
                   title={language.online_monitoring_sale_report}
                   img={Monitoring}
                   buttontext={language.check_now}
                   link={`/${user.accessDb}/onlinemonitoringsalereport`}
                 />
-              </div>
+              </div> */}
               <div className="w-[300px]">
                 <Homecards
                   title={language.diffrent_totalizer}
@@ -158,7 +158,7 @@ function Home() {
                   link={`/${user.accessDb}/differentTotalizer`}
                 />
               </div>
-              <div className="w-[300px]">
+              {/* <div className="w-[300px]">
                 <Homecards
                   title={language.sale_summary_by_station}
                   img={GasStation}
@@ -205,7 +205,7 @@ function Home() {
                   buttontext={language.check_now}
                   link={`/${user.accessDb}/dailysalesummaryreport`}
                 />
-              </div>
+              </div> */}
             </div>
 
             <div className="flex justify-center my-3 items-center gap-3"></div>

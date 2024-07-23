@@ -27,11 +27,13 @@ import instance from "../axios";
 let start = new Date();
 start.setHours(0);
 start.setMinutes(0);
+start.setSeconds(0);
 start = new Date(start);
 
 let end = new Date();
 end.setHours(23);
 end.setMinutes(59);
+end.setSeconds(59);
 end = new Date(end);
 
 function WeeklySaleReport() {

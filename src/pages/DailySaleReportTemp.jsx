@@ -26,15 +26,18 @@ import { EnglishFuelBalance } from "../Language/English/englishFuelBalanceReport
 import { MyanmarFuelBalanceRport } from "../Language/Myanmar/myanmarFuelBalanceReport";
 import UsePost_2 from "../MainConDas/components/hooks/UsePost_2";
 import FuelInTable from "../components/tables/FuelInTable";
+import FuelTableTemp from "../components/tables/FuelTableTemp";
 
 let start = new Date();
 start.setHours(0);
 start.setMinutes(0);
+start.setSeconds(0);
 start = new Date(start);
 
 let end = new Date();
 end.setHours(23);
 end.setMinutes(59);
+end.setSeconds(59);
 end = new Date(end);
 
 function DailySaleReportTemp() {
@@ -228,7 +231,7 @@ function DailySaleReportTemp() {
       {calcu?.length > 0 ? (
         <>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
-          <FuelInTable
+          <FuelTableTemp
             language={language}
             tableRef={tableRef}
             okData={calcu}

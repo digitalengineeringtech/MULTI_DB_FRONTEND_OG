@@ -10,12 +10,14 @@ const currentDate = new Date();
 let start = new Date(currentDate);
 start.setHours(0);
 start.setMinutes(0);
+start.setSeconds(0);
 start = new Date(start);
 
 let end = new Date(currentDate);
 start.setDate(currentDate.getDate() - 7);
 end.setHours(23);
-end.setMinutes(0);
+end.setMinutes(59);
+end.setSeconds(59);
 end = new Date(end);
 
 

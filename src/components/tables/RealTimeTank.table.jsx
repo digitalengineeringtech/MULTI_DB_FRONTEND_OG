@@ -61,7 +61,7 @@ function RealTimeTankTable({ okData, pprd, time, language }) {
           <tr key={`dataIndex_${dataIndex}`}>
             <td>{pprd}</td>
             <td>{dataEntry?.id}</td>
-            <td>{dataEntry?.volume}/14500</td>
+            <td>{dataEntry?.volume}</td>
             <td>{dataEntry?.oilType}</td>
             <td>{time}</td>
             <td>{dataEntry?.level}</td>

@@ -4,7 +4,7 @@ import { AiFillPrinter } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
 import { useDownloadExcel } from "react-export-table-to-excel";
 
-function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
+function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
   const tRef = useRef();
   let isoStartDate = sd.toLocaleDateString("fr-CA");
   let isoEndDate = ed.toLocaleDateString("fr-CA");
@@ -74,13 +74,11 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
                 <th>{language.State}</th>
                 <th colSpan={2}>{language.date}</th>
                 <th>{language.fuel_type}</th>
-                <th>{language.tank}</th>
-                <th>{language.capacity}</th>
                 <th className="w-[150px]">{language.opening}</th>
                 <th>{language.receive_volume}</th>
                 <th className="w-[150px]">{language.sale}</th>
+                <th>{language.gl}</th>
                 <th className="w-[150px]">{language.closing_stk}</th>
-                <th>{language.gainlose}</th>
               </tr>
             </thead>
           )}
@@ -127,8 +125,6 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
                   <td className=" text-left">{isoStartDate}</td>
                   <td className=" text-left">{isoEndDate}</td>
                   <td className="text-left">{ok.fuelType}</td>
-                  <td className="text-left">Tank {ok.tankNo}</td>
-                  <td className="text-left">{ok.capacity}</td>
                   <td className="text-right">
                     {(ok.opening / 4.546)?.toFixed(3)}
                   </td>
@@ -137,6 +133,12 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
                   </td>
                   <td className="text-right">
                     {(ok.cash / 4.546)?.toFixed(3)}
+                  </td>{" "}
+                  <td className="text-right">
+                    {(
+                      (ok.balance - ok.opening - ok.fuelIn + ok.cash) /
+                      4.546
+                    ).toFixed(3)}
                   </td>
                   <td className="text-right">
                     {(ok.balance / 4.546)?.toFixed(3)}
@@ -144,9 +146,6 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
                   {/* <td className="text-right">
                     {(ok.opening - ok.balance)?.toFixed(3)}
                   </td> */}
-                  <td className="text-right">
-                    {(ok.balance - ok.opening - ok.fuelIn + ok.cash).toFixed(3)}
-                  </td>
                 </tr>
               ))}
         </table>
@@ -172,4 +171,4 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
   );
 }
 
-export default FuelInTable;
+export default FuelTableTemp;

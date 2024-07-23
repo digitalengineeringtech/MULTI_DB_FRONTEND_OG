@@ -35,32 +35,40 @@ import DetailSaleReportTable from "../components/tables/DetailSaleReport.table";
 let start = new Date();
 start.setHours(0);
 start.setMinutes(0);
+start.setSeconds(0)
 start = new Date(start);
 
 let end = new Date();
 end.setHours(23);
 end.setMinutes(59);
+end.setSeconds(59);
 end = new Date(end);
 
 export default function SaleDetail() {
+
   const [endDate, setEndDate] = useState(end);
   const [startDate, setStartDate] = useState(start);
+
   const [selectedNodeKeys, setSelectedNodeKeys] = useState({
     name: "All",
     code: "Please",
   });
+
   const [selectedNozzle, setSelectedNozzle] = useState({
     name: "All",
     code: "Please",
   });
+  
   const [selectedFuelType, setSelectedFuelType] = useState({
     name: "All",
     code: "Please",
   });
+
   const [selectedStation, setSelectedStation] = useState({
     name: "All",
     code: "Please",
   });
+
   const [isSelectedStation, setIsSelectedStation] = useState(false);
   const [language, setLanguage] = useState(englishDailySaleReport);
   const [loading, setloading] = useState(false);

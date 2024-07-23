@@ -14,6 +14,7 @@ function CalenderComponent({ title, value, setValue }) {
           className="!h-[30px] "
           value={value}
           showIcon
+          showSeconds
           onChange={(e) => setValue(e.value)}
           showTime
           hourFormat="24"
