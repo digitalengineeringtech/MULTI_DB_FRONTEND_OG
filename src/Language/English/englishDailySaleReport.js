@@ -7,6 +7,7 @@ export const englishDailySaleReport = {
   nozzle_no: "Nozzle No",
   fuel_type: "Fuel Type",
   station: "Station",
+  amount: "Amount ( kyat )",
   casher: "Casher",
   toExcel: "To Excel",
   toPrint: "To Print",

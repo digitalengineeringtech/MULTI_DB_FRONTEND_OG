@@ -108,7 +108,17 @@ function DetailSaleReportTable({
                   <td className=" text-center">{object?.carNo}</td>
                   <td className=" text-center">{object?.cashType}</td>
                   <td className=" text-center">{object?.nozzleNo}</td>
-                  <td className=" text-left">{object?.fuelType}</td>
+                  <td className=" text-center">
+                    {object?.fuelType == "001-Octane Ron(92)"
+                      ? "92 RON"
+                      : object?.fuelType == "002-Octane Ron(95)"
+                      ? "95 RON"
+                      : object?.fuelType == "004-Diesel"
+                      ? "HSD"
+                      : object?.fuelType == "005-Premium Diesel"
+                      ? "PHSD"
+                      : ""}
+                  </td>
                   <td className="text-right">
                     {object?.salePrice.toLocaleString(undefined, {
                       maximumFractionDigits: 3,

@@ -31,11 +31,12 @@ import Header from "../components/Header";
 import instance from "../axios";
 import Casher from "../components/PageComponents/Casher";
 import DetailSaleReportTable from "../components/tables/DetailSaleReport.table";
+import AmountComponent from "../components/PageComponents/AmountComponent";
 
 let start = new Date();
 start.setHours(0);
 start.setMinutes(0);
-start.setSeconds(0)
+start.setSeconds(0);
 start = new Date(start);
 
 let end = new Date();
@@ -45,7 +46,6 @@ end.setSeconds(59);
 end = new Date(end);
 
 export default function SaleDetail() {
-
   const [endDate, setEndDate] = useState(end);
   const [startDate, setStartDate] = useState(start);
 
@@ -58,7 +58,7 @@ export default function SaleDetail() {
     name: "All",
     code: "Please",
   });
-  
+
   const [selectedFuelType, setSelectedFuelType] = useState({
     name: "All",
     code: "Please",
@@ -76,9 +76,11 @@ export default function SaleDetail() {
   const tableRef = useRef();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(50);
+  const [amount, setAmount] = useState();
+
   const [totalLength, setTotalLength] = useState(0);
   const [casher, setCasher] = useState(null);
-
+  const [greate, setGreate] = useState("equal");
   const user = useSelector((state) => state.login);
   const datas = useSelector(getAllKyawSan027DailySaleReports);
   const navigate = useNavigate();
@@ -131,6 +133,8 @@ export default function SaleDetail() {
           selectedStation,
           user.accessDb,
           casher,
+          amount,
+          greate,
         ];
 
         setloading(true);
@@ -170,6 +174,8 @@ export default function SaleDetail() {
         selectedFuelType.code,
         selectedNozzle.code,
         selectedStation,
+        amount,
+        greate,
       ];
       setloading(true);
       await dispatch(fetchDailySaleReportPagination(bomb));
@@ -231,6 +237,13 @@ export default function SaleDetail() {
               title={language.station}
               value={selectedStation}
               setValue={setSelectedStation}
+            />
+            <AmountComponent
+              title={language.amount}
+              value={amount}
+              setValue={setAmount}
+              ingredient={greate}
+              setIngredient={setGreate}
             />
           </div>
           {isSelectedStation && (

@@ -7,6 +7,7 @@ export const myanmarDailySaleReport = {
   nozzle_no: "ဆီဂေါက်နံပါတ်",
   fuel_type: "ဆီအမျိုးအစား",
   station: "စတင်ရှင်",
+  amount: "ပမာဏ (ကျပ်)",
   casher: "ရောင်းသူ",
   toExcel: "Excel သို့ပြောင်းရန်",
   toPrint: "Print ထုတ်ရန်",

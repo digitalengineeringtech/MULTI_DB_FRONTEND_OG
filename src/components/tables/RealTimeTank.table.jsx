@@ -62,7 +62,18 @@ function RealTimeTankTable({ okData, pprd, time, language }) {
             <td>{pprd}</td>
             <td>{dataEntry?.id}</td>
             <td>{dataEntry?.volume}</td>
-            <td>{dataEntry?.oilType}</td>
+            {/* <td>{dataEntry?.oilType}</td> */}
+            <td>
+              {dataEntry?.oilType == "Petrol 92"
+                ? "92 RON"
+                : dataEntry?.oilType == "95 Octane"
+                ? "95 RON"
+                : dataEntry?.oilType == "Diesel"
+                ? "HSD"
+                : dataEntry?.oilType == "Super Diesel"
+                ? "PHSD"
+                : ""}
+            </td>
             <td>{time}</td>
             <td>{dataEntry?.level}</td>
             <td>{dataEntry?.volume}</td>

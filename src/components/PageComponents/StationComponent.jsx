@@ -36,7 +36,8 @@ function StationComponent({ value, setValue, title }) {
       const datas = response.data.result;
 
       const formattedData = datas.map((item) => ({
-        name: item.name + " " + truncateIfNeeded(item.location),
+        // name: item.name + " " + truncateIfNeeded(item.location),
+        name: item.name + " " + item.location.split(",")[0],
         code: item._id,
         location: item.location,
         lienseNo: item.lienseNo,
@@ -50,7 +51,8 @@ function StationComponent({ value, setValue, title }) {
           user.name === "user"
         ) {
           defauilt.push({
-            name: item.name + " " + truncateIfNeeded(item.location),
+            // name: item.name + " " + truncateIfNeeded(item.location),
+            name: item.name + " " + item.location.split(",")[0],
             code: item._id,
             location: item.location,
             lienseNo: item.lienseNo,
@@ -58,7 +60,8 @@ function StationComponent({ value, setValue, title }) {
         }
         if (user.stationId === item._id) {
           defauilt.push({
-            name: item.name + " " + truncateIfNeeded(item.location),
+            // name: item.name + " " + truncateIfNeeded(item.location),
+            name: item.name + " " + item.location.split(",")[0],
             code: item._id,
             location: item.location,
             lienseNo: item.lienseNo,
@@ -87,7 +90,7 @@ function StationComponent({ value, setValue, title }) {
             onChange={(e) => setValue(e.value)}
             options={jj}
             optionLabel="name"
-            className="!h-[30px] w-[250px] flex items-center justify-center"
+            className="!h-[30px] w-[320px] flex items-center justify-center"
             placeholder="Please Select Station"
           />
         ) : (
@@ -97,7 +100,7 @@ function StationComponent({ value, setValue, title }) {
             onChange={(e) => setValue(e.value)}
             options={pruposes}
             optionLabel="name"
-            className="!h-[30px] w-[250px] flex items-center justify-center"
+            className="!h-[30px] w-[320px] flex items-center justify-center"
             placeholder="Please Select Station"
           />
         )}

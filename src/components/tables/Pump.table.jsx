@@ -131,7 +131,17 @@ function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
               {/* <td className="text-left">{e.station[0].location.split(',')}</td> */}
               <td className=" text-center">{state[state.length - 1]}</td>
               <td className="text-left">{e.nozzle}</td>
-              <td className="text-left">{e.fuelType}</td>
+              <td className="text-left">
+                {e?.fuelType == "001-Octane Ron(92)"
+                  ? "92 RON"
+                  : e?.fuelType == "002-Octane Ron(95)"
+                  ? "95 RON"
+                  : e?.fuelType == "004-Diesel"
+                  ? "HSD"
+                  : e?.fuelType == "005-Premium Diesel"
+                  ? "PHSD"
+                  : ""}
+              </td>
               {/* <td className=" text-left">{state[0]}</td> */}
               <td className=" text-left">
                 From <span> {isoStartDate}</span> to <span>{isoEndDate}</span>
@@ -214,7 +224,17 @@ function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
               {/* <td className="text-left">{e.station[0].location.split(',')}</td> */}
               <td className=" text-center">{state[state.length - 1]}</td>
               <td className="text-left">{e.nozzle}</td>
-              <td className="text-left">{e.fuelType}</td>
+              <td className="text-left">
+                {e?.fuelType == "001-Octane Ron(92)"
+                  ? "92 RON"
+                  : e?.fuelType == "002-Octane Ron(95)"
+                  ? "95 RON"
+                  : e?.fuelType == "004-Diesel"
+                  ? "HSD"
+                  : e?.fuelType == "005-Premium Diesel"
+                  ? "PHSD"
+                  : ""}
+              </td>
               {/* <td className=" text-left">{state[0]}</td> */}
               <td className=" text-left">
                 From <span> {isoStartDate}</span> to <span>{isoEndDate}</span>
@@ -282,7 +302,7 @@ function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
           <td colspan={10} className="text-lg">
             Sub Total Octane Ron 95
           </td>
-          <td className="text-right font-semibold">{n5Total}</td>
+          <td className="text-right font-semibold">{n5Total.toFixed(3)}</td>
           <td className="text-right font-semibold">
             {(n5Total / 4.16).toFixed(3)}
           </td>
@@ -297,7 +317,17 @@ function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
               {/* <td className="text-left">{e.station[0].location.split(',')}</td> */}
               <td className=" text-center">{state[state.length - 1]}</td>
               <td className="text-left">{e.nozzle}</td>
-              <td className="text-left">{e.fuelType}</td>
+              <td className="text-left">
+                {e?.fuelType == "001-Octane Ron(92)"
+                  ? "92 RON"
+                  : e?.fuelType == "002-Octane Ron(95)"
+                  ? "95 RON"
+                  : e?.fuelType == "004-Diesel"
+                  ? "HSD"
+                  : e?.fuelType == "005-Premium Diesel"
+                  ? "PHSD"
+                  : ""}
+              </td>
               {/* <td className=" text-left">{state[0]}</td> */}
               <td className=" text-left">
                 From <span> {isoStartDate}</span> to <span>{isoEndDate}</span>
@@ -365,7 +395,7 @@ function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
           <td colspan={10} className="text-lg">
             Sub Total Diesel
           </td>
-          <td className="text-right font-semibold">{hsdTotal}</td>
+          <td className="text-right font-semibold">{hsdTotal.toFixed(3)}</td>
           <td className="text-right font-semibold">
             {(hsdTotal / 4.16).toFixed(3)}
           </td>
@@ -380,7 +410,17 @@ function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
               {/* <td className="text-left">{e.station[0].location.split(',')}</td> */}
               <td className=" text-center">{state[state.length - 1]}</td>
               <td className="text-left">{e.nozzle}</td>
-              <td className="text-left">{e.fuelType}</td>
+              <td className="text-left">
+                {e?.fuelType == "001-Octane Ron(92)"
+                  ? "92 RON"
+                  : e?.fuelType == "002-Octane Ron(95)"
+                  ? "95 RON"
+                  : e?.fuelType == "004-Diesel"
+                  ? "HSD"
+                  : e?.fuelType == "005-Premium Diesel"
+                  ? "PHSD"
+                  : ""}
+              </td>
               {/* <td className=" text-left">{state[0]}</td> */}
               <td className=" text-left">
                 From <span> {isoStartDate}</span> to <span>{isoEndDate}</span>
@@ -448,7 +488,7 @@ function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
           <td colspan={10} className="text-lg">
             Sub Total Premium Diesel
           </td>
-          <td className="text-right font-semibold">{phsdTotal}</td>
+          <td className="text-right font-semibold">{phsdTotal.toFixed(3)}</td>
           <td className="text-right font-semibold">
             {(phsdTotal / 4.16).toFixed(3)}
           </td>

@@ -91,7 +91,17 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
                   <td className=" text-center">{stationId?.lienseNo}</td>
                   <td className=" text-left">{state ? state[0] : "-"}</td>
                   <td className=" text-center">{state[state?.length - 1]}</td>
-                  <td className="text-left">{ok.fuelType}</td>
+                  <td className="text-left">
+                    {ok?.fuelType == "001-Octane Ron(92)"
+                      ? "92 RON"
+                      : ok?.fuelType == "002-Octane Ron(95)"
+                      ? "95 RON"
+                      : ok?.fuelType == "004-Diesel"
+                      ? "HSD"
+                      : ok?.fuelType == "005-Premium Diesel"
+                      ? "PHSD"
+                      : ""}
+                  </td>
                   <td className="text-right">{(ok.open / 4.546).toFixed(3)}</td>
                   <td className="text-right">
                     {ok.fuelIn === 0
@@ -124,7 +134,18 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
                   <td className=" text-center">{state[state?.length - 1]}</td>
                   <td className=" text-left">{isoStartDate}</td>
                   <td className=" text-left">{isoEndDate}</td>
-                  <td className="text-left">{ok.fuelType}</td>
+                  <td className="text-left">
+                    {" "}
+                    {ok?.fuelType == "001-Octane Ron(92)"
+                      ? "92 RON"
+                      : ok?.fuelType == "002-Octane Ron(95)"
+                      ? "95 RON"
+                      : ok?.fuelType == "004-Diesel"
+                      ? "HSD"
+                      : ok?.fuelType == "005-Premium Diesel"
+                      ? "PHSD"
+                      : ""}
+                  </td>
                   <td className="text-right">
                     {(ok.opening / 4.546)?.toFixed(3)}
                   </td>

@@ -13,6 +13,8 @@ export const fetchDailySaleReports = createAsyncThunk(
     const stationSelection = bomb[6];
     const accessDb = bomb[7];
     const cahserCode = bomb[8];
+    const amount = bomb[9];
+    const greate = bomb[10];
 
     // .toISOString().split('T')[0] + 'T00:00:00.000Z'
     // .toISOString().split('T')[0] + 'T23:59:59.999Z'
@@ -27,6 +29,10 @@ export const fetchDailySaleReports = createAsyncThunk(
 
     const nozzleNoRoute = nozzleNo === "Please" ? "" : `&nozzleNo=${nozzleNo}`;
     const casherRoute = cahserCode === null ? "" : `&casherCode=${cahserCode}`;
+
+    console.log(
+      `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}&greate=${greate}&amount=${amount}`
+    );
 
     const response = await instance.get(
       `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}`,
