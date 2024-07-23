@@ -35,7 +35,7 @@ export const fetchDailySaleReports = createAsyncThunk(
     );
 
     const response = await instance.get(
-      `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}`,
+      `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}&greate=${greate}&amount=${amount}`,
       {
         headers: {
           "Content-Type": "multipart/form-data",
