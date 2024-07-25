@@ -26,6 +26,8 @@ import { EnglishFuelBalance } from "../Language/English/englishFuelBalanceReport
 import { MyanmarFuelBalanceRport } from "../Language/Myanmar/myanmarFuelBalanceReport";
 import UsePost_2 from "../MainConDas/components/hooks/UsePost_2";
 import FuelInTable from "../components/tables/FuelInTable";
+import FuelRecieveTableLittle from "../Dashboard/Components/Table/FuelRecieve.table";
+import instance from "../axios";
 
 let start = new Date();
 start.setHours(0);
@@ -61,6 +63,7 @@ function FuelBalanceReport() {
   const [{ data_g_2, loading_g_2, error_g_2 }, fetchIt_2] = UsePost_2();
 
   let isoStartDate = start.toLocaleDateString("fr-CA");
+  let isoEndDate = end.toLocaleDateString("fr-CA");
 
   useEffect(() => {
     if (!user.login) {
@@ -80,32 +83,66 @@ function FuelBalanceReport() {
   let sd = new Date(calenderOne);
   let ed = new Date(calenderTwo);
 
+  const fuelTypeRoute =
+    fuelType.code === "Please" ? "" : `&fuel_type=${fuelType.code}`;
+  const tankNoRoute =
+    tankName.code === "Please" ? "" : `&tankNo=${tankName.code}`;
+
   const handleClick = () => {
     if (calenderOne) {
       if (selectedStation.code === "Please") {
         setIsSelectedStation(true);
       } else {
+        // setloading(true);
+        // setIsSelectedStation(false);
+        // fetchIt_2(
+        //   `/fuel-balance/pagi/1?sDate=${isoStartDate}&stationId=${selectedStation?.code}`,
+        //   user.token
+        // );
+        // const fetchData = async () => {
+        //   const bomb = [
+        //     user.token,
+        //     calenderOne,
+        //     selectedStation,
+        //     fuelType,
+        //     tankName,
+        //     user.accessDb,
+        //     calenderTwo,
+        //   ];
+        //   setloading(true);
+        //   await dispatch(fetchFuelBalanceByTimeRange(bomb));
+        //   setloading(false);
+        // };
+        // fetchData();
         setloading(true);
-        setIsSelectedStation(false);
-        fetchIt_2(
-          `/fuel-balance/pagi/1?sDate=${isoStartDate}&stationId=${selectedStation?.code}`,
-          user.token
-        );
-        const fetchData = async () => {
-          const bomb = [
-            user.token,
-            calenderOne,
-            selectedStation,
-            fuelType,
-            tankName,
-            user.accessDb,
-            calenderTwo,
-          ];
-          setloading(true);
-          await dispatch(fetchFuelBalanceByTimeRange(bomb));
-          setloading(false);
-        };
-        fetchData();
+        instance
+          // .get(`/fuelIn/pagi/1?stationId=${selectedStation?.code}`, {
+          .get(
+            // `/fuelIn/pagi/1?stationId=${selectedStation?.code}`,
+            `/fuelIn/pagi/by-date/1?stationId=${selectedStation?.code}&sDate=${calenderOne}&eDate=${calenderTwo}${tankNoRoute}${fuelTypeRoute}`,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: "Bearer " + user.token,
+              },
+            }
+          )
+          .then(function (response) {
+            console.log(response, "this is response");
+            console.log(
+              `/fuelIn/pagi/by-date/1?stationId=${selectedStation?.code}&sDate=${calenderOne}&eDate=${calenderTwo}${tankNoRoute}${fuelTypeRoute}`
+            );
+            let data = response.data.result;
+            // data = data.splice(0, 3);
+            setOkData(data.reverse());
+            setloading(false);
+          })
+          .catch(function (error) {
+            console.log(error);
+            // navigate('/')
+            // dispatch(LogoutUser())
+            setloading(false);
+          });
       }
     }
   };
@@ -181,6 +218,8 @@ function FuelBalanceReport() {
   console.log(calcu, okData);
   console.log("====sssss================================");
 
+  console.log(okData, "this is okData");
+
   return (
     <PageContainer language={false} title={language.title}>
       <InputContainer>
@@ -200,11 +239,11 @@ function FuelBalanceReport() {
             value={fuelType}
             setValue={setFuelType}
           />
-          {/* <TankComponent
+          <TankComponent
             language={language.tank_no}
             value={tankName}
             setValue={setTankName}
-          /> */}
+          />
           <StationComponent
             title={language.station}
             value={selectedStation}
@@ -227,16 +266,18 @@ function FuelBalanceReport() {
         </div>
       </InputContainer>
 
+      {okData?.length > 0 && <FuelRecieveTableLittle okData={okData} />}
+
       {calcu?.length > 0 ? (
         <>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
-          <FuelInTable
+          {/* <FuelInTable
             language={language}
             tableRef={tableRef}
             okData={calcu}
             sd={calenderOne}
             ed={calenderTwo}
-          />
+          /> */}
         </>
       ) : (
         ""

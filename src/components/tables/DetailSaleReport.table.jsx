@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 function DetailSaleReportTable({
   currentData,
   stationName,
+  pageNo,
   tableRef,
   totalLength,
   language,
@@ -33,7 +34,7 @@ function DetailSaleReportTable({
         <table ref={tableRef} class="text-md report-table">
           <thead>
             <tr>
-              {/* <th>No</th> */}
+              <th>No</th>
               <th>{language.Station_name}</th>
               <th width="50">{language.pprd_no}</th>
               <th>{language.Township}</th>
@@ -53,7 +54,6 @@ function DetailSaleReportTable({
               {/* <th>{language.totalizer_amount}</th> */}
               {who === "admin" ? (
                 <>
-                  {" "}
                   <th>Device</th>
                   <th>Error</th>
                 </>
@@ -90,23 +90,27 @@ function DetailSaleReportTable({
               const year = dateObj?.getUTCFullYear();
               const time = dateObj?.toISOString().slice(11, 19);
 
-              const formattedDate = `${day}-${month}-${year} ${time}`;
+              const formattedDate = `${dateObj.toLocaleDateString(
+                `fr-CA`
+              )} ${time}`;
               const state = currentData[0]?.stationDetailId.location.split(",");
               return (
                 <tr key={index}>
                   {/* <th>{object.stationDetailId.}</th>
                    */}
-                  {/* <td className=" text-left">{totalLength -}</td> */}
+                  <td className=" text-left">
+                    {pageNo ? index + pageNo : index + 1}
+                  </td>
                   <td className=" text-left">{object.stationDetailId?.name}</td>
                   <td className=" text-center">
                     {object.stationDetailId?.lienseNo}
                   </td>
-                  <td className=" text-left">{state[0]}</td>
+                  <td className=" text-left">{state[1]}</td>
                   <td className=" text-center">{state[state.length - 1]}</td>
                   <td className=" text-left">{formattedDate}</td>
                   <td className=" text-left">{object?.vocono}</td>
                   <td className=" text-center">{object?.carNo}</td>
-                  <td className=" text-center">{object?.cashType}</td>
+                  <td className=" text-start">{object?.vehicleType}</td>
                   <td className=" text-center">{object?.nozzleNo}</td>
                   <td className=" text-center">
                     {object?.fuelType == "001-Octane Ron(92)"

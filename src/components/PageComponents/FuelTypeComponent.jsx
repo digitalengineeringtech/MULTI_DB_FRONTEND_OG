@@ -4,10 +4,10 @@ import { Dropdown } from "primereact/dropdown";
 function FuelTypeComponent({ value, setValue, title = "Fuel Type" }) {
   const fueltypes = [
     { name: "All", code: "Please" },
-    { name: "001-Octane Ron(92)", code: "001-Octane Ron(92)" },
-    { name: "002-Octane Ron(95)", code: "002-Octane Ron(95)" },
-    { name: "004-Diesel", code: "004-Diesel" },
-    { name: "005-Premium Diesel", code: "005-Premium Diesel" },
+    { name: "92 RON", code: "001-Octane Ron(92)" },
+    { name: "95 RON", code: "002-Octane Ron(95)" },
+    { name: "HSD", code: "004-Diesel" },
+    { name: "PHSD", code: "005-Premium Diesel" },
   ];
   return (
     <div className="flex-3 ">

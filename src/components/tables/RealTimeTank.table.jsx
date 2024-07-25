@@ -22,6 +22,7 @@ function RealTimeTankTable({ okData, pprd, time, language }) {
       <table id="category_table" ref={tRef} className="mt-[40px]">
         <thead>
           <tr>
+            <th rowSpan={2}>No</th>
             <th width="50" rowSpan={2}>
               {language?.pprd_license_no}
             </th>
@@ -59,6 +60,7 @@ function RealTimeTankTable({ okData, pprd, time, language }) {
         </thead>
         {okData.map((dataEntry, dataIndex) => (
           <tr key={`dataIndex_${dataIndex}`}>
+            <td>{dataIndex + 1}</td>
             <td>{pprd}</td>
             <td>{dataEntry?.id}</td>
             <td>{dataEntry?.volume}</td>

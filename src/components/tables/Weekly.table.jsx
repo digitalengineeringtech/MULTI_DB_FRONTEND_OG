@@ -120,23 +120,63 @@ function WeeklyTable({
                 </tr>
                 <tr>
                   {capacity?.map((e) => (
-                    <th>{e.fuelType}</th>
+                    <th>
+                      {e?.fuelType == "001-Octane Ron(92)"
+                        ? "92 RON"
+                        : e?.fuelType == "002-Octane Ron(95)"
+                        ? "95 RON"
+                        : e?.fuelType == "004-Diesel"
+                        ? "HSD"
+                        : e?.fuelType == "005-Premium Diesel"
+                        ? "PHSD"
+                        : ""}
+                    </th>
                   ))}
                   {capacity?.map((e) => (
-                    <th>{e.fuelType}</th>
+                    <th>
+                      {e?.fuelType == "001-Octane Ron(92)"
+                        ? "92 RON"
+                        : e?.fuelType == "002-Octane Ron(95)"
+                        ? "95 RON"
+                        : e?.fuelType == "004-Diesel"
+                        ? "HSD"
+                        : e?.fuelType == "005-Premium Diesel"
+                        ? "PHSD"
+                        : ""}
+                    </th>
                   ))}
                   {capacity?.map((e) => (
-                    <th>{e.fuelType}</th>
+                    <th>
+                      {e?.fuelType == "001-Octane Ron(92)"
+                        ? "92 RON"
+                        : e?.fuelType == "002-Octane Ron(95)"
+                        ? "95 RON"
+                        : e?.fuelType == "004-Diesel"
+                        ? "HSD"
+                        : e?.fuelType == "005-Premium Diesel"
+                        ? "PHSD"
+                        : ""}
+                    </th>
                   ))}
                   {capacity?.map((e) => (
-                    <th>{e.fuelType}</th>
+                    <th>
+                      {e?.fuelType == "001-Octane Ron(92)"
+                        ? "92 RON"
+                        : e?.fuelType == "002-Octane Ron(95)"
+                        ? "95 RON"
+                        : e?.fuelType == "004-Diesel"
+                        ? "HSD"
+                        : e?.fuelType == "005-Premium Diesel"
+                        ? "PHSD"
+                        : ""}
+                    </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   {/* <td>1</td> */}
-                  <td>Kyaw San</td>
+                  <td>Kyaw San Co., ltd.</td>
                   <td>Kyaw San</td>
                   <td>{station}</td>
                   {/* <td>Kyawe Tat Sone Village, Thazi Township</td> */}

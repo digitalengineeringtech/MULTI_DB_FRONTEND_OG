@@ -52,6 +52,7 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
           {calcu ? (
             <thead>
               <tr>
+                <th>No</th>
                 <th>{language.Station_name}</th>
                 <th>{language.pprd_no}</th>
                 <th>{language.Township}</th>
@@ -68,6 +69,7 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
           ) : (
             <thead>
               <tr>
+                <th>No</th>
                 <th>{language.Station_name}</th>
                 <th width="50">{language.pprd_no}</th>
                 <th>{language.Township}</th>
@@ -88,6 +90,7 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
           {calcu
             ? calcu?.map((ok, index) => (
                 <tr key={index}>
+                  <td>{index + 1}</td>
                   <td className="text-left">{stationId?.name}</td>
                   {/* <td className="text-left">Tank {ok.tankNo}</td> */}
                   <td className=" text-center">{stationId?.lienseNo}</td>
@@ -130,6 +133,7 @@ function FuelInTable({ okData, tank, sd, ed, language, calcu }) {
               ))
             : okData?.map((ok, index) => (
                 <tr key={index}>
+                  <td>{index + 1}</td>
                   <td className="text-left">{stationId?.name}</td>
                   <td className=" text-center">{stationId?.lienseNo}</td>
                   <td className=" text-left">{state ? state[0] : "-"}</td>

@@ -158,11 +158,15 @@ export default function SaleDetail() {
     }
   }, [datas, dispatch]);
 
+  const [pageNo, setPageNo] = useState(0);
+
   const onPageChange = (event) => {
     setFirst(event.first);
     setRows(event.rows);
 
     const pageNo = event.page + 1;
+    const count = event.page * 50;
+    setPageNo(count);
 
     const fetchData = async () => {
       const bomb = [
@@ -263,6 +267,7 @@ export default function SaleDetail() {
         {datas?.result?.length > 1 && (
           <>
             <DetailSaleReportTable
+              pageNo={pageNo}
               language={language}
               stationName={selectedStation.name}
               tableRef={tableRef}

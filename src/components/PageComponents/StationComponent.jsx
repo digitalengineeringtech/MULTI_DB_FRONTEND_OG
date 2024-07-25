@@ -37,7 +37,14 @@ function StationComponent({ value, setValue, title }) {
 
       const formattedData = datas.map((item) => ({
         // name: item.name + " " + truncateIfNeeded(item.location),
-        name: item.name + " " + item.location.split(",")[0],
+        name:
+          "( " +
+          item.lienseNo +
+          " )" +
+          " " +
+          item.name +
+          " " +
+          item.location.split(",")[0],
         code: item._id,
         location: item.location,
         lienseNo: item.lienseNo,
@@ -52,7 +59,7 @@ function StationComponent({ value, setValue, title }) {
         ) {
           defauilt.push({
             // name: item.name + " " + truncateIfNeeded(item.location),
-            name: item.name + " " + item.location.split(",")[0],
+            name: item.lienseNo + item.name + " " + item.location.split(",")[0],
             code: item._id,
             location: item.location,
             lienseNo: item.lienseNo,
@@ -61,7 +68,7 @@ function StationComponent({ value, setValue, title }) {
         if (user.stationId === item._id) {
           defauilt.push({
             // name: item.name + " " + truncateIfNeeded(item.location),
-            name: item.name + " " + item.location.split(",")[0],
+            name: item.lienseNo + item.name + " " + item.location.split(",")[0],
             code: item._id,
             location: item.location,
             lienseNo: item.lienseNo,
