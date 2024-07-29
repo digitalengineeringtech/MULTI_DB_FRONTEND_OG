@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import PageContainer from '../components/PageComponents/PageContainer'
-import InputContainer from '../components/PageComponents/InputContainer';
-import CalenderComponent from '../components/PageComponents/CalenderComponent';
-import StationComponent from '../components/PageComponents/StationComponent';
-import FuelTypeComponent from '../components/PageComponents/FuelTypeComponent';
-import TankComponent from '../components/PageComponents/TankComponent';
-import { FiSearch } from 'react-icons/fi';
-import RealTimeTankTable from '../components/tables/RealTimeTank.table';
-import {FcInfo} from 'react-icons/fc'
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { fetchATGTanks, getAllKyawSan027DailySaleReports, removeOldDats } from '../redux/slices/KyawSan027Slice';
-import { LogoutUser } from '../redux/slices/LoginSlice';
-import { EnglishTankData } from '../Language/English/englishTankDataReport';
-import { MyanmarTankData } from '../Language/Myanmar/myanmarTankData';
-
+import React, { useEffect, useState } from "react";
+import PageContainer from "../components/PageComponents/PageContainer";
+import InputContainer from "../components/PageComponents/InputContainer";
+import CalenderComponent from "../components/PageComponents/CalenderComponent";
+import StationComponent from "../components/PageComponents/StationComponent";
+import FuelTypeComponent from "../components/PageComponents/FuelTypeComponent";
+import TankComponent from "../components/PageComponents/TankComponent";
+import { FiSearch } from "react-icons/fi";
+import RealTimeTankTable from "../components/tables/RealTimeTank.table";
+import { FcInfo } from "react-icons/fc";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  fetchATGTanks,
+  getAllKyawSan027DailySaleReports,
+  removeOldDats,
+} from "../redux/slices/KyawSan027Slice";
+import { LogoutUser } from "../redux/slices/LoginSlice";
+import { EnglishTankData } from "../Language/English/englishTankDataReport";
+import { MyanmarTankData } from "../Language/Myanmar/myanmarTankData";
 
 let start = new Date();
 start.setHours(0);
@@ -33,20 +36,25 @@ function RealTimeTank() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-  const [endDate, setEndDate] = useState(end)
+  const [endDate, setEndDate] = useState(end);
   const [startDate, setStartDate] = useState(start);
   const [language, setLanguage] = useState(EnglishTankData);
-  const [selectedStation, setSelectedStation] = useState({ name: "All", code: "Please" });
-  const [selectedFuelType, setSelectedFuelType] = useState({ name: "All", code: "Please" });
+  const [selectedStation, setSelectedStation] = useState({
+    name: "All",
+    code: "Please",
+  });
+  const [selectedFuelType, setSelectedFuelType] = useState({
+    name: "All",
+    code: "Please",
+  });
   const [tankName, setTankName] = useState({ name: "All", code: "Please" });
   const [okData, setOkData] = useState([]);
   const [loading, setLoading] = useState();
   const [isStation, setIsStaion] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
-  const [time, setTime] = useState('');
-  const [pprd, setPprd] = useState('');
+  const [time, setTime] = useState("");
+  const [pprd, setPprd] = useState("");
 
   const datas = useSelector(getAllKyawSan027DailySaleReports);
 
@@ -54,88 +62,115 @@ function RealTimeTank() {
     if (!user.login) {
       navigate("/");
     }
-     if (user.language === "Myanmar" || user.language === "မြန်မာ") {
+    if (user.language === "Myanmar" || user.language === "မြန်မာ") {
       setLanguage(MyanmarTankData);
     } else if (user.language === "English" || user.language === "အင်္ဂလိပ်") {
       setLanguage(EnglishTankData);
     }
     dispatch(removeOldDats());
     return () => {
-      dispatch(removeOldDats())
-    }
+      dispatch(removeOldDats());
+    };
   }, [navigate, user, dispatch]);
 
-  
-  const handleClick = async() => {
+  const handleClick = async () => {
     if (startDate && endDate) {
       if (selectedStation.code === "Please") {
         setIsStaion(true);
-      }else{
+      } else {
         setIsStaion(false);
         setLoading(true);
         const fetchData = async () => {
-          const bomb = [user.token, startDate, endDate, selectedStation, selectedFuelType.code, tankName.code,user.accessDb];
+          const bomb = [
+            user.token,
+            startDate,
+            endDate,
+            selectedStation,
+            selectedFuelType.code,
+            tankName.code,
+            user.accessDb,
+          ];
           await dispatch(fetchATGTanks(bomb));
         };
         fetchData();
       }
       if (tankName.code !== "Please") {
-       const fetchData = async () => {
-          const bomb = [user.token, startDate, endDate, selectedStation, selectedFuelType.code, tankName.code,user.accessDb];
+        const fetchData = async () => {
+          const bomb = [
+            user.token,
+            startDate,
+            endDate,
+            selectedStation,
+            selectedFuelType.code,
+            tankName.code,
+            user.accessDb,
+          ];
           await dispatch(fetchATGTanks(bomb));
         };
         fetchData();
         setLoading(false);
       }
     }
-  
   };
 
+  console.log('====================================');
+  console.log(okData);
+  console.log('====================================');
+
   useEffect(() => {
-        if (datas === "error") {
-          dispatch(LogoutUser());
-        }
-    if (datas?.msg === 'tank') {
-       if (datas?.result?.length > 0) {
-       const months = [
-                          "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-                      ];
-
-      let timee = datas?.result[0]?.createdAt;
-
-      const dateObj = new Date(timee);
-      const day = dateObj?.getUTCDate();
-      const month = months[dateObj?.getUTCMonth()];
-      const year = dateObj?.getUTCFullYear();
-      const time = dateObj?.toISOString()?.slice(11, 19);
-      const formattedDate = `${day}-${month}-${year} ${time}`;
-
-      setTime(formattedDate);
-      setPprd(datas.result[0]?.stationDetailId.lienseNo);
-
-      setOkData(datas?.result[0]?.data);
-      setNotFound(false);
-      if (tankName.code !== "Please") {
-           let kk = datas?.result[0].data;
-           let kdkd = kk.filter((e) => e.id === Number(tankName.code));
-           setOkData(kdkd);
-      }
-
-    } 
+    if (datas === "error") {
+      dispatch(LogoutUser());
     }
-   
+    if (datas?.msg === "tank") {
+      if (datas?.result?.length > 0) {
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        let timee = datas?.result[0]?.createdAt;
+
+        const dateObj = new Date(timee);
+        const day = dateObj?.getUTCDate();
+        const month = months[dateObj?.getUTCMonth()];
+        const year = dateObj?.getUTCFullYear();
+        const time = dateObj?.toISOString()?.slice(11, 19);
+        const formattedDate = `${day}-${month}-${year} ${time}`;
+
+        setTime(formattedDate);
+        setPprd(datas.result[0]?.stationDetailId.lienseNo);
+
+        setOkData(datas?.result[0]?.data);
+        setNotFound(false);
+        if (tankName.code !== "Please") {
+          let kk = datas?.result[0].data;
+          let kdkd = kk.filter((e) => e.id === Number(tankName.code));
+          setOkData(kdkd);
+        }
+      }
+    }
+
     if (datas?.result?.length === 0) {
       if (notFound) {
         setNotFound(false);
       } else {
         setNotFound(true);
-     }
+      }
       setOkData([]);
     }
-     
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [datas, dispatch]);
+  }, [datas, dispatch]);
 
   return (
     <PageContainer
@@ -204,4 +239,4 @@ function RealTimeTank() {
   );
 }
 
-export default RealTimeTank
+export default RealTimeTank;

@@ -74,7 +74,7 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
                 <th width="50">{language.pprd_no}</th>
                 <th>{language.Township}</th>
                 <th>{language.State}</th>
-                <th colSpan={2}>{language.date}</th>
+                {/* <th colSpan={2}>{language.date}</th> */}
                 <th>{language.fuel_type}</th>
                 <th className="w-[150px]">{language.opening}</th>
                 <th>{language.receive_volume}</th>
@@ -134,27 +134,16 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
                   <td>{index + 1}</td>
                   <td className="text-left">{stationId?.name}</td>
                   <td className=" text-center">{stationId?.lienseNo}</td>
-                  <td className=" text-left">{state ? state[0] : "-"}</td>
+                  <td className=" text-left">{state ? state[1] : "-"}</td>
                   <td className=" text-center">{state[state?.length - 1]}</td>
-                  <td className=" text-left">{isoStartDate}</td>
-                  <td className=" text-left">{isoEndDate}</td>
-                  <td className="text-left">
-                    {" "}
-                    {ok?.fuelType == "001-Octane Ron(92)"
-                      ? "92 RON"
-                      : ok?.fuelType == "002-Octane Ron(95)"
-                      ? "95 RON"
-                      : ok?.fuelType == "004-Diesel"
-                      ? "HSD"
-                      : ok?.fuelType == "005-Premium Diesel"
-                      ? "PHSD"
-                      : ""}
-                  </td>
+                  {/* <td className=" text-left">{isoStartDate}</td>
+                  <td className=" text-left">{isoEndDate}</td> */}
+                  <td className="text-left">{ok?.fuelType}</td>
                   <td className="text-right">
                     {(ok.opening / 4.546)?.toFixed(3)}
                   </td>
                   <td className="text-right">
-                    {ok.fuelIn === 0 ? "-" : (ok.fuelIn / 4.546)?.toFixed(3)}
+                    {ok.fuelIn === 0 ? "0.000" : (ok.fuelIn / 4.546)?.toFixed(3)}
                   </td>
                   <td className="text-right">
                     {(ok.cash / 4.546)?.toFixed(3)}

@@ -4,7 +4,7 @@ export const englishDailySaleReport = {
   start_date: "Start Date",
   end_date: "End Date",
   purpose_of_use: "Purpose of Use",
-  nozzle_no: "Nozzle No",
+  nozzle_no: "Pump/ Nozzle No",
   fuel_type: "Fuel Type",
   station: "Station",
   amount: "Amount ( kyat )",

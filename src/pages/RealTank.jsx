@@ -31,6 +31,7 @@ import FuelTableTemp from "../components/tables/FuelTableTemp";
 import UseGet from "../MainConDas/components/hooks/UseGet";
 import UseGet_1 from "../MainConDas/components/hooks/UseGet_1";
 import instance from "../axios";
+import FuelTable from "../components/tables/FuelTable";
 
 let start = new Date();
 start.setHours(0);
@@ -44,7 +45,7 @@ end.setMinutes(59);
 end.setSeconds(59);
 end = new Date(end);
 
-function DailySaleReportTemp() {
+function RealTank() {
   const user = useSelector((state) => state.login);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -263,8 +264,15 @@ function DailySaleReportTemp() {
         fuelType,
         normalTank
       );
-
       const close = okData?.filter((c) => i == c.tankNo)[0]?.tankBalance;
+
+      const gain = opening_balance - close;
+
+      const gain_rec =
+        Number(close) -
+        Number(opening_balance) -
+        Number(fuelIn) +
+        Number(combine);
 
       const data = {
         tankNo: i,
@@ -284,6 +292,7 @@ function DailySaleReportTemp() {
         stationId: data_g_2.length != 0 ? data_g_2?.result[0]?.stationId : "-",
         balance: close || normalTank,
         stationId: station,
+        gl: (fuelReceive == NaN ? gain_rec : gain) || 0,
         // capacity: capacity,
       };
       calcu.push(data);
@@ -303,7 +312,7 @@ function DailySaleReportTemp() {
   console.log("====sssss================================");
 
   return (
-    <PageContainer language={false} title={language.title1}>
+    <PageContainer language={false} title={language.title2}>
       <InputContainer>
         <div className="flex flex-wrap gap-[20px]">
           <CalenderComponent
@@ -353,7 +362,7 @@ function DailySaleReportTemp() {
       {calcu?.length > 0 ? (
         <>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
-          <FuelTableTemp
+          <FuelTable
             language={language}
             tableRef={tableRef}
             okData={calcu}
@@ -370,4 +379,4 @@ function DailySaleReportTemp() {
   );
 }
 
-export default DailySaleReportTemp;
+export default RealTank;

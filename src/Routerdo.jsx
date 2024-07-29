@@ -47,6 +47,7 @@ import StationBannedDetail from "./Admin/pages/StationBannedDetail";
 import DifferentTotalizer from "./pages/DifferentTotalizer";
 import PumpReport from "./pages/PumpReport";
 import DailySaleReportTemp from "./pages/DailySaleReportTemp";
+import RealTank from "./pages/RealTank";
 
 function Routerdo() {
   const user = useSelector((state) => state.login);
@@ -172,7 +173,8 @@ function Routerdo() {
         ></Route>
         <Route
           path={`/${user.accessDb}/real-tank`}
-          element={<RealTimeTank />}
+          // element={<RealTimeTank />}
+          element={<RealTank />}
         ></Route>
         <Route path="/usermanual" element={<UserManual />} />
         {/* kyawsan amdin */}

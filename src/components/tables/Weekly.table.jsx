@@ -185,7 +185,7 @@ function WeeklyTable({
                   <td className=" text-center">
                     {state ? state[state.length - 1] : "-"}
                   </td>
-                  <td className=" text-center">Partner Shop</td>
+                  <td className=" text-center">Own Shop</td>
                   {capacity?.map((e) => (
                     <td>{(e.capacity / 4.16).toFixed(3)}</td>
                   ))}
