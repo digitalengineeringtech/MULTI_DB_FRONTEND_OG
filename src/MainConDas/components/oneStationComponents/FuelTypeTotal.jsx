@@ -122,11 +122,13 @@ function FuelTypeTotal({ title, language }) {
     <div className=" py-2 drop-shadow-md m-4 w-[50%]">
       <div className="w-[97%] drop-shadow-md mt-[30px] gap-5  flex justify-around items-center mx-auto relative">
         <CalenderComponent
+          date={start}
           value={startDate}
           setValue={setStartDate}
           title={language.start_date}
         />
         <CalenderComponent
+          date={end}
           value={endDate}
           setValue={setEndDate}
           title={language.end_date}

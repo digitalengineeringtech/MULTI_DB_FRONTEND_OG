@@ -106,24 +106,52 @@ useEffect(() => {
   
  
   return (
-   <div className=' py-2  drop-shadow-md m-4 w-[100%]'>
-       <div className='w-[97%] drop-shadow-md mt-[30px] gap-5  flex justify-around items-center mx-auto relative'>
-        <CalenderComponent value={startDate} setValue={setStartDate} title={language.start_date} />
-        <CalenderComponent value={endDate} setValue={setEndDate} title={language.end_date} />
-        <FuelTypeComponent value={selectedFuelType} setValue={setSelectedFuelType} title={language.tank}/>
-        
+    <div className=" py-2  drop-shadow-md m-4 w-[100%]">
+      <div className="w-[97%] drop-shadow-md mt-[30px] gap-5  flex justify-around items-center mx-auto relative">
+        <CalenderComponent
+          date={start}
+          value={startDate}
+          setValue={setStartDate}
+          title={language.start_date}
+        />
+        <CalenderComponent
+        date={end}
+          value={endDate}
+          setValue={setEndDate}
+          title={language.end_date}
+        />
+        <FuelTypeComponent
+          value={selectedFuelType}
+          setValue={setSelectedFuelType}
+          title={language.tank}
+        />
       </div>
-      <div className='w-[97%] mx-auto px-7'>
-              <button onClick={handleSearch} className='flex gap-1 text-sm items-center justify-center bg-blue-800 hover:bg-blue-700 text-white mt-8 p-2 rounded'><AiOutlineSearch size={20} />{language.search}</button>
+      <div className="w-[97%] mx-auto px-7">
+        <button
+          onClick={handleSearch}
+          className="flex gap-1 text-sm items-center justify-center bg-blue-800 hover:bg-blue-700 text-white mt-8 p-2 rounded"
+        >
+          <AiOutlineSearch size={20} />
+          {language.search}
+        </button>
+      </div>
+      <div className="w-[97%]  drop-shadow-md  overflow-hidden flex flex-wrap justify-center items-center mx-auto relative mt-5">
+        {stockBalanceLoading ? <Loading /> : ""}
+        <StockBalanceTableMain
+          onPageChange={onPageChange}
+          totalLength={totalLength}
+          first={first}
+          rows={rows}
+          handleAdjust={handleAdjust}
+          edit={edit}
+          setNavigation={setNavigation}
+          okData={okData}
+          language={language}
+          kk={kk}
+        />
+      </div>
     </div>
-      <div className='w-[97%]  drop-shadow-md  overflow-hidden flex flex-wrap justify-center items-center mx-auto relative mt-5'>
-        {
-            stockBalanceLoading?<Loading/>:''
-        }
-    <StockBalanceTableMain onPageChange={onPageChange} totalLength={totalLength} first={first} rows={rows} handleAdjust={handleAdjust}  edit={edit} setNavigation={setNavigation} okData={okData} language={language} kk={kk} />
-              </div>
- </div>
-  )
+  );
 }
 
 export default StockBalance

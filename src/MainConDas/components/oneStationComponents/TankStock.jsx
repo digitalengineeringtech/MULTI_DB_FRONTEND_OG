@@ -20,20 +20,30 @@ function TankStock({language}) {
     const [endDate, setEndDate] = useState(end)
   const [startDate, setStartDate] = useState(start);
   return (
-   <div className='w-[100%]'>
-       <div className=' drop-shadow-md  gap-5 mt-4 flex justify-around items-center mx-auto relative'>
-          <CalenderComponent value={startDate} setValue={setStartDate} title={language.start_date} />
-          <CalenderComponent value={endDate} setValue={setEndDate} title={language.end_date} />
+    <div className="w-[100%]">
+      <div className=" drop-shadow-md  gap-5 mt-4 flex justify-around items-center mx-auto relative">
+        <CalenderComponent
+          date={start}
+          value={startDate}
+          setValue={setStartDate}
+          title={language.start_date}
+        />
+        <CalenderComponent
+          date={end}
+          value={endDate}
+          setValue={setEndDate}
+          title={language.end_date}
+        />
       </div>
-      
-      <div className='w-[97%]  drop-shadow-md py-5   overflow-hidden gap-5  flex flex-wrap justify-center items-center mx-auto relative mt-5'>
+
+      <div className="w-[97%]  drop-shadow-md py-5   overflow-hidden gap-5  flex flex-wrap justify-center items-center mx-auto relative mt-5">
         {/* updateing */}
-      {/* <div className='loading fixed top-0 left-0 right-0 bottom-0 bg-gray-200 flex items-center justify-center bg-opacity-[0.6] z-50'>
+        {/* <div className='loading fixed top-0 left-0 right-0 bottom-0 bg-gray-200 flex items-center justify-center bg-opacity-[0.6] z-50'>
               <div >
                  <div class="spinner-icon">Working!</div>
               </div>
   </div>    */}
-      {/* updateing */}
+        {/* updateing */}
         <TankStockTable
           title={language.station_tank_balance}
           no={language.no}
@@ -48,10 +58,10 @@ function TankStock({language}) {
           monthly_gl={language.monthly_gl}
           toExcel={language.toExcel}
           toPrint={language.toPrint}
-        />     
-              </div>
+        />
       </div>
-  )
+    </div>
+  );
 }
 
 export default TankStock

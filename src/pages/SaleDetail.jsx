@@ -33,21 +33,35 @@ import Casher from "../components/PageComponents/Casher";
 import DetailSaleReportTable from "../components/tables/DetailSaleReport.table";
 import AmountComponent from "../components/PageComponents/AmountComponent";
 
-let start = new Date();
-start.setHours(0);
-start.setMinutes(0);
-start.setSeconds(0);
-start = new Date(start);
-
-let end = new Date();
-end.setHours(23);
-end.setMinutes(59);
-end.setSeconds(59);
-end = new Date(end);
-
 export default function SaleDetail() {
+  // const [hour, setHour] = useState("00");
+  // const [minute, setMinute] = useState("00");
+  // const [second, setSecond] = useState("00");
+
+  let start = new Date();
+  start.setHours(0);
+  start.setMinutes(0);
+  start.setSeconds(0);
+  start = new Date(start);
+
+  console.log(start);
+
+  let end = new Date();
+  end.setHours(23);
+  end.setMinutes(59);
+  end.setSeconds(59);
+  end = new Date(end);
+
   const [endDate, setEndDate] = useState(end);
   const [startDate, setStartDate] = useState(start);
+
+  // useEffect(() => {
+  //   let start = new Date(startDate);
+  //   start.setHours(hour);
+  //   start.setMinutes(minute);
+  //   start.setSeconds(second);
+  //   setStartDate(start);
+  // }, [hour, minute, second]);
 
   const [selectedNodeKeys, setSelectedNodeKeys] = useState({
     name: "All",
@@ -116,6 +130,8 @@ export default function SaleDetail() {
   //   });
   //   data.con && setCasher(data.result);
   // }, []);
+
+  console.log(startDate, "this is start date");
 
   const handleClick = () => {
     if (selectedStation.code === "Please") {
@@ -208,11 +224,13 @@ export default function SaleDetail() {
         <InputContainer>
           <div className="flex flex-wrap gap-[20px]">
             <CalenderComponent
+              date={start}
               value={startDate}
               setValue={setStartDate}
               title={language.start_date}
             />
             <CalenderComponent
+              date={end}
               value={endDate}
               setValue={setEndDate}
               title={language.end_date}

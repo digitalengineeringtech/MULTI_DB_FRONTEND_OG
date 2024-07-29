@@ -154,18 +154,32 @@ function PumpMeter({language}) {
   
 
   return (
-   <div className='w-[50%]'>
-       <div className=' drop-shadow-md  gap-5 mt-4 flex justify-around items-center mx-auto relative'>
-          <CalenderComponent value={startDate} setValue={setStartDate} title={language.start_date} />
-          <CalenderComponent value={endDate} setValue={setEndDate} title={language.end_date} />
+    <div className="w-[50%]">
+      <div className=" drop-shadow-md  gap-5 mt-4 flex justify-around items-center mx-auto relative">
+        <CalenderComponent
+          date={start}
+          value={startDate}
+          setValue={setStartDate}
+          title={language.start_date}
+        />
+        <CalenderComponent
+        date={end}
+          value={endDate}
+          setValue={setEndDate}
+          title={language.end_date}
+        />
       </div>
-      <div className='w-[97%] mx-auto px-7'>
-          <button onClick={handleSearch} className='flex gap-1 text-sm items-center justify-center bg-blue-800 hover:bg-blue-700 text-white mt-8 p-2 rounded'><AiOutlineSearch size={20} />SEARCH</button>
-    </div>
-      <div className='w-[97%]  drop-shadow-md py-5   overflow-hidden gap-5  flex flex-wrap justify-center items-center mx-auto relative mt-5'>
-        {
-          pumpMeterLoading?<Loading/>:""
-        }
+      <div className="w-[97%] mx-auto px-7">
+        <button
+          onClick={handleSearch}
+          className="flex gap-1 text-sm items-center justify-center bg-blue-800 hover:bg-blue-700 text-white mt-8 p-2 rounded"
+        >
+          <AiOutlineSearch size={20} />
+          SEARCH
+        </button>
+      </div>
+      <div className="w-[97%]  drop-shadow-md py-5   overflow-hidden gap-5  flex flex-wrap justify-center items-center mx-auto relative mt-5">
+        {pumpMeterLoading ? <Loading /> : ""}
         <PumpMeterTable
           title={language.pump_meter}
           no={language.no}
@@ -176,29 +190,23 @@ function PumpMeter({language}) {
           remark={language.remark}
           toExcel={language.toExcel}
           toPrint={language.toPrint}
-
           ninety2_closing={ninety2_closing}
           ninety2_opening={ninety2_opening}
           ninety2_total_liter={ninety2_total_liter}
-
           ninety5_opening={ninety5_opening}
           ninety5_closing={ninety5_closing}
           ninety5_total_liter={ninety5_total_liter}
- 
           phsd_closing={phsd_closing}
           phsd_opening={phsd_opening}
           phsd_total_liter={phsd_total_liter}
-
           diesel_closing={diesel_closing}
           diesel_opening={diesel_opening}
           diesel_total_liter={diesel_total_liter}
-
           total_liter={total_liter}
-
-        />     
-              </div>
+        />
       </div>
-  )
+    </div>
+  );
 }
 
 export default PumpMeter

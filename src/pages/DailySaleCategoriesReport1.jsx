@@ -131,36 +131,77 @@ function DailySaleCategoriesReport1() {
      sheet:  `Daily Sale Categories Report`
     })
 
-  return ( 
-      <PageContainer language={false} value={changeLanguage} setValue={setChangeLanguage} title={language.mainTitle}>
-           <InputContainer>
-          <div className="flex flex-wrap gap-[20px]">
-            <CalenderComponent value={startDate} setValue={setStartDate} title={language.startDate} />
-            <CalenderComponent value={endDate} setValue={setEndDate}  title={language.endDate} />
-            <StationComponent title={language.station} value={selectedStation} setValue={setSelectedStation} />
+  return (
+    <PageContainer
+      language={false}
+      value={changeLanguage}
+      setValue={setChangeLanguage}
+      title={language.mainTitle}
+    >
+      <InputContainer>
+        <div className="flex flex-wrap gap-[20px]">
+          <CalenderComponent
+            date={start}
+            value={startDate}
+            setValue={setStartDate}
+            title={language.startDate}
+          />
+          <CalenderComponent
+          date={end}
+            value={endDate}
+            setValue={setEndDate}
+            title={language.endDate}
+          />
+          <StationComponent
+            title={language.station}
+            value={selectedStation}
+            setValue={setSelectedStation}
+          />
+        </div>
+        {isSelectedStation && (
+          <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
+            <FcInfo /> Please Select Station
           </div>
-             {
-            isSelectedStation && <div className='flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center'><FcInfo/> Please Select Station</div>
-           }
-             <div className="flex-2">
-          <button onClick={handleClick} className="w-[120px] h-[40px] text-md mt-2 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"><FiSearch className=" scale-150" /> {language.search}</button>
+        )}
+        <div className="flex-2">
+          <button
+            onClick={handleClick}
+            className="w-[120px] h-[40px] text-md mt-2 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
+          >
+            <FiSearch className=" scale-150" /> {language.search}
+          </button>
+        </div>
+      </InputContainer>
+      {datas?.result?.length > 0 && (
+        <>
+          <CategoryTable
+            language={language}
+            startDate={fromDate.toLocaleDateString()}
+            endDate={toDate.toLocaleDateString()}
+            tableRef={tableRef}
+            okData={okData}
+          />
+          <div className="flex p-3  text-[16px] mt-[30px] mb-[50px] items-center justify-start gap-3">
+            <button
+              onClick={() => onDownload()}
+              className="flex items-center justify-center gap-2 text-md"
+            >
+              {language.toExcel} <RiFileExcel2Fill size={30} />
+            </button>
+            <button
+              onClick={handlePrint}
+              className="flex items-center justify-center gap-2 text-md"
+            >
+              {language.toPrint}
+              <AiFillPrinter size={30} />
+            </button>
           </div>
-          </InputContainer>
-          {
-         datas?.result?.length > 0 && <>
-              <CategoryTable language={language} startDate={fromDate.toLocaleDateString()} endDate={toDate.toLocaleDateString()} tableRef={tableRef} okData={okData}/>
-          <div className='flex p-3  text-[16px] mt-[30px] mb-[50px] items-center justify-start gap-3'>
-          <button onClick={() => onDownload()} className='flex items-center justify-center gap-2 text-md' >{language.toExcel} <RiFileExcel2Fill size={30} /></button>
-            <button onClick={handlePrint} className='flex items-center justify-center gap-2 text-md' >{language.toPrint}<AiFillPrinter size={30} /></button>
-          </div>
-              </> 
-         }
-         
-           {
-        loading?<Loading/>:''
-      }
-   </PageContainer>
-  )
+        </>
+      )}
+
+      {loading ? <Loading /> : ""}
+    </PageContainer>
+  );
 }
 
 export default DailySaleCategoriesReport1

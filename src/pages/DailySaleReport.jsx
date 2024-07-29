@@ -214,10 +214,12 @@ export default function DailySaleReport() {
         <div className="flex flex-wrap gap-[20px]">
           <CalenderComponent
             value={startDate}
+            date={start}
             setValue={setStartDate}
             title={language.start_date}
           />
           <CalenderComponent
+            date={end}
             value={endDate}
             setValue={setEndDate}
             title={language.end_date}

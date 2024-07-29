@@ -144,11 +144,13 @@ function WeeklySaleReport() {
       <InputContainer>
         <div className="flex flex-wrap gap-[20px]">
           <CalenderComponent
+            date={start}
             value={startDate}
             setValue={setStartDate}
             title={language.start_date}
           />
           <CalenderComponent
+            date={end}
             value={endDate}
             setValue={setEndDate}
             title={language.end_date}

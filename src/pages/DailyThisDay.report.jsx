@@ -150,33 +150,62 @@ var localString = currentDate.toLocaleString();
  
   
   return (
-    <PageContainer language={false} value={language} setValue={setLanguage} title={language.main_title}>
+    <PageContainer
+      language={false}
+      value={language}
+      setValue={setLanguage}
+      title={language.main_title}
+    >
       <InputContainer>
         <div className="flex flex-wrap gap-[20px]">
-          <CalenderComponent value={startDate} setValue={setStartDate} title={language.start_date} />
-          <CalenderComponent value={endDate} setValue={setEndDate} title={language.end_date} />
-          <StationComponent value={selectedStation} setValue={setSelectedStation} title={language.station}/>
+          <CalenderComponent
+            date={start}
+            value={startDate}
+            setValue={setStartDate}
+            title={language.start_date}
+          />
+          <CalenderComponent
+            date={end}
+            value={endDate}
+            setValue={setEndDate}
+            title={language.end_date}
+          />
+          <StationComponent
+            value={selectedStation}
+            setValue={setSelectedStation}
+            title={language.station}
+          />
         </div>
-          {
-          isSelectedStation && <div className='flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center'><FcInfo/> Please Select Station</div>
-        }
-        <div className="flex-2">
-          <button onClick={handleClick} className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"><FiSearch className=" scale-150"/>{language.search}</button>
+        {isSelectedStation && (
+          <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
+            <FcInfo /> Please Select Station
           </div>
+        )}
+        <div className="flex-2">
+          <button
+            onClick={handleClick}
+            className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
+          >
+            <FiSearch className=" scale-150" />
+            {language.search}
+          </button>
+        </div>
       </InputContainer>
-        {
-          okData?.length > 0 ? <>
-           <DailyReport language={language} okData={okData} tableRef={tableRef} />
+      {okData?.length > 0 ? (
+        <>
+          <DailyReport
+            language={language}
+            okData={okData}
+            tableRef={tableRef}
+          />
           {/* <PaginatorComponent totalLength={totalCount} onPageChange={onPageChange} first={first} rows={rows} /> */}
-     
-          </> : <></>
-      }
-      {
-        loading?<Loading/>:''
-      }
-      
+        </>
+      ) : (
+        <></>
+      )}
+      {loading ? <Loading /> : ""}
     </PageContainer>
-  )
+  );
 }
 
 export default DailyThisDay

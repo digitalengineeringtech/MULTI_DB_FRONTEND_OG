@@ -131,36 +131,73 @@ function TankBalanceReport() {
 
     
   return (
- <PageContainer language={false} value={language} setValue={setLanguage} title={language.main_title}>
+    <PageContainer
+      language={false}
+      value={language}
+      setValue={setLanguage}
+      title={language.main_title}
+    >
       <InputContainer>
         <div className="flex flex-wrap gap-[20px]">
-        <CalenderComponent title={language.start_date} value={startDate} setValue={setStartDate} />
-        <CalenderComponent title={language.end_date} value={endDate} setValue={setEndDate} />
-        <FuelTypeComponent title={language.tank_no} value={fuelType} setValue={setFuelType} />
-        <StationComponent title={language.station} value={selectedStation} setValue={setSelectedStation} />
-        </div>  
-         {
-          isSelectedStation && <div className='flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center'><FcInfo/> Please Select Station</div>
-        }
-        <div className="flex-2">
-          <button onClick={handleClick} className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"><FiSearch className=" scale-150" /> {language.search}</button>
+          <CalenderComponent
+            date={start}
+            title={language.start_date}
+            value={startDate}
+            setValue={setStartDate}
+          />
+          <CalenderComponent
+            date={end}
+            title={language.end_date}
+            value={endDate}
+            setValue={setEndDate}
+          />
+          <FuelTypeComponent
+            title={language.tank_no}
+            value={fuelType}
+            setValue={setFuelType}
+          />
+          <StationComponent
+            title={language.station}
+            value={selectedStation}
+            setValue={setSelectedStation}
+          />
+        </div>
+        {isSelectedStation && (
+          <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
+            <FcInfo /> Please Select Station
           </div>
-       </InputContainer>
-                
-     
-      {
-        okData?.length > 0 ? <>
+        )}
+        <div className="flex-2">
+          <button
+            onClick={handleClick}
+            className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
+          >
+            <FiSearch className=" scale-150" /> {language.search}
+          </button>
+        </div>
+      </InputContainer>
+
+      {okData?.length > 0 ? (
+        <>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
-          <StockBalanceTable totalLength={totalLength} language={language} tank  onPageChange={onPageChange} first={first} rows={rows}  tableRef={tableRef} okData={okData} />
-        </> : ""
-       }
-              
-     
-     {
-        loading?<Loading/>:''
-      }
+          <StockBalanceTable
+            totalLength={totalLength}
+            language={language}
+            tank
+            onPageChange={onPageChange}
+            first={first}
+            rows={rows}
+            tableRef={tableRef}
+            okData={okData}
+          />
+        </>
+      ) : (
+        ""
+      )}
+
+      {loading ? <Loading /> : ""}
     </PageContainer>
-  )
+  );
 }
 
 export default TankBalanceReport

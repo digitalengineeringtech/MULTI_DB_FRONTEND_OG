@@ -121,48 +121,62 @@ function StationUse({language}) {
    }, [okData]);
     
   return (
-   <div className='w-[50%]'>
-       <div className=' drop-shadow-md  gap-5 mt-4 flex justify-around items-center mx-auto relative'>
-          <CalenderComponent value={startDate} setValue={setStartDate} title={language.start_date} />
-          <CalenderComponent value={endDate} setValue={setEndDate} title={language.end_date} />
+    <div className="w-[50%]">
+      <div className=" drop-shadow-md  gap-5 mt-4 flex justify-around items-center mx-auto relative">
+        <CalenderComponent
+          date={start}
+          value={startDate}
+          setValue={setStartDate}
+          title={language.start_date}
+        />
+        <CalenderComponent
+          date={end}
+          value={endDate}
+          setValue={setEndDate}
+          title={language.end_date}
+        />
       </div>
-       <div className='w-[97%] mx-auto px-7'>
-          <button onClick={handleSearch}  className='flex gap-1 text-sm items-center justify-center bg-blue-800 hover:bg-blue-700 text-white mt-8 p-2 rounded'><AiOutlineSearch size={20} />SEARCH</button>
-    </div>
-      <div className='w-[97%]  drop-shadow-md py-5   overflow-hidden gap-5  flex flex-wrap justify-center items-center mx-auto relative mt-5'>
-          {/* updateing */}
-      {/* <div className='loading fixed top-0 left-0 right-0 bottom-0 bg-gray-200 flex items-center justify-center bg-opacity-[0.6] z-50'>
+      <div className="w-[97%] mx-auto px-7">
+        <button
+          onClick={handleSearch}
+          className="flex gap-1 text-sm items-center justify-center bg-blue-800 hover:bg-blue-700 text-white mt-8 p-2 rounded"
+        >
+          <AiOutlineSearch size={20} />
+          SEARCH
+        </button>
+      </div>
+      <div className="w-[97%]  drop-shadow-md py-5   overflow-hidden gap-5  flex flex-wrap justify-center items-center mx-auto relative mt-5">
+        {/* updateing */}
+        {/* <div className='loading fixed top-0 left-0 right-0 bottom-0 bg-gray-200 flex items-center justify-center bg-opacity-[0.6] z-50'>
               <div >
                  <div class="spinner-icon">Updating in Tablet!</div>
               </div>
   </div>    */}
-      {/* updateing */}
-    {
-      thisLoading?<Loading/>:''
-    }
-      <StationUseTable
-      title={language.station_use}
-      no={language.no}
-      fuel_type={language.fuel_type}
-      liter={language.liter}
-      price={language.price}
-      amount={language.amount}
-      remark={language.remark}
-      toExcel={language.toExcel}
-      toPrint={language.toPrint}
-      ninety2Liter={ninety2TotalLiter}
-      ninety2Price={ninety2Price}
-      ninety5Liter={ninety5TotalLier}
-      ninety5Price={ninety5Price}
-      dieselLiter={dieselLotalLiter}
-      dieselPrice={dieselPrice}
-      phsdLiter={phsdLotalLiter}
-      phsdPrice={phsdPrice}
-      totalPrice={totalPrice}
-      />     
-              </div>
+        {/* updateing */}
+        {thisLoading ? <Loading /> : ""}
+        <StationUseTable
+          title={language.station_use}
+          no={language.no}
+          fuel_type={language.fuel_type}
+          liter={language.liter}
+          price={language.price}
+          amount={language.amount}
+          remark={language.remark}
+          toExcel={language.toExcel}
+          toPrint={language.toPrint}
+          ninety2Liter={ninety2TotalLiter}
+          ninety2Price={ninety2Price}
+          ninety5Liter={ninety5TotalLier}
+          ninety5Price={ninety5Price}
+          dieselLiter={dieselLotalLiter}
+          dieselPrice={dieselPrice}
+          phsdLiter={phsdLotalLiter}
+          phsdPrice={phsdPrice}
+          totalPrice={totalPrice}
+        />
       </div>
-  )
+    </div>
+  );
 }
 
 export default StationUse

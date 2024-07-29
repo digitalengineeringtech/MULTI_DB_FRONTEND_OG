@@ -105,33 +105,60 @@ function StatementReport() {
 
 
   return (
-      <PageContainer language={false} value={language} setValue={setLanguage} title={language.main_title}>
-           <InputContainer>
-          <div className="flex flex-wrap gap-[20px]">
-            <CalenderComponent value={startDate} setValue={setStartDate} title={language.start_date} />
-            <CalenderComponent value={endDate} setValue={setEndDate}  title={language.end_date} />
-            <StationComponent title={language.station} value={selectedStation} setValue={setSelectedStation} />
+    <PageContainer
+      language={false}
+      value={language}
+      setValue={setLanguage}
+      title={language.main_title}
+    >
+      <InputContainer>
+        <div className="flex flex-wrap gap-[20px]">
+          <CalenderComponent
+            date={start}
+            value={startDate}
+            setValue={setStartDate}
+            title={language.start_date}
+          />
+          <CalenderComponent
+          date={end}
+            value={endDate}
+            setValue={setEndDate}
+            title={language.end_date}
+          />
+          <StationComponent
+            title={language.station}
+            value={selectedStation}
+            setValue={setSelectedStation}
+          />
         </div>
-        {
-          isSelectedStation && <div className='flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center'><FcInfo/> Please Select Station</div>
-        }
-          <div className="flex-2">
-          <button onClick={handleClick} className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"><FiSearch className=" scale-150" />{language.search}</button>
+        {isSelectedStation && (
+          <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
+            <FcInfo /> Please Select Station
           </div>
-          </InputContainer>
-          {
-        okData ? <>
-              {/* <ShiftLeader selectedStation={selectedStation} isSearch={isSearch} calenderTwo={endDate} tableRef={tableRef} okData={okData}/>
-               */}
-              <NozzleTable language={language} statement okData={okData}/>
-        </> : ""
-         }
-         
-           {
-        loading?<Loading/>:''
-      }
-   </PageContainer>
-  )
+        )}
+        <div className="flex-2">
+          <button
+            onClick={handleClick}
+            className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
+          >
+            <FiSearch className=" scale-150" />
+            {language.search}
+          </button>
+        </div>
+      </InputContainer>
+      {okData ? (
+        <>
+          {/* <ShiftLeader selectedStation={selectedStation} isSearch={isSearch} calenderTwo={endDate} tableRef={tableRef} okData={okData}/>
+           */}
+          <NozzleTable language={language} statement okData={okData} />
+        </>
+      ) : (
+        ""
+      )}
+
+      {loading ? <Loading /> : ""}
+    </PageContainer>
+  );
 }
 
 export default StatementReport

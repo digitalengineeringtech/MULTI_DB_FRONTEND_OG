@@ -193,23 +193,58 @@ function Test() {
  
   return (
     <>
-      <PageContainer language={true}  value={changeLanguage} setValue={setChangeLanguage} title={language.mainTitle}>
-           <InputContainer>
+      <PageContainer
+        language={true}
+        value={changeLanguage}
+        setValue={setChangeLanguage}
+        title={language.mainTitle}
+      >
+        <InputContainer>
           <div className="flex flex-wrap gap-[20px] items-center">
-            <CalenderComponent value={startDate} setValue={setStartDate} title={language.startDate} />
-            <CalenderComponent value={endDate} setValue={setEndDate}  title={language.endDate} />
-            <StationComponent title={language.station} value={selectedStation} setValue={setSelectedStation} />
-         </div>
-        <GallonOrLiter titleOne={language.liter} titleTwo={language.gallon} setOklUnit={setOklUnit} isSearch={isSearch} setValue={setFuelUnit} />
-        {
-          unitError?<p className='flex items-center text-blue-500  text-md'><FcInfo className=' scale-125 mr-3' /> Please Select Liter or Gallon</p>:""
-        }
-             <div className="flex-2">
-            <button onClick={handleClick} className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"><FiSearch className=" scale-150" /> {language.search}</button>
+            <CalenderComponent
+              date={start}
+              value={startDate}
+              setValue={setStartDate}
+              title={language.startDate}
+            />
+            <CalenderComponent
+            date={end}
+              value={endDate}
+              setValue={setEndDate}
+              title={language.endDate}
+            />
+            <StationComponent
+              title={language.station}
+              value={selectedStation}
+              setValue={setSelectedStation}
+            />
           </div>
-          </InputContainer>
-          {
-        okData ? <>
+          <GallonOrLiter
+            titleOne={language.liter}
+            titleTwo={language.gallon}
+            setOklUnit={setOklUnit}
+            isSearch={isSearch}
+            setValue={setFuelUnit}
+          />
+          {unitError ? (
+            <p className="flex items-center text-blue-500  text-md">
+              <FcInfo className=" scale-125 mr-3" /> Please Select Liter or
+              Gallon
+            </p>
+          ) : (
+            ""
+          )}
+          <div className="flex-2">
+            <button
+              onClick={handleClick}
+              className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
+            >
+              <FiSearch className=" scale-150" /> {language.search}
+            </button>
+          </div>
+        </InputContainer>
+        {okData ? (
+          <>
             <TestTable
               language={language}
               fuelUnit={fuelUnit}
@@ -217,26 +252,38 @@ function Test() {
               fuel95Balance={fuel95Balance}
               fuelDieselBalance={fuelDieselBalance}
               fuelPremiumBalance={fuelPremiumBalance}
-              isSearch={isSearch} calenderOne={fromDate}
+              isSearch={isSearch}
+              calenderOne={fromDate}
               calenderTwo={toDate}
               startDate={fromDate.toLocaleDateString()}
               endDate={toDate.toLocaleDateString()}
               okData={okData}
-              tableRef={tableRef} />
-          
-          <div className='flex p-3  text-[16px] mt-[30px] mb-[50px] items-center justify-start gap-3'>
-          <button onClick={() => onDownload()} className='flex items-center justify-center gap-2 text-md' >{language.toExcel} <RiFileExcel2Fill size={30} /></button>
-          <button onClick={handlePrint} className='flex items-center justify-center gap-2 text-md' >{language.toPrint} <AiFillPrinter size={30}/></button>
-          </div>
-        </> : ""
-         }
-         
-           {
-        loading?<Loading/>:''
-      }
-   </PageContainer>
+              tableRef={tableRef}
+            />
+
+            <div className="flex p-3  text-[16px] mt-[30px] mb-[50px] items-center justify-start gap-3">
+              <button
+                onClick={() => onDownload()}
+                className="flex items-center justify-center gap-2 text-md"
+              >
+                {language.toExcel} <RiFileExcel2Fill size={30} />
+              </button>
+              <button
+                onClick={handlePrint}
+                className="flex items-center justify-center gap-2 text-md"
+              >
+                {language.toPrint} <AiFillPrinter size={30} />
+              </button>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+
+        {loading ? <Loading /> : ""}
+      </PageContainer>
     </>
-  )
+  );
 }
 
 export default Test

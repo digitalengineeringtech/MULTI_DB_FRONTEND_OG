@@ -125,11 +125,13 @@ function OfficeUseBowser({ title, language }) {
     <div className="w-[50%]">
       <div className=" drop-shadow-md  gap-5 mt-4 flex justify-around items-center mx-auto relative">
         <CalenderComponent
+          date={start}
           value={startDate}
           setValue={setStartDate}
           title={language.start_date}
         />
         <CalenderComponent
+          date={end}
           value={endDate}
           setValue={setEndDate}
           title={language.end_date}

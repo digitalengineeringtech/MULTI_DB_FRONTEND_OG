@@ -100,11 +100,13 @@ function FuelTypeBalanceReport() {
       <InputContainer>
         <div className="flex flex-wrap gap-[20px]">
           <CalenderComponent
+            date={start}
             title={language.start_date}
             value={calenderOne}
             setValue={setCalenderOne}
           />
           <CalenderComponent
+          date={end}
             title={language.end_date}
             value={calenderTwo}
             setValue={setCalenderTwo}

@@ -6,30 +6,68 @@ function FuelRecieveTableLittle({ okData }) {
       <h3 className="mt-[30px]"></h3>
       <table className="mt-5">
         <tr>
-          <th>Receive Date</th>
+          <th>No.</th>
           <th>Station</th>
-          <th>Fuel In Code</th>
-          <th>Driver</th>
+          <th>
+            PPRD <br />
+            License <br /> No.
+          </th>
+          <th>Township</th>
+          <th>State/Division</th>
+          <th>Receive Date</th>
           <th>Bowser No</th>
-          <th>Tank</th>
-          <th>Tank Capacity</th>
-          <th>Receive Volume(Li)</th>
-          <th>Balance</th>
-          <th>Receive Volume(Li)</th>
+          {/* <th>Driver</th> */}
+          <th>Fuel Type</th>
+          <th>
+            Tank <br /> No.
+          </th>
+          <th>
+            Tank <br /> Capacity <br /> ( Gallon )
+          </th>
+          <th>
+            Tank <br /> Opening <br /> ( Gallon )
+          </th>
+          <th>
+            Tank <br /> Received <br /> ( Gallon )
+          </th>
+          <th>
+            Sale <br /> ( Gallon )
+          </th>
+          <th>
+            Tank <br /> Closing <br /> ( Gallon )
+          </th>
+          <th>
+            Gain/ <br /> Lose <br /> ( Gallon )
+          </th>
         </tr>
         {okData.map((item, index) => {
+          const dateObj = new Date(item?.createAt);
+          // const day = dateObj?.getUTCDate();
+          // const month = months[dateObj.getUTCMonth()];
+          // const year = dateObj?.getUTCFullYear();
+          const time = dateObj?.toISOString().slice(11, 19);
+          const formattedDate = `${dateObj.toLocaleDateString(
+            `fr-CA`
+          )} ${time}`;
           return (
             <tr key={index}>
-              <td>{item.receive_date}</td>
+              <td>{index + 1}</td>
               <td>{item.stationId.name}</td>
-              <td>{item.fuel_in_code}</td>
-              <td>{item.driver}</td>
+              <td>{item.stationId.lienseNo}</td>
+              <td>{item.stationId.location.split(",")[1]}</td>
+              <td>{item.stationId.location.split(",")[2]}</td>
+              <td>{formattedDate}</td>
               <td>{item.bowser}</td>
+              <td>{item.fuel_type}</td>
               <td>{item.tankNo}</td>
-              <td>14580</td>
-              <td>{item.recive_balance?.toFixed(3)}</td>
-              <td>{item.tank_balance?.toFixed(3)}</td>
-              <td>{item.recive_balance?.toFixed(3)}</td>
+              <td>{(14580 / 4.546).toFixed(3)}</td>
+              <td>
+                {item.opening ? (item.opening / 4.546)?.toFixed(3) : "00.0"}
+              </td>
+              <td>{(item.receive_balance / 4.546)?.toFixed(3)}</td>
+              <td>00.0</td>
+              <td>{(item.tank_balance / 4.546)?.toFixed(3)}</td>
+              <td>00.0</td>
             </tr>
           );
         })}

@@ -138,13 +138,19 @@ function RealTimeTank() {
     }, [datas, dispatch]);
 
   return (
-    <PageContainer language={false} value={language} setValue={setLanguage} title={language.main_title}>
+    <PageContainer
+      language={false}
+      value={language}
+      setValue={setLanguage}
+      title={language.main_title}
+    >
       <InputContainer>
-        <div className='flex flex-wrap gap-[20px]'>
+        <div className="flex flex-wrap gap-[20px]">
           <CalenderComponent
-          value={startDate}
-          setValue={setStartDate}
-          title={language.date}
+            date={start}
+            value={startDate}
+            setValue={setStartDate}
+            title={language.date}
           />
           {/* <FuelTypeComponent
           value={selectedFuelType}
@@ -157,26 +163,45 @@ function RealTimeTank() {
           />
 
           <StationComponent
-          title={language.station}
-          value={selectedStation}
-          setValue={setSelectedStation}
+            title={language.station}
+            value={selectedStation}
+            setValue={setSelectedStation}
           />
         </div>
-         {
-            isStation && <div className='flex animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center'><FcInfo/> Please Select Station</div>
-           }
-         <div className="flex-2">
-          <button onClick={handleClick} className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"><FiSearch className=" scale-150" /> {language.search}</button>
+        {isStation && (
+          <div className="flex animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
+            <FcInfo /> Please Select Station
           </div>
+        )}
+        <div className="flex-2">
+          <button
+            onClick={handleClick}
+            className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
+          >
+            <FiSearch className=" scale-150" /> {language.search}
+          </button>
+        </div>
       </InputContainer>
-      {
-        okData.length !== 0 ?  <RealTimeTankTable language={language} pprd={pprd} time={time} okData={okData}/>:""
-      }
-      {
-        notFound ? <p className=' container mx-auto  mt-[20px]  font-extrabold text-xl flex items-center gap-4'><FcInfo/>Tank Data Not Found!</p>:''
-      }
+      {okData.length !== 0 ? (
+        <RealTimeTankTable
+          language={language}
+          pprd={pprd}
+          time={time}
+          okData={okData}
+        />
+      ) : (
+        ""
+      )}
+      {notFound ? (
+        <p className=" container mx-auto  mt-[20px]  font-extrabold text-xl flex items-center gap-4">
+          <FcInfo />
+          Tank Data Not Found!
+        </p>
+      ) : (
+        ""
+      )}
     </PageContainer>
-  )
+  );
 }
 
 export default RealTimeTank
