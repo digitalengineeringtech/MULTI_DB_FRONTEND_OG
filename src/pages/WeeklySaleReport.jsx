@@ -14,6 +14,7 @@ import { LogoutUser } from "../redux/slices/LoginSlice";
 import Loading from "../components/Loading";
 import WeeklyTable from "../components/tables/Weekly.table";
 import {
+  fetchATGTanks,
   fetchDailySaleReportByTimeRange,
   getAllKyawSan027DailySaleReports,
   removeOldDats,
@@ -23,6 +24,7 @@ import { EnglishWeeklySaleReport } from "../Language/English/englishWeeklySaleRe
 import { MyanmarWeeklySaleReport } from "../Language/Myanmar/myanmarWeeklySaleReport";
 import UsePost from "../MainConDas/components/hooks/UsePost";
 import instance from "../axios";
+import Balance from "../Dashboard/Components/Balance";
 
 let start = new Date();
 start.setHours(0);
@@ -56,6 +58,7 @@ function WeeklySaleReport() {
   const dispatch = useDispatch();
   const [isSelectedStation, setIsSelectedStation] = useState(false);
   const datas = useSelector(getAllKyawSan027DailySaleReports);
+  const [tankData, setTankData] = useState();
   const [{ data_g, loading_g, error_g }, fetchIt] = UsePost();
 
   useEffect(() => {
@@ -103,18 +106,119 @@ function WeeklySaleReport() {
               },
             }
           );
-          console.log(data, "this is data ................");
+
+          const bomb = [
+            user.token,
+            startDate,
+            endDate,
+            selectedStation,
+            selectedStation,
+            // selectedFuelType.code,
+            // tankName.code,
+            user.accessDb,
+          ];
+          await dispatch(fetchATGTanks(bomb));
           // await dispatch(fetchDailySaleReportByTimeRange(bomb));
           setloading(false);
-          setFuel(data?.result);
           setIsSearch(false);
+          data && setFuel(data?.result);
         };
         fetchData();
       }
     }
   };
 
-  const capacity = fuel?.slice(0, 4);
+  useEffect(() => {
+    if (datas?.result?.length > 0) {
+      let pureArray = datas?.result[0];
+      setTankData(pureArray.data);
+      setloading(false); // Update the state with the new sorted array
+    } else {
+      setTankData([]);
+    }
+  }, [datas]);
+
+  // const fuelData = [
+  //   {
+  //     name: "005-Premium Diesel",
+  //   },
+  //   {
+  //     name: "004-Diesel",
+  //   },
+  //   {
+  //     name: "001-Octane Ron(92)",
+  //   },
+  //   {
+  //     name: "002-Octane Ron(95)",
+  //   },
+  // ];
+
+  // const tt = tankData.map((e) => e.oilType);
+
+  const fuelData = tankData?.map((e) => {
+    return {
+      name:
+        e?.oilType == "Petrol 92"
+          ? "001-Octane Ron(92)"
+          : e?.oilType == "95 Octane"
+          ? "002-Octane Ron(95)"
+          : e?.oilType == "Diesel"
+          ? "004-Diesel"
+          : e?.oilType == "Super Diesel"
+          ? "005-Premium Diesel"
+          : "" || "-",
+      id: e.id,
+    };
+  });
+
+  const [g, setg] = useState();
+  // {
+  //   time === 0 ? (hsd / 4.16).toFixed(3) : (hsd / time / 4.16).toFixed(3);
+  // }
+  // if (data_g?.result?.length > 0) {
+  const test = fuelData?.map((e) => {
+    // data_g?.result?.filter((c) => c.fuelType == e.name);
+
+    const time = data_g?.result?.filter((c) => c.tankNo == e.id).length;
+    const total = data_g?.result
+      ?.filter((c) => c.tankNo == e.id)
+      .reduce((a, b) => a + b.saleLiter, 0);
+
+    const tankBalance = tankData?.filter((item) => item.id == e.id)[0]?.volume;
+    const balance = data_g?.result
+      ?.filter((c) => c.tankNo == e.id)[0]
+      ?.tankBalance.toFixed(3);
+
+    console.log(time, total, "lllllllllllllllllllllllll");
+    return {
+      tank: e.id,
+      fuelType: e.name,
+      capacity: 14540,
+      balance: balance ? balance : tankBalance,
+      cash: total,
+      // fuelIn: data_g?.result
+      //   ?.filter((c) => c.tankNo == e.id)
+      //   .reduce((a, b) => a + b.fuelIn, 0),
+      opening: data_g?.result
+        ?.filter((c) => c.tankNo == e.id)
+        ?.reverse()[0]
+        ?.tankBalance.toFixed(3),
+      avg: time == 0 ? total : total / time,
+    };
+  });
+  // setg(test);
+  // }
+
+  // const capacity = fuel?.slice(0, 4);
+  const capacity = test;
+
+  console.log(
+    capacity,
+    data_g?.result,
+    "this is data ................",
+    test,
+    fuelData
+  );
 
   //  useEffect(() => {
   //         if (datas === "error") {
@@ -176,7 +280,7 @@ function WeeklySaleReport() {
           </button>
         </div>
       </InputContainer>
-      {okData ? (
+      {okData?.length > 0 && capacity?.length > 0 ? (
         <>
           <WeeklyTable
             language={language}
@@ -185,7 +289,7 @@ function WeeklySaleReport() {
             calenderOne={fromDate}
             calenderTwo={toDate}
             okData={okData}
-            capacity={capacity}
+            capacity={test}
             tableRef={tableRef}
           />
         </>

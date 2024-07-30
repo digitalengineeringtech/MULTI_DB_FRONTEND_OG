@@ -266,7 +266,7 @@ function RealTank() {
       );
       const close = okData?.filter((c) => i == c.tankNo)[0]?.tankBalance;
 
-      const gain = opening_balance - close;
+      const gain = Math.abs(Math.abs(opening_balance - close) - combine);
 
       const gain_rec =
         Number(close) -

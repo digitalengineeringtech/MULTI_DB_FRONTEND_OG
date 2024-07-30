@@ -17,7 +17,7 @@ export const EnglishWeeklySaleReport = {
   toPrint: "To Print",
   Station_name: "Station Name", //update
   Township: "Township",
-  State: "State/Division",
+  State: "State /Division",
   Open: "Opening Stock (Gallon)",
   Close: "Closing Stock (Gallon)",
   Sale: "Sale Volume (Gallon)",
