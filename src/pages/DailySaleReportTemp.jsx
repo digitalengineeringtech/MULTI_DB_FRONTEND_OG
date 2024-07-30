@@ -280,9 +280,9 @@ function DailySaleReportTemp() {
             : "" || "-",
         cash: combine || 0,
         fuelIn: fuelReceive || 0,
-        opening: opening_balance || normalTank,
+        opening: opening_balance || normalTank || 0,
         stationId: data_g_2.length != 0 ? data_g_2?.result[0]?.stationId : "-",
-        balance: close || normalTank,
+        balance: close || normalTank || 0,
         stationId: station,
         // capacity: capacity,
       };

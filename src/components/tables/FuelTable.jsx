@@ -166,7 +166,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
                     )} */}
                     {ok?.gl.toFixed(3) || 0}
                   </td>
-                  <td className="text-right">-</td>
+                  <td className="text-center">Tank Online</td>
                 </tr>
               ))}
           <tr className="bg-gray-200">
