@@ -52,13 +52,13 @@ function DifferentTotalizerTable({ okData, statement, language }) {
             </td>
             {statement ? (
               <>
-                <td className="text-right">{e.totalizer_opening}</td>
-                <td className="text-right">{e.totalizer_closing}</td>
+                <td className="text-right">{e.totalizer_opening.toFixed(3)}</td>
+                <td className="text-right">{e.totalizer_closing.toFixed(3)}</td>
                 <td className="text-right">
                   {/* {isNaN(e.totalizer_opening - e.totalizer_closing)
                     ? "-"
                     : (e.totalizer_opening - e.totalizer_closing).toFixed(3)} */}
-                  {e.totalizer_different || "-"}
+                  {e.totalizer_different.toFixed(3) || "-"}
                 </td>
               </>
             ) : (
