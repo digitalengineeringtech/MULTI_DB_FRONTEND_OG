@@ -318,11 +318,11 @@ function DailySaleReportTemp() {
             value={calenderTwo}
             setValue={setCalenderTwo}
           />
-          <FuelTypeComponent
+          {/* <FuelTypeComponent
             title={language.fuel_type}
             value={fuelType}
             setValue={setFuelType}
-          />
+          /> */}
           {/* <TankComponent
             language={language.tank_no}
             value={tankName}

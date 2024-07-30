@@ -205,7 +205,7 @@ function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
             <td className="text-center"></td>
           </tr>
         )}
-        <tr className="bg-gray-200">
+        <tr className="!bg-gray-200">
           <td colspan={10} className="text-lg">
             Sub Total Octane Ron 92
           </td>
@@ -389,7 +389,7 @@ function PumpTable({ okData, statement, sDate, data_g_2, eDate, language }) {
             <td className="text-center"></td>
           </tr>
         )}
-        <tr className="bg-gray-200">
+        <tr className="!bg-gray-200">
           <td colspan={10} className="text-lg">
             Sub Total Diesel
           </td>
