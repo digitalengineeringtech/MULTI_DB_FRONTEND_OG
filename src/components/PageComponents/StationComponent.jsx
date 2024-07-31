@@ -37,14 +37,7 @@ function StationComponent({ value, setValue, title }) {
 
       const formattedData = datas.map((item) => ({
         // name: item.name + " " + truncateIfNeeded(item.location),
-        name:
-          "( " +
-          item.lienseNo +
-          " )" +
-          " " +
-          item.name +
-          " " +
-          item.location.split(",")[0],
+        name: item.name + " " + item.location.split(",")[0],
         code: item._id,
         location: item.location,
         lienseNo: item.lienseNo,
@@ -59,7 +52,7 @@ function StationComponent({ value, setValue, title }) {
         ) {
           defauilt.push({
             // name: item.name + " " + truncateIfNeeded(item.location),
-            name: item.lienseNo + item.name + " " + item.location.split(",")[0],
+            name: item.name + " " + item.location.split(",")[0],
             code: item._id,
             location: item.location,
             lienseNo: item.lienseNo,
@@ -101,15 +94,28 @@ function StationComponent({ value, setValue, title }) {
             placeholder="Please Select Station"
           />
         ) : (
-          <Dropdown
-            filter
-            value={value}
-            onChange={(e) => setValue(e.value)}
-            options={pruposes}
-            optionLabel="name"
-            className="!h-[30px] w-[320px] flex items-center justify-center"
-            placeholder="Please Select Station"
-          />
+          <div className="flex gap-3">
+            <Dropdown
+              loading
+              filter
+              value={value}
+              onChange={(e) => setValue(e.value)}
+              options={pruposes}
+              optionLabel="lienseNo"
+              className="!h-[30px] w-[150px] flex items-center justify-center"
+              placeholder="license No"
+            />
+            <Dropdown
+              loading
+              filter
+              value={value}
+              onChange={(e) => setValue(e.value)}
+              options={pruposes}
+              optionLabel="name"
+              className="!h-[30px] w-[320px] flex items-center justify-center"
+              placeholder="Please Select Station"
+            />
+          </div>
         )}
       </div>
     </div>

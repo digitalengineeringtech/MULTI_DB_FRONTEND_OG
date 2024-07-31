@@ -52,7 +52,7 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
           {calcu ? (
             <thead>
               <tr>
-                <th>No</th>
+                <th>Sir No.</th>
                 <th>{language.Station_name}</th>
                 <th>{language.pprd_no}</th>
                 <th>{language.Township}</th>
@@ -69,7 +69,7 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
           ) : (
             <thead>
               <tr>
-                <th>No</th>
+                <th>Sir No.</th>
                 <th>{language.Station_name}</th>
                 <th width="50">{language.pprd_no}</th>
                 <th>{language.Township}</th>
@@ -81,6 +81,7 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
                 <th className="w-[150px]">{language.sale}</th>
                 <th>{language.gl}</th>
                 <th className="w-[150px]">{language.closing_stk}</th>
+                <th className="w-[150px]">{language.Remark}</th>
               </tr>
             </thead>
           )}
@@ -143,7 +144,9 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
                     {(ok.opening / 4.546)?.toFixed(3)}
                   </td>
                   <td className="text-right">
-                    {ok.fuelIn === 0 ? "0.000" : (ok.fuelIn / 4.546)?.toFixed(3)}
+                    {ok.fuelIn === 0
+                      ? "0.000"
+                      : (ok.fuelIn / 4.546)?.toFixed(3)}
                   </td>
                   <td className="text-right">
                     {(ok.cash / 4.546)?.toFixed(3)}
@@ -157,9 +160,7 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
                   <td className="text-right">
                     {(ok.balance / 4.546)?.toFixed(3)}
                   </td>
-                  {/* <td className="text-right">
-                    {(ok.opening - ok.balance)?.toFixed(3)}
-                  </td> */}
+                  <td className="text-center">-</td>
                 </tr>
               ))}
         </table>

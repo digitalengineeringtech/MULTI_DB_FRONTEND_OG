@@ -1496,24 +1496,14 @@ function CategoryTable({ okData, tableRef, startDate, endDate,language }) {
 
         setTotalCountPHSD(cyPremiumcount + cy3Premiumcount + carPremiumcount + buscPremiumcount + bushPremiumcount + ltcPremiumcount + lthPremiumcount + htcPremiumcount + hthPremiumcount + trPremiumcount + trhPremiumcount + htPremiumcount + traPremiumcount + straPremiumcount + hmPremiumcount +cvPremiumcount + ptPremiumcount + izPremiumcount + giPremiumcount + amPremiumcount + gPremiumcount + hPremiumcount + sPremiumcount + smPremiumcount + hoPremiumcount + huPremiumcount + bPremiumcount);
 
-
-
-
-
-
-
-
-
-
-
    },[okData])
 
   return (
       <div className='mt-[50px]'>
           <table id='category_table' ref={tableRef}>
   <tr>
-    <th rowSpan={3}>{language.no}</th>
-    <th rowSpan={3} colSpan={2}>{language.content}</th>
+    <th rowSpan={4}>{language.no}</th>
+    <th rowSpan={4} colSpan={2}>{language.content}</th>
     {
     language.no === "စဉ်" ? <th colSpan={10}>{startDate} ရက်နေ့မှ {endDate} ရက်နေ့အထိ</th>:  <th colSpan={10}>From {startDate} to {endDate}</th>
     }
@@ -1530,7 +1520,7 @@ function CategoryTable({ okData, tableRef, startDate, endDate,language }) {
     <th colSpan={2}>PHSD</th>
   </tr>
   <tr>
-    <th colSpan={3}>{language.saleDepartment}</th>
+    {/* <th colSpan={3}>{language.saleDepartment}</th> */}
     <th colSpan>{language.count}</th>
     <th colSpan>{language.liter}</th>
     <th colSpan>{language.count}</th>

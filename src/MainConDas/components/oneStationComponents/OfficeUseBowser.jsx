@@ -126,6 +126,7 @@ function OfficeUseBowser({ title, language }) {
       <div className=" drop-shadow-md  gap-5 mt-4 flex justify-around items-center mx-auto relative">
         <CalenderComponent
           date={start}
+          start={true}
           value={startDate}
           setValue={setStartDate}
           title={language.start_date}

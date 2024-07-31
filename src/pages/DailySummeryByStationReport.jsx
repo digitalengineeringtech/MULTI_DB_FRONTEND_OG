@@ -148,12 +148,13 @@ function DailySummeryByStationReport() {
         <div className="flex flex-wrap gap-[20px]">
           <CalenderComponent
             date={start}
+            start={true}
             value={startDate}
             setValue={setStartDate}
             title={language.start_date}
           />
           <CalenderComponent
-          date={end}
+            date={end}
             value={endDate}
             setValue={setEndDate}
             title={language.end_date}

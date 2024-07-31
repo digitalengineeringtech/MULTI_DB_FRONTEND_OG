@@ -7,6 +7,7 @@ function CalenderComponent({
   value,
   setValue,
   date,
+  start,
   // setHour,
   // setMinute,
   // setSecond,
@@ -14,10 +15,10 @@ function CalenderComponent({
   // minute,
   // second,
 }) {
-  console.log(date, '.................');
-  const [hour, setHour] = useState(date.getHours());
-  const [minute, setMinute] = useState(date.getMinutes());
-  const [second, setSecond] = useState(date.getSeconds());
+  console.log(date, ".................");
+  const [hour, setHour] = useState(start ? "00" : date.getHours());
+  const [minute, setMinute] = useState(start ? "00" : date.getMinutes());
+  const [second, setSecond] = useState(start ? "00" : date.getSeconds());
 
   useEffect(() => {
     let start = new Date(value);
@@ -34,6 +35,7 @@ function CalenderComponent({
       </label>
       <div className="calendar-container">
         <Calendar
+          dateFormat="dd/mm/yy"
           def
           id="calendar-12h"
           className="!h-[30px] "

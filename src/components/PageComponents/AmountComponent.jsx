@@ -1,3 +1,4 @@
+import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { RadioButton } from "primereact/radiobutton";
 import React, { useState } from "react";
@@ -8,8 +9,14 @@ const AmountComponent = ({
   setValue,
   ingredient,
   setIngredient,
+  kyat,
+  setKyat,
 }) => {
   //   const [ingredient, setIngredient] = useState("equal");
+  const fueltypes = [
+    { name: "Kyats", code: true },
+    { name: "Liters", code: false },
+  ];
 
   return (
     <div className="flex-3 ">
@@ -17,6 +24,17 @@ const AmountComponent = ({
         {title}
       </label>
       <div className="flex gap-4 items-center">
+        <Dropdown
+          value={kyat}
+          onChange={(e) => {
+            setKyat(e.value);
+          }}
+          options={fueltypes}
+          optionLabel="name"
+          className="!h-[30px] w-[120px] flex items-center justify-center"
+          placeholder="Kyats"
+        />
+
         <InputText
           keyfilter="int"
           className="!h-[30px] w-[100px]"

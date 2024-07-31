@@ -76,12 +76,18 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
                 <th width="50">{language.pprd_no}</th>
                 {/* <th>{language.Township}</th> */}
                 <th>{language.State}</th>
-                <th>{language.tank}</th>
+                <th>{language.tank_no}</th>
                 {/* <th colSpan={2}>{language.date}</th> */}
                 <th>{language.fuel_type}</th>
-                <th className="w-[150px]">{language.opening1}</th>
-                <th>{language.receive_volume1}</th>
-                <th className="w-[150px]">{language.closing_stk1}</th>
+                <th className="w-[150px]">
+                  Opening <br /> Liter
+                </th>
+                <th>
+                  Received <br /> Liter
+                </th>
+                <th className="w-[150px]">
+                  Closing <br /> Liter
+                </th>
                 <th className="w-[150px]">{language.dif}</th>
                 <th className="w-[150px]">{language.sale1}</th>
                 <th>{language.gl1}</th>

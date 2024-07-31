@@ -215,6 +215,7 @@ export default function DailySaleReport() {
           <CalenderComponent
             value={startDate}
             date={start}
+            start={true}
             setValue={setStartDate}
             title={language.start_date}
           />

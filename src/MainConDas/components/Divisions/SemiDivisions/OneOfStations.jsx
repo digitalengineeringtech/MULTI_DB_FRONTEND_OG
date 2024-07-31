@@ -293,6 +293,7 @@ function OneOfStations({ title, navigation, setNavigation }) {
             <div className="w-[97%] mb-[40px]  drop-shadow-md  gap-5 mt-[30px]  flex justify-around items-center mx-auto relative">
               <CalenderComponent
                 date={start}
+                start={true}
                 value={fuelPumpStartDate}
                 setValue={setFuelPumpStartDate}
                 title={language.start_date}
@@ -361,6 +362,7 @@ function OneOfStations({ title, navigation, setNavigation }) {
             <div className="w-[97%] mb-[40px]  drop-shadow-md  gap-5 mt-4 flex justify-around items-center mx-auto relative">
               <CalenderComponent
                 date={start}
+                start={true}
                 value={fuelInStartDate}
                 setValue={setFuelInStartDate}
                 title={language.start_date}
@@ -405,6 +407,7 @@ function OneOfStations({ title, navigation, setNavigation }) {
             <div className="w-[97%] mb-[40px]  drop-shadow-md  gap-5 mt-4 flex justify-around items-center mx-auto relative">
               <CalenderComponent
                 date={start}
+                start={true}
                 value={fuelBalanceStartDate}
                 setValue={setFuelBalanceStartDate}
                 title={"Date"}

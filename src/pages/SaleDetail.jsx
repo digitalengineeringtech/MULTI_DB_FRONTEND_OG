@@ -91,6 +91,7 @@ export default function SaleDetail() {
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(50);
   const [amount, setAmount] = useState();
+  const [kyat, setKyat] = useState({ name: "Kyats", code: true });
 
   const [totalLength, setTotalLength] = useState(0);
   const [casher, setCasher] = useState(null);
@@ -151,6 +152,7 @@ export default function SaleDetail() {
           casher,
           amount,
           greate,
+          kyat?.code,
         ];
 
         setloading(true);
@@ -225,6 +227,7 @@ export default function SaleDetail() {
           <div className="flex flex-wrap gap-[20px]">
             <CalenderComponent
               date={start}
+              start={true}
               value={startDate}
               setValue={setStartDate}
               title={language.start_date}
@@ -261,6 +264,8 @@ export default function SaleDetail() {
               setValue={setSelectedStation}
             />
             <AmountComponent
+              kyat={kyat}
+              setKyat={setKyat}
               title={language.amount}
               value={amount}
               setValue={setAmount}

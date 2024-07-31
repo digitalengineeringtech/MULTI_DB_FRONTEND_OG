@@ -6,15 +6,18 @@ function FuelRecieveTableLittle({ okData }) {
       <h3 className="mt-[30px]"></h3>
       <table className="mt-5">
         <tr>
-          <th>No.</th>
-          <th>Station</th>
+          <th>
+            Sir <br />
+            No.
+          </th>
+          <th>Station Name</th>
           <th>
             PPRD <br />
             License <br /> No.
           </th>
           <th>Township</th>
           <th>State/Division</th>
-          <th>Receive Date</th>
+          <th>Date & Time</th>
           <th>Bowser No</th>
           {/* <th>Driver</th> */}
           <th>Fuel Type</th>

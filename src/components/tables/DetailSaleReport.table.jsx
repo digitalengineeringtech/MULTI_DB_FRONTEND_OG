@@ -34,7 +34,11 @@ function DetailSaleReportTable({
         <table ref={tableRef} class="text-md report-table">
           <thead>
             <tr>
-              <th>No</th>
+              <th>
+                Sir
+                <br />
+                No.
+              </th>
               <th>{language.Station_name}</th>
               <th width="50">{language.pprd_no}</th>
               <th>{language.Township}</th>

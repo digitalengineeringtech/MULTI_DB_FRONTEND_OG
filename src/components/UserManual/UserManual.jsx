@@ -91,6 +91,7 @@ function UserManual() {
             <h3>Calender</h3>
             <CalenderComponent
               date={start}
+              start={true}
               value={value1}
               setValue={setValue1}
             />
@@ -138,6 +139,7 @@ function UserManual() {
                     <h3 className="text-black mb-5">Start Date</h3>
                     <CalenderComponent
                       date={start}
+                      start={true}
                       value={demoCValue1}
                       setValue={setDemoCValue1}
                     />

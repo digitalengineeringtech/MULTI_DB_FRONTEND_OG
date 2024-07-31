@@ -128,6 +128,7 @@ function PumpTest({ title, language }) {
       <div className="w-[97%] drop-shadow-md mt-[30px] gap-5  flex justify-around items-center mx-auto relative">
         <CalenderComponent
           date={start}
+          start={true}
           value={startDate}
           setValue={setStartDate}
           title={language.start_date}

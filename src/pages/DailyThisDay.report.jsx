@@ -161,6 +161,7 @@ var localString = currentDate.toLocaleString();
           <CalenderComponent
             date={start}
             value={startDate}
+            start={true}
             setValue={setStartDate}
             title={language.start_date}
           />

@@ -141,6 +141,7 @@ function TankBalanceReport() {
         <div className="flex flex-wrap gap-[20px]">
           <CalenderComponent
             date={start}
+            start={true}
             title={language.start_date}
             value={startDate}
             setValue={setStartDate}

@@ -44,7 +44,7 @@ function Casher({ value, setValue, title }) {
             onChange={(e) => setValue(e.value)}
             // options={jj}
             optionLabel="name"
-            className="!h-[30px] w-[250px] flex items-center justify-center"
+            className="!h-[30px] w-[180px] flex items-center justify-center"
             placeholder="Cashers"
           />
         ) : (
@@ -54,7 +54,7 @@ function Casher({ value, setValue, title }) {
             onChange={(e) => setValue(e.value)}
             options={pruposes}
             // optionLabel="name"
-            className="!h-[30px] w-[250px] flex items-center justify-center"
+            className="!h-[30px] w-[180px] flex items-center justify-center"
             placeholder="Cashers"
           />
         )}

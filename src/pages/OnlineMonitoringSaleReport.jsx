@@ -206,6 +206,7 @@ function OnlineMonitoringSaleReport() {
           <div className="flex flex-wrap gap-[20px] items-center">
             <CalenderComponent
               date={start}
+              start={true}
               value={startDate}
               setValue={setStartDate}
               title={language.startDate}

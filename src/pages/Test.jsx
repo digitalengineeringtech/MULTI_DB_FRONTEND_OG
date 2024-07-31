@@ -203,12 +203,13 @@ function Test() {
           <div className="flex flex-wrap gap-[20px] items-center">
             <CalenderComponent
               date={start}
+              start={true}
               value={startDate}
               setValue={setStartDate}
               title={language.startDate}
             />
             <CalenderComponent
-            date={end}
+              date={end}
               value={endDate}
               setValue={setEndDate}
               title={language.endDate}
