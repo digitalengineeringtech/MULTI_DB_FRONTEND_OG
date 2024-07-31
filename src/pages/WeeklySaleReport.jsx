@@ -43,6 +43,7 @@ function WeeklySaleReport() {
   const [endDate, setEndDate] = useState(end);
   const [fromDate, setFromDate] = useState(start);
   const [toDate, settoDate] = useState(end);
+  const [click, setClick] = useState(false);
   const [selectedStation, setSelectedStation] = useState({
     name: "All",
     code: "Please",
@@ -82,6 +83,7 @@ function WeeklySaleReport() {
   }, [navigate, user, isSearch, endDate, startDate, dispatch]);
 
   const handleClick = () => {
+    setClick(true);
     if (startDate && endDate) {
       if (selectedStation.code === "Please") {
         setIsSelectedStation(true);
@@ -119,7 +121,7 @@ function WeeklySaleReport() {
           ];
           await dispatch(fetchATGTanks(bomb));
           // await dispatch(fetchDailySaleReportByTimeRange(bomb));
-          setloading(false);
+          // setloading(false);
           setIsSearch(false);
           data && setFuel(data?.result);
         };
@@ -132,7 +134,7 @@ function WeeklySaleReport() {
     if (datas?.result?.length > 0) {
       let pureArray = datas?.result[0];
       setTankData(pureArray.data);
-      setloading(false); // Update the state with the new sorted array
+      // setloading(false); // Update the state with the new sorted array
     } else {
       setTankData([]);
     }
@@ -232,9 +234,9 @@ function WeeklySaleReport() {
   //    }, [datas, dispatch]);
 
   useEffect(() => {
-    setloading(loading_g);
     if (data_g?.result) {
       setOkData(data_g?.result);
+      setloading(loading_g);
     }
   }, [data_g, loading_g, error_g]);
 
@@ -280,7 +282,7 @@ function WeeklySaleReport() {
           </button>
         </div>
       </InputContainer>
-      {okData?.length > 0 && capacity?.length > 0 ? (
+      {okData?.length > 0 ? (
         <>
           <WeeklyTable
             language={language}
@@ -294,7 +296,11 @@ function WeeklySaleReport() {
           />
         </>
       ) : (
-        ""
+        click && (
+          <div className=" flex text-center justify-center mt-[100px] text-3xl font-bold text-gray-200">
+            There is no data in this period !
+          </div>
+        )
       )}
 
       {loading ? <Loading /> : ""}

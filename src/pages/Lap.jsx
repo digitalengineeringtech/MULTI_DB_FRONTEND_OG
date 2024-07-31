@@ -28,6 +28,7 @@ import UsePost_2 from "../MainConDas/components/hooks/UsePost_2";
 import FuelInTable from "../components/tables/FuelInTable";
 import FuelRecieveTableLittle from "../Dashboard/Components/Table/FuelRecieve.table";
 import instance from "../axios";
+import Input from "../components/PageComponents/Input";
 
 let start = new Date();
 start.setHours(0);
@@ -49,6 +50,8 @@ function FuelBalanceReport() {
   const tableRef = useRef();
   const [loading, setloading] = useState(false);
   const [okData, setOkData] = useState();
+  const [click, setClick] = useState(false);
+  const [number, setNumber] = useState();
   const [calenderOne, setCalenderOne] = useState(start);
   const [calenderTwo, setCalenderTwo] = useState(end);
   const [fuelType, setFuelType] = useState({ name: "All", code: "Please" });
@@ -87,8 +90,10 @@ function FuelBalanceReport() {
     fuelType.code === "Please" ? "" : `&fuel_type=${fuelType.code}`;
   const tankNoRoute =
     tankName.code === "Please" ? "" : `&tankNo=${tankName.code}`;
+  const bowserNo = number ? `&bowser=${number}` : "";
 
   const handleClick = () => {
+    setClick(true);
     if (calenderOne) {
       if (selectedStation.code === "Please") {
         setIsSelectedStation(true);
@@ -119,7 +124,7 @@ function FuelBalanceReport() {
           // .get(`/fuelIn/pagi/1?stationId=${selectedStation?.code}`, {
           .get(
             // `/fuelIn/pagi/1?stationId=${selectedStation?.code}`,
-            `/fuelIn/pagi/by-date/1?stationId=${selectedStation?.code}&sDate=${calenderOne}&eDate=${calenderTwo}${tankNoRoute}${fuelTypeRoute}`,
+            `/fuelIn/pagi/by-date/1?stationId=${selectedStation?.code}&sDate=${calenderOne}&eDate=${calenderTwo}${tankNoRoute}${fuelTypeRoute}${bowserNo}`,
             {
               headers: {
                 "Content-Type": "multipart/form-data",
@@ -161,8 +166,6 @@ function FuelBalanceReport() {
       setOkData([]);
     }
   }, [datas, dispatch]);
-
-  console.log(".lllllllllllllllllllllllllllll", okData);
 
   const fuelData = [
     {
@@ -246,6 +249,7 @@ function FuelBalanceReport() {
             value={tankName}
             setValue={setTankName}
           />
+          <Input value={number} setValue={setNumber} title={"Bowser No."} />
           <StationComponent
             title={language.station}
             value={selectedStation}
@@ -268,22 +272,17 @@ function FuelBalanceReport() {
         </div>
       </InputContainer>
 
-      {okData?.length > 0 && <FuelRecieveTableLittle okData={okData} />}
-
-      {calcu?.length > 0 ? (
-        <>
-          {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
-          {/* <FuelInTable
-            language={language}
-            tableRef={tableRef}
-            okData={calcu}
-            sd={calenderOne}
-            ed={calenderTwo}
-          /> */}
-        </>
+      {okData?.length > 0 ? (
+        <FuelRecieveTableLittle okData={okData} />
       ) : (
-        ""
+        click && (
+          <div className=" flex text-center justify-center mt-[100px] text-3xl font-bold text-gray-200">
+            There is no fuel-in data in this period !
+          </div>
+        )
       )}
+
+   
 
       {loading ? <Loading /> : ""}
     </PageContainer>
