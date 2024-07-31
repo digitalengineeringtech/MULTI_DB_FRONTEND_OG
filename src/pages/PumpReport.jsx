@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import PumpTable from "../components/tables/Pump.table";
 import NozzleTable from "../components/tables/NozzleTable";
 import UsePost_2 from "../MainConDas/components/hooks/UsePost_2";
+import PumpTableTemp from "../components/tables/PumpTableTemp";
 
 let start = new Date();
 start.setHours(0);
@@ -208,7 +209,7 @@ function PumpReport() {
           {/* <ShiftLeader selectedStation={selectedStation} isSearch={isSearch} calenderTwo={endDate} tableRef={tableRef} okData={okData}/>
            */}
           {/* normal */}
-          <PumpTable
+          <PumpTableTemp
             language={language}
             sDate={startDate}
             eDate={endDate}
@@ -216,6 +217,14 @@ function PumpReport() {
             data_g_2={data_g_2.result}
             okData={okData}
           />
+          {/* <PumpTable
+            language={language}
+            sDate={startDate}
+            eDate={endDate}
+            statement
+            data_g_2={data_g_2.result}
+            okData={okData}
+          /> */}
 
           {/* <NozzleTable language={language} statement okData={okData} /> */}
         </>

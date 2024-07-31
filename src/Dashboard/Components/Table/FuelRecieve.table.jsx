@@ -44,14 +44,25 @@ function FuelRecieveTableLittle({ okData }) {
           </th>
         </tr>
         {okData.map((item, index) => {
+          // const dateObj = new Date(item?.createAt);
+          // // const day = dateObj?.getUTCDate();
+          // // const month = months[dateObj.getUTCMonth()];
+          // // const year = dateObj?.getUTCFullYear();
+          // const time = dateObj?.toISOString().slice(11, 19);
+          // const formattedDate = `${dateObj.toLocaleDateString(
+          //   `fr-CA`
+          // )} ${time}`;
+
           const dateObj = new Date(item?.createAt);
-          // const day = dateObj?.getUTCDate();
-          // const month = months[dateObj.getUTCMonth()];
-          // const year = dateObj?.getUTCFullYear();
+
+          const day = String(dateObj.getUTCDate()).padStart(2, "0");
+          const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
+          const year = dateObj.getUTCFullYear();
+
           const time = dateObj?.toISOString().slice(11, 19);
-          const formattedDate = `${dateObj.toLocaleDateString(
-            `fr-CA`
-          )} ${time}`;
+
+          const formattedDate = `${day}-${month}-${year} ${time}`;
+
           return (
             <tr key={index}>
               <td>{index + 1}</td>

@@ -89,14 +89,24 @@ function DetailSaleReportTable({
               ];
 
               const dateObj = new Date(object?.createAt);
-              const day = dateObj?.getUTCDate();
-              const month = months[dateObj.getUTCMonth()];
-              const year = dateObj?.getUTCFullYear();
+
+              const day = String(dateObj.getUTCDate()).padStart(2, "0");
+              const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
+              const year = dateObj.getUTCFullYear();
+
               const time = dateObj?.toISOString().slice(11, 19);
 
-              const formattedDate = `${dateObj.toLocaleDateString(
-                `fr-CA`
-              )} ${time}`;
+              const formattedDate = `${day}-${month}-${year} ${time}`;
+              // const dateObj = new Date(object?.createAt);
+              // const day = dateObj?.getUTCDate();
+              // const month = months[dateObj.getUTCMonth()];
+              // const year = dateObj?.getUTCFullYear();
+              // const time = dateObj?.toISOString().slice(11, 19);
+
+              // const formattedDate = `${dateObj.toLocaleDateString(
+              //   `fr-CA`
+              // )} ${time}`;
+
               const state = currentData[0]?.stationDetailId.location.split(",");
               return (
                 <tr key={index}>

@@ -32,20 +32,85 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
     ?.filter((ea) => ea.fuelType == "92 RON")
     .map((e) => e.cash)
     .reduce((pv, cv) => pv + cv, 0);
+
+  const n2GlTotal = okData
+    ?.filter((ea) => ea.fuelType == "92 RON")
+    .map((e) => e.gl)
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const n2DifTotal = okData
+    ?.filter((ea) => ea.fuelType === "92 RON")
+    .map((e) => {
+      // Convert to numbers, compute absolute difference, and fix to 3 decimal places
+      const opening = parseFloat(e.opening?.toFixed(3)) || 0;
+      const balance = parseFloat(e.balance?.toFixed(3)) || 0;
+      return Math.abs(opening - balance);
+    })
+    .reduce((pv, cv) => pv + cv, 0);
+
   const n5Total = okData
     ?.filter((ea) => ea.fuelType == "92 RON")
     .map((e) => e.cash)
     .reduce((pv, cv) => pv + cv, 0);
+
+  const n5GlTotal = okData
+    ?.filter((ea) => ea.fuelType == "95 RON")
+    .map((e) => e.gl)
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const n5DifTotal = okData
+    ?.filter((ea) => ea.fuelType === "95 RON")
+    .map((e) => {
+      // Convert to numbers, compute absolute difference, and fix to 3 decimal places
+      const opening = parseFloat(e.opening?.toFixed(3)) || 0;
+      const balance = parseFloat(e.balance?.toFixed(3)) || 0;
+      return Math.abs(opening - balance);
+    })
+    .reduce((pv, cv) => pv + cv, 0);
+
   const hsdTotal = okData
     ?.filter((ea) => ea.fuelType == "HSD")
     .map((e) => e.cash)
     .reduce((pv, cv) => pv + cv, 0);
+
+  const hsdGlTotal = okData
+    ?.filter((ea) => ea.fuelType == "HSD")
+    .map((e) => e.gl)
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const hsdDifTotal = okData
+    ?.filter((ea) => ea.fuelType === "HSD")
+    .map((e) => {
+      // Convert to numbers, compute absolute difference, and fix to 3 decimal places
+      const opening = parseFloat(e.opening?.toFixed(3)) || 0;
+      const balance = parseFloat(e.balance?.toFixed(3)) || 0;
+      return Math.abs(opening - balance);
+    })
+    .reduce((pv, cv) => pv + cv, 0);
+
   const phsdTotal = okData
     ?.filter((ea) => ea.fuelType == "PHSD")
     .map((e) => e.cash)
     .reduce((pv, cv) => pv + cv, 0);
 
+  const phsdGlTotal = okData
+    ?.filter((ea) => ea.fuelType == "PHSD")
+    .map((e) => e.gl)
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const phsdDifTotal = okData
+    ?.filter((ea) => ea.fuelType === "PHSD")
+    .map((e) => {
+      // Convert to numbers, compute absolute difference, and fix to 3 decimal places
+      const opening = parseFloat(e.opening?.toFixed(3)) || 0;
+      const balance = parseFloat(e.balance?.toFixed(3)) || 0;
+      return Math.abs(opening - balance);
+    })
+    .reduce((pv, cv) => pv + cv, 0);
+
   const Total = n2Total + n5Total + hsdTotal + phsdTotal;
+  const difTotal = n2DifTotal + n5DifTotal + hsdDifTotal + phsdDifTotal;
+  const glTotal = n2GlTotal + n5GlTotal + hsdGlTotal + phsdGlTotal;
 
   return (
     <>
@@ -89,7 +154,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
                   Closing <br /> Liter
                 </th>
                 <th className="w-[150px]">{language.dif}</th>
-                <th className="w-[150px]">{language.sale1}</th>
+                <th className="w-[150px]">Sale Liter</th>
                 <th>{language.gl1}</th>
                 <th>{language.Remark}</th>
               </tr>
@@ -116,27 +181,23 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
                       ? "PHSD"
                       : ""}
                   </td>
-                  <td className="text-right">{(ok.open / 4.546).toFixed(3)}</td>
+                  <td className="text-right">{ok.open.toFixed(3)}</td>
                   <td className="text-right">
-                    {ok.fuelIn === 0
-                      ? "-"
-                      : (ok.receiveVolume / 4.546)?.toFixed(3)}
+                    {ok.fuelIn === 0 ? "-" : ok.receiveVolume?.toFixed(3)}
                   </td>
                   <td className="text-right">
-                    {ok.fuelIn === 0 ? "-" : (ok.totalCash / 4.546)?.toFixed(3)}
+                    {ok.fuelIn === 0 ? "-" : ok.totalCash?.toFixed(3)}
                   </td>
                   <td className="text-right">
                     {(
-                      ok.close / 4.546 -
-                      ok.open / 4.546 -
-                      ok.receiveVolume / 4.546 +
-                      ok.totalCash / 4.546
+                      ok.close -
+                      ok.open -
+                      ok.receiveVolume +
+                      ok.totalCash
                     ).toFixed(3)}
                   </td>
                   {/* <td className="text-left">{ok.capacity}</td> */}
-                  <td className="text-right">
-                    {(ok.close / 4.546).toFixed(3)}
-                  </td>
+                  <td className="text-right">{ok.close.toFixed(3)}</td>
                   <td className="text-center">-</td>
                 </tr>
               ))
@@ -176,61 +237,145 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
                 </tr>
               ))}
           <tr className="bg-gray-200">
-            <td colSpan={10} className="text-center">
-              SubTotal 92Ron
+            <td colSpan={9} className="text-center">
+              SubTotal 92 Ron
+            </td>
+            <td colSpan={1} className="text-right">
+              {n2DifTotal?.toFixed(3)}
             </td>
             <td colSpan={1} className="text-right">
               {n2Total?.toFixed(3)}
             </td>
-            <td colSpan={3} className="text-right"></td>
+            <td colSpan={1} className="text-right">
+              {n2GlTotal?.toFixed(3)}
+            </td>
+            <td colSpan={1} className="text-right"></td>
           </tr>
           <tr>
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={10} className="text-center">
-              SubTotal 95Ron
+            <td colSpan={9} className="text-center">
+              SubTotal 95 Ron
+            </td>
+            <td colSpan={1} className="text-right">
+              {n5DifTotal?.toFixed(3)}
             </td>
             <td colSpan={1} className="text-right">
               {n5Total?.toFixed(3)}
             </td>
-            <td colSpan={3} className="text-right"></td>
+            <td colSpan={1} className="text-right">
+              {n5GlTotal?.toFixed(3)}
+            </td>
+            <td colSpan={1} className="text-right"></td>
           </tr>
           <tr>
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={10} className="text-center">
+            <td colSpan={9} className="text-center">
+              SubTotal 97 Ron
+            </td>
+            <td colSpan={1} className="text-right">
+              0.000
+            </td>
+            <td colSpan={1} className="text-right">
+              0.000
+            </td>
+            <td colSpan={1} className="text-right">
+              0.000
+            </td>
+            <td colSpan={1} className="text-right"></td>
+          </tr>
+          <tr>
+            <td colSpan={13} className="text-center"></td>
+          </tr>
+          <tr className="bg-gray-200">
+            <td colSpan={9} className="text-center">
               SubTotal HSD
+            </td>
+            <td colSpan={1} className="text-right">
+              {hsdDifTotal?.toFixed(3)}
             </td>
             <td colSpan={1} className="text-right">
               {hsdTotal?.toFixed(3)}
             </td>
-            <td colSpan={3} className="text-right"></td>
+            <td colSpan={1} className="text-right">
+              {hsdGlTotal?.toFixed(3)}
+            </td>
+            <td colSpan={1} className="text-right"></td>
           </tr>
           <tr>
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={10} className="text-center">
+            <td colSpan={9} className="text-center">
+              SubTotal C-HSD
+            </td>
+            <td colSpan={1} className="text-right">
+              0.000
+            </td>
+            <td colSpan={1} className="text-right">
+              0.000
+            </td>
+            <td colSpan={1} className="text-right">
+              0.000
+            </td>
+            <td colSpan={1} className="text-right"></td>
+          </tr>
+          <tr>
+            <td colSpan={13} className="text-center"></td>
+          </tr>
+          <tr className="bg-gray-200">
+            <td colSpan={9} className="text-center">
               SubTotal PHSD
+            </td>
+            <td colSpan={1} className="text-right">
+              {phsdDifTotal?.toFixed(3)}
             </td>
             <td colSpan={1} className="text-right">
               {phsdTotal?.toFixed(3)}
             </td>
-            <td colSpan={3} className="text-right"></td>
+            <td colSpan={1} className="text-right">
+              {phsdGlTotal?.toFixed(3)}
+            </td>
+            <td colSpan={1} className="text-right"></td>
           </tr>
           <tr>
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={10} className="text-center">
+            <td colSpan={9} className="text-center">
+              SubTotal C-PHSD
+            </td>
+            <td colSpan={1} className="text-right">
+              0.000
+            </td>
+            <td colSpan={1} className="text-right">
+              0.000
+            </td>
+            <td colSpan={1} className="text-right">
+              0.000
+            </td>
+            <td colSpan={1} className="text-right"></td>
+          </tr>
+          <tr>
+            <td colSpan={13} className="text-center"></td>
+          </tr>
+          <tr className="bg-gray-200">
+            <td colSpan={9} className="text-center">
               Grand Total
+            </td>
+            <td colSpan={1} className="text-right">
+              {difTotal?.toFixed(3)}
             </td>
             <td colSpan={1} className="text-right">
               {Total?.toFixed(3)}
             </td>
-            <td colSpan={3} className="text-right"></td>
+            <td colSpan={1} className="text-right">
+              {glTotal?.toFixed(3)}
+            </td>
+            <td colSpan={1} className="text-right"></td>
           </tr>
         </table>
         {/* <p className='flex justify-end mt-[30px] underline px-[100px] hover:font-semibold'><Link className='flex gap-3 items-center hover:gap-5 duration-300' to="/kyawsan/tankdemo">Check with Model <AiOutlineArrowRight/></Link></p> */}

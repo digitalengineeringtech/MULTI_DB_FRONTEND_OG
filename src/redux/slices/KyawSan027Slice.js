@@ -110,12 +110,16 @@ export const fetchDailySaleReportByTimeRange = createAsyncThunk(
     const endDate = bomb[2];
     const stationSelection = bomb[3];
     const accessDb = bomb[4];
+    const saleType = bomb[5]?.code;
 
     let isoStartDate = startDate;
     let isoEndDate = endDate;
 
+    const purposeofUseRoute =
+      saleType === "Please" ? "" : `&vehicleType=${saleType}`;
+
     const response = await instance.get(
-      `/detail-sale/by-date/?sDate=${isoStartDate}&eDate=${isoEndDate}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}`,
+      `/detail-sale/by-date/?sDate=${isoStartDate}&eDate=${isoEndDate}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}${purposeofUseRoute}`,
       {
         headers: {
           "Content-Type": "multipart/form-data",

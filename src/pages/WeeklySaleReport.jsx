@@ -25,6 +25,7 @@ import { MyanmarWeeklySaleReport } from "../Language/Myanmar/myanmarWeeklySaleRe
 import UsePost from "../MainConDas/components/hooks/UsePost";
 import instance from "../axios";
 import Balance from "../Dashboard/Components/Balance";
+import WeeklyTableTemp from "../components/tables/WeeklyTableTemp";
 
 let start = new Date();
 start.setHours(0);
@@ -140,20 +141,20 @@ function WeeklySaleReport() {
     }
   }, [datas]);
 
-  // const fuelData = [
-  //   {
-  //     name: "005-Premium Diesel",
-  //   },
-  //   {
-  //     name: "004-Diesel",
-  //   },
-  //   {
-  //     name: "001-Octane Ron(92)",
-  //   },
-  //   {
-  //     name: "002-Octane Ron(95)",
-  //   },
-  // ];
+  const fuelCount = [
+    {
+      name: "005-Premium Diesel",
+    },
+    {
+      name: "004-Diesel",
+    },
+    {
+      name: "001-Octane Ron(92)",
+    },
+    {
+      name: "002-Octane Ron(95)",
+    },
+  ];
 
   // const tt = tankData.map((e) => e.oilType);
 
@@ -174,26 +175,38 @@ function WeeklySaleReport() {
   });
 
   const [g, setg] = useState();
-  // {
-  //   time === 0 ? (hsd / 4.16).toFixed(3) : (hsd / time / 4.16).toFixed(3);
-  // }
-  // if (data_g?.result?.length > 0) {
-  const test = fuelData?.map((e) => {
+
+  const test = fuelCount?.map((e) => {
     // data_g?.result?.filter((c) => c.fuelType == e.name);
 
-    const time = data_g?.result?.filter((c) => c.tankNo == e.id).length;
+    const time = data_g?.result?.filter((c) => c.fuelType == e.name).length;
     const total = data_g?.result
-      ?.filter((c) => c.tankNo == e.id)
+      ?.filter((c) => c.fuelType == e.name)
       .reduce((a, b) => a + b.saleLiter, 0);
 
-    const tankBalance = tankData?.filter((item) => item.id == e.id)[0]?.volume;
+    const tankBalance = tankData
+      ?.filter(
+        (item) =>
+          (item?.oilType == "Petrol 92"
+            ? "001-Octane Ron(92)"
+            : item?.oilType == "95 Octane"
+            ? "002-Octane Ron(95)"
+            : item?.oilType == "Diesel"
+            ? "004-Diesel"
+            : item?.oilType == "Super Diesel"
+            ? "005-Premium Diesel"
+            : "" || "-") == e.name
+      )
+      ?.map((g) => g.volume)
+      ?.reduce((pv, cv) => pv + cv, 0);
     const balance = data_g?.result
-      ?.filter((c) => c.tankNo == e.id)[0]
-      ?.tankBalance.toFixed(3);
+      ?.filter((c) => c.fuelType == e.name)
+      ?.map((g) => g.tankBalance)
+      ?.reduce((pv, cv) => pv + cv, 0);
 
     console.log(time, total, "lllllllllllllllllllllllll");
     return {
-      tank: e.id,
+      // tank: e.id,
       fuelType: e.name,
       capacity: 14540,
       balance: balance ? balance : tankBalance,
@@ -208,8 +221,38 @@ function WeeklySaleReport() {
       avg: time == 0 ? total : total / time,
     };
   });
-  // setg(test);
-  // }
+
+  //old version
+  // const test = fuelData?.map((e) => {
+  //   // data_g?.result?.filter((c) => c.fuelType == e.name);
+
+  //   const time = data_g?.result?.filter((c) => c.tankNo == e.id).length;
+  //   const total = data_g?.result
+  //     ?.filter((c) => c.tankNo == e.id)
+  //     .reduce((a, b) => a + b.saleLiter, 0);
+
+  //   const tankBalance = tankData?.filter((item) => item.id == e.id)[0]?.volume;
+  //   const balance = data_g?.result
+  //     ?.filter((c) => c.tankNo == e.id)[0]
+  //     ?.tankBalance.toFixed(3);
+
+  //   console.log(time, total, "lllllllllllllllllllllllll");
+  //   return {
+  //     tank: e.id,
+  //     fuelType: e.name,
+  //     capacity: 14540,
+  //     balance: balance ? balance : tankBalance,
+  //     cash: total,
+  //     // fuelIn: data_g?.result
+  //     //   ?.filter((c) => c.tankNo == e.id)
+  //     //   .reduce((a, b) => a + b.fuelIn, 0),
+  //     opening: data_g?.result
+  //       ?.filter((c) => c.tankNo == e.id)
+  //       ?.reverse()[0]
+  //       ?.tankBalance.toFixed(3),
+  //     avg: time == 0 ? total : total / time,
+  //   };
+  // });
 
   // const capacity = fuel?.slice(0, 4);
   const capacity = test;
@@ -285,7 +328,17 @@ function WeeklySaleReport() {
       </InputContainer>
       {okData?.length > 0 ? (
         <>
-          <WeeklyTable
+          {/* <WeeklyTable
+            language={language}
+            selectedStation={selectedStation}
+            isSearch={isSearch}
+            calenderOne={fromDate}
+            calenderTwo={toDate}
+            okData={okData}
+            capacity={test}
+            tableRef={tableRef}
+          /> */}
+          <WeeklyTableTemp
             language={language}
             selectedStation={selectedStation}
             isSearch={isSearch}

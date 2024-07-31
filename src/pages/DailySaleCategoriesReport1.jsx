@@ -1,22 +1,27 @@
-import React,{useState,useRef,useEffect} from 'react'
-import PageContainer from '../components/PageComponents/PageContainer'
-import InputContainer from '../components/PageComponents/InputContainer';
-import CalenderComponent from '../components/PageComponents/CalenderComponent';
-import StationComponent from '../components/PageComponents/StationComponent';
-import { FiSearch } from 'react-icons/fi';
-import { useReactToPrint } from 'react-to-print';
-import { useDownloadExcel } from 'react-export-table-to-excel';
-import { RiFileExcel2Fill } from 'react-icons/ri';
-import { AiFillPrinter } from 'react-icons/ai';
-import { useSelector,useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { LogoutUser } from '../redux/slices/LoginSlice';
-import Loading from '../components/Loading';
-import CategoryTable from '../components/tables/Category.table';
-import { EnglishDailySaleCategoriesReport } from '../Language/English/englishDailySaleCategoriesReport';
-import { MyanmarDailySaleCategoriesReport } from '../Language/Myanmar/myanmarDailySaleCategoriesReport';
-import { fetchDailySaleReportByTimeRange, getAllKyawSan027DailySaleReports, removeOldDats } from '../redux/slices/KyawSan027Slice';
-import { FcInfo } from 'react-icons/fc';
+import React, { useState, useRef, useEffect } from "react";
+import PageContainer from "../components/PageComponents/PageContainer";
+import InputContainer from "../components/PageComponents/InputContainer";
+import CalenderComponent from "../components/PageComponents/CalenderComponent";
+import StationComponent from "../components/PageComponents/StationComponent";
+import { FiSearch } from "react-icons/fi";
+import { useReactToPrint } from "react-to-print";
+import { useDownloadExcel } from "react-export-table-to-excel";
+import { RiFileExcel2Fill } from "react-icons/ri";
+import { AiFillPrinter } from "react-icons/ai";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { LogoutUser } from "../redux/slices/LoginSlice";
+import Loading from "../components/Loading";
+import CategoryTable from "../components/tables/Category.table";
+import { EnglishDailySaleCategoriesReport } from "../Language/English/englishDailySaleCategoriesReport";
+import { MyanmarDailySaleCategoriesReport } from "../Language/Myanmar/myanmarDailySaleCategoriesReport";
+import {
+  fetchDailySaleReportByTimeRange,
+  getAllKyawSan027DailySaleReports,
+  removeOldDats,
+} from "../redux/slices/KyawSan027Slice";
+import { FcInfo } from "react-icons/fc";
+import PurposeOfUseComponent from "../components/PageComponents/PurposeOfUseComponent";
 
 let start = new Date();
 start.setHours(0);
@@ -31,105 +36,104 @@ end.setSeconds(59);
 end = new Date(end);
 
 function DailySaleCategoriesReport1() {
-    const [startDate, setStartDate] = useState(start);
-    const [endDate, setEndDate] = useState(end);
-    const [fromDate] = useState(new Date());
-    const [toDate] = useState(new Date());
-    const [selectedStation, setSelectedStation] = useState({name: "All", code: "Please"});
-    const [loading, setloading] = useState(false);
-    const [okData, setOkData] = useState();
-    const tableRef = useRef();
-    const user = useSelector((state) => state.login);
-    const datas = useSelector(getAllKyawSan027DailySaleReports);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const [language, setLanguage] = useState(EnglishDailySaleCategoriesReport);
-    const [changeLanguage, setChangeLanguage] = useState();
-    const [isSelectedStation, setIsSelectedStation] = useState(false);
-  
+  const [startDate, setStartDate] = useState(start);
+  const [endDate, setEndDate] = useState(end);
+  const [fromDate] = useState(new Date());
+  const [toDate] = useState(new Date());
+  const [selectedStation, setSelectedStation] = useState({
+    name: "All",
+    code: "Please",
+  });
+  const [loading, setloading] = useState(false);
+  const [okData, setOkData] = useState();
+  const [one, setOne] = useState();
+  const tableRef = useRef();
+  const user = useSelector((state) => state.login);
+  const datas = useSelector(getAllKyawSan027DailySaleReports);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [language, setLanguage] = useState(EnglishDailySaleCategoriesReport);
+  const [changeLanguage, setChangeLanguage] = useState();
+  const [isSelectedStation, setIsSelectedStation] = useState(false);
 
-
-
-    useEffect(() => {
+  useEffect(() => {
     if (!user.login) {
       navigate("/");
     }
-       if (user.language === "Myanmar" || user.language === "မြန်မာ") {
+    if (user.language === "Myanmar" || user.language === "မြန်မာ") {
       setLanguage(MyanmarDailySaleCategoriesReport);
     } else if (user.language === "English" || user.language === "အင်္ဂလိပ်") {
       setLanguage(EnglishDailySaleCategoriesReport);
     }
-      dispatch(removeOldDats())
-      return () => {
-         dispatch(removeOldDats())
-        } 
-    }, [user, navigate, dispatch]);
-  
-  
+    dispatch(removeOldDats());
+    return () => {
+      dispatch(removeOldDats());
+    };
+  }, [user, navigate, dispatch]);
+
+  const [selectedNodeKeys, setSelectedNodeKeys] = useState({
+    name: "All",
+    code: "Please",
+  });
+
   const handleClick = () => {
+    setOne(selectedNodeKeys.code);
     if (selectedStation.code === "Please") {
       setIsSelectedStation(true);
     } else {
       setIsSelectedStation(false);
       const fetchData = async () => {
-       
-        const bomb = [user.token, startDate, endDate, selectedStation,user.accessDb];
+        const bomb = [
+          user.token,
+          startDate,
+          endDate,
+          selectedStation,
+          user.accessDb,
+          selectedNodeKeys,
+        ];
         setloading(true);
         await dispatch(fetchDailySaleReportByTimeRange(bomb));
         setloading(false);
-      }
+      };
       fetchData();
     }
   };
 
   useEffect(() => {
-        if (datas === "error") {
-          dispatch(LogoutUser());
-        }
-    
-    if (datas?.result?.length > 0) {
-      
+    if (datas === "error") {
+      dispatch(LogoutUser());
+    }
 
+    if (datas?.result?.length > 0) {
       setOkData(datas.result);
     }
-     
-   }, [datas, dispatch]);
+  }, [datas, dispatch]);
 
-
-  
   useEffect(() => {
     setloading(true);
 
     if (changeLanguage?.code === "Myanmar") {
-      setLanguage(MyanmarDailySaleCategoriesReport)
-
+      setLanguage(MyanmarDailySaleCategoriesReport);
     }
     if (changeLanguage?.code === "English") {
-       setLanguage(EnglishDailySaleCategoriesReport)
+      setLanguage(EnglishDailySaleCategoriesReport);
     }
-    
-    
 
-  const timer = setTimeout(() => {
-    setloading(false)
-  }, 300);
-  return () => clearTimeout(timer);
+    const timer = setTimeout(() => {
+      setloading(false);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [changeLanguage]);
 
-  },[changeLanguage])
+  const handlePrint = useReactToPrint({
+    content: () => tableRef.current,
+  });
 
-
-
-
-
-  const handlePrint = useReactToPrint({  
-    content:()=>tableRef.current
-  })
-
-   const { onDownload } = useDownloadExcel({
-     currentTableRef: tableRef.current,
-     filename: `Daily Sale Categories Report`,
-     sheet:  `Daily Sale Categories Report`
-    })
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: `Daily Sale Categories Report`,
+    sheet: `Daily Sale Categories Report`,
+  });
 
   return (
     <PageContainer
@@ -152,6 +156,11 @@ function DailySaleCategoriesReport1() {
             value={endDate}
             setValue={setEndDate}
             title={language.endDate}
+          />
+          <PurposeOfUseComponent
+            title="Categories"
+            value={selectedNodeKeys}
+            setValue={setSelectedNodeKeys}
           />
           <StationComponent
             title={language.station}
@@ -181,6 +190,7 @@ function DailySaleCategoriesReport1() {
             endDate={endDate.toLocaleDateString()}
             tableRef={tableRef}
             okData={okData}
+            single={one}
           />
           <div className="flex p-3  text-[16px] mt-[30px] mb-[50px] items-center justify-start gap-3">
             <button
@@ -205,4 +215,4 @@ function DailySaleCategoriesReport1() {
   );
 }
 
-export default DailySaleCategoriesReport1
+export default DailySaleCategoriesReport1;
