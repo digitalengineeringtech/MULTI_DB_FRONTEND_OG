@@ -115,7 +115,9 @@ function DetailSaleReportTable({
                   <td className=" text-left">
                     {pageNo ? index + pageNo : index + 1}
                   </td>
-                  <td className=" text-left">{object.stationDetailId?.name}</td>
+                  <td className=" text-left">
+                    {object.stationDetailId?.name + state[0]}
+                  </td>
                   <td className=" text-center">
                     {object.stationDetailId?.lienseNo}
                   </td>

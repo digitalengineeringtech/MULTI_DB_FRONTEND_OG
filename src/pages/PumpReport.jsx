@@ -47,6 +47,10 @@ function PumpReport() {
     name: "All",
     code: "Please",
   });
+  const [selectedFuelType, setSelectedFuelType] = useState({
+    name: "All",
+    code: "Please",
+  });
   const [selectedStation, setSelectedStation] = useState({
     name: "All",
     code: "Please",
@@ -57,13 +61,17 @@ function PumpReport() {
   const [okData, setOkData] = useState();
   const [fuelType, setFuelType] = useState({ name: "All", code: "Please" });
   const [tankName, setTankName] = useState({ name: "All", code: "Please" });
+  const [filter, setFilter] = useState();
   const navigate = useNavigate();
   const [{ data_g_2, loading_g_2, error_g_2 }, fetchIt_2] = UsePost_2();
-
   const datas = useSelector(getAllKyawSan027DailySaleReports);
+  const [nozFilter, setNozFilter] = useState(false);
+  const [fuelFilter, setFuelFilter] = useState(false);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.login);
+
+  const [twoFilter, setTwoFilter] = useState();
 
   useEffect(() => {
     if (!user.login) {
@@ -81,7 +89,24 @@ function PumpReport() {
     };
   }, [navigate, user, endDate, startDate, dispatch]);
 
+  useEffect(() => {
+    const condition =
+      (selectedFuelType.code !== "Please") & (selectedNozzle.code !== "Please")
+        ? true
+        : false;
+    setTwoFilter(condition);
+  }, [selectedFuelType, selectedNozzle]);
+
+  console.log(
+    twoFilter,
+    "this is two filter",
+    selectedFuelType,
+    selectedNozzle
+  );
+
   const handleClick = () => {
+    setFilter();
+
     if (startDate && endDate) {
       if (selectedStation.code === "Please") {
         setIsSelectedStation(true);
@@ -89,6 +114,17 @@ function PumpReport() {
         setIsSearch(true);
         setloading(true);
         setIsSelectedStation(false);
+
+        if (selectedFuelType.code != "Please") {
+          setFuelFilter(true);
+        }else{
+          setFuelFilter(false)
+        }
+        if (selectedNozzle.code != "Please") {
+          setNozFilter(true);
+        }else{
+          setNozFilter(false)
+        }
 
         const fetchData = async () => {
           const bomb = [
@@ -117,7 +153,7 @@ function PumpReport() {
           `/fuel-balance/pagi/1?sDate=${isoStartDate}&stationId=${selectedStation?.code}`,
           user.token
         );
-        
+
         // const fetchData = async () => {
         //   const bomb = [
         //     user.token,
@@ -139,6 +175,7 @@ function PumpReport() {
 
   console.log("====data================================");
   console.log(okData, data_g_2.result, datas);
+  console.log(selectedFuelType, selectedNozzle);
   console.log("====================================");
 
   useEffect(() => {
@@ -147,8 +184,29 @@ function PumpReport() {
         dispatch(LogoutUser());
       }
 
+      let data = [];
+
       if (datas?.result?.length > 0) {
-        setOkData(datas.result);
+        if (twoFilter) {
+          const fuelTypeData = datas.result
+            .filter((item) => item.fuelType === selectedFuelType.code)
+            .filter((item) => item.nozzle === selectedNozzle.code);
+          setOkData(fuelTypeData);
+        } else {
+          if (selectedFuelType.code !== "Please") {
+            const fuelTypeData = datas.result.filter(
+              (item) => item.fuelType === selectedFuelType.code
+            );
+            setOkData(fuelTypeData);
+          } else if (selectedNozzle.code !== "Please") {
+            const nozzleData = datas.result.filter(
+              (item) => item.nozzle === selectedNozzle.code
+            );
+            setOkData(nozzleData);
+          } else {
+            setOkData(datas.result);
+          }
+        }
       }
     }
   }, [datas, dispatch]);
@@ -181,7 +239,15 @@ function PumpReport() {
             setValue={setEndDate}
             title={language.endDate}
           />
-          {/* <NozzleComponent value={selectedNozzle} setValue={setSelectedNozzle} /> */}
+          <NozzleComponent
+            value={selectedNozzle}
+            setValue={setSelectedNozzle}
+          />
+          <FuelTypeComponent
+            title={language.fuel_type}
+            value={selectedFuelType}
+            setValue={setSelectedFuelType}
+          />
           <StationComponent
             title={language.station}
             value={selectedStation}
@@ -214,6 +280,9 @@ function PumpReport() {
             sDate={startDate}
             eDate={endDate}
             statement
+            twoFilter
+            selectedFuelType={fuelFilter}
+            selectedNozzle={nozFilter}
             data_g_2={data_g_2.result}
             okData={okData}
           />

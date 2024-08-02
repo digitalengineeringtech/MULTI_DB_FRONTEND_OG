@@ -19,6 +19,8 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
     sheet: `Fuel Balance Report`,
   });
 
+  console.log(okData, ".;;;;;;;;;;;;;;;;;;;;");
+
   const { stationId } = okData[0];
 
   const state = stationId?.location?.split(",");
@@ -133,7 +135,9 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
             : okData?.map((ok, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td className="text-left">{stationId?.name}</td>
+                  <td className="text-left">
+                    {stationId?.name + " " + state[0]}
+                  </td>
                   <td className=" text-center">{stationId?.lienseNo}</td>
                   <td className=" text-left">{state ? state[1] : "-"}</td>
                   <td className=" text-center">{state[state?.length - 1]}</td>

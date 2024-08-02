@@ -202,38 +202,6 @@ function DailySaleReportTemp() {
   ];
 
   let calcu = [];
-  // const calcu = okData?.result?.map((e) => {
-  //   const combine = okData
-  //     ?.filter((c) => e.tankNo == c.tankNo)
-  //     .map((item) => item.cash)
-  //     .reduce((pv, cv) => pv + cv, 0);
-
-  //   const receive = okData
-  //     ?.filter((c) => e.tankNo == c.tankNo)
-  //     .map((item) => item.fuelIn)
-  //     .reduce((pv, cv) => pv + cv, 0);
-
-  //   const open = okData?.filter((c) => e.tankNo == c.tankNo)[0]?.opening;
-
-  //   const close = okData
-  //     ?.filter((c) => e.tankNo == c.tankNo)
-  //     .reverse()[0]?.balance;
-
-  //   const capacity = okData
-  //     ?.filter((c) => e.tankNo == c.tankNo)
-  //     .reverse()[0]?.capacity;
-
-  //   return {
-  //     tankNo: e.tankNo,
-  //     fuelType: e.fuelType,
-  //     cash: combine,
-  //     fuelIn: receive,
-  //     opening: open,
-  //     stationId: data_g_2.length != 0 ? data_g_2?.result[0]?.stationId : "-",
-  //     balance: close,
-  //     capacity: capacity,
-  //   };
-  // });
   if (tankCount && okData) {
     for (let i = 1; i <= tankCount; i++) {
       const combine = okData
@@ -252,17 +220,6 @@ function DailySaleReportTemp() {
 
       const open = okData?.filter((c) => i == c.tankNo).reverse()[0];
       const opening_balance = open?.tankBalance - open?.saleLiter;
-
-      console.log(
-        okData?.filter((c) => i == c.tankNo),
-        open,
-        open?.tankBalance,
-        open?.saleLiter,
-        opening_balance,
-        "......dddd.................",
-        fuelType,
-        normalTank
-      );
 
       const close = okData?.filter((c) => i == c.tankNo)[0]?.tankBalance;
 
@@ -284,23 +241,27 @@ function DailySaleReportTemp() {
         stationId: data_g_2.length != 0 ? data_g_2?.result[0]?.stationId : "-",
         balance: close || normalTank || 0,
         stationId: station,
-        // capacity: capacity,
       };
       calcu.push(data);
     }
   }
-  console.log("===ssssssssss=================================");
-  console.log(
-    calcu,
-    okData,
-    data_get_1,
-    selectedStation.code,
-    tankCount,
-    calcu,
-    fuelIn,
-    tankData
+
+  // Combine the data by fuelType
+  const combinedByFuelType = Object.values(
+    calcu.reduce((acc, curr) => {
+      if (!acc[curr.fuelType]) {
+        acc[curr.fuelType] = { ...curr };
+      } else {
+        acc[curr.fuelType].cash += curr.cash;
+        acc[curr.fuelType].fuelIn += curr.fuelIn;
+        acc[curr.fuelType].opening += curr.opening;
+        acc[curr.fuelType].balance += curr.balance;
+      }
+      return acc;
+    }, {})
   );
-  console.log("====sssss================================");
+
+  console.log(combinedByFuelType, "...", calcu);
 
   return (
     <PageContainer language={false} title={language.title1}>
@@ -357,7 +318,7 @@ function DailySaleReportTemp() {
           <FuelTableTemp
             language={language}
             tableRef={tableRef}
-            okData={calcu}
+            okData={combinedByFuelType}
             sd={calenderOne}
             ed={calenderTwo}
           />

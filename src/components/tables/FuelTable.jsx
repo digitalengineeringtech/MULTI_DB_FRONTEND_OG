@@ -119,7 +119,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
           {calcu ? (
             <thead>
               <tr>
-                <th>No</th>
+                <th>Sir No.</th>
                 <th>{language.Station_name}</th>
                 <th>{language.pprd_no}</th>
                 <th>{language.Township}</th>

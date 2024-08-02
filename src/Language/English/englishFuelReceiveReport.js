@@ -10,7 +10,7 @@ export const EnglishFuelReceiveReport = {
     location: "Location",
     fuel_in_code: "Fuel in Code",
     driver: "Driver",
-    bowser_no: "Bowser No",
+    bowser_no: "Bowser No.",
     tank: "Tank",
     tank_capacity: "Tank Capacity",
     receive_volume: "Receive Volume",

@@ -253,15 +253,15 @@ export default function SaleDetail() {
               value={selectedFuelType}
               setValue={setSelectedFuelType}
             />
-            <Casher
-              title={language.casher}
-              value={casher}
-              setValue={setCasher}
-            />
             <StationComponent
               title={language.station}
               value={selectedStation}
               setValue={setSelectedStation}
+            />
+            <Casher
+              title={language.casher}
+              value={casher}
+              setValue={setCasher}
             />
             <AmountComponent
               kyat={kyat}

@@ -17,8 +17,8 @@ function FuelRecieveTableLittle({ okData }) {
           </th>
           <th>Township</th>
           <th>State/Division</th>
-          <th>Date & Time</th>
-          <th>Bowser No</th>
+          <th colSpan={2}>Date & Time</th>
+          <th>Bowser No.</th>
           {/* <th>Driver</th> */}
           <th>Fuel Type</th>
           <th>
@@ -66,13 +66,28 @@ function FuelRecieveTableLittle({ okData }) {
           return (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{item.stationId.name}</td>
+              <td>
+                {item.stationId.name +
+                  " " +
+                  item.stationId.location.split(",")[0]}
+              </td>
               <td>{item.stationId.lienseNo}</td>
               <td>{item.stationId.location.split(",")[1]}</td>
               <td>{item.stationId.location.split(",")[2]}</td>
               <td>{formattedDate}</td>
+              <td>{formattedDate}</td>
               <td>{item.bowser}</td>
-              <td>{item.fuel_type}</td>
+              <td>
+                {item?.fuel_type == "001-Octane Ron(92)"
+                  ? "92 RON"
+                  : item?.fuel_type == "002-Octane Ron(95)"
+                  ? "95 RON"
+                  : item?.fuel_type == "004-Diesel"
+                  ? "HSD"
+                  : item?.fuel_type == "005-Premium Diesel"
+                  ? "PHSD"
+                  : ""}
+              </td>
               <td>{item.tankNo}</td>
               <td>{(14580 / 4.546).toFixed(3)}</td>
               <td>

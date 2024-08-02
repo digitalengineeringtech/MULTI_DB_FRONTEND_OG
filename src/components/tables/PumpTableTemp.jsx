@@ -8,6 +8,9 @@ function PumpTableTemp({
   okData,
   statement,
   sDate,
+  selectedFuelType,
+  selectedNozzle,
+  twoFilter,
   data_g_2,
   eDate,
   language,
@@ -34,6 +37,8 @@ function PumpTableTemp({
     sheet: `Different Totalizer by Station Nozzle Report`,
   });
 
+  console.log(okData, "this is okData");
+
   const dateFormat = (date) => {
     // Parse the date string into a Date object
     const dateObj = new Date(date);
@@ -53,7 +58,14 @@ function PumpTableTemp({
   const hsd = okData?.filter((ea) => ea.fuelType == "004-Diesel");
   const phsd = okData?.filter((ea) => ea.fuelType == "005-Premium Diesel");
 
-  console.log(okData, "........");
+  console.log(okData, "........", twoFilter);
+
+  const fuelArr = okData.map((e) => e.fuelType);
+
+  console.log(
+    fuelArr,
+    "..........................................................................."
+  );
 
   const n2Total = okData
     ?.filter((ea) => ea.fuelType == "001-Octane Ron(92)")
@@ -110,12 +122,13 @@ function PumpTableTemp({
     .map((e) => Number(e.other))
     .reduce((pv, cv) => pv + cv, 0);
 
-  console.log(n2Total, "G.....");
+  console.log(n2Total, "G.....", selectedFuelType, selectedNozzle);
 
   return (
     <div className="mt-[70px]">
       <table ref={tRef}>
         <tr>
+          <th>Sir No.</th>
           <th>{language.station_name}</th>
           <th width="50">{language.pprd_no}</th>
           <th>{language.State}</th>
@@ -125,22 +138,14 @@ function PumpTableTemp({
           <th>{language.price}</th>
           {statement ? (
             <>
-              <th>
-                {language.totalizer_opening} ({language.liter})
-              </th>
-              <th>
-                {language.totalizer_closing} ({language.liter})
-              </th>
-              <th>
-                {language.totalizer_different} ({language.liter})
-              </th>
+              <th>{language.totalizer_opening}</th>
+              <th>{language.totalizer_closing}</th>
+              <th>{language.totalizer_different} Liter</th>
             </>
           ) : (
             <></>
           )}
-          <th>
-            {language.total_sale_liter} ({language.liter})
-          </th>
+          <th>{language.total_sale_liter}</th>
           <th>{language.sale_gallon}</th>
           <th>{language.pump_test}</th>
           <th>{language.other}</th>
@@ -149,7 +154,9 @@ function PumpTableTemp({
         {okData.length > 0 ? (
           okData.map((e, index) => (
             <tr key={`key_${index}`}>
-              <td className="text-left">{e.stationId}</td>
+              <td className="text-left">{index + 1}</td>
+              {/* <td className="text-left">{e.stationId}</td> */}
+              <td className="text-left">{e.stationId + " " + state[0]}</td>
               <td className="text-left">{e.station[0].lienseNo}</td>
               {/* <td className="text-left">{e.station[0].location.split(',')}</td> */}
               <td className=" text-center">{state[state.length - 1]}</td>
@@ -170,7 +177,7 @@ function PumpTableTemp({
                 {e.date != "-" ? dateFormat(e.date) : "-"}
               </td>
               <td className="text-right">{e.price == 0 ? "0" : e.price}</td>
-              {statement ? (
+              {statement && (
                 <>
                   <td className="text-right">
                     {Number(e.totalizer_opening).toFixed(3)}
@@ -185,8 +192,6 @@ function PumpTableTemp({
                     {Number(e.totalizer_different).toFixed(3) || "0"}
                   </td>
                 </>
-              ) : (
-                <></>
               )}
               <td className="text-right">
                 {e.totalSaleLiter == 0 ? "0" : e.totalSaleLiter}
@@ -232,106 +237,136 @@ function PumpTableTemp({
             <td className="text-center"></td>
           </tr>
         )}
+        {fuelArr.includes("001-Octane Ron(92)") && (
+          <>
+            <tr className="bg-gray-200">
+              <td colspan={11} className="text-lg">
+                Sub Total 92 Ron
+              </td>
+              <td className="text-right font-semibold">
+                {Number(n2Total)?.toFixed(3)}
+              </td>
+              <td className="text-right font-semibold">
+                {(n2Total / 4.16)?.toFixed(3)}
+              </td>
+              <td>{Number(n2Test)?.toFixed(3) || "0"}</td>
+              <td>{n2Other?.toFixed(3) || "0"}</td>
+            </tr>
+            <tr>
+              <td className="text-left" colSpan={15}></td>
+            </tr>
+          </>
+        )}
+        {fuelArr.includes("002-Octane Ron(95)") && (
+          <>
+            <tr className="bg-gray-200">
+              <td colspan={11} className="text-lg">
+                Sub Total 95 Ron
+              </td>
+              <td className="text-right font-semibold">
+                {n5Total?.toFixed(3)}
+              </td>
+              <td className="text-right font-semibold">
+                {(n5Total / 4.16)?.toFixed(3)}
+              </td>
+              <td>{n5Test?.toFixed(3) || "0"}</td>
+              <td>{n5Other?.toFixed(3) || "0"}</td>
+            </tr>{" "}
+            <tr>
+              <td className="text-left" colSpan={15}></td>
+            </tr>
+          </>
+        )}
+        {!selectedFuelType && !selectedNozzle && (
+          <>
+            <tr className="bg-gray-200">
+              <td colspan={11} className="text-lg">
+                Sub Total 97 Ron
+              </td>
+              <td className="text-right font-semibold">0.000</td>
+              <td className="text-right font-semibold">0.000</td>
+              <td>0.000</td>
+              <td>0.000</td>
+            </tr>
+            <tr>
+              <td className="text-left" colSpan={15}></td>
+            </tr>
+          </>
+        )}
+        {fuelArr.includes("004-Diesel") && (
+          <>
+            <tr className="bg-gray-200">
+              <td colspan={11} className="text-lg">
+                Sub Total HSD
+              </td>
+              <td className="text-right font-semibold">
+                {Number(hsdTotal)?.toFixed(3)}
+              </td>
+              <td className="text-right font-semibold">
+                {(Number(hsdTotal) / 4.16)?.toFixed(3)}
+              </td>
+              <td>{Number(hsdTest)?.toFixed(3) || "0"}</td>
+              <td>{hsdOther?.toFixed(3) || "0"}</td>
+            </tr>
+            <tr>
+              <td className="text-left" colSpan={15}></td>
+            </tr>
+          </>
+        )}
+        {fuelArr.includes("005-Premium Diesel") && (
+          <>
+            <tr className="bg-gray-200">
+              <td colspan={11} className="text-lg">
+                Sub Total PHSD
+              </td>
+              <td className="text-right font-semibold">
+                {Number(phsdTotal)?.toFixed(3)}
+              </td>
+              <td className="text-right font-semibold">
+                {(phsdTotal / 4.16)?.toFixed(3)}
+              </td>
+              <td>{Number(phsdTest)?.toFixed(3) || "0"}</td>
+              <td>{phsdOther?.toFixed(3) || "0"}</td>
+            </tr>
+            <tr>
+              <td className="text-left" colSpan={15}></td>
+            </tr>
+          </>
+        )}
+        {!selectedFuelType && !selectedNozzle && (
+          <>
+            <tr className="bg-gray-200">
+              <td colspan={11} className="text-lg">
+                Sub Total C-HSD
+              </td>
+              <td className="text-right font-semibold">0.000</td>
+              <td className="text-right font-semibold">0.000</td>
+              <td>0.000</td>
+              <td>0.000</td>
+            </tr>
+            <tr>
+              <td className="text-left" colSpan={15}></td>
+            </tr>
+          </>
+        )}
+        {!selectedFuelType && !selectedNozzle && (
+          <>
+            <tr className="bg-gray-200">
+              <td colspan={11} className="text-lg">
+                Sub Total C-PHSD
+              </td>
+              <td className="text-right font-semibold">0.000</td>
+              <td className="text-right font-semibold">0.000</td>
+              <td>0.000</td>
+              <td>0.000</td>
+            </tr>
+            <tr>
+              <td className="text-left" colSpan={15}></td>
+            </tr>
+          </>
+        )}
         <tr className="bg-gray-200">
-          <td colspan={10} className="text-lg">
-            Sub Total 92 Ron
-          </td>
-          <td className="text-right font-semibold">
-            {Number(n2Total)?.toFixed(3)}
-          </td>
-          <td className="text-right font-semibold">
-            {(n2Total / 4.16)?.toFixed(3)}
-          </td>
-          <td>{Number(n2Test)?.toFixed(3) || "0"}</td>
-          <td>{n2Other?.toFixed(3) || "0"}</td>
-        </tr>
-        <tr>
-          <td className="text-left" colSpan={14}></td>
-        </tr>
-        <tr className="bg-gray-200">
-          <td colspan={10} className="text-lg">
-            Sub Total 95 Ron
-          </td>
-          <td className="text-right font-semibold">{n5Total?.toFixed(3)}</td>
-          <td className="text-right font-semibold">
-            {(n5Total / 4.16)?.toFixed(3)}
-          </td>
-          <td>{n5Test?.toFixed(3) || "0"}</td>
-          <td>{n5Other?.toFixed(3) || "0"}</td>
-        </tr>
-        <tr>
-          <td className="text-left" colSpan={14}></td>
-        </tr>
-        <tr className="bg-gray-200">
-          <td colspan={10} className="text-lg">
-            Sub Total 97 Ron
-          </td>
-          <td className="text-right font-semibold">0.000</td>
-          <td className="text-right font-semibold">0.000</td>
-          <td>0.000</td>
-          <td>0.000</td>
-        </tr>
-        <tr>
-          <td className="text-left" colSpan={14}></td>
-        </tr>
-        <tr className="bg-gray-200">
-          <td colspan={10} className="text-lg">
-            Sub Total HSD
-          </td>
-          <td className="text-right font-semibold">
-            {Number(hsdTotal)?.toFixed(3)}
-          </td>
-          <td className="text-right font-semibold">
-            {(Number(hsdTotal) / 4.16)?.toFixed(3)}
-          </td>
-          <td>{Number(hsdTest)?.toFixed(3) || "0"}</td>
-          <td>{hsdOther?.toFixed(3) || "0"}</td>
-        </tr>
-        <tr>
-          <td className="text-left" colSpan={14}></td>
-        </tr>
-        <tr className="bg-gray-200">
-          <td colspan={10} className="text-lg">
-            Sub Total C-HSD
-          </td>
-          <td className="text-right font-semibold">0.000</td>
-          <td className="text-right font-semibold">0.000</td>
-          <td>0.000</td>
-          <td>0.000</td>
-        </tr>
-        <tr>
-          <td className="text-left" colSpan={14}></td>
-        </tr>
-        <tr className="bg-gray-200">
-          <td colspan={10} className="text-lg">
-            Sub Total PHSD
-          </td>
-          <td className="text-right font-semibold">
-            {Number(phsdTotal)?.toFixed(3)}
-          </td>
-          <td className="text-right font-semibold">
-            {(phsdTotal / 4.16)?.toFixed(3)}
-          </td>
-          <td>{Number(phsdTest)?.toFixed(3) || "0"}</td>
-          <td>{phsdOther?.toFixed(3) || "0"}</td>
-        </tr>
-        <tr>
-          <td className="text-left" colSpan={14}></td>
-        </tr>
-        <tr className="bg-gray-200">
-          <td colspan={10} className="text-lg">
-            Sub Total C-PHSD
-          </td>
-          <td className="text-right font-semibold">0.000</td>
-          <td className="text-right font-semibold">0.000</td>
-          <td>0.000</td>
-          <td>0.000</td>
-        </tr>
-        <tr>
-          <td className="text-left" colSpan={14}></td>
-        </tr>
-        <tr className="bg-gray-200">
-          <td colspan={10} className="text-lg font-semibold">
+          <td colspan={11} className="text-lg font-semibold">
             Grand Total
           </td>
           <td colspan={1} className="text-center text-lg font-semibold">

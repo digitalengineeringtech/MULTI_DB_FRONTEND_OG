@@ -133,10 +133,10 @@ function FuelBalanceReport() {
             }
           )
           .then(function (response) {
-            console.log(response, "this is response");
-            console.log(
-              `/fuelIn/pagi/by-date/1?stationId=${selectedStation?.code}&sDate=${calenderOne}&eDate=${calenderTwo}${tankNoRoute}${fuelTypeRoute}`
-            );
+            // console.log(response, "this is response");
+            // console.log(
+            //   `/fuelIn/pagi/by-date/1?stationId=${selectedStation?.code}&sDate=${calenderOne}&eDate=${calenderTwo}${tankNoRoute}${fuelTypeRoute}`
+            // );
             let data = response.data.result;
             // data = data.splice(0, 3);
             setOkData(data.reverse());
@@ -217,11 +217,11 @@ function FuelBalanceReport() {
       };
     });
 
-  console.log("===ssssssssss=================================");
-  console.log(calcu, okData);
-  console.log("====sssss================================");
+  // console.log("===ssssssssss=================================");
+  // console.log(calcu, okData);
+  // console.log("====sssss================================");
 
-  console.log(okData, "this is okData");
+  // console.log(okData, "this is okData");
 
   return (
     <PageContainer language={false} title={language.title}>

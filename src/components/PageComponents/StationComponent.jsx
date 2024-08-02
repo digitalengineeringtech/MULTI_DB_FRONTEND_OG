@@ -101,9 +101,9 @@ function StationComponent({ value, setValue, title }) {
               value={value}
               onChange={(e) => setValue(e.value)}
               options={pruposes}
-              optionLabel="lienseNo"
-              className="!h-[30px] w-[150px] flex items-center justify-center"
-              placeholder="license No"
+              optionLabel="name"
+              className="!h-[30px] w-[320px] flex items-center justify-center"
+              placeholder="Please Select Station"
             />
             <Dropdown
               loading
@@ -111,9 +111,9 @@ function StationComponent({ value, setValue, title }) {
               value={value}
               onChange={(e) => setValue(e.value)}
               options={pruposes}
-              optionLabel="name"
-              className="!h-[30px] w-[320px] flex items-center justify-center"
-              placeholder="Please Select Station"
+              optionLabel="lienseNo"
+              className="!h-[30px] w-[150px] flex items-center justify-center"
+              placeholder="license No"
             />
           </div>
         )}
