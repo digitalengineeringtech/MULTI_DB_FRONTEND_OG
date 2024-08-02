@@ -1,8 +1,8 @@
 export const englishDailySaleReport = {
   main_title: "Daily Sale Report",
   detail_title: "Sale Detail Report",
-  start_date: "Start Date",
-  end_date: "End Date",
+  start_date: "From",
+  end_date: "To",
   purpose_of_use: "Sale Type",
   nozzle_no: "Pump/ Nozzle No",
   fuel_type: "Fuel Type",
