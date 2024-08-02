@@ -63,6 +63,16 @@ function WeeklySaleReport() {
   const [tankData, setTankData] = useState();
   const [{ data_g, loading_g, error_g }, fetchIt] = UsePost();
 
+  const handlePrint = useReactToPrint({
+    content: () => tableRef.current,
+  });
+
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: "Weekly Sale Report",
+    sheet: "Weekly Sale Report",
+  });
+
   useEffect(() => {
     if (!user.login) {
       navigate("/");
@@ -348,6 +358,22 @@ function WeeklySaleReport() {
             capacity={test}
             tableRef={tableRef}
           />
+          <div className="flex p-3  text-[16px] mt-[10px] mb-[50px] items-center justify-start gap-3">
+            <button
+              onClick={() => onDownload()}
+              className="flex items-center justify-center gap-2 text-md"
+            >
+              {language.toExcel}
+              <RiFileExcel2Fill size={30} />
+            </button>
+            <button
+              onClick={handlePrint}
+              className="flex items-center justify-center gap-2 text-md"
+            >
+              {language.toPrint}
+              <AiFillPrinter size={30} />
+            </button>
+          </div>
         </>
       ) : (
         click && (

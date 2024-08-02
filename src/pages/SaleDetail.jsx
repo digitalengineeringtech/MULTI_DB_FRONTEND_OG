@@ -215,6 +215,7 @@ export default function SaleDetail() {
     filename: "Daily Sale Report",
     sheet: "Daily Sale Report",
   });
+  
   return (
     <>
       <PageContainer

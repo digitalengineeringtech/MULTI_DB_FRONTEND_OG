@@ -10,6 +10,7 @@ function WeeklyTableTemp({
   calenderTwo,
   okData,
   capacity,
+  tableRef,
   isSearch,
   selectedStation,
   language,
@@ -81,7 +82,7 @@ function WeeklyTableTemp({
         <div className="mt-[60px] relative w-full overflow-x-scroll h-[270px]">
           <div className="">
             <table
-              ref={tRef}
+              ref={tableRef}
               className="absolute w-[2500px] "
               // style={{ border: " 1px solid black" }}
             >

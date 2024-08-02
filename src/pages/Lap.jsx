@@ -29,6 +29,10 @@ import FuelInTable from "../components/tables/FuelInTable";
 import FuelRecieveTableLittle from "../Dashboard/Components/Table/FuelRecieve.table";
 import instance from "../axios";
 import Input from "../components/PageComponents/Input";
+import { useDownloadExcel } from "react-export-table-to-excel";
+import { RiFileExcel2Fill } from "react-icons/ri";
+import { AiFillPrinter } from "react-icons/ai";
+import { useReactToPrint } from "react-to-print";
 
 let start = new Date();
 start.setHours(0);
@@ -82,6 +86,16 @@ function FuelBalanceReport() {
       dispatch(removeOldDats());
     };
   }, [navigate, user, dispatch]);
+
+  const handlePrint = useReactToPrint({
+    content: () => tableRef.current,
+  });
+
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: "Fuel In Report",
+    sheet: "Fuel In Report",
+  });
 
   let sd = new Date(calenderOne);
   let ed = new Date(calenderTwo);
@@ -274,7 +288,25 @@ function FuelBalanceReport() {
       </InputContainer>
 
       {okData?.length > 0 ? (
-        <FuelRecieveTableLittle okData={okData} />
+        <>
+          <FuelRecieveTableLittle tableRef={tableRef} okData={okData} />
+          <div className="flex p-3  text-[16px] mt-[10px] mb-[50px] items-center justify-start gap-3">
+            <button
+              onClick={() => onDownload()}
+              className="flex items-center justify-center gap-2 text-md"
+            >
+              {language.toExcel}
+              <RiFileExcel2Fill size={30} />
+            </button>
+            <button
+              onClick={handlePrint}
+              className="flex items-center justify-center gap-2 text-md"
+            >
+              {language.toPrint}
+              <AiFillPrinter size={30} />
+            </button>
+          </div>
+        </>
       ) : (
         click && (
           <div className=" flex text-center justify-center mt-[100px] text-3xl font-bold text-gray-200">

@@ -1,10 +1,10 @@
 import React from "react";
 
-function FuelRecieveTableLittle({ okData }) {
+function FuelRecieveTableLittle({ okData, tableRef }) {
   return (
     <div className="bg-white">
       <h3 className="mt-[30px]"></h3>
-      <table className="mt-5">
+      <table className="mt-5" ref={tableRef}>
         <tr>
           <th>
             Sir <br />
