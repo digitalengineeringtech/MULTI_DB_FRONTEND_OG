@@ -288,7 +288,7 @@ export default function SaleDetail() {
             </button>
           </div>
         </InputContainer>
-        {datas?.result?.length > 1 && (
+        {datas?.result?.length > 0 && (
           <>
             <DetailSaleReportTable
               pageNo={pageNo}

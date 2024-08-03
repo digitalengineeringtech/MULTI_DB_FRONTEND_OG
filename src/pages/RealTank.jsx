@@ -235,12 +235,155 @@ function RealTank() {
   //     capacity: capacity,
   //   };
   // });
+
+  //updata.....................................................
+
+  // function getTotalizerDifferences(okData) {
+  //   const totalizerDifferences = {};
+
+  //   okData?.forEach((entry) => {
+  //     const { nozzleNo, devTotalizar_liter } = entry;
+
+  //     if (!totalizerDifferences[nozzleNo]) {
+  //       totalizerDifferences[nozzleNo] = {
+  //         last: devTotalizar_liter,
+  //         opening: devTotalizar_liter,
+  //       };
+  //     } else {
+  //       const lastBalance = totalizerDifferences[nozzleNo].last;
+  //       const difference = lastBalance - devTotalizar_liter;
+  //       totalizerDifferences[nozzleNo] = {
+  //         last: totalizerDifferences[nozzleNo].opening,
+  //         opening: devTotalizar_liter,
+  //         difference: difference,
+  //       };
+  //     }
+  //   });
+
+  //   return totalizerDifferences;
+  // }
+
+  // const totalizerDifferences = getTotalizerDifferences(okData);
+  // console.log(totalizerDifferences, okData);
+
+  // if (tankCount && okData) {
+  //   for (let i = 1; i <= tankCount; i++) {
+  //     const combine = okData
+  //       ?.filter((c) => i == c.tankNo)
+  //       .map((item) => item.saleLiter)
+  //       .reduce((pv, cv) => pv + cv, 0);
+
+  //     const fuelType = tankData?.filter((c) => i == c.id)[0]?.oilType;
+
+  //     const normalTank = tankData?.filter((e) => e.id == i)[0]?.volume;
+
+  //     const fuelReceive = fuelIn
+  //       ?.filter((e) => e.tankNo == i)
+  //       .map((e) => e.receive_balance)
+  //       .reduce((pv, cv) => pv + cv, 0);
+
+  //     const open = okData?.filter((c) => i == c.tankNo).reverse()[0];
+  //     const opening_balance = open?.tankBalance - open?.saleLiter;
+
+  //     console.log(
+  //       okData?.filter((c) => i == c.tankNo),
+  //       open,
+  //       open?.tankBalance,
+  //       open?.saleLiter,
+  //       opening_balance,
+  //       "......dddd.................",
+  //       fuelType,
+  //       normalTank
+  //     );
+  //     const close = okData?.filter((c) => i == c.tankNo)[0]?.tankBalance;
+
+  //     const gain = Math.abs(Math.abs(opening_balance - close) - combine);
+
+  //     const gain_rec =
+  //       Number(close) -
+  //       Number(opening_balance) -
+  //       Number(fuelIn) +
+  //       Number(combine);
+
+  //     const data = {
+  //       tankNo: i,
+  //       fuelType:
+  //         fuelType == "Petrol 92"
+  //           ? "92 RON"
+  //           : fuelType == "95 Octane"
+  //           ? "95 RON"
+  //           : fuelType == "Diesel"
+  //           ? "HSD"
+  //           : fuelType == "Super Diesel"
+  //           ? "PHSD"
+  //           : "" || "-",
+  //       cash: combine || 0,
+  //       fuelIn: fuelReceive || 0,
+  //       opening: opening_balance || normalTank || 0,
+  //       stationId: data_g_2.length != 0 ? data_g_2?.result[0]?.stationId : "-",
+  //       balance: close || normalTank || 0,
+  //       stationId: station,
+  //       gl: (fuelReceive == NaN ? gain_rec : gain) || 0,
+  //       // capacity: capacity,
+  //     };
+  //     calcu.push(data);
+  //   }
+  // }
+
+  // Function to calculate the totalizer differences for each nozzle
+  function getTotalizerDifferences(okData) {
+    const totalizerDifferences = {};
+
+    okData?.forEach((entry) => {
+      const { nozzleNo, devTotalizar_liter, tankNo, saleLiter } = entry;
+
+      if (!totalizerDifferences[nozzleNo]) {
+        totalizerDifferences[nozzleNo] = {
+          last: devTotalizar_liter,
+          opening: devTotalizar_liter,
+          tank: tankNo,
+        };
+      } else {
+        const lastBalance = totalizerDifferences[nozzleNo].last;
+        const difference = lastBalance - (devTotalizar_liter - saleLiter);
+        totalizerDifferences[nozzleNo] = {
+          opening: devTotalizar_liter - saleLiter,
+          last: lastBalance,
+          difference: difference,
+          tank: totalizerDifferences[nozzleNo].tank,
+          // saleLiter: saleLiter,
+        };
+      }
+    });
+
+    return Object.values(totalizerDifferences);
+  }
+
+  // Assuming tankData contains a mapping of nozzles to tanks
+  // Create a mapping of nozzle numbers to tank numbers
+  const nozzleToTankMap = {};
+  tankData?.forEach((tank) => {
+    if (tank.nozzles) {
+      tank.nozzles.forEach((nozzleNo) => {
+        nozzleToTankMap[nozzleNo] = tank.id;
+      });
+    }
+  });
+
+  const totalizerDifferences = getTotalizerDifferences(okData);
+  console.log(data_get_1, tankCount, okData);
+
   if (tankCount && okData) {
     for (let i = 1; i <= tankCount; i++) {
-      const combine = okData
-        ?.filter((c) => i == c.tankNo)
-        .map((item) => item.saleLiter)
+      // Filter okData for the current tank number
+      const combine = totalizerDifferences
+        ?.filter((c) => i == c.tank)
+        .map((item) => item.difference)
         .reduce((pv, cv) => pv + cv, 0);
+      // const combine = okData
+      //   ?.filter((c) => i == c.tankNo)
+      //   .map((item) => item.saleLiter)
+      //   .reduce((pv, cv) => pv + cv, 0);
 
       const fuelType = tankData?.filter((c) => i == c.id)[0]?.oilType;
 
@@ -254,19 +397,30 @@ function RealTank() {
       const open = okData?.filter((c) => i == c.tankNo).reverse()[0];
       const opening_balance = open?.tankBalance - open?.saleLiter;
 
-      console.log(
-        okData?.filter((c) => i == c.tankNo),
-        open,
-        open?.tankBalance,
-        open?.saleLiter,
-        opening_balance,
-        "......dddd.................",
-        fuelType,
-        normalTank
-      );
+      // console.log(
+      //   okData?.filter((c) => i == c.tankNo),
+      //   open,
+      //   open?.tankBalance,
+      //   open?.saleLiter,
+      //   opening_balance,
+      //   "......dddd.................",
+      //   fuelType,
+      //   normalTank
+      // );
+
       const close = okData?.filter((c) => i == c.tankNo)[0]?.tankBalance;
 
-      const gain = Math.abs(Math.abs(opening_balance - close) - combine);
+      // Get the nozzle numbers for the current tank
+      const nozzles = tankData?.filter((c) => c.id == i)[0]?.nozzleNo || [];
+      console.log(nozzles, "this is nozzles");
+
+      // Calculate the totalizer difference for the nozzles of this tank
+      let totalizerDifference = 0;
+      nozzles.forEach((nozzleNo) => {
+        totalizerDifference += totalizerDifferences[nozzleNo]?.difference || 0;
+      });
+
+      const gain = Math.abs(opening_balance - close) - combine;
 
       const gain_rec =
         Number(close) -
@@ -293,23 +447,15 @@ function RealTank() {
         balance: close || normalTank || 0,
         stationId: station,
         gl: (fuelReceive == NaN ? gain_rec : gain) || 0,
+        totalizerDifference, // Add the totalizer difference here
         // capacity: capacity,
       };
+
       calcu.push(data);
     }
   }
-  console.log("===ssssssssss=================================");
-  console.log(
-    calcu,
-    okData,
-    data_get_1,
-    selectedStation.code,
-    tankCount,
-    calcu,
-    fuelIn,
-    tankData
-  );
-  console.log("====sssss================================");
+
+  console.log(calcu, "...................");
 
   return (
     <PageContainer language={false} title={language.title2}>

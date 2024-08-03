@@ -71,10 +71,12 @@ function PumpTableTemp({
     ?.filter((ea) => ea.fuelType == "001-Octane Ron(92)")
     .map((e) => Number(e.totalSaleLiter))
     .reduce((pv, cv) => pv + cv, 0);
+
   const n2Test = n2
     ?.filter((ea) => ea.fuelType == "001-Octane Ron(92)")
     .map((e) => Number(e.pumptest))
     .reduce((pv, cv) => pv + cv, 0);
+
   const n2Other = n2
     ?.filter((ea) => ea.fuelType == "001-Octane Ron(92)")
     .map((e) => Number(e.other))
@@ -89,6 +91,7 @@ function PumpTableTemp({
     ?.filter((ea) => ea.fuelType == "002-Octane Ron(95)")
     .map((e) => Number(e.pumptest))
     .reduce((pv, cv) => pv + cv, 0);
+
   const n5Other = n5
     ?.filter((ea) => ea.fuelType == "002-Octane Ron(95)")
     .map((e) => Number(e.other))
@@ -383,11 +386,10 @@ function PumpTableTemp({
             )?.toFixed(3)}
           </td>
           <td colspan={1} className="text-center text-lg font-semibold">
-            {(
-              okData
-                .map((e) => Number(e.pumptest))
-                .reduce((pv, cv) => pv + cv, 0) / 4.16
-            )?.toFixed(3)}
+            {okData
+              .map((e) => Number(e.pumptest))
+              .reduce((pv, cv) => pv + cv, 0)
+              ?.toFixed(3)}
           </td>
           <td colspan={1} className="text-center text-lg font-semibold">
             {okData
