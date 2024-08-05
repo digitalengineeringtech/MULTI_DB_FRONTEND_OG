@@ -14,7 +14,7 @@ export const englishDailySaleReport = {
   search: "SEARCH",
   title: "Daily Sale Report Tabel of ",
   total_record: "Total Records",
-  pprd_no: "PPRD License No",
+  pprd_no: "PPRD License No.",
   vocono: "Invoice ID",
   cashType: "Sale Type",
   sale_date_time: "Date & Time",

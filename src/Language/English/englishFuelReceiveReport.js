@@ -1,7 +1,7 @@
 export const EnglishFuelReceiveReport = {
     main_title: "Receive Fuel Report",
-    start_date: "Start Date",
-    end_date: "End Date",
+    start_date: "From",
+    end_date: "To",
     tank_no: "Tank No",
     fuel_type: "Fuel Type",
     station: "Station",

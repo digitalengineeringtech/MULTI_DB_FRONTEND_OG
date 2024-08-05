@@ -244,13 +244,13 @@ function FuelBalanceReport() {
           <CalenderComponent
             date={start}
             start={true}
-            title={language.date}
+            title={language.s_date}
             value={calenderOne}
             setValue={setCalenderOne}
           />
           <CalenderComponent
             date={end}
-            title={language.date}
+            title={language.e_date}
             value={calenderTwo}
             setValue={setCalenderTwo}
           />

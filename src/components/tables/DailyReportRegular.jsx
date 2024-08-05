@@ -8,7 +8,7 @@ function DailyReportRegularTable({currentData}) {
   <table  class="text-md report-table">
       <thead>
       <tr>
-      <th>PPRD License No</th>
+      <th>PPRD License No.</th>
       <th>Vocno</th>
       <th>Sale Date Time</th>
       <th>Vehicle No</th>

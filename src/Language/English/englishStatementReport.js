@@ -1,7 +1,7 @@
 export const EnglishStatementReport = {
     main_title: "Nozzle Detail Report",
-    start_date: "Start Date",
-    end_date: "End Date",
+    start_date: "From",
+    end_date: "To",
     station: "Station",
     search: "SEARCH",
     station_name: "Station Name",

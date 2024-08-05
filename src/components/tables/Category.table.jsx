@@ -1702,6 +1702,18 @@ function CategoryTable({
 
   console.log(okData, "..................");
 
+  const format = (date) => {
+    const dateObj = new Date(date);
+
+    const day = String(dateObj.getUTCDate()).padStart(2, "0");
+    const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const year = dateObj.getUTCFullYear();
+
+    // const time = dateObj?.toISOString().slice(11, 19);
+
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <div className="mt-[50px]">
       {single == "Please" ? (
@@ -1717,7 +1729,7 @@ function CategoryTable({
               </th>
             ) : (
               <th colSpan={10}>
-                From {startDate} to {endDate}
+                From {format(startDate)} To {format(endDate)}
               </th>
             )}
             <th rowSpan={4}>{language.remark}</th>

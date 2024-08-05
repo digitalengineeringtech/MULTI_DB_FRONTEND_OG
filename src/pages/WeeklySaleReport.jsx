@@ -153,16 +153,19 @@ function WeeklySaleReport() {
 
   const fuelCount = [
     {
-      name: "005-Premium Diesel",
+      name: "001-Octane Ron(92)",
+    },
+    {
+      name: "002-Octane Ron(95)",
+    },
+    {
+      name: "003-Octane Ron(97)",
     },
     {
       name: "004-Diesel",
     },
     {
-      name: "001-Octane Ron(92)",
-    },
-    {
-      name: "002-Octane Ron(95)",
+      name: "005-Premium Diesel",
     },
   ];
 
@@ -179,10 +182,22 @@ function WeeklySaleReport() {
           ? "004-Diesel"
           : e?.oilType == "Super Diesel"
           ? "005-Premium Diesel"
-          : "" || "-",
+          : "97 RON" || "-",
       id: e.id,
     };
   });
+
+  const format = (date) => {
+    const dateObj = new Date(date);
+
+    const day = String(dateObj.getUTCDate()).padStart(2, "0");
+    const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const year = dateObj.getUTCFullYear();
+
+    const time = dateObj?.toISOString().slice(11, 19);
+
+    return `${day}-${month}-${year} ${time}`;
+  };
 
   const [g, setg] = useState();
 
@@ -209,16 +224,73 @@ function WeeklySaleReport() {
       )
       ?.map((g) => g.volume)
       ?.reduce((pv, cv) => pv + cv, 0);
+
+    console.log(
+      tankData?.filter(
+        (item) =>
+          (item?.oilType == "Petrol 92"
+            ? "001-Octane Ron(92)"
+            : item?.oilType == "95 Octane"
+            ? "002-Octane Ron(95)"
+            : item?.oilType == "Diesel"
+            ? "004-Diesel"
+            : item?.oilType == "Super Diesel"
+            ? "005-Premium Diesel"
+            : "" || "-") == e.name
+      )
+    );
+
+    const last_date = data_g?.result
+      ?.filter((c) => c.fuelType == e.name)
+      ?.map((g) => g.dailyReportDate)[0];
+
     const balance = data_g?.result
       ?.filter((c) => c.fuelType == e.name)
       ?.map((g) => g.tankBalance)
       ?.reduce((pv, cv) => pv + cv, 0);
 
-    console.log(time, total, "lllllllllllllllllllllllll");
+    const last = data_g?.result
+      ?.filter((c) => c.fuelType == e.name)
+      ?.filter((e) => e.dailyReportDate == last_date)
+      ?.map((g) => g.tankBalance)
+      ?.reduce((pv, cv) => pv + cv, 0);
+
+    const last_tankBalance = tankData
+      ?.filter((item) =>
+        item?.oilType == "Petrol 92"
+          ? "001-Octane Ron(92)"
+          : item?.oilType == "95 Octane"
+          ? "002-Octane Ron(95)"
+          : item?.oilType == "Diesel"
+          ? "004-Diesel"
+          : item?.oilType == "Super Diesel"
+          ? "005-Premium Diesel"
+          : "" || "-"
+      )
+      ?.filter((e) => e.dailyReportDate == last_date)
+      ?.map((g) => g.volume)
+      ?.reduce((pv, cv) => pv + cv, 0);
+
+    console.log(last, last_tankBalance, "khhhhhhhkkkkkkkkkkkkkkkkkkkkkkkkkk");
+
+    // // Filter data based on the fuel type
+    // const filteredData = data_g?.result?.filter((c) => c.fuelType === e.name);
+
+    // // Extract tank numbers and get unique values
+    // const uniqueTanks = [
+    //   ...new Set(filteredData.map((tank) => tank.tankNo)),
+    // ];
+
+    // console.log(uniqueTanks, "....");
+
+    // const tankCount = data_g?.result?.filter((c) => c.fuelType == e.name);
+
+    // console.log(tankCount, "....");
+
     return {
       // tank: e.id,
       fuelType: e.name,
-      capacity: 14540,
+      capacity: e.name == "003-Octane Ron(97)" ? 0.0 : 14540,
       balance: balance ? balance : tankBalance,
       cash: total,
       // fuelIn: data_g?.result
@@ -229,6 +301,7 @@ function WeeklySaleReport() {
         ?.reverse()[0]
         ?.tankBalance.toFixed(3),
       avg: time == 0 ? total : total / time,
+      last_balance: last ? last : tankBalance,
     };
   });
 
@@ -266,14 +339,6 @@ function WeeklySaleReport() {
 
   // const capacity = fuel?.slice(0, 4);
   const capacity = test;
-
-  console.log(
-    capacity,
-    data_g?.result,
-    "this is data ................",
-    test,
-    fuelData
-  );
 
   //  useEffect(() => {
   //         if (datas === "error") {

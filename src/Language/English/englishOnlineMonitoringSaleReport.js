@@ -1,7 +1,7 @@
 export const EnglishOnlineMonitoringSaleReport = {
     mainTitle: "Online Monitoring Sale Report",
-    startDate: "Start Date",
-    endDate: "End Date",
+    startDate: "From",
+    endDate: "To",
     station: "Station",
     liter: "Liter",
     gallon: "Gallon",

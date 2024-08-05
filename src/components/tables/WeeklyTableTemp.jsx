@@ -76,6 +76,18 @@ function WeeklyTableTemp({
     sheet: `Weekly Sale Report`,
   });
 
+  const format = (date) => {
+    const dateObj = new Date(date);
+
+    const day = String(dateObj.getUTCDate()).padStart(2, "0");
+    const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const year = dateObj.getUTCFullYear();
+
+    const time = dateObj?.toISOString().slice(11, 19);
+
+    return `${day}-${month}-${year} ${time}`;
+  };
+
   return (
     <div className="">
       {okData.length > 0 && (
@@ -88,41 +100,36 @@ function WeeklyTableTemp({
             >
               <thead>
                 <tr>
-                  {/* <th rowSpan={2}>{language.no}</th> */}
+                  <th rowSpan={2}>Sir No.</th>
                   <th rowSpan={2}>{language.import_company}</th>
                   <th rowSpan={2}>{language.company_name}</th>
                   <th rowSpan={2}>{language.station_name}</th>
                   {/* <th rowSpan={2}>Location</th> */}
-                  <th rowSpan={2}>{language.pprd_license}</th>
                   <th rowSpan={2}>{language.Township}</th>
                   <th rowSpan={2} width="20">
                     {language.State}
                   </th>
+                  <th rowSpan={2}>{language.pprd_license}</th>
                   <th rowSpan={2}>{language.own}</th>
-                  <th colSpan={4}>{language.capacity}</th>
-                  <th colSpan={4}>
+                  <th colSpan={5}>{language.capacity}</th>
+                  <th colSpan={5}>
                     {" "}
-                    {
-                      <p>
-                        From {calenderOne.toDateString()} to{" "}
-                        {calenderTwo.toDateString()} Balance (Gallon)
-                      </p>
-                    }
+                    {<p>{format(calenderTwo)} Balance (Gallon)</p>}
                   </th>
-                  <th colSpan={4}>
+                  <th colSpan={5}>
                     {language.no === "စဉ်" ? (
                       <p>
-                        {calenderOne.toDateString()} {language.to}{" "}
-                        {calenderTwo.toDateString()} {language.total_sale}
+                        {format(calenderOne)} {language.to}{" "}
+                        {format(calenderTwo)} {language.total_sale}
                       </p>
                     ) : (
                       <p>
-                        From {calenderOne.toDateString()} to{" "}
-                        {calenderTwo.toDateString()} Total Sale Amount (Gallon)
+                        From {format(calenderOne)} to {format(calenderTwo)}{" "}
+                        Total Sale Amount (Gallon)
                       </p>
                     )}
                   </th>
-                  <th colSpan={4}>{language.average_sale_per_day}</th>
+                  <th colSpan={5}>{language.average_sale_per_day}</th>
                   <th rowSpan={2}>{language.req}</th>
                   <th rowSpan={2}>{language.Remark}</th>
                 </tr>
@@ -137,7 +144,7 @@ function WeeklyTableTemp({
                         ? "HSD"
                         : e?.fuelType == "005-Premium Diesel"
                         ? "PHSD"
-                        : ""}
+                        : "97 RON"}
                     </th>
                   ))}
                   {capacity?.map((e) => (
@@ -150,7 +157,21 @@ function WeeklyTableTemp({
                         ? "HSD"
                         : e?.fuelType == "005-Premium Diesel"
                         ? "PHSD"
-                        : ""}
+                        : "97 RON"}
+                    </th>
+                  ))}
+
+                  {capacity?.map((e) => (
+                    <th>
+                      {e?.fuelType == "001-Octane Ron(92)"
+                        ? "92 RON"
+                        : e?.fuelType == "002-Octane Ron(95)"
+                        ? "95 RON"
+                        : e?.fuelType == "004-Diesel"
+                        ? "HSD"
+                        : e?.fuelType == "005-Premium Diesel"
+                        ? "PHSD"
+                        : "97 RON"}
                     </th>
                   ))}
                   {capacity?.map((e) => (
@@ -163,42 +184,32 @@ function WeeklyTableTemp({
                         ? "HSD"
                         : e?.fuelType == "005-Premium Diesel"
                         ? "PHSD"
-                        : ""}
-                    </th>
-                  ))}
-                  {capacity?.map((e) => (
-                    <th>
-                      {e?.fuelType == "001-Octane Ron(92)"
-                        ? "92 RON"
-                        : e?.fuelType == "002-Octane Ron(95)"
-                        ? "95 RON"
-                        : e?.fuelType == "004-Diesel"
-                        ? "HSD"
-                        : e?.fuelType == "005-Premium Diesel"
-                        ? "PHSD"
-                        : ""}
+                        : "97 RON"}
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  {/* <td>1</td> */}
+                  <td>1</td>
                   <td>Kyaw San Co., ltd.</td>
                   <td>Kyaw San</td>
                   <td>{station}</td>
                   {/* <td>Kyawe Tat Sone Village, Thazi Township</td> */}
-                  <td>{licenseNo}</td>
                   <td className=" text-left">{state ? state[0] : "-"}</td>
                   <td className=" text-center">
                     {state ? state[state.length - 1] : "-"}
                   </td>
+                  <td>{licenseNo}</td>
                   <td className=" text-center">Own Shop</td>
                   {capacity?.map((e) => (
                     <td>{(e.capacity / 4.16).toFixed(3)}</td>
                   ))}
-                  {capacity?.map((e) => (
+                  {/* {capacity?.map((e) => (
                     <td>{(e.balance / 4.16).toFixed(3)}</td>
+                  ))} */}
+                  {capacity?.map((e) => (
+                    <td>{(e.last_balance / 4.16).toFixed(3)}</td>
                   ))}
                   {capacity?.map((e) => (
                     <td>{(e.cash / 4.16).toFixed(3)}</td>

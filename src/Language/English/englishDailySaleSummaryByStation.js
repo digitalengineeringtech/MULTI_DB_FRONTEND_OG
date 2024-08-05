@@ -1,7 +1,7 @@
 export const EnglishDailySaleSummaryByStation = {
     main_title: "Daily Sale Summary by Station Report",
-    start_date: "Start Date",
-    end_date: "End Date",
+    start_date: "From",
+    end_date: "To",
     station: "Station",
     search: "SEARCH",
     station_name: "Station Name",

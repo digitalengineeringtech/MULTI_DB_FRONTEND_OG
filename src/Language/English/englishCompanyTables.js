@@ -1,8 +1,8 @@
 export const EnglishCompanyTables = {
     station: "Station",
     company_tables:"Company Tables",
-    start_date: "Start Date",
-    end_date: "End Date",
+    start_date: "From",
+    end_date: "To",
     fuel_type_total: "Fuel Type Total",
     no: "no",
     fuel_type: "Fuel Type",

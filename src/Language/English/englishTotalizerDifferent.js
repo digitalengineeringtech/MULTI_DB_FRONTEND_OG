@@ -1,7 +1,7 @@
 export const EnglishTotalizerDifferent = {
   mainTitle: "Totalizer Different",
-  startDate: "Start Date",
-  endDate: "End Date",
+  startDate: "From",
+  endDate: "To",
   station: "Station",
   fuel_type: "Fuel Type",
   search: "SEARCH",
@@ -30,7 +30,7 @@ export const EnglishTotalizerDifferent = {
   Remark: "Remark",
   receive: "Received (Gallon)",
   pump_title: "Pump Report",
-  pprd_no: "PPRD License No",
+  pprd_no: "PPRD License No.",
   price: "Price",
   sale_gallon: " Sale Gallon",
   pump_test: "Pump Test",

@@ -2,8 +2,8 @@
 
 export const COLUMNS = [
     {   id:"pprd",
-        Header: "PPRD License No",
-        Footer: "PPRD License No",
+        Header: "PPRD License No.",
+        Footer: "PPRD License No.",
         accessor: "stationDetailId.lienseNo",
 
     },

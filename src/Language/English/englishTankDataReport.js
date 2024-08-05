@@ -4,7 +4,7 @@ export const EnglishTankData = {
     tank_no: "Tank No",
     station: "Station",
     search: "SEARCH",
-    pprd_license_no:"PPRD License No",
+    pprd_license_no:"PPRD License No.",
     tank_max_capacity: "Tank Max Capacity",
     fuel_type: "Fuel Type",
     stock_date_time: "Stock Date Time",

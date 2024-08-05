@@ -16,8 +16,8 @@ export const GROUPED_COLUMNS = [
         Footer: "Location",
     },
     {
-        Header: "PPRD License No",
-        Footer: "PPRD License No",
+        Header: "PPRD License No.",
+        Footer: "PPRD License No.",
     },
      {
         Header: "Fuel Type",
