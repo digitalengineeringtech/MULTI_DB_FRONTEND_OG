@@ -446,7 +446,8 @@ function RealTank() {
         stationId: data_g_2.length != 0 ? data_g_2?.result[0]?.stationId : "-",
         balance: close || normalTank || 0,
         stationId: station,
-        gl: (fuelReceive == NaN ? gain_rec : gain) || 0,
+        // gl: (fuelReceive == NaN ? gain_rec : gain) || 0,
+        gl: gain_rec,
         totalizerDifference, // Add the totalizer difference here
         // capacity: capacity,
       };

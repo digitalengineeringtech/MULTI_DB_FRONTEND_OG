@@ -100,7 +100,7 @@ function WeeklyTableTemp({
             >
               <thead>
                 <tr>
-                  <th rowSpan={2}>Sir No.</th>
+                  <th rowSpan={2}>Sr No.</th>
                   <th rowSpan={2}>{language.import_company}</th>
                   <th rowSpan={2}>{language.company_name}</th>
                   <th rowSpan={2}>{language.station_name}</th>

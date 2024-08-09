@@ -131,7 +131,7 @@ function PumpTableTemp({
     <div className="mt-[70px]">
       <table ref={tRef}>
         <tr>
-          <th>Sir No.</th>
+          <th>Sr No.</th>
           <th>{language.station_name}</th>
           <th width="50">{language.pprd_no}</th>
           <th>{language.State}</th>

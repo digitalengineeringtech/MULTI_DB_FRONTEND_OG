@@ -4,7 +4,7 @@ export const EnglishDailySaleCategoriesReport = {
     endDate: "To",
     station: "Station",
     search: "Search",
-    no: 'Sir No.',
+    no: 'Sr No.',
     content: "Categories",
     saleDepartment: "Sales department",
     fuelType: "Fuel Type",

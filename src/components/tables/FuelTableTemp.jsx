@@ -54,7 +54,7 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
           {calcu ? (
             <thead>
               <tr>
-                <th>Sir No.</th>
+                <th>Sr No.</th>
                 <th>{language.Station_name}</th>
                 <th>{language.pprd_no}</th>
                 <th>{language.Township}</th>
@@ -71,7 +71,7 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
           ) : (
             <thead>
               <tr>
-                <th>Sir No.</th>
+                <th>Sr No.</th>
                 <th>{language.Station_name}</th>
                 <th width="50">{language.pprd_no}</th>
                 <th>{language.Township}</th>

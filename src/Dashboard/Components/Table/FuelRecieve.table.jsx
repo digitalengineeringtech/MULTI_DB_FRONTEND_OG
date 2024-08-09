@@ -7,7 +7,7 @@ function FuelRecieveTableLittle({ okData, tableRef }) {
       <table className="mt-5" ref={tableRef}>
         <tr>
           <th>
-            Sir <br />
+            Sr <br />
             No.
           </th>
           <th>Station Name</th>

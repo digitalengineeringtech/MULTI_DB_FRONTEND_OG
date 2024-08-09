@@ -35,7 +35,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
 
   const n2GlTotal = okData
     ?.filter((ea) => ea.fuelType == "92 RON")
-    .map((e) => e.gl)
+    .map((e) => (e.gl ? e.gl : 0))
     .reduce((pv, cv) => pv + cv, 0);
 
   const n2DifTotal = okData
@@ -55,7 +55,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
 
   const n5GlTotal = okData
     ?.filter((ea) => ea.fuelType == "95 RON")
-    .map((e) => e.gl)
+    .map((e) => (e.gl ? e.gl : 0))
     .reduce((pv, cv) => pv + cv, 0);
 
   const n5DifTotal = okData
@@ -75,7 +75,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
 
   const hsdGlTotal = okData
     ?.filter((ea) => ea.fuelType == "HSD")
-    .map((e) => e.gl)
+    .map((e) => (e.gl ? e.gl : 0))
     .reduce((pv, cv) => pv + cv, 0);
 
   const hsdDifTotal = okData
@@ -95,7 +95,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
 
   const phsdGlTotal = okData
     ?.filter((ea) => ea.fuelType == "PHSD")
-    .map((e) => e.gl)
+    .map((e) => (e.gl ? e.gl : 0))
     .reduce((pv, cv) => pv + cv, 0);
 
   const phsdDifTotal = okData
@@ -119,7 +119,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
           {calcu ? (
             <thead>
               <tr>
-                <th>Sir No.</th>
+                <th>Sr No.</th>
                 <th>{language.Station_name}</th>
                 <th>{language.pprd_no}</th>
                 <th>{language.Township}</th>
@@ -136,7 +136,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
           ) : (
             <thead>
               <tr>
-                <th>No</th>
+                <th>Sr No.</th>
                 <th>{language.Station_name}</th>
                 <th width="50">{language.pprd_no}</th>
                 {/* <th>{language.Township}</th> */}
@@ -231,7 +231,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
                         ).toFixed(3) - ok.cash?.toFixed(3)
                       ).toFixed(3)
                     )} */}
-                    {ok?.gl.toFixed(3) || 0}
+                    {ok?.gl ? ok?.gl.toFixed(3) : "0.000"}
                   </td>
                   <td className="text-center">Tank Online</td>
                 </tr>

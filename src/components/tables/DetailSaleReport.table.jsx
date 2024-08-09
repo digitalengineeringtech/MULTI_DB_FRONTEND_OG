@@ -35,7 +35,7 @@ function DetailSaleReportTable({
           <thead>
             <tr>
               <th>
-                Sir
+                Sr
                 <br />
                 No.
               </th>
