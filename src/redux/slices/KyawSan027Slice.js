@@ -34,7 +34,7 @@ export const fetchDailySaleReports = createAsyncThunk(
     const casherRoute = cahserCode === null ? "" : `&casherCode=${cahserCode}`;
 
     console.log(
-      `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}&amountGreate=${greate}&priceAmount=${amount}&literGreate=${lgreate}&literAmount=${liter}`
+      `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}&amountGreate=${kyat}&priceAmount=${amount}&literGreate=${lgreate}&literAmount=${liter}`
     );
 
     const response = await instance.get(
