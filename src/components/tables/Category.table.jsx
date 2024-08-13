@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./table.css";
 
 function CategoryTable({
   okData,
@@ -1702,14 +1703,27 @@ function CategoryTable({
 
   console.log(okData, "..................");
 
-  const format = (date) => {
-    const dateObj = new Date(date);
+  // const format = (date) => {
+  //   const dateObj = new Date(date);
 
-    const day = String(dateObj.getUTCDate()).padStart(2, "0");
-    const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
-    const year = dateObj.getUTCFullYear();
+  //   const day = String(dateObj.getUTCDate()).padStart(2, "0");
+  //   const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
+  //   const year = dateObj.getUTCFullYear();
 
-    // const time = dateObj?.toISOString().slice(11, 19);
+  //   // const time = dateObj?.toISOString().slice(11, 19);
+
+  //   return `${day}-${month}-${year}`;
+  // };
+
+  const format = (dateString) => {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
 
     return `${day}-${month}-${year}`;
   };

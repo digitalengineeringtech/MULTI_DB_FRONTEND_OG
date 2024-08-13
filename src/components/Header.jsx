@@ -14,18 +14,55 @@ import Logo from "../assets/images/IMG_6843.png";
 import { MyanmarHeader } from "../Language/Myanmar/myanmarHeader";
 import { EnglishHeader } from "../Language/English/englishHeader";
 import { GiReturnArrow } from "react-icons/gi";
+import { motion } from "framer-motion";
+import { clsx } from "clsx";
 
 function Header({ show = true }) {
   const user = useSelector((state) => state.login);
   const location = useLocation();
-
+  const list = {
+    open: { y: "65px", opacity: 1 },
+    close: { y: 0, opacity: 0 },
+  };
   const headerRef = useRef();
   const legit = user.login;
   const dispatch = useDispatch();
   const [menuTrue, setMenuTrue] = useState(false);
   const [language, setLanguage] = useState("English");
+  const [state, setState] = useState(false);
   const [nativeLanguage, setNativeLanguage] = useState(EnglishHeader);
   const navigate = useNavigate();
+
+  const links = [
+    {
+      name: "Sale Detail Report",
+      path: `/${user.accessDb}/saledetail`,
+    },
+    {
+      name: "Fuel In Report",
+      path: `/${user.accessDb}/fueldatareport`,
+    },
+    {
+      name: "Daily Sale Report",
+      path: `/${user.accessDb}/dailysalereport`,
+    },
+    {
+      name: "Pump Report",
+      path: `/${user.accessDb}/pumpreport`,
+    },
+    {
+      name: "Tank Report",
+      path: `/${user.accessDb}/real-tank`,
+    },
+    {
+      name: "Daily Sale Categories Report",
+      path: `/${user.accessDb}/categoriesreport`,
+    },
+    {
+      name: "Weekly Report",
+      path: `/${user.accessDb}/weekly`,
+    },
+  ];
 
   useEffect(() => {
     dispatch(UpdateLanguage({ language }));
@@ -49,6 +86,7 @@ function Header({ show = true }) {
   ];
 
   const shouldShowHeader = headerPaths.includes(location.pathname);
+  const pathName = location.pathname;
 
   // function logit() {
   //   if (window.pageYOffset >= 20) {
@@ -85,99 +123,105 @@ function Header({ show = true }) {
     : "flex px-3 py-2 rounded-lg items-center relative justify-center gap-2 cursor-pointer ";
 
   return (
-    <header
-      id="Header"
-      ref={headerRef}
-      className="fixed  bg-white  top-0 left-0 right-0  z-50   flex items-center justify-center  bg-transparent drop-shadow-md"
-    >
-      <div className="w-[90%] flex  flex-col justify-between items-center mx-auto">
-        <div className="logo w-full flex items-center justify-between">
-          <div className="text-lg font-bold pt-3 mb-2">
-            <Link
-              className="flex justify-center items-center gap-2"
-              to={!show ? "/user/choose" : `/${user.accessDb}/home`}
-            >
-              <img className=" w-[50px] h-[50px]" src={Logo} alt="logo" />
-              <div>
-                <p>Digital Engineering Tech Ltd.</p>
-              </div>
-            </Link>
-          </div>
-          {show && legit ? (
-            <ul className="flex  w-[55%] items-center justify-start text-sm gap-10">
-              {user.name === "kyaw san" ? (
-                <Link
-                  to={`/${user.accessDb}/main-con/dash`}
-                  className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-black flex items-center gap-2  px-3 py-2 rounded-lg"
-                >
-                  <GiReturnArrow />
-                  <li>Dash</li>
-                </Link>
-              ) : (
-                ""
-              )}
-
+    <div className="w-full justify-center flex">
+      <header
+        id="Header"
+        ref={headerRef}
+        className="fixed  bg-white  top-0 left-0 right-0  z-50   flex items-center justify-center  bg-transparent drop-shadow-md"
+        onMouseEnter={() => {
+          setState(true);
+        }}
+        onMouseLeave={() => {
+          setState(false);
+        }}
+      >
+        <div className="w-[90%] flex z-30  flex-col justify-between items-center mx-auto">
+          <div className="logo w-full flex items-center justify-between">
+            <div className="text-lg font-bold pt-3 mb-2">
               <Link
-                to={
-                  user.name === "kyaw san"
-                    ? "/kyawsan/main-con/home"
-                    : `/${user.accessDb}/home`
-                }
-                className="bg-blue-900 text-white px-3 py-2 rounded-lg"
+                className="flex justify-center items-center gap-2"
+                to={!show ? "/user/choose" : `/${user.accessDb}/home`}
               >
-                {" "}
-                <li>{nativeLanguage.home}</li>
+                <img className=" w-[50px] h-[50px]" src={Logo} alt="logo" />
+                <div>
+                  <p>Digital Engineering Tech Ltd.</p>
+                </div>
               </Link>
-              {/* <Link  to="/kyawsan/home" className='bg-white text-black px-3 py-2 rounded-lg'> <li>Dashboard</li></Link> */}
-              {user.name === "pprd" || user.name === "user" ? (
+            </div>
+            {show && legit ? (
+              <ul className="flex  w-[55%] items-center justify-start text-sm gap-10">
+                {user.name === "kyaw san" ? (
+                  <Link
+                    to={`/${user.accessDb}/main-con/dash`}
+                    className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-black flex items-center gap-2  px-3 py-2 rounded-lg"
+                  >
+                    <GiReturnArrow />
+                    <li>Dash</li>
+                  </Link>
+                ) : (
+                  ""
+                )}
+
                 <Link
-                  to="/user/choose"
-                  className="  cursor-pointer hover:text-gray-100 hover:bg-blue-900 text-gray-700 px-3 py-2 rounded-lg "
+                  to={
+                    user.name === "kyaw san"
+                      ? "/kyawsan/main-con/home"
+                      : `/${user.accessDb}/home`
+                  }
+                  className="bg-blue-900 text-white z-50 px-3 py-2 relative rounded-lg"
                 >
-                  {" "}
-                  <li>{nativeLanguage.user_choose}</li>
+                  <li>{nativeLanguage.home}</li>
                 </Link>
-              ) : (
-                ""
-              )}
-              {/* {
+                {/* <Link  to="/kyawsan/home" className='bg-white text-black px-3 py-2 rounded-lg'> <li>Dashboard</li></Link> */}
+                {user.name === "pprd" || user.name === "user" ? (
+                  <Link
+                    to="/user/choose"
+                    className="  cursor-pointer hover:text-gray-100 hover:bg-blue-900 text-gray-700 px-3 py-2 rounded-lg "
+                  >
+                    {" "}
+                    <li>{nativeLanguage.user_choose}</li>
+                  </Link>
+                ) : (
+                  ""
+                )}
+                {/* {
                 who === "admin"?<li className=' cursor-pointer duration-300 hover:bg-white px-3 h-[40px] flex items-center  rounded-md w-[150px] hover:text-black'><Link to="/salesummeryreport">Sale Summery</Link></li>
 :''
                      } */}
-              {user.name === "manager" ? (
-                <Link
-                  to={`${user.accessDb}/dashboard`}
-                  className=" text-black px-3 py-2 rounded-lg"
-                >
-                  {" "}
-                  <li>{nativeLanguage.dashboard}</li>
-                </Link>
-              ) : (
-                ""
-              )}
+                {user.name === "manager" ? (
+                  <Link
+                    to={`${user.accessDb}/dashboard`}
+                    className=" text-black px-3 py-2 rounded-lg"
+                  >
+                    {" "}
+                    <li>{nativeLanguage.dashboard}</li>
+                  </Link>
+                ) : (
+                  ""
+                )}
 
-              <li className="p-2  group ">
-                <p className="flex items-center relative justify-center gap-2 cursor-pointer  w-[100px]">
-                  {language}
-                  <MdOutlineArrowDropDown />
-                </p>
-                <ul className="bg-blue-900 mt-2 z-40 translate-y-6 group-hover:translate-y-0  drop-shadow-none hidden group-hover:flex text-white absolute p-6 text-sm rounded-md flex-col items-start gap-2">
-                  <li
-                    onClick={(e) => setLanguage(e.target.innerText)}
-                    className="  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black "
-                  >
-                    {nativeLanguage.english}
-                  </li>
-                  <li
-                    onClick={(e) => setLanguage(e.target.innerText)}
-                    className="  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black "
-                  >
-                    {nativeLanguage.myanmar}
-                  </li>
-                  {/* <li onClick={(e)=>setLanguage(e.target.innerText)} className='  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black '>中国人</li> */}
-                </ul>
-              </li>
-              {/* <li className="p-2  group ">
+                <li className="p-2  group ">
+                  <p className="flex items-center relative justify-center gap-2 cursor-pointer  w-[100px]">
+                    {language}
+                    <MdOutlineArrowDropDown />
+                  </p>
+                  <ul className="bg-blue-900 mt-2 z-40 translate-y-6 group-hover:translate-y-0  drop-shadow-none hidden group-hover:flex text-white absolute p-6 text-sm rounded-md flex-col items-start gap-2">
+                    <li
+                      onClick={(e) => setLanguage(e.target.innerText)}
+                      className="  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black "
+                    >
+                      {nativeLanguage.english}
+                    </li>
+                    <li
+                      onClick={(e) => setLanguage(e.target.innerText)}
+                      className="  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black "
+                    >
+                      {nativeLanguage.myanmar}
+                    </li>
+                    {/* <li onClick={(e)=>setLanguage(e.target.innerText)} className='  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black '>中国人</li> */}
+                  </ul>
+                </li>
+                {/* <li className="p-2  group ">
                 <p className="flex items-center relative justify-center gap-2 cursor-pointer ">
                   {nativeLanguage.setting}
                   <MdOutlineArrowDropDown />
@@ -216,60 +260,60 @@ function Header({ show = true }) {
                   </li>
                 </ul>
               </li> */}
-              <li
-                className=" cursor-pointer duration-300 hover:bg-red-400  px-3  h-[40px] flex items-center  rounded-md hover:text-white"
-                onClick={() => {
-                  navigate("/");
-                  dispatch(LogoutUser());
-                }}
-              >
-                {nativeLanguage.log_out}
-              </li>
-            </ul>
-          ) : (
-            ""
-          )}
-          {!show && (
-            <ul className="flex  w-[55%] items-center justify-start text-sm gap-10">
-              <li className="p-2  group ">
-                <p className="flex items-center relative justify-center gap-2 cursor-pointer  w-[100px]">
-                  {language}
-                  <MdOutlineArrowDropDown />
-                </p>
-                <ul className="bg-blue-900 mt-2 z-40 translate-y-6 group-hover:translate-y-0  drop-shadow-none hidden group-hover:flex text-white absolute p-6 text-sm rounded-md flex-col items-start gap-2">
-                  <li
-                    onClick={(e) => setLanguage(e.target.innerText)}
-                    className="  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black "
-                  >
-                    {nativeLanguage.english}
-                  </li>
-                  <li
-                    onClick={(e) => setLanguage(e.target.innerText)}
-                    className="  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black "
-                  >
-                    {nativeLanguage.myanmar}
-                  </li>
-                  {/* <li onClick={(e)=>setLanguage(e.target.innerText)} className='  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black '>中国人</li> */}
-                </ul>
-              </li>
+                <li
+                  className=" cursor-pointer duration-300 hover:bg-red-400  px-3  h-[40px] flex items-center  rounded-md hover:text-white"
+                  onClick={() => {
+                    navigate("/");
+                    dispatch(LogoutUser());
+                  }}
+                >
+                  {nativeLanguage.log_out}
+                </li>
+              </ul>
+            ) : (
+              ""
+            )}
+            {!show && (
+              <ul className="flex  w-[55%] items-center justify-start text-sm gap-10">
+                <li className="p-2  group ">
+                  <p className="flex items-center relative justify-center gap-2 cursor-pointer  w-[100px]">
+                    {language}
+                    <MdOutlineArrowDropDown />
+                  </p>
+                  <ul className="bg-blue-900 mt-2 z-40 translate-y-6 group-hover:translate-y-0  drop-shadow-none hidden group-hover:flex text-white absolute p-6 text-sm rounded-md flex-col items-start gap-2">
+                    <li
+                      onClick={(e) => setLanguage(e.target.innerText)}
+                      className="  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black "
+                    >
+                      {nativeLanguage.english}
+                    </li>
+                    <li
+                      onClick={(e) => setLanguage(e.target.innerText)}
+                      className="  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black "
+                    >
+                      {nativeLanguage.myanmar}
+                    </li>
+                    {/* <li onClick={(e)=>setLanguage(e.target.innerText)} className='  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black '>中国人</li> */}
+                  </ul>
+                </li>
 
-              <Link
-                to="/usermanual"
-                className="   text-black hover:bg-blue-900 hover:text-white  cursor-pointer duration-300  px-3  h-[40px] flex items-center  rounded-md  "
-              >
-                {" "}
-                <li>{nativeLanguage.user_manual}</li>
-              </Link>
-              <li
-                className=" cursor-pointer hover:bg-red-400  duration-300 px-3 hover:text-white h-[40px] flex items-center  rounded-md "
-                onClick={() => {
-                  navigate("/");
-                  dispatch(LogoutUser());
-                }}
-              >
-                {nativeLanguage.log_out}
-              </li>
-              {/* <li className="p-2  group">
+                <Link
+                  to="/usermanual"
+                  className="   text-black hover:bg-blue-900 hover:text-white  cursor-pointer duration-300  px-3  h-[40px] flex items-center  rounded-md  "
+                >
+                  {" "}
+                  <li>{nativeLanguage.user_manual}</li>
+                </Link>
+                <li
+                  className=" cursor-pointer hover:bg-red-400  duration-300 px-3 hover:text-white h-[40px] flex items-center  rounded-md "
+                  onClick={() => {
+                    navigate("/");
+                    dispatch(LogoutUser());
+                  }}
+                >
+                  {nativeLanguage.log_out}
+                </li>
+                {/* <li className="p-2  group">
                 <p className="flex items-center relative justify-center gap-2 cursor-pointer ">
                   {nativeLanguage.setting}
                   <MdOutlineArrowDropDown />
@@ -292,14 +336,43 @@ function Header({ show = true }) {
                   </li>
                 </ul>
               </li> */}
-            </ul>
-          )}
-        </div>
-        {/* <div ref={titleRef} className=' duration-700 text-sm font-extralight w-full'>
+              </ul>
+            )}
+          </div>
+          {/* <div ref={titleRef} className=' duration-700 text-sm font-extralight w-full'>
               <h3 className='flex gap-3 items-center mb-7'> <RiOilFill/>Fuel Station Central Management System </h3>   
                   </div> */}
-      </div>
-    </header>
+        </div>
+      </header>
+      <motion.div
+        className="mx-auto z-0 mt-[-40px] flex justify-start h-[100px]  w-[100%] rounded-lg  absolute"
+        onMouseEnter={() => {
+          setState(true);
+        }}
+        onMouseLeave={() => {
+          setState(false);
+        }}
+        animate={state ? "open" : "close"}
+        variants={list}
+      >
+        <div className="   mb-2 ms-3 rounded-lg flex gap-2 w-[70%] mt-auto">
+          {links.map((e) => (
+            <Link
+              to={e.path}
+              className={clsx(
+                `p-2  px-3 bg-white hover:bg-[#E0F6FF] hover:text-[#007BFF] duration-100 border text-gray-500 tracking-wide text-sm font-semibold border-gray-400 hover:border-[#007BFF] rounded-lg`,
+                {
+                  "bg-[#E0F6FF] text-[#007BFF] border border-[#007BFF]":
+                    pathName == e.path,
+                }
+              )}
+            >
+              {e.name}
+            </Link>
+          ))}
+        </div>
+      </motion.div>
+    </div>
   );
 }
 

@@ -183,33 +183,37 @@ function PumpTableTemp({
               {statement && (
                 <>
                   <td className="text-right">
-                    {Number(e.totalizer_opening).toFixed(3)}
+                    {e.totalizer_opening
+                      ? Number(e.totalizer_opening).toFixed(3)
+                      : "0.000"}
                   </td>
                   <td className="text-right">
-                    {Number(e.totalizer_closing).toFixed(3)}
+                    {e.totalizer_closing
+                      ? Number(e.totalizer_closing).toFixed(3)
+                      : "0.000"}
                   </td>
                   <td className="text-right">
                     {/* {isNaN(Number(e.totalizer_opening).toFixed(3) - Number(e.totalizer_closing).toFixed(3))
                     ? "0"
                     : (Number(e.totalizer_opening).toFixed(3) - Number(e.totalizer_closing).toFixed(3))?.toFixed(3)} */}
-                    {Number(e.totalizer_different).toFixed(3) || "0"}
+                    {Number(e.totalizer_different).toFixed(3) || "0.000"}
                   </td>
                 </>
               )}
               <td className="text-right">
-                {e.totalSaleLiter == 0 ? "0" : e.totalSaleLiter}
+                {e.totalSaleLiter == 0 ? "0.000" : e.totalSaleLiter}
               </td>
               <td className="text-right">
                 {e.totalSaleLiter == 0
-                  ? "0"
+                  ? "0.000"
                   : (e.totalSaleLiter / 4.16)?.toFixed(3)}
               </td>
               <td className="text-center">
-                {(e.pumptest == 0 ? "0" : e.pumptest) || "0"}
+                {(e.pumptest == 0 ? "0.000" : e.pumptest) || "0.000"}
               </td>
               <td className="text-center">
                 {Number(e.other)?.toFixed(3) == "NaN"
-                  ? "0"
+                  ? "0.000"
                   : Number(e.other)?.toFixed(3)}
               </td>
             </tr>

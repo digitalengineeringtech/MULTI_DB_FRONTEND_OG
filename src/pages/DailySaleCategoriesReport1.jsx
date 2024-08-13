@@ -110,7 +110,7 @@ function DailySaleCategoriesReport1() {
   }, [datas, dispatch]);
 
   useEffect(() => {
-    setloading(true);
+    // setloading(true);
 
     if (changeLanguage?.code === "Myanmar") {
       setLanguage(MyanmarDailySaleCategoriesReport);

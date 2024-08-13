@@ -16,6 +16,8 @@ export const fetchDailySaleReports = createAsyncThunk(
     const amount = bomb[9];
     const greate = bomb[10];
     const kyat = bomb[11];
+    const liter = bomb[12];
+    const lgreate = bomb[13];
 
     // .toISOString().split('T')[0] + 'T00:00:00.000Z'
     // .toISOString().split('T')[0] + 'T23:59:59.999Z'
@@ -32,11 +34,11 @@ export const fetchDailySaleReports = createAsyncThunk(
     const casherRoute = cahserCode === null ? "" : `&casherCode=${cahserCode}`;
 
     console.log(
-      `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}&greate=${greate}&amount=${amount}&kyat=${kyat}`
+      `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}&amountGreate=${greate}&priceAmount=${amount}&literGreate=${lgreate}&literAmount=${liter}`
     );
 
     const response = await instance.get(
-      `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}&greate=${greate}&amount=${amount}&kyat=${kyat}`,
+      `/detail-sale/pagi/by-date/1?sDate=${isoStartDate}&eDate=${isoEndDate}${purposeofUseRoute}${fuelTypeRoute}${casherRoute}${nozzleNoRoute}&stationDetailId=${stationSelection.code}&accessDb=${accessDb}&amountGreate=${greate}&priceAmount=${amount}&literGreate=${lgreate}&literAmount=${liter}`,
       {
         headers: {
           "Content-Type": "multipart/form-data",

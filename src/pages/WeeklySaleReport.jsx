@@ -273,6 +273,14 @@ function WeeklySaleReport() {
 
     console.log(last, last_tankBalance, "khhhhhhhkkkkkkkkkkkkkkkkkkkkkkkkkk");
 
+    const uniqueDates = new Set();
+
+    // Iterate over vouchers and add dates to the Set
+    data_g?.result?.forEach((voucher) => {
+      uniqueDates.add(voucher.dailyReportDate); // Assuming voucher.date is the date property
+    });
+
+    // Return the size of the Set (number of unique dates)
     // // Filter data based on the fuel type
     // const filteredData = data_g?.result?.filter((c) => c.fuelType === e.name);
 
@@ -300,7 +308,7 @@ function WeeklySaleReport() {
         ?.filter((c) => c.tankNo == e.id)
         ?.reverse()[0]
         ?.tankBalance.toFixed(3),
-      avg: time == 0 ? total : total / time,
+      avg: uniqueDates?.size == 0 ? total : total / uniqueDates?.size,
       last_balance: last ? last : tankBalance,
     };
   });

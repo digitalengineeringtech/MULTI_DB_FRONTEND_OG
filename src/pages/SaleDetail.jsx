@@ -32,6 +32,7 @@ import instance from "../axios";
 import Casher from "../components/PageComponents/Casher";
 import DetailSaleReportTable from "../components/tables/DetailSaleReport.table";
 import AmountComponent from "../components/PageComponents/AmountComponent";
+import { FaEquals } from "react-icons/fa";
 
 export default function SaleDetail() {
   // const [hour, setHour] = useState("00");
@@ -91,7 +92,9 @@ export default function SaleDetail() {
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(50);
   const [amount, setAmount] = useState();
-  const [kyat, setKyat] = useState({ name: "Kyats", code: true });
+  const [lAmount, setLAmount] = useState();
+  const [kyat, setKyat] = useState({ name: "Equal (=)", code: "equal" });
+  const [liter, setLiter] = useState({ name: "Equal (=)", code: "equal" });
 
   const [totalLength, setTotalLength] = useState(0);
   const [casher, setCasher] = useState(null);
@@ -153,6 +156,8 @@ export default function SaleDetail() {
           amount,
           greate,
           kyat?.code,
+          lAmount,
+          liter?.code,
         ];
 
         setloading(true);
@@ -215,7 +220,9 @@ export default function SaleDetail() {
     filename: "Daily Sale Report",
     sheet: "Daily Sale Report",
   });
-  
+
+  console.log(kyat, amount, "and", liter, lAmount)
+
   return (
     <>
       <PageContainer
@@ -270,7 +277,11 @@ export default function SaleDetail() {
               title={language.amount}
               value={amount}
               setValue={setAmount}
+              lValue={lAmount}
+              setLValue={setLAmount}
               ingredient={greate}
+              liter={liter}
+              setLiter={setLiter}
               setIngredient={setGreate}
             />
           </div>

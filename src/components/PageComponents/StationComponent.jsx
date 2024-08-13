@@ -79,9 +79,17 @@ function StationComponent({ value, setValue, title }) {
 
   return (
     <div className="flex-3 ">
-      <label htmlFor="calendar-12h" className="font-bold block mb-2">
-        {title}
-      </label>
+      <div className="flex">
+        <label htmlFor="calendar-12h" className="font-bold block mb-2">
+          {title}
+        </label>
+        <label
+          htmlFor="calendar-12h"
+          className="font-bold block mb-2 ms-auto me-[80px]"
+        >
+          Liense No.
+        </label>
+      </div>
       <div className="calendar-container">
         {user.name === "manager" ? (
           <Dropdown
