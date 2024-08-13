@@ -87,6 +87,7 @@ function Header({ show = true }) {
 
   const shouldShowHeader = headerPaths.includes(location.pathname);
   const pathName = location.pathname;
+  console.log(pathName, "this is path");
 
   // function logit() {
   //   if (window.pageYOffset >= 20) {
@@ -344,34 +345,38 @@ function Header({ show = true }) {
                   </div> */}
         </div>
       </header>
-      <motion.div
-        className="mx-auto z-0 mt-[-40px] flex justify-start h-[100px]  w-[100%] rounded-lg  absolute"
-        onMouseEnter={() => {
-          setState(true);
-        }}
-        onMouseLeave={() => {
-          setState(false);
-        }}
-        animate={state ? "open" : "close"}
-        variants={list}
-      >
-        <div className="   mb-2 ms-3 rounded-lg flex gap-2 w-[70%] mt-auto">
-          {links.map((e) => (
-            <Link
-              to={e.path}
-              className={clsx(
-                `p-2  px-3 bg-white hover:bg-[#E0F6FF] hover:text-[#007BFF] duration-100 border text-gray-500 tracking-wide text-sm font-semibold border-gray-400 hover:border-[#007BFF] rounded-lg`,
-                {
-                  "bg-[#E0F6FF] text-[#007BFF] border border-[#007BFF]":
-                    pathName == e.path,
-                }
-              )}
-            >
-              {e.name}
-            </Link>
-          ))}
-        </div>
-      </motion.div>
+      {pathName != "/" &&
+        pathName != "/user/choose" &&
+        pathName != `/${user.accessDb}/home` && (
+          <motion.div
+            className="mx-auto z-0 mt-[-40px] flex justify-start h-[100px]  w-[100%] rounded-lg  absolute"
+            onMouseEnter={() => {
+              setState(true);
+            }}
+            onMouseLeave={() => {
+              setState(false);
+            }}
+            animate={state ? "open" : "close"}
+            variants={list}
+          >
+            <div className="   mb-2 ms-3 rounded-lg flex gap-2 w-[70%] mt-auto">
+              {links.map((e) => (
+                <Link
+                  to={e.path}
+                  className={clsx(
+                    `p-2  px-3 bg-white hover:bg-[#E0F6FF] hover:text-[#007BFF] duration-100 border text-gray-500 tracking-wide text-sm font-semibold border-gray-400 hover:border-[#007BFF] rounded-lg`,
+                    {
+                      "bg-[#E0F6FF] text-[#007BFF] border border-[#007BFF]":
+                        pathName == e.path,
+                    }
+                  )}
+                >
+                  {e.name}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
     </div>
   );
 }
