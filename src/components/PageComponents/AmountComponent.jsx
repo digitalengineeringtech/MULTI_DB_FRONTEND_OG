@@ -27,7 +27,7 @@ const AmountComponent = ({
     <>
       <div className="flex-3 ">
         <label htmlFor="calendar-12h" className="font-bold block mb-2">
-          Amount ( Kyats )
+          Amount 
         </label>
         <div className="flex gap-4 items-center">
           {" "}
@@ -102,7 +102,7 @@ const AmountComponent = ({
       </div>
       <div className="flex-3 ">
         <label htmlFor="calendar-12h" className="font-bold block mb-2">
-          Amount ( Liters )
+          Liters
         </label>
         <div className="flex gap-4 items-center">
           {" "}
@@ -121,7 +121,7 @@ const AmountComponent = ({
             className="!h-[30px] w-[100px]"
             value={lValue}
             onChange={(e) => setLValue(e.target.value)}
-            placeholder="Amount"
+            placeholder="Liters"
           />
           {/* <div className="card flex justify-content-center">
           <div className="flex flex-wrap gap-3">

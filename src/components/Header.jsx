@@ -8,7 +8,11 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import { LogoutUser, UpdateLanguage } from "../redux/slices/LoginSlice";
+import {
+  LoginUser,
+  LogoutUser,
+  UpdateLanguage,
+} from "../redux/slices/LoginSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Logo from "../assets/images/IMG_6843.png";
 import { MyanmarHeader } from "../Language/Myanmar/myanmarHeader";
@@ -16,22 +20,80 @@ import { EnglishHeader } from "../Language/English/englishHeader";
 import { GiReturnArrow } from "react-icons/gi";
 import { motion } from "framer-motion";
 import { clsx } from "clsx";
+import { Dropdown } from "primereact/dropdown";
+import UsePost from "../MainConDas/components/hooks/UsePost";
+import { myanmarUserChoose } from "../Language/Myanmar/myanmarUserChoose";
+import { englishUserChoose } from "../Language/English/englishUserChoose";
 
 function Header({ show = true }) {
-  const user = useSelector((state) => state.login);
   const location = useLocation();
+  const pathName = location.pathname;
+  const [com, setCom] = useState();
+  const user = useSelector((state) => state.login);
+  const [selectedCity, setSelectedCity] = useState(com);
   const list = {
     open: { y: "65px", opacity: 1 },
     close: { y: 0, opacity: 0 },
   };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [okData, setOkData] = useState([]);
+  // const [cities, setCities] = useState();
+
+  const [{ data_g, loading_g, error_g }, fetchIt] = UsePost();
+
+  // const cities = okData;
+
+  useEffect(() => {
+    if (!user.login) {
+      navigate("/");
+    }
+    // if (user.language === "Myanmar" || user.language === "မြန်မာ") {
+    //   setLanguage(myanmarUserChoose);
+    // } else if (user.language === "English" || user.language === "အင်္ဂလိပ်") {
+    //   setLanguage(englishUserChoose);
+    // }
+
+    fetchIt(`collection?name=${user.name}`, user.token);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, navigate, dispatch]);
+
+  useEffect(() => {
+    if (data_g?.result) {
+      setOkData(data_g?.result);
+    }
+  }, [data_g, loading_g, error_g]);
+
+  const handleClick = () => {
+    let saver = {
+      name: user.name,
+      token: user.token,
+      stationId: null,
+      accessDb: okData[0]?.collectionName,
+    };
+
+    // console.log(collectionName);
+
+    dispatch(LoginUser(saver));
+  };
+
+  useEffect(() => {
+    if (data_g?.result) {
+      const obj = data_g?.result?.filter(
+        (e) => e.collectionName == pathName.split("/")[1]
+      );
+      setCom(obj[0]);
+    }
+  }, []);
+
   const headerRef = useRef();
   const legit = user.login;
-  const dispatch = useDispatch();
   const [menuTrue, setMenuTrue] = useState(false);
   const [language, setLanguage] = useState("English");
   const [state, setState] = useState(false);
   const [nativeLanguage, setNativeLanguage] = useState(EnglishHeader);
-  const navigate = useNavigate();
 
   const links = [
     {
@@ -86,8 +148,7 @@ function Header({ show = true }) {
   ];
 
   const shouldShowHeader = headerPaths.includes(location.pathname);
-  const pathName = location.pathname;
-  console.log(pathName, "this is path");
+  console.log(okData, "this is path");
 
   // function logit() {
   //   if (window.pageYOffset >= 20) {
@@ -185,6 +246,22 @@ function Header({ show = true }) {
                 ) : (
                   ""
                 )}
+                {/* <div className="">
+                  <Dropdown
+                    value={selectedCity}
+                    onChange={(e) => {
+                      setSelectedCity(e.value);
+                      console.log("hello");
+                    }}
+                    options={okData}
+                    optionLabel="collectionName"
+                    placeholder="Select a City"
+                    className="w-full md:w-14rem"
+                    checkmark={true}
+                    highlightOnSelect={false}
+                  />
+                </div> */}
+
                 {/* {
                 who === "admin"?<li className=' cursor-pointer duration-300 hover:bg-white px-3 h-[40px] flex items-center  rounded-md w-[150px] hover:text-black'><Link to="/salesummeryreport">Sale Summery</Link></li>
 :''
@@ -364,10 +441,12 @@ function Header({ show = true }) {
                 <Link
                   to={e.path}
                   className={clsx(
-                    `p-2  px-3 bg-white hover:bg-[#E0F6FF] hover:text-[#007BFF] duration-100 border text-gray-500 tracking-wide text-sm font-semibold border-gray-400 hover:border-[#007BFF] rounded-lg`,
+                    `p-2  px-3  hover:bg-[#E0F6FF] hover:text-[#007BFF] duration-100  tracking-wide text-sm font-semibold  hover:border-[#007BFF] rounded-lg`,
                     {
                       "bg-[#E0F6FF] text-[#007BFF] border border-[#007BFF]":
                         pathName == e.path,
+                      "bg-white border text-gray-500 border-gray-400":
+                        pathName != e.path,
                     }
                   )}
                 >

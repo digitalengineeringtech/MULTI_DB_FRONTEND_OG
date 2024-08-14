@@ -9,6 +9,7 @@ function WeeklyTableTemp({
   calenderOne,
   calenderTwo,
   okData,
+  dateCount,
   capacity,
   tableRef,
   isSearch,
@@ -23,6 +24,7 @@ function WeeklyTableTemp({
   const tRef = useRef();
   const [station, setStation] = useState("");
   const [licenseNo, setLicenseNo] = useState("");
+  const [dCount, setDCount] = useState();
 
   useEffect(() => {
     let ninety2 = 0;
@@ -204,7 +206,7 @@ function WeeklyTableTemp({
                   <td>{licenseNo}</td>
                   <td className=" text-center">Own Shop</td>
                   {capacity?.map((e) => (
-                    <td>{(e.capacity / 4.16).toFixed(3)}</td>
+                    <td>{Math.floor(e.capacity / 4.16)}</td>
                   ))}
                   {/* {capacity?.map((e) => (
                     <td>{(e.balance / 4.16).toFixed(3)}</td>

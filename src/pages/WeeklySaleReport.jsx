@@ -62,6 +62,7 @@ function WeeklySaleReport() {
   const datas = useSelector(getAllKyawSan027DailySaleReports);
   const [tankData, setTankData] = useState();
   const [{ data_g, loading_g, error_g }, fetchIt] = UsePost();
+  const [dateCount, setDateCount] = useState(0);
 
   const handlePrint = useReactToPrint({
     content: () => tableRef.current,
@@ -95,6 +96,7 @@ function WeeklySaleReport() {
 
   const handleClick = () => {
     setClick(true);
+
     if (startDate && endDate) {
       if (selectedStation.code === "Please") {
         setIsSelectedStation(true);
@@ -102,6 +104,7 @@ function WeeklySaleReport() {
         setIsSearch(true);
         setloading(true);
         setIsSelectedStation(false);
+        setDateCount(DateCount(startDate, endDate));
 
         const fetchData = async () => {
           // const bomb = [user.token, startDate, endDate, selectedStation,user.accessDb];
@@ -225,20 +228,20 @@ function WeeklySaleReport() {
       ?.map((g) => g.volume)
       ?.reduce((pv, cv) => pv + cv, 0);
 
-    console.log(
-      tankData?.filter(
-        (item) =>
-          (item?.oilType == "Petrol 92"
-            ? "001-Octane Ron(92)"
-            : item?.oilType == "95 Octane"
-            ? "002-Octane Ron(95)"
-            : item?.oilType == "Diesel"
-            ? "004-Diesel"
-            : item?.oilType == "Super Diesel"
-            ? "005-Premium Diesel"
-            : "" || "-") == e.name
-      )
-    );
+    // console.log(
+    //   tankData?.filter(
+    //     (item) =>
+    //       (item?.oilType == "Petrol 92"
+    //         ? "001-Octane Ron(92)"
+    //         : item?.oilType == "95 Octane"
+    //         ? "002-Octane Ron(95)"
+    //         : item?.oilType == "Diesel"
+    //         ? "004-Diesel"
+    //         : item?.oilType == "Super Diesel"
+    //         ? "005-Premium Diesel"
+    //         : "" || "-") == e.name
+    //   )
+    // );
 
     const last_date = data_g?.result
       ?.filter((c) => c.fuelType == e.name)
@@ -271,7 +274,12 @@ function WeeklySaleReport() {
       ?.map((g) => g.volume)
       ?.reduce((pv, cv) => pv + cv, 0);
 
-    console.log(last, last_tankBalance, "khhhhhhhkkkkkkkkkkkkkkkkkkkkkkkkkk");
+    console.log(
+      last,
+      last_tankBalance,
+      dateCount,
+      "khhhhhhhkkkkkkkkkkkkkkkkkkkkkkkkkk"
+    );
 
     const uniqueDates = new Set();
 
@@ -308,7 +316,8 @@ function WeeklySaleReport() {
         ?.filter((c) => c.tankNo == e.id)
         ?.reverse()[0]
         ?.tankBalance.toFixed(3),
-      avg: uniqueDates?.size == 0 ? total : total / uniqueDates?.size,
+      avg: dateCount,
+      // avg: uniqueDates?.size == 0 ? total : total / uniqueDates?.size,
       last_balance: last ? last : tankBalance,
     };
   });
@@ -365,6 +374,23 @@ function WeeklySaleReport() {
       setloading(loading_g);
     }
   }, [data_g, loading_g, error_g]);
+
+  const DateCount = (start, end) => {
+    const dateFormat = (dateString) => {
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const year = date.getFullYear();
+      return `${year}-${month}-${day}`;
+    };
+    const d1 = new Date(dateFormat(start));
+    const d2 = new Date(dateFormat(end));
+    const count = Math.abs((d1 - d2) / (1000 * 60 * 60 * 24)) + 1;
+
+    return count;
+  };
+
+  // console.log(DateCount(calenderOne, calenderTwo), "date dif.....");
 
   return (
     <PageContainer
@@ -428,6 +454,7 @@ function WeeklySaleReport() {
             calenderOne={fromDate}
             calenderTwo={toDate}
             okData={okData}
+            dateCount={dateCount}
             capacity={test}
             tableRef={tableRef}
           />

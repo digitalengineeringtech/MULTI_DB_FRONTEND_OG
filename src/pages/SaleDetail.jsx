@@ -45,8 +45,6 @@ export default function SaleDetail() {
   start.setSeconds(0);
   start = new Date(start);
 
-  console.log(start);
-
   let end = new Date();
   end.setHours(23);
   end.setMinutes(59);
@@ -100,6 +98,7 @@ export default function SaleDetail() {
   const [casher, setCasher] = useState(null);
   const [greate, setGreate] = useState("equal");
   const user = useSelector((state) => state.login);
+  const [totalPrice, setTotalPrice] = useState(0);
   const datas = useSelector(getAllKyawSan027DailySaleReports);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -135,8 +134,6 @@ export default function SaleDetail() {
   //   data.con && setCasher(data.result);
   // }, []);
 
-  console.log(startDate, "this is start date");
-
   const handleClick = () => {
     if (selectedStation.code === "Please") {
       setIsSelectedStation(true);
@@ -168,7 +165,7 @@ export default function SaleDetail() {
     }
   };
 
-  console.log(okData);
+  console.log(datas, ".............");
 
   useEffect(() => {
     // if (datas === "error") {
@@ -178,6 +175,7 @@ export default function SaleDetail() {
     if (datas?.result?.length > 0) {
       setOkData(datas.result);
       setTotalLength(datas.totalCount);
+      setTotalPrice(datas.totalPrice);
     }
   }, [datas, dispatch]);
 
@@ -220,8 +218,6 @@ export default function SaleDetail() {
     filename: "Daily Sale Report",
     sheet: "Daily Sale Report",
   });
-
-  console.log(kyat, amount, "and", liter, lAmount)
 
   return (
     <>
@@ -310,6 +306,7 @@ export default function SaleDetail() {
               currentData={okData}
             />
             <PaginatorComponent
+              totalPrice={totalPrice}
               language={language}
               totalLength={totalLength}
               onPageChange={onPageChange}
