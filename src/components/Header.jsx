@@ -426,7 +426,7 @@ function Header({ show = true }) {
         pathName != "/user/choose" &&
         pathName != `/${user.accessDb}/home` && (
           <motion.div
-            className="mx-auto z-0 mt-[-40px] flex justify-start h-[100px]  w-[100%] rounded-lg  absolute"
+            className="mx-auto z-0 mt-[-40px] flex justify-start h-[100px]  w-[100%]  rounded-lg  absolute"
             onMouseEnter={() => {
               setState(true);
             }}
@@ -436,7 +436,7 @@ function Header({ show = true }) {
             animate={state ? "open" : "close"}
             variants={list}
           >
-            <div className="   mb-2 ms-3 rounded-lg flex gap-2 w-[70%] mt-auto">
+            <div className="   mb-2 ms-3 rounded-lg flex gap-2 mt-auto">
               {links.map((e) => (
                 <Link
                   to={e.path}
