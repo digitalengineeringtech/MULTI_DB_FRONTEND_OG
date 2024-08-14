@@ -99,6 +99,7 @@ export default function SaleDetail() {
   const [greate, setGreate] = useState("equal");
   const user = useSelector((state) => state.login);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [totalLiter, setTotalLiter] = useState(0);
   const datas = useSelector(getAllKyawSan027DailySaleReports);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -176,6 +177,7 @@ export default function SaleDetail() {
       setOkData(datas.result);
       setTotalLength(datas.totalCount);
       setTotalPrice(datas.totalPrice);
+      setTotalLiter(datas.totalLiter);
     }
   }, [datas, dispatch]);
 
@@ -306,8 +308,9 @@ export default function SaleDetail() {
               currentData={okData}
             />
             <PaginatorComponent
-              totalPrice={totalPrice}
               language={language}
+              totalPrice={totalPrice}
+              totalLiter={totalLiter}
               totalLength={totalLength}
               onPageChange={onPageChange}
               first={first}

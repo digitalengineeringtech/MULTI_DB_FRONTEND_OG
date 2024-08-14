@@ -5,6 +5,7 @@ function PaginatorComponent({
   onPageChange,
   first,
   rows,
+  totalLiter,
   totalLength,
   totalPrice,
   language,
@@ -12,18 +13,28 @@ function PaginatorComponent({
   return (
     <div className="my-[20px]">
       <div className="flex justify-between px-5">
-        <p className="text-[16px] text-gray-500">
-          {"Total Amount"} :{" "}
-          <span className="text-[20px]">
-            {totalPrice.toLocaleString(undefined, {
-              maximumFractionDigits: 3,
-            })}{" "}
+        <div className=" flex gap-6">
+          <p className="text-[16px] text-gray-500">
+            {"Total Amount"} :{" "}
+            <span className="text-[20px] font-semibold">
+              {totalPrice.toLocaleString(undefined, {
+                maximumFractionDigits: 3,
+              })}{" "}
+            </span>{" "}
             MMK
-          </span>
-        </p>
+          </p>
+          <div className="text-2xl text-gray-400">/</div>
+          <p className="text-[16px] text-gray-500">
+            {"Total Liters"} :{" "}
+            <span className="text-[20px]  font-semibold">
+              {totalLiter?.toFixed(3)}
+            </span>{" "}
+            Liters
+          </p>
+        </div>
         <p className="text-[16px] text-gray-500">
-          {"Total Records"} :{" "}
-          <span className="text-[20px]">({totalLength})</span>
+          {"Total Records"} : ({" "}
+          <span className="text-[20px] font-semibold">{totalLength}</span> )
         </p>
       </div>
       <Paginator
