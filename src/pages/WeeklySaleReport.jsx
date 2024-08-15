@@ -317,7 +317,7 @@ function WeeklySaleReport() {
         ?.filter((c) => c.tankNo == e.id)
         ?.reverse()[0]
         ?.tankBalance.toFixed(3),
-      avg: dateCount,
+      avg: dateCount ? total / dateCount : total,
       // avg: uniqueDates?.size == 0 ? total : total / uniqueDates?.size,
       last_balance: last ? last : tankBalance,
     };

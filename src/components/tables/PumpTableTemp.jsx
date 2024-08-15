@@ -163,7 +163,9 @@ function PumpTableTemp({
               <td className="text-left">{e.station[0].lienseNo}</td>
               {/* <td className="text-left">{e.station[0].location.split(',')}</td> */}
               <td className=" text-center">{state[state.length - 1]}</td>
-              <td className="text-left">{e.nozzle}</td>
+              <td className="text-left">
+                {e.depNo}/{e.nozzle}
+              </td>
               <td className="text-left">
                 {e?.fuelType == "001-Octane Ron(92)"
                   ? "92 RON"

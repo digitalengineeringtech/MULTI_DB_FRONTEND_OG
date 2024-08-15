@@ -119,13 +119,13 @@ function PumpReport() {
 
         if (selectedFuelType.code != "Please") {
           setFuelFilter(true);
-        }else{
-          setFuelFilter(false)
+        } else {
+          setFuelFilter(false);
         }
         if (selectedNozzle.code != "Please") {
           setNozFilter(true);
-        }else{
-          setNozFilter(false)
+        } else {
+          setNozFilter(false);
         }
 
         const fetchData = async () => {

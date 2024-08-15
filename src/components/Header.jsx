@@ -303,12 +303,14 @@ function Header({ show = true }) {
             <motion.div
               animate={state ? "close" : "open"}
               variants={list}
-              className="absolute w-[40px] bottom-[65px] rounded-full h-[40px] shadow-[#007BFF30] shadow-xl flex items-center justify-center bg-white border border-[#007BFF50]"
+              className="absolute ps-2 pe-4 gap-2 rounded-3xl bottom-[65px]  h-[40px] shadow-[#007BFF10] shadow-xl flex items-center justify-center bg-white border border-[#007BFF50]"
             >
               <TbCircleArrowUpFilled className="text-3xl text-[#007BFF70]" />
+              <div className="text-sm cursor-pointer text-primary/70">
+                Hover here{" "}
+              </div>
             </motion.div>
           )}
-
         <div className="w-[90%] flex z-30  flex-col justify-between items-center mx-auto">
           <div className="logo w-full flex items-center justify-between">
             <div className="text-lg font-bold bg-re pt-3 mb-2">
