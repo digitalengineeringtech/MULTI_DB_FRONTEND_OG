@@ -19,6 +19,10 @@ import { MyanmarHeader } from "../Language/Myanmar/myanmarHeader";
 import { EnglishHeader } from "../Language/English/englishHeader";
 import { GiReturnArrow } from "react-icons/gi";
 import { motion } from "framer-motion";
+import { TbCircleArrowUpFilled } from "react-icons/tb";
+
+import { Button } from "primereact/button";
+
 import { clsx } from "clsx";
 import { Dropdown } from "primereact/dropdown";
 import UsePost from "../MainConDas/components/hooks/UsePost";
@@ -28,24 +32,148 @@ import { englishUserChoose } from "../Language/English/englishUserChoose";
 function Header({ show = true }) {
   const location = useLocation();
   const pathName = location.pathname;
-  const [com, setCom] = useState();
+  const [{ data_g, loading_g, error_g }, fetchIt] = UsePost();
+
   const user = useSelector((state) => state.login);
-  const [selectedCity, setSelectedCity] = useState(com);
+  const [selectedCity, setSelectedCity] = useState({
+    _id: "64e857fabb44c05999793143",
+    collectionName: "kyaw_san",
+    stationCollection: [
+      {
+        stationId: "64ce8b0c26c645b891eed1e8",
+        stationName: "Kyaw San (ks-031)",
+        _id: "6546668adc9a83656c41c7de",
+      },
+      {
+        stationId: "6464e9f1c45b82216ab1db6b",
+        stationName: "Kyaw San (ks-027)",
+        _id: "6546668ddc9a83656c41c7f4",
+      },
+      {
+        stationId: "64d31aca804931118129d6d8",
+        stationName: "Kyaw San (ks-026)",
+        _id: "6546668edc9a83656c41c815",
+      },
+      {
+        stationId: "64ec05313a15c3c2bd8c4be2",
+        stationName: "Kyaw San (ks-016)",
+        _id: "6546668fdc9a83656c41c830",
+      },
+      {
+        stationId: "64def677c9748703bf6f940a",
+        stationName: "Kyaw San (ks-029)",
+        _id: "6546669ddc9a83656c41c8c0",
+      },
+      {
+        stationId: "651ce24454133c9067dbb463",
+        stationName: "Kyaw San (ks-005)",
+        _id: "6546669fdc9a83656c41c8e3",
+      },
+      {
+        stationId: "6531edda1b0281853d1c05ef",
+        stationName: "Kyaw San (ks-006)",
+        _id: "654666a0dc9a83656c41c906",
+      },
+      {
+        stationId: "653fd32d47e9596da7368530",
+        stationName: "Kyaw San (ks-012)",
+        _id: "654666addc9a83656c41c92a",
+      },
+      {
+        stationId: "6542521b47e9596da73a0faa",
+        stationName: "Kyaw San (ks-004)",
+        _id: "655b0c4cda5723906664acbe",
+      },
+      {
+        stationId: "65f4b0f64e0a38b089be6813",
+        stationName: "Kyaw San (ks-019)",
+        _id: "65f6ad684e0a38b089c4dc60",
+      },
+      {
+        stationId: "660770e5fd1f2b7e358444e7",
+        stationName: "Kyaw San (ks-020)",
+        _id: "660770f7fd1f2b7e35844517",
+      },
+      {
+        stationId: "660e5fa0b9195c15c0f426f7",
+        stationName: "Kyaw San  (ks-008)",
+        _id: "660e5fc9b9195c15c0f42726",
+      },
+      {
+        stationId: "663aff8ed4d304cf16231356",
+        stationName: "Kyaw San (ks-013)",
+        _id: "663aff9fd4d304cf16231424",
+      },
+      {
+        stationId: "665a8a5bf7a809de4637f46d",
+        stationName: "Kyaw San (ks-014)",
+        _id: "665f20f8a5abd66d4c8b1b11",
+      },
+      {
+        stationId: "66607c24a5abd66d4c8edbeb",
+        stationName: "Kyaw San (ks-015)",
+        _id: "66607c3aa5abd66d4c8edc17",
+      },
+      {
+        stationId: "666b1b88a5abd66d4ccaa8b7",
+        stationName: "Kyaw San (ks-034)",
+        _id: "666b1b97a5abd66d4ccaa8ec",
+      },
+      {
+        stationId: "6670fe5aed1fc27258af3787",
+        stationName: "Kyaw San (ks-009)",
+        _id: "6670fe6eed1fc27258af382e",
+      },
+      {
+        stationId: "6671162f32d8020aedfd2867",
+        stationName: "Kyaw San(ks-030)",
+        _id: "667118c98fbaffd2ed1e5b2f",
+      },
+      {
+        stationId: "66a0ca8b53c73af784172ffc",
+        stationName: "Kyaw San (ks-028)",
+        _id: "66b1e2a33418a6f8a1fe04e7",
+      },
+    ],
+    permission: ["user", "admin", "pprd"],
+    stationImg:
+      "https://res.cloudinary.com/dibskb7pp/image/upload/v1699504458/qjan3ucvq8objd7wpjyt.png",
+  });
   const list = {
-    open: { y: "65px", opacity: 1 },
+    open: { y: "82px", opacity: 1 },
     close: { y: 0, opacity: 0 },
   };
+
+  const chooseClick = (name) => {
+    let saver = {
+      name: user.name,
+      token: user.token,
+      stationId: null,
+      accessDb: name,
+    };
+
+    // console.log(okData[0]?.collectionName, "name");
+
+    dispatch(LoginUser(saver));
+    navigate(`/${name}/${loca}`);
+  };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [okData, setOkData] = useState([]);
+  const [okData, setOkData] = useState();
   // const [cities, setCities] = useState();
 
-  const [{ data_g, loading_g, error_g }, fetchIt] = UsePost();
+  const loca = pathName.split("/").reverse()[0];
 
   // const cities = okData;
 
+  console.log("====================================");
+  console.log(selectedCity);
+  console.log("====================================");
+
   useEffect(() => {
+    console.log("..gg...");
     if (!user.login) {
       navigate("/");
     }
@@ -66,32 +194,11 @@ function Header({ show = true }) {
     }
   }, [data_g, loading_g, error_g]);
 
-  const handleClick = () => {
-    let saver = {
-      name: user.name,
-      token: user.token,
-      stationId: null,
-      accessDb: okData[0]?.collectionName,
-    };
-
-    // console.log(collectionName);
-
-    dispatch(LoginUser(saver));
-  };
-
-  useEffect(() => {
-    if (data_g?.result) {
-      const obj = data_g?.result?.filter(
-        (e) => e.collectionName == pathName.split("/")[1]
-      );
-      setCom(obj[0]);
-    }
-  }, []);
-
   const headerRef = useRef();
   const legit = user.login;
   const [menuTrue, setMenuTrue] = useState(false);
   const [language, setLanguage] = useState("English");
+  const lan = ["English", "မြန်မာ"];
   const [state, setState] = useState(false);
   const [nativeLanguage, setNativeLanguage] = useState(EnglishHeader);
 
@@ -148,7 +255,6 @@ function Header({ show = true }) {
   ];
 
   const shouldShowHeader = headerPaths.includes(location.pathname);
-  console.log(okData, "this is path");
 
   // function logit() {
   //   if (window.pageYOffset >= 20) {
@@ -189,17 +295,23 @@ function Header({ show = true }) {
       <header
         id="Header"
         ref={headerRef}
-        className="fixed  bg-white  top-0 left-0 right-0  z-50   flex items-center justify-center  bg-transparent drop-shadow-md"
-        onMouseEnter={() => {
-          setState(true);
-        }}
-        onMouseLeave={() => {
-          setState(false);
-        }}
+        className="fixed  bg-white   top-0 left-0 right-0  z-50   flex items-center justify-center  bg-transparent shadow-[#007BFF20] shadow-lg"
       >
+        {pathName != "/" &&
+          pathName != "/user/choose" &&
+          pathName != `/${user.accessDb}/home` && (
+            <motion.div
+              animate={state ? "close" : "open"}
+              variants={list}
+              className="absolute w-[40px] bottom-[65px] rounded-full h-[40px] shadow-[#007BFF30] shadow-xl flex items-center justify-center bg-white border border-[#007BFF50]"
+            >
+              <TbCircleArrowUpFilled className="text-3xl text-[#007BFF70]" />
+            </motion.div>
+          )}
+
         <div className="w-[90%] flex z-30  flex-col justify-between items-center mx-auto">
           <div className="logo w-full flex items-center justify-between">
-            <div className="text-lg font-bold pt-3 mb-2">
+            <div className="text-lg font-bold bg-re pt-3 mb-2">
               <Link
                 className="flex justify-center items-center gap-2"
                 to={!show ? "/user/choose" : `/${user.accessDb}/home`}
@@ -210,8 +322,17 @@ function Header({ show = true }) {
                 </div>
               </Link>
             </div>
+            <div
+              onMouseEnter={() => {
+                setState(true);
+              }}
+              onMouseLeave={() => {
+                setState(false);
+              }}
+              className="md:w-[40%] lg:w-[50%]  h-[87px]"
+            ></div>
             {show && legit ? (
-              <ul className="flex  w-[55%] items-center justify-start text-sm gap-10">
+              <ul className="flex   items-center justify-start text-sm gap-4">
                 {user.name === "kyaw san" ? (
                   <Link
                     to={`/${user.accessDb}/main-con/dash`}
@@ -230,42 +351,47 @@ function Header({ show = true }) {
                       ? "/kyawsan/main-con/home"
                       : `/${user.accessDb}/home`
                   }
-                  className="bg-blue-900 text-white z-50 px-3 py-2 relative rounded-lg"
+                  className=" text-white z-50  "
                 >
-                  <li>{nativeLanguage.home}</li>
+                  <li>
+                    <Button label={nativeLanguage.home} />
+                  </li>
                 </Link>
                 {/* <Link  to="/kyawsan/home" className='bg-white text-black px-3 py-2 rounded-lg'> <li>Dashboard</li></Link> */}
                 {user.name === "pprd" || user.name === "user" ? (
-                  <Link
-                    to="/user/choose"
-                    className="  cursor-pointer hover:text-gray-100 hover:bg-blue-900 text-gray-700 px-3 py-2 rounded-lg "
-                  >
-                    {" "}
-                    <li>{nativeLanguage.user_choose}</li>
-                  </Link>
+                  // <Link
+                  //   to="/user/choose"
+                  //   className="  cursor-pointer hover:text-gray-100 hover:bg-blue-900 text-gray-700 px-3 py-2 rounded-lg "
+                  // >
+                  //   {" "}
+                  //   <li>{nativeLanguage.user_choose}</li>
+                  // </Link>
+                  <div className="">
+                    <Dropdown
+                      value={selectedCity}
+                      onChange={(e) => {
+                        setSelectedCity(e.value);
+                        // console.log(e.value?.collectionName, "gg");
+                        chooseClick(e.value?.collectionName);
+                        setState(false);
+                      }}
+                      options={okData}
+                      optionLabel="collectionName"
+                      placeholder="User Choose"
+                      className="w-full md:w-14rem"
+                      // checkmark={true}
+                      // highlightOnSelect={false}
+                    />
+                  </div>
                 ) : (
                   ""
                 )}
-                {/* <div className="">
-                  <Dropdown
-                    value={selectedCity}
-                    onChange={(e) => {
-                      setSelectedCity(e.value);
-                      console.log("hello");
-                    }}
-                    options={okData}
-                    optionLabel="collectionName"
-                    placeholder="Select a City"
-                    className="w-full md:w-14rem"
-                    checkmark={true}
-                    highlightOnSelect={false}
-                  />
-                </div> */}
 
                 {/* {
                 who === "admin"?<li className=' cursor-pointer duration-300 hover:bg-white px-3 h-[40px] flex items-center  rounded-md w-[150px] hover:text-black'><Link to="/salesummeryreport">Sale Summery</Link></li>
 :''
                      } */}
+                {/* htoo */}
                 {user.name === "manager" ? (
                   <Link
                     to={`${user.accessDb}/dashboard`}
@@ -278,7 +404,7 @@ function Header({ show = true }) {
                   ""
                 )}
 
-                <li className="p-2  group ">
+                {/* <li className="p-2  group ">
                   <p className="flex items-center relative justify-center gap-2 cursor-pointer  w-[100px]">
                     {language}
                     <MdOutlineArrowDropDown />
@@ -296,9 +422,26 @@ function Header({ show = true }) {
                     >
                       {nativeLanguage.myanmar}
                     </li>
-                    {/* <li onClick={(e)=>setLanguage(e.target.innerText)} className='  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black '>中国人</li> */}
                   </ul>
-                </li>
+                </li> */}
+                <div className="">
+                  <Dropdown
+                    value={language}
+                    onChange={(e) => {
+                      setLanguage(e.value);
+                      // console.log(e.value?.collectionName, "gg");
+                      // chooseClick(e.value?.collectionName);
+                      setState(false);
+                    }}
+                    options={lan}
+                    // optionLabel="collectionName"
+                    placeholder="User Choose"
+                    className="w-full md:w-14rem"
+                    // checkmark={true}
+                    // highlightOnSelect={false}
+                  />
+                </div>
+
                 {/* <li className="p-2  group ">
                 <p className="flex items-center relative justify-center gap-2 cursor-pointer ">
                   {nativeLanguage.setting}
@@ -339,21 +482,26 @@ function Header({ show = true }) {
                 </ul>
               </li> */}
                 <li
-                  className=" cursor-pointer duration-300 hover:bg-red-400  px-3  h-[40px] flex items-center  rounded-md hover:text-white"
+                  className=" cursor-pointer duration-300  h-[40px] flex items-center  rounded-md hover:text-white"
                   onClick={() => {
                     navigate("/");
                     dispatch(LogoutUser());
                   }}
                 >
-                  {nativeLanguage.log_out}
+                  <Button
+                    severity="danger"
+                    outlined
+                    label={nativeLanguage.log_out}
+                  />
                 </li>
               </ul>
             ) : (
               ""
             )}
+            {/* khant */}
             {!show && (
-              <ul className="flex  w-[55%] items-center justify-start text-sm gap-10">
-                <li className="p-2  group ">
+              <ul className="flex   items-center justify-start text-sm gap-4">
+                {/* <li className="p-2  group ">
                   <p className="flex items-center relative justify-center gap-2 cursor-pointer  w-[100px]">
                     {language}
                     <MdOutlineArrowDropDown />
@@ -371,25 +519,47 @@ function Header({ show = true }) {
                     >
                       {nativeLanguage.myanmar}
                     </li>
-                    {/* <li onClick={(e)=>setLanguage(e.target.innerText)} className='  cursor-pointer duration-300 hover:bg-white px-3 w-full h-[40px] flex items-center  rounded-md hover:text-black '>中国人</li> */}
                   </ul>
-                </li>
+                </li> */}
+                <div className="">
+                  <Dropdown
+                    value={language}
+                    onChange={(e) => {
+                      setLanguage(e.value);
+                      // console.log(e.value?.collectionName, "gg");
+                      // chooseClick(e.value?.collectionName);
+                      setState(false);
+                    }}
+                    options={lan}
+                    // optionLabel="collectionName"
+                    placeholder="User Choose"
+                    className="w-full md:w-14rem"
+                    // checkmark={true}
+                    // highlightOnSelect={false}
+                  />
+                </div>
 
                 <Link
                   to="/usermanual"
-                  className="   text-black hover:bg-blue-900 hover:text-white  cursor-pointer duration-300  px-3  h-[40px] flex items-center  rounded-md  "
+                  className="   text-black  hover:text-white  cursor-pointer duration-300  h-[40px] flex items-center  rounded-md  "
                 >
                   {" "}
-                  <li>{nativeLanguage.user_manual}</li>
+                  <li>
+                    <Button label={nativeLanguage.user_manual} />
+                  </li>
                 </Link>
                 <li
-                  className=" cursor-pointer hover:bg-red-400  duration-300 px-3 hover:text-white h-[40px] flex items-center  rounded-md "
+                  className=" cursor-pointer   duration-300 hover:text-white h-[40px] flex items-center  rounded-md "
                   onClick={() => {
                     navigate("/");
                     dispatch(LogoutUser());
                   }}
                 >
-                  {nativeLanguage.log_out}
+                  <Button
+                    severity="danger"
+                    outlined
+                    label={nativeLanguage.log_out}
+                  />
                 </li>
                 {/* <li className="p-2  group">
                 <p className="flex items-center relative justify-center gap-2 cursor-pointer ">
@@ -426,7 +596,7 @@ function Header({ show = true }) {
         pathName != "/user/choose" &&
         pathName != `/${user.accessDb}/home` && (
           <motion.div
-            className="mx-auto z-0 mt-[-40px] flex justify-start h-[100px]  w-[100%]  rounded-lg  absolute"
+            className="mx-auto z-0 mt-[-40px] flex justify-center h-[110px]  w-[100%] pb-2 rounded-lg  absolute"
             onMouseEnter={() => {
               setState(true);
             }}

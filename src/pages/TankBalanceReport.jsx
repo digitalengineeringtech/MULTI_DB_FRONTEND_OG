@@ -24,6 +24,7 @@ import TankStockTable from '../components/tables/TankStock';
 import StockBalanceTable from '../components/tables/StockBalance.table';
 import { EnglishStockBalance } from '../Language/English/englishStockBalance';
 import { MyanmarStockBalance } from '../Language/Myanmar/myanmarStockBalance';
+import { RiErrorWarningFill } from 'react-icons/ri';
 
 
 
@@ -165,7 +166,8 @@ function TankBalanceReport() {
         </div>
         {isSelectedStation && (
           <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
-            <FcInfo /> Please Select Station
+            <RiErrorWarningFill className="!text-red-400 " /> Please Select
+            Station
           </div>
         )}
         <div className="flex-2">

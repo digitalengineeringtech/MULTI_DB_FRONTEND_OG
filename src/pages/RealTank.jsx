@@ -32,6 +32,8 @@ import UseGet from "../MainConDas/components/hooks/UseGet";
 import UseGet_1 from "../MainConDas/components/hooks/UseGet_1";
 import instance from "../axios";
 import FuelTable from "../components/tables/FuelTable";
+import { Button } from "primereact/button";
+import { RiErrorWarningFill } from "react-icons/ri";
 
 let start = new Date();
 start.setHours(0);
@@ -493,17 +495,18 @@ function RealTank() {
         </div>
         {isSelectedStation && (
           <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
-            <FcInfo /> Please Select Station
+            <RiErrorWarningFill className="!text-red-400 " /> Please Select
+            Station
           </div>
         )}
-        <div className="flex-2">
-          <button
+        <div className="flex-2 mt-2">
+          <Button
             onClick={handleClick}
             className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
           >
             <FiSearch className=" scale-150" />
             {language.search}
-          </button>
+          </Button>
         </div>
       </InputContainer>
 

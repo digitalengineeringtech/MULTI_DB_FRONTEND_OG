@@ -15,6 +15,7 @@ import InputContainer from "../components/PageComponents/InputContainer";
 import { FcInfo } from "react-icons/fc";
 import { EnglishFuelTypeBalanceReport } from "../Language/English/englishFuelTypeBalanceReport";
 import { MyanmarFuelTypeBalanceReport } from "../Language/Myanmar/myanmarFuelTypeBalanceReport";
+import { RiErrorWarningFill } from "react-icons/ri";
 
 let start = new Date();
 start.setHours(0);
@@ -120,7 +121,8 @@ function FuelTypeBalanceReport() {
         </div>
         {isStation && (
           <div className="flex animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
-            <FcInfo /> Please Select Station
+            <RiErrorWarningFill className="!text-red-400 " /> Please Select
+            Station
           </div>
         )}
         <div className="flex-2">

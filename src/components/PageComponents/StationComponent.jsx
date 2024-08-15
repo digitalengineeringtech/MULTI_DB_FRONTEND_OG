@@ -92,15 +92,27 @@ function StationComponent({ value, setValue, title }) {
       </div>
       <div className="calendar-container">
         {user.name === "manager" ? (
-          <Dropdown
-            filter
-            value={value}
-            onChange={(e) => setValue(e.value)}
-            options={jj}
-            optionLabel="name"
-            className="!h-[30px] w-[320px] flex items-center justify-center"
-            placeholder="Please Select Station"
-          />
+          <div className="flex gap-3">
+            <Dropdown
+              filter
+              value={value}
+              onChange={(e) => setValue(e.value)}
+              options={jj}
+              optionLabel="name"
+              className="!h-[30px] w-[320px] flex items-center justify-center"
+              placeholder="Please Select Station"
+            />
+            <Dropdown
+              loading
+              filter
+              value={value}
+              onChange={(e) => setValue(e.value)}
+              options={jj}
+              optionLabel="lienseNo"
+              className="!h-[30px] w-[150px] flex items-center justify-center"
+              placeholder="license No"
+            />
+          </div>
         ) : (
           <div className="flex gap-3">
             <Dropdown

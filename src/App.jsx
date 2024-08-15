@@ -15,7 +15,7 @@ import SearchReports from "./pages/SearchReports";
 import DailySummaryByStationReport from "./pages/DailySummeryByStationReport";
 import Adjustment from "./pages/Adjustment";
 import TankBalance from "./pages/TankBalance";
-import "primereact/resources/themes/lara-light-indigo/theme.css"; // theme
+import "./assets/theme.css"; // theme
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import WeeklySaleReport from "./pages/WeeklySaleReport";

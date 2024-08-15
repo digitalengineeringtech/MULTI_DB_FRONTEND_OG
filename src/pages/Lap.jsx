@@ -30,9 +30,10 @@ import FuelRecieveTableLittle from "../Dashboard/Components/Table/FuelRecieve.ta
 import instance from "../axios";
 import Input from "../components/PageComponents/Input";
 import { useDownloadExcel } from "react-export-table-to-excel";
-import { RiFileExcel2Fill } from "react-icons/ri";
+import { RiErrorWarningFill, RiFileExcel2Fill } from "react-icons/ri";
 import { AiFillPrinter } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
+import { Button } from "primereact/button";
 
 let start = new Date();
 start.setHours(0);
@@ -273,17 +274,18 @@ function FuelBalanceReport() {
         </div>
         {isSelectedStation && (
           <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
-            <FcInfo /> Please Select Station
+            <RiErrorWarningFill className="!text-red-400 " /> Please Select
+            Station
           </div>
         )}
-        <div className="flex-2">
-          <button
+        <div className="flex-2 mt-2">
+          <Button
             onClick={handleClick}
             className="w-[120px] h-[40px] text-md mt-3 bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
           >
             <FiSearch className=" scale-150" />
             {language.search}
-          </button>
+          </Button>
         </div>
       </InputContainer>
 

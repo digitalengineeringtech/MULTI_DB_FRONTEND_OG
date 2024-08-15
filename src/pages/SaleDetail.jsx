@@ -33,6 +33,8 @@ import Casher from "../components/PageComponents/Casher";
 import DetailSaleReportTable from "../components/tables/DetailSaleReport.table";
 import AmountComponent from "../components/PageComponents/AmountComponent";
 import { FaEquals } from "react-icons/fa";
+import { Button } from "primereact/button";
+import { RiErrorWarningFill } from "react-icons/ri";
 
 export default function SaleDetail() {
   // const [hour, setHour] = useState("00");
@@ -284,17 +286,18 @@ export default function SaleDetail() {
             />
           </div>
           {isSelectedStation && (
-            <div className="flex animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
-              <FcInfo /> Please Select Station
+            <div className="flex animate-[translate-y-6]   duration-200 text-red-400 gap-[10px] justify-start text-[16px] items-center">
+              <RiErrorWarningFill className="!text-red-400 " /> Please Select
+              Station
             </div>
           )}
-          <div className="flex-2">
-            <button
+          <div className="flex-2 mt-2">
+            <Button
               onClick={handleClick}
-              className="w-[120px] h-[40px] mt-2 text-md  bg-blue-900 flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
+              className="w-[120px] h-[40px] mt-2 text-md   flex items-center justify-center gap-2 uppercase text-white rounded-sm hover:bg-blue-800"
             >
               <FiSearch className=" scale-150" /> {language.search}
-            </button>
+            </Button>
           </div>
         </InputContainer>
         {datas?.result?.length > 0 && (
