@@ -16,7 +16,10 @@ function FuelRecieveTableLittle({ okData, tableRef }) {
             License <br /> No.
           </th>
           <th>Township</th>
-          <th>State/Division</th>
+          <th>
+            State <br />
+            /Division
+          </th>
           <th colSpan={2}>Date & Time</th>
           <th>Bowser No.</th>
           {/* <th>Driver</th> */}
@@ -24,22 +27,22 @@ function FuelRecieveTableLittle({ okData, tableRef }) {
           <th>
             Tank <br /> No.
           </th>
-          <th>
+          <th width="85">
             Tank <br /> Capacity <br /> ( Gallon )
           </th>
-          <th>
+          <th width="85">
             Tank <br /> Opening <br /> ( Gallon )
           </th>
-          <th>
+          <th width="85">
             Tank <br /> Received <br /> ( Gallon )
           </th>
-          <th>
+          <th width="85">
             Sale <br /> ( Gallon )
           </th>
-          <th>
+          <th width="85">
             Tank <br /> Closing <br /> ( Gallon )
           </th>
-          <th>
+          <th width="85">
             Gain/ <br /> Lose <br /> ( Gallon )
           </th>
         </tr>
