@@ -165,7 +165,7 @@ function TankBalanceReport() {
           />
         </div>
         {isSelectedStation && (
-          <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-blue-500 gap-[10px] justify-start text-[16px] items-center">
+          <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-red-400 gap-[10px] justify-start text-[16px] items-center">
             <RiErrorWarningFill className="!text-red-400 " /> Please Select
             Station
           </div>
