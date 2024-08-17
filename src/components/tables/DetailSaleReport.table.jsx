@@ -127,9 +127,10 @@ function DetailSaleReportTable({
                   <td className=" text-left">{object?.vocono}</td>
                   <td className=" text-center">{object?.carNo}</td>
                   <td className=" text-start">{object?.vehicleType}</td>
-                  <td className=" text-center">
+                  <td className=" text-center">Pump/{object?.nozzleNo}</td>
+                  {/* <td className=" text-center">
                     {object?.depNo}/{object?.nozzleNo}
-                  </td>
+                  </td> */}
                   <td className=" text-center">
                     {object?.fuelType == "001-Octane Ron(92)"
                       ? "92 RON"

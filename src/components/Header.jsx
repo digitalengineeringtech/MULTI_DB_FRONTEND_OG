@@ -22,12 +22,15 @@ import { motion } from "framer-motion";
 import { TbCircleArrowUpFilled } from "react-icons/tb";
 
 import { Button } from "primereact/button";
-
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
+import { Toast } from "primereact/toast";
 import { clsx } from "clsx";
 import { Dropdown } from "primereact/dropdown";
 import UsePost from "../MainConDas/components/hooks/UsePost";
 import { myanmarUserChoose } from "../Language/Myanmar/myanmarUserChoose";
 import { englishUserChoose } from "../Language/English/englishUserChoose";
+import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
+import { PiWarningCircleFill } from "react-icons/pi";
 
 function Header({ show = true }) {
   const location = useLocation();
@@ -290,6 +293,19 @@ function Header({ show = true }) {
     ? "flex select-none  bg-blue-900 text-white px-3 py-2 rounded-lg items-center relative justify-center gap-2 cursor-pointer "
     : "flex px-3 py-2 rounded-lg items-center relative justify-center gap-2 cursor-pointer ";
 
+  const toast = useRef(null);
+
+  // const accept = () => {
+  //   navigate("/");
+  //   dispatch(LogoutUser());
+  //   toast.current.show({
+  //     severity: "success",
+  //     summary: "Success",
+  //     detail: "Message Content",
+  //     life: 1500,
+  //   });
+  // };
+
   return (
     <div className="w-full justify-center flex">
       <header
@@ -483,6 +499,7 @@ function Header({ show = true }) {
                   </li>
                 </ul>
               </li> */}
+
                 <li
                   className=" cursor-pointer duration-300  h-[40px] flex items-center  rounded-md hover:text-white"
                   onClick={() => {
@@ -598,7 +615,7 @@ function Header({ show = true }) {
         pathName != "/user/choose" &&
         pathName != `/${user.accessDb}/home` && (
           <motion.div
-            className="mx-auto z-0 mt-[-40px] flex justify-center h-[110px]  w-[100%] pb-2 rounded-lg  absolute"
+            className="mx-auto z-0 mt-[-40px] flex justify-center h-[110px]  w-[100%] pb-2 rounded-lg  fixed"
             onMouseEnter={() => {
               setState(true);
             }}

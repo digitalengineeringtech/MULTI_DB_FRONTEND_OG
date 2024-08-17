@@ -131,7 +131,9 @@ function PumpTableTemp({
     <div className="mt-[70px]">
       <table ref={tRef}>
         <tr>
-          <th>Sr No.</th>
+          <th>
+            Sr <br /> No.
+          </th>
           <th>{language.station_name}</th>
           <th width="50">{language.pprd_no}</th>
           <th>{language.State}</th>
@@ -157,15 +159,16 @@ function PumpTableTemp({
         {okData.length > 0 ? (
           okData.map((e, index) => (
             <tr key={`key_${index}`}>
-              <td className="text-left">{index + 1}</td>
+              <td className="text-right">{index + 1}</td>
               {/* <td className="text-left">{e.stationId}</td> */}
               <td className="text-left">{e.stationId + " " + state[0]}</td>
               <td className="text-left">{e.station[0].lienseNo}</td>
               {/* <td className="text-left">{e.station[0].location.split(',')}</td> */}
               <td className=" text-center">{state[state.length - 1]}</td>
-              <td className="text-left">
+              {/* <td className="text-left">
                 {e.depNo}/{e.nozzle}
-              </td>
+              </td> */}
+              <td className="text-left">Pump/{e.nozzle}</td>
               <td className="text-left">
                 {e?.fuelType == "001-Octane Ron(92)"
                   ? "92 RON"
