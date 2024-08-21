@@ -203,6 +203,7 @@ export default function SaleDetail() {
         selectedFuelType.code,
         selectedNozzle.code,
         selectedStation,
+        user.accessDb,
         amount,
         greate,
       ];
@@ -222,7 +223,7 @@ export default function SaleDetail() {
     filename: "Daily Sale Report",
     sheet: "Daily Sale Report",
   });
-   console.log(tableRef, "this is ref");
+  console.log(tableRef, "this is ref");
 
   return (
     <>

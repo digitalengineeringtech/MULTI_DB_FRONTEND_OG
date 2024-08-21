@@ -299,6 +299,10 @@ export const fetchATGTanks = createAsyncThunk(
     const tankNoRoute = tankName === "Please" ? "" : `&tankNo=${tankName}`;
     const accessDbRoute = accessDb ? `&accessDb=${accessDb}` : "";
 
+    console.log(
+      `/tank-data/by-date/1?dailyReportDate=${formattedDate}&stationDetailId=${stationDetailId}${accessDbRoute}`
+    );
+
     const response = await instance.get(
       `/tank-data/by-date/1?dailyReportDate=${formattedDate}&stationDetailId=${stationDetailId}${accessDbRoute}`,
       {
