@@ -421,7 +421,7 @@ function Header({ show = true }) {
                       }}
                       options={okData}
                       optionLabel="collectionName"
-                      placeholder="User Choose"
+                      placeholder="Choose Station"
                       className="w-full md:w-14rem"
                       // checkmark={true}
                       // highlightOnSelect={false}

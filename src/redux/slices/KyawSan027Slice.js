@@ -280,6 +280,7 @@ export const fetchATGTanks = createAsyncThunk(
   async (bomb) => {
     const token = bomb[0];
     const startDate = bomb[1];
+    const endDate = bomb[2];
     const selectedStation = bomb[3];
 
     const fuelType = bomb[4];
@@ -287,7 +288,7 @@ export const fetchATGTanks = createAsyncThunk(
     const stationDetailId = selectedStation.code;
     const accessDb = bomb[6];
 
-    let dateObject = new Date(startDate);
+    let dateObject = new Date(endDate);
     dateObject.setHours(23);
     dateObject.setMinutes(0);
 

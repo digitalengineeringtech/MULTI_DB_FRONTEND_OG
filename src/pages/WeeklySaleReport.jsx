@@ -178,7 +178,7 @@ function WeeklySaleReport() {
   const fuelData = tankData?.map((e) => {
     return {
       name:
-        e?.oilType == "Petrol 92"
+        e?.oilType == "92 Octane"
           ? "001-Octane Ron(92)"
           : e?.oilType == "95 Octane"
           ? "002-Octane Ron(95)"
@@ -213,26 +213,10 @@ function WeeklySaleReport() {
       ?.filter((c) => c.fuelType == e.name)
       .reduce((a, b) => a + b.saleLiter, 0);
 
-    const tankBalance = tankData
-      ?.filter(
-        (item) =>
-          (item?.oilType == "Petrol 92"
-            ? "001-Octane Ron(92)"
-            : item?.oilType == "95 Octane"
-            ? "002-Octane Ron(95)"
-            : item?.oilType == "Diesel"
-            ? "004-Diesel"
-            : item?.oilType == "Super Diesel"
-            ? "005-Premium Diesel"
-            : "" || "-") == e.name
-      )
-      ?.map((g) => g.volume)
-      ?.reduce((pv, cv) => pv + cv, 0);
-
     // console.log(
     //   tankData?.filter(
     //     (item) =>
-    //       (item?.oilType == "Petrol 92"
+    //       (item?.oilType == "92 Octane"
     //         ? "001-Octane Ron(92)"
     //         : item?.oilType == "95 Octane"
     //         ? "002-Octane Ron(95)"
@@ -253,40 +237,73 @@ function WeeklySaleReport() {
       ?.map((g) => g.tankBalance)
       ?.reduce((pv, cv) => pv + cv, 0);
 
-    // const last = data_g?.result
-    //   ?.filter((c) => c.fuelType == e.name)
-    //   ?.filter((e) => e.dailyReportDate == last_date)
-    //   ?.map((g) => g.tankBalance)
-    //   ?.reduce((pv, cv) => pv + cv, 0);
-
     const last = data_g?.result
       ?.filter((c) => c.fuelType == e.name)
       ?.filter((e) => e.dailyReportDate == last_date)
-      .reverse()[0]?.tankBalance;
+      ?.map((g) => g.tankBalance)
+      ?.reduce((pv, cv) => pv + cv, 0);
 
-    // console.log(lastData, "./././/././../././././..//.");
+      // const tank_type = 
+
+    const last_test = data_g?.result
+      ?.filter((c) => c.fuelType == e.name)
+      ?.filter((e) => e.dailyReportDate == last_date);
+    // ?.map((g) => g.tankBalance)
+    // ?.reduce((pv, cv) => pv + cv, 0);
 
     const last_tankBalance = tankData
-      ?.filter((item) =>
-        item?.oilType == "Petrol 92"
-          ? "001-Octane Ron(92)"
-          : item?.oilType == "95 Octane"
-          ? "002-Octane Ron(95)"
-          : item?.oilType == "Diesel"
-          ? "004-Diesel"
-          : item?.oilType == "Super Diesel"
-          ? "005-Premium Diesel"
-          : "" || "-"
+      ?.filter(
+        (item) =>
+          item?.oilType ==
+          (e.name == "001-Octane Ron(92)"
+            ? "92 Octane"
+            : e.name == "002-Octane Ron(95)"
+            ? "95 Octane"
+            : e.name == "004-Diesel"
+            ? "Diesel"
+            : e.name == "005-Premium Diesel"
+            ? "Super Diesel"
+            : "" || "-")
       )
-      ?.filter((e) => e.dailyReportDate == last_date)
+      ?.map((g) => g.volume)
+      ?.reduce((pv, cv) => pv + cv, 0);
+
+    const tank_count = tankData?.filter(
+      (item) =>
+        item?.oilType ==
+        (e.name == "001-Octane Ron(92)"
+          ? "92 Octane"
+          : e.name == "002-Octane Ron(95)"
+          ? "95 Octane"
+          : e.name == "004-Diesel"
+          ? "Diesel"
+          : e.name == "005-Premium Diesel"
+          ? "Super Diesel"
+          : "" || "-")
+    );
+
+    const tankBalance = tankData
+      ?.filter(
+        (item) =>
+          (item?.oilType == "92 Octane"
+            ? "001-Octane Ron(92)"
+            : item?.oilType == "95 Octane"
+            ? "002-Octane Ron(95)"
+            : item?.oilType == "Diesel"
+            ? "004-Diesel"
+            : item?.oilType == "Super Diesel"
+            ? "005-Premium Diesel"
+            : "" || "-") == e.name
+      )
       ?.map((g) => g.volume)
       ?.reduce((pv, cv) => pv + cv, 0);
 
     console.log(
       last,
       last_tankBalance,
-      dateCount,
-      "khhhhhhhkkkkkkkkkkkkkkkkkkkkkkkkkk"
+      tankData,
+      "khhhhhhhkkkkkkkkkkkkkkkkkkkkkkkkkk",
+      last_test
     );
 
     const uniqueDates = new Set();
@@ -314,7 +331,8 @@ function WeeklySaleReport() {
     return {
       // tank: e.id,
       fuelType: e.name,
-      capacity: e.name == "003-Octane Ron(97)" ? 0.0 : 14540,
+      capacity:
+        e.name == "003-Octane Ron(97)" ? 0.0 : 14550 * tank_count?.length,
       balance: balance ? balance : tankBalance,
       cash: total,
       // fuelIn: data_g?.result
@@ -326,7 +344,8 @@ function WeeklySaleReport() {
         ?.tankBalance.toFixed(3),
       avg: dateCount ? total / dateCount : total,
       // avg: uniqueDates?.size == 0 ? total : total / uniqueDates?.size,
-      last_balance: last ? last : tankBalance,
+      // last_balance: last ? last : tankBalance,
+      last_balance: last_tankBalance ? last_tankBalance : last,
     };
   });
 
