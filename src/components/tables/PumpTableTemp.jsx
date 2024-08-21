@@ -130,6 +130,14 @@ function PumpTableTemp({
   return (
     <div className="mt-[70px]">
       <table ref={tRef}>
+        <tr className="hidden">
+          <th className="text-center text-xl" colSpan={16}>
+            Sale Detail Report Table of {okData[0]?.stationId + " " + state[0]}
+          </th>
+        </tr>
+        <tr className="hidden">
+          <th className="text-center" colSpan={16}></th>
+        </tr>
         <tr>
           <th>
             Sr <br /> No.

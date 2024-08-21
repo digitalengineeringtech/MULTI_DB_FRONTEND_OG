@@ -1,7 +1,7 @@
 export const EnglishWeeklySaleReport = {
   main_title: "Weekly Sale Report",
-  start_date: "From",
-  end_date: "To",
+  start_date: "From Date",
+  end_date: "To Date",
   station: "Station",
   search: "SEARCH",
   no: "No",
@@ -14,7 +14,7 @@ export const EnglishWeeklySaleReport = {
   to: "to",
   average_sale_per_day: "Daily Average Sale (Gallon)",
   toExcel: "To Excel",
-  toPrint: "To Print",
+  toPrint: "To PDF",
   Station_name: "Station Name", //update
   Township: "Township",
   State: "State /Division",

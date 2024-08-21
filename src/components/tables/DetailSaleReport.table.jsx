@@ -17,6 +17,8 @@ function DetailSaleReportTable({
     setWho(user.name);
   }, [user]);
 
+  console.log(tableRef, "reff");
+
   return (
     <>
       <div class=" px-[20px] mt-[50px]">
@@ -32,6 +34,16 @@ function DetailSaleReportTable({
         </h2>
 
         <table ref={tableRef} class="text-md report-table">
+          <thead className="hidden">
+            <tr>
+              <th className="text-center text-xl" colSpan={16}>
+                Sale Detail Report Table of {stationName}
+              </th>
+            </tr>
+            <tr>
+              <th className="text-center" colSpan={16}></th>
+            </tr>
+          </thead>
           <thead>
             <tr>
               <th>

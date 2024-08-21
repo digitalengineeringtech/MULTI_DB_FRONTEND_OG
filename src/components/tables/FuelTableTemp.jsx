@@ -53,6 +53,14 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
         <table ref={tRef} className="mt-[40px]">
           {calcu ? (
             <thead>
+              <tr className="hidden">
+                <th className="text-center text-xl" colSpan={16}>
+                  Sale Detail Report Table of {stationId?.name}
+                </th>
+              </tr>
+              <tr className="hidden">
+                <th className="text-center" colSpan={16}></th>
+              </tr>
               <tr>
                 <th>Sr No.</th>
                 <th>{language.Station_name}</th>
@@ -70,6 +78,14 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
             </thead>
           ) : (
             <thead>
+              <tr className="hidden">
+                <th className="text-center text-xl" colSpan={16}>
+                  Sale Detail Report Table of {stationId?.name}
+                </th>
+              </tr>
+              <tr className="hidden">
+                <th className="text-center" colSpan={16}></th>
+              </tr>
               <tr>
                 <th>Sr No.</th>
                 <th>{language.Station_name}</th>
@@ -167,6 +183,7 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
                   <td className="text-center">-</td>
                 </tr>
               ))}
+              
         </table>
         {/* <p className='flex justify-end mt-[30px] underline px-[100px] hover:font-semibold'><Link className='flex gap-3 items-center hover:gap-5 duration-300' to="/kyawsan/tankdemo">Check with Model <AiOutlineArrowRight/></Link></p> */}
         <div className="flex text-[16px] p-3 mt-[30px] mb-[50px] items-center justify-start gap-3">

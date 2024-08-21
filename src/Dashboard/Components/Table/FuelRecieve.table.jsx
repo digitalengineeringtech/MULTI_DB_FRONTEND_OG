@@ -1,108 +1,394 @@
 import React from "react";
 
-function FuelRecieveTableLittle({ okData, tableRef }) {
+function FuelRecieveTableLittle({
+  okData,
+  tableRef,
+  selectedFuelType,
+  selectedNozzle,
+}) {
+  console.log(okData, "reff");
+  const fuelArr = okData.map((e) => e.fuel_type);
+
+  const n2 = okData?.filter((ea) => ea.fuel_type == "001-Octane Ron(92)");
+  const n5 = okData?.filter((ea) => ea.fuel_type == "002-Octane Ron(95)");
+  const hsd = okData?.filter((ea) => ea.fuel_type == "004-Diesel");
+  const phsd = okData?.filter((ea) => ea.fuel_type == "005-Premium Diesel");
+  const n2Total = okData
+    ?.filter((ea) => ea.fuel_type == "001-Octane Ron(92)")
+    .map((e) => Number(e.receive_balance))
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const n2Test = n2
+    ?.filter((ea) => ea.fuel_type == "001-Octane Ron(92)")
+    .map((e) => Number(e.pumptest))
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const n2Other = n2
+    ?.filter((ea) => ea.fuel_type == "001-Octane Ron(92)")
+    .map((e) => Number(e.other))
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const n5Total = okData
+    ?.filter((ea) => ea.fuel_type == "002-Octane Ron(95)")
+    .map((e) => Number(e.receive_balance))
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const n5Test = n5
+    ?.filter((ea) => ea.fuel_type == "002-Octane Ron(95)")
+    .map((e) => Number(e.pumptest))
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const n5Other = n5
+    ?.filter((ea) => ea.fuel_type == "002-Octane Ron(95)")
+    .map((e) => Number(e.other))
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const hsdTotal = okData
+    ?.filter((ea) => ea.fuel_type == "004-Diesel")
+    .map((e) => Number(e.receive_balance))
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const hsdTest = hsd
+    ?.filter((ea) => ea.fuel_type == "004-Diesel")
+    .map((e) => Number(e.pumptest))
+    .reduce((pv, cv) => pv + cv, 0);
+  const hsdOther = hsd
+    ?.filter((ea) => ea.fuel_type == "004-Diesel")
+    .map((e) => Number(e.other))
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const phsdTotal = okData
+    ?.filter((ea) => ea.fuel_type == "005-Premium Diesel")
+    .map((e) => Number(e.receive_balance))
+    .reduce((pv, cv) => pv + cv, 0);
+
+  const phsdTest = phsd
+    ?.filter((ea) => ea.fuel_type == "005-Premium Diesel")
+    .map((e) => Number(e.pumptest))
+    .reduce((pv, cv) => pv + cv, 0);
+  const phsdOther = phsd
+    ?.filter((ea) => ea.fuel_type == "005-Premium Diesel")
+    .map((e) => Number(e.other))
+    .reduce((pv, cv) => pv + cv, 0);
   return (
     <div className="bg-white">
       <h3 className="mt-[30px]"></h3>
       <table className="mt-5" ref={tableRef}>
-        <tr>
-          <th>
-            Sr <br />
-            No.
-          </th>
-          <th>Station Name</th>
-          <th>
-            PPRD <br />
-            License <br /> No.
-          </th>
-          <th>Township</th>
-          <th>
-            State <br />
-            /Division
-          </th>
-          <th colSpan={2}>Date & Time</th>
-          <th>Bowser No.</th>
-          {/* <th>Driver</th> */}
-          <th>Fuel Type</th>
-          <th>
-            Tank <br /> No.
-          </th>
-          <th width="85">
-            Tank <br /> Capacity <br /> ( Gallon )
-          </th>
-          <th width="85">
-            Tank <br /> Opening <br /> ( Gallon )
-          </th>
-          <th width="85">
-            Tank <br /> Received <br /> ( Gallon )
-          </th>
-          <th width="85">
-            Sale <br /> ( Gallon )
-          </th>
-          <th width="85">
-            Tank <br /> Closing <br /> ( Gallon )
-          </th>
-          <th width="85">
-            Gain/ <br /> Lose <br /> ( Gallon )
-          </th>
-        </tr>
-        {okData.map((item, index) => {
-          // const dateObj = new Date(item?.createAt);
-          // // const day = dateObj?.getUTCDate();
-          // // const month = months[dateObj.getUTCMonth()];
-          // // const year = dateObj?.getUTCFullYear();
-          // const time = dateObj?.toISOString().slice(11, 19);
-          // const formattedDate = `${dateObj.toLocaleDateString(
-          //   `fr-CA`
-          // )} ${time}`;
+        <thead>
+          <tr className="hidden">
+            <th className="text-center text-xl" colSpan={16}>
+              Fuel In Report Table of{" "}
+              {okData[0].stationId.name +
+                " " +
+                okData[0].stationId.location.split(",")[0]}
+            </th>
+          </tr>
+          <tr className="hidden">
+            <th className="text-center" colSpan={16}></th>
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th>
+              Sr <br />
+              No.
+            </th>
+            <th>Station Name</th>
+            <th>
+              PPRD <br />
+              License <br /> No.
+            </th>
+            <th>Township</th>
+            <th>
+              State <br />
+              /Division
+            </th>
+            <th colSpan={2}>Date & Time</th>
+            <th>Bowser No.</th>
+            {/* <th>Driver</th> */}
+            <th>Fuel Type</th>
+            <th>
+              Tank <br /> No.
+            </th>
+            <th width="85">
+              Tank <br /> Capacity <br /> ( Gallon )
+            </th>
+            <th width="85">
+              Tank <br /> Opening <br /> ( Gallon )
+            </th>
+            <th width="85">
+              Tank <br /> Received <br /> ( Gallon )
+            </th>
+            <th width="85">
+              Sale <br /> ( Gallon )
+            </th>
+            <th width="85">
+              Tank <br /> Closing <br /> ( Gallon )
+            </th>
+            <th width="85">
+              Gain/ <br /> Lose <br /> ( Gallon )
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {okData.map((item, index) => {
+            // const dateObj = new Date(item?.createAt);
+            // // const day = dateObj?.getUTCDate();
+            // // const month = months[dateObj.getUTCMonth()];
+            // // const year = dateObj?.getUTCFullYear();
+            // const time = dateObj?.toISOString().slice(11, 19);
+            // const formattedDate = `${dateObj.toLocaleDateString(
+            //   `fr-CA`
+            // )} ${time}`;
 
-          const dateObj = new Date(item?.createAt);
+            const dateObj = new Date(item?.createAt);
 
-          const day = String(dateObj.getUTCDate()).padStart(2, "0");
-          const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
-          const year = dateObj.getUTCFullYear();
+            const day = String(dateObj.getUTCDate()).padStart(2, "0");
+            const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
+            const year = dateObj.getUTCFullYear();
 
-          const time = dateObj?.toISOString().slice(11, 19);
+            const time = dateObj?.toISOString().slice(11, 19);
 
-          const formattedDate = `${day}-${month}-${year} ${time}`;
+            const formattedDate = `${day}-${month}-${year} ${time}`;
 
-          return (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>
-                {item.stationId.name +
-                  " " +
-                  item.stationId.location.split(",")[0]}
-              </td>
-              <td>{item.stationId.lienseNo}</td>
-              <td>{item.stationId.location.split(",")[1]}</td>
-              <td>{item.stationId.location.split(",")[2]}</td>
-              <td>{formattedDate}</td>
-              <td>{formattedDate}</td>
-              <td>{item.bowser}</td>
-              <td>
-                {item?.fuel_type == "001-Octane Ron(92)"
-                  ? "92 RON"
-                  : item?.fuel_type == "002-Octane Ron(95)"
-                  ? "95 RON"
-                  : item?.fuel_type == "004-Diesel"
-                  ? "HSD"
-                  : item?.fuel_type == "005-Premium Diesel"
-                  ? "PHSD"
-                  : ""}
-              </td>
-              <td>{item.tankNo}</td>
-              <td>{(14580 / 4.546).toFixed(3)}</td>
-              <td>
-                {item.opening ? (item.opening / 4.546)?.toFixed(3) : "00.0"}
-              </td>
-              <td>{(item.receive_balance / 4.546)?.toFixed(3)}</td>
-              <td>00.0</td>
-              <td>{(item.tank_balance / 4.546)?.toFixed(3)}</td>
-              <td>00.0</td>
-            </tr>
-          );
-        })}
+            return (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>
+                  {item.stationId.name +
+                    " " +
+                    item.stationId.location.split(",")[0]}
+                </td>
+                <td>{item.stationId.lienseNo}</td>
+                <td>{item.stationId.location.split(",")[1]}</td>
+                <td>{item.stationId.location.split(",")[2]}</td>
+                <td>{formattedDate}</td>
+                <td>{formattedDate}</td>
+                <td>{item.bowser}</td>
+                <td>
+                  {item?.fuel_type == "001-Octane Ron(92)"
+                    ? "92 RON"
+                    : item?.fuel_type == "002-Octane Ron(95)"
+                    ? "95 RON"
+                    : item?.fuel_type == "004-Diesel"
+                    ? "HSD"
+                    : item?.fuel_type == "005-Premium Diesel"
+                    ? "PHSD"
+                    : ""}
+                </td>
+                <td>{item.tankNo}</td>
+                <td>{(14580 / 4.546).toFixed(3)}</td>
+                <td>
+                  {item.opening ? (item.opening / 4.546)?.toFixed(3) : "00.0"}
+                </td>
+                <td>{(item.receive_balance / 4.546)?.toFixed(3)}</td>
+                <td>00.0</td>
+                <td>{(item.tank_balance / 4.546)?.toFixed(3)}</td>
+                <td>00.0</td>
+              </tr>
+            );
+          })}
+        </tbody>
+        <tfoot>
+          {fuelArr.includes("001-Octane Ron(92)") ? (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total 92 Ron
+                </td>
+                <td className="text-right font-semibold">
+                  {Number(n2Total)?.toFixed(3)}
+                </td>
+                <td className="text-right font-semibold">0.00</td>
+                <td></td>
+                <td>{n2Other?.toFixed(3) || "0"}</td>
+              </tr>
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          ) : (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total 92 Ron
+                </td>
+                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.00</td>
+                <td> </td>
+                <td> 0.00</td>
+              </tr>
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          )}
+          {fuelArr.includes("002-Octane Ron(95)") ? (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total 95 Ron
+                </td>
+                <td className="text-right font-semibold">
+                  {n5Total?.toFixed(3)}
+                </td>
+                <td className="text-right font-semibold">0.00</td>
+                <td></td>
+                <td>0.00</td>
+              </tr>{" "}
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          ) : (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total 95 Ron
+                </td>
+                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.00</td>
+                <td> </td>
+                <td> 0.00</td>
+              </tr>
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          )}
+          {!selectedFuelType && !selectedNozzle && (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total 97 Ron
+                </td>
+                <td className="text-right font-semibold">0.000</td>
+                <td className="text-right font-semibold">0.000</td>
+                <td></td>
+                <td>0.000</td>
+              </tr>
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          )}
+          {fuelArr.includes("004-Diesel") ? (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total HSD
+                </td>
+                <td className="text-right font-semibold">
+                  {Number(hsdTotal)?.toFixed(3)}
+                </td>
+                <td className="text-right font-semibold">0.00</td>
+                <td></td>
+                <td>0.00</td>
+              </tr>
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          ) : (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total HSD
+                </td>
+                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.00</td>
+                <td> </td>
+                <td> 0.00</td>
+              </tr>
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          )}
+          {fuelArr.includes("005-Premium Diesel") ? (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total PHSD
+                </td>
+                <td className="text-right font-semibold">
+                  {Number(phsdTotal)?.toFixed(3)}
+                </td>
+                <td className="text-right font-semibold">0.00</td>
+                <td></td>
+                <td>0.00</td>
+              </tr>
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          ) : (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total PHSD
+                </td>
+                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.00</td>
+                <td> </td>
+                <td> 0.00</td>
+              </tr>
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          )}
+          {!selectedFuelType && !selectedNozzle && (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total C-HSD
+                </td>
+                <td className="text-right font-semibold">0.000</td>
+                <td className="text-right font-semibold">0.000</td>
+                <td></td>
+                <td>0.000</td>
+              </tr>
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          )}
+          {!selectedFuelType && !selectedNozzle && (
+            <>
+              <tr className="bg-gray-200">
+                <td colspan={12} className="text-lg">
+                  Sub Total C-PHSD
+                </td>
+                <td className="text-right font-semibold">0.000</td>
+                <td className="text-right font-semibold">0.000</td>
+                <td></td>
+                <td>0.000</td>
+              </tr>
+              <tr>
+                <td className="text-left" colSpan={16}></td>
+              </tr>
+            </>
+          )}
+          <tr className="bg-gray-200">
+            <td colspan={12} className="text-lg font-semibold">
+              Grand Total
+            </td>
+            <td colspan={1} className="text-center text-lg font-semibold">
+              {okData
+                .map((e) => Number(e.receive_balance))
+                .reduce((pv, cv) => pv + cv, 0)
+                ?.toFixed(3)}
+            </td>
+            <td colspan={1} className="text-end  text-lg font-semibold">
+              0.00
+            </td>
+            <td colspan={1} className="text-center text-lg font-semibold"></td>
+            <td colspan={1} className="text-center text-lg font-semibold">
+              0.00
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );

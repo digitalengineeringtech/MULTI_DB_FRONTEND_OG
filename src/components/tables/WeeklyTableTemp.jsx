@@ -102,6 +102,14 @@ function WeeklyTableTemp({
               // style={{ border: " 1px solid black" }}
             >
               <thead>
+                <tr className="hidden">
+                  <th className="text-center text-xl" colSpan={30}>
+                    Sale Detail Report Table of {station + " " + state[0]}
+                  </th>
+                </tr>
+                <tr className="hidden">
+                  <th className="text-center" colSpan={30}></th>
+                </tr>
                 <tr>
                   <th rowSpan={2}>Sr No.</th>
                   <th rowSpan={2}>{language.import_company}</th>

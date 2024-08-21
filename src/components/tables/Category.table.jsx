@@ -1728,10 +1728,24 @@ function CategoryTable({
     return `${day}-${month}-${year}`;
   };
 
+  // console.log(okData[0].stationDetailId.name, "........");
+  // console.log(okData[0].stationDetailId.location.split(",")[0], "........");
+
   return (
     <div className="mt-[50px]">
       {single == "Please" ? (
         <table id="category_table" ref={tableRef}>
+          <tr className="hidden">
+            <th className="text-center text-xl" colSpan={13}>
+              Sale Detail Report Table of{" "}
+              {okData[0]?.stationDetailId.name +
+                " " +
+                okData[0]?.stationDetailId.location.split(",")[0]}
+            </th>
+          </tr>
+          <tr className="hidden">
+            <th className="text-center" colSpan={13}></th>
+          </tr>
           <tr>
             <th rowSpan={4}>{language.no}</th>
             <th rowSpan={4} colSpan={2}>

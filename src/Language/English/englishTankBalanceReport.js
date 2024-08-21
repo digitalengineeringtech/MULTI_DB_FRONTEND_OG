@@ -14,6 +14,5 @@ export const EnglishTankBalance = {
   sale: "Sale",
   balance: "Balance",
   toExcel: "To Excel",
-  toPrint: "To Print",
- 
+  toPrint: "To PDF",
 };

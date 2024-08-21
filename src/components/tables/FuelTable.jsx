@@ -118,6 +118,14 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
         <table ref={tRef} className="mt-[40px]">
           {calcu ? (
             <thead>
+              <tr className="hidden">
+                <th className="text-center text-xl" colSpan={16}>
+                  Sale Detail Report Table of {stationId?.name + " " + state[0]}
+                </th>
+              </tr>
+              <tr className="hidden">
+                <th className="text-center" colSpan={16}></th>
+              </tr>
               <tr>
                 <th>Sr No.</th>
                 <th>{language.Station_name}</th>
@@ -135,6 +143,14 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
             </thead>
           ) : (
             <thead>
+              <tr className="hidden">
+                <th className="text-center text-xl" colSpan={16}>
+                  Sale Detail Report Table of {stationId?.name + " " + state[0]}
+                </th>
+              </tr>
+              <tr className="hidden">
+                <th className="text-center" colSpan={16}></th>
+              </tr>
               <tr>
                 <th>Sr No.</th>
                 <th>{language.Station_name}</th>

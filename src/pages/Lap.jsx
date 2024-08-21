@@ -73,6 +73,8 @@ function FuelBalanceReport() {
   let isoStartDate = start.toLocaleDateString("fr-CA");
   let isoEndDate = end.toLocaleDateString("fr-CA");
 
+  console.log(tableRef, "this is ref");
+
   useEffect(() => {
     if (!user.login) {
       navigate("/");
@@ -106,6 +108,9 @@ function FuelBalanceReport() {
   const tankNoRoute =
     tankName.code === "Please" ? "" : `&tankNo=${tankName.code}`;
   const bowserNo = number ? `&bowser=${number}` : "";
+  const [state, setState] = useState();
+
+  console.log(datas, "this is ");
 
   const handleClick = () => {
     setClick(true);
@@ -148,11 +153,16 @@ function FuelBalanceReport() {
             }
           )
           .then(function (response) {
+            let data = response.data.result;
+            if (data.length > 0) {
+              setState(true);
+            } else {
+              setState(false);
+            }
             // console.log(response, "this is response");
             // console.log(
             //   `/fuelIn/pagi/by-date/1?stationId=${selectedStation?.code}&sDate=${calenderOne}&eDate=${calenderTwo}${tankNoRoute}${fuelTypeRoute}`
             // );
-            let data = response.data.result;
             // data = data.splice(0, 3);
             setOkData(data.reverse());
             setloading(false);
@@ -289,6 +299,7 @@ function FuelBalanceReport() {
         </div>
       </InputContainer>
 
+      {/* {okData?.length > 0 ? ( */}
       {okData?.length > 0 ? (
         <>
           <FuelRecieveTableLittle tableRef={tableRef} okData={okData} />

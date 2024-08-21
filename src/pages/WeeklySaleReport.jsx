@@ -391,6 +391,8 @@ function WeeklySaleReport() {
     return count;
   };
 
+  console.log(tableRef, "ref");
+
   // console.log(DateCount(calenderOne, calenderTwo), "date dif.....");
 
   return (

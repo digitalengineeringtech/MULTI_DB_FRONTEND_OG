@@ -222,6 +222,7 @@ export default function SaleDetail() {
     filename: "Daily Sale Report",
     sheet: "Daily Sale Report",
   });
+   console.log(tableRef, "this is ref");
 
   return (
     <>

@@ -1,7 +1,7 @@
 export const EnglishTotalizerDifferent = {
   mainTitle: "Totalizer Different",
-  startDate: "From",
-  endDate: "To",
+  startDate: "From Date",
+  endDate: "To Date",
   station: "Station",
   fuel_type: "Fuel Type",
   search: "SEARCH",
@@ -17,7 +17,7 @@ export const EnglishTotalizerDifferent = {
   toExcel: "To Excel",
   liter: "Li",
   kyat: "Kyats",
-  toPrint: "To Print",
+  toPrint: "To PDF",
   sub_title: "Pump Report",
   Station_name: "Station Name", //update
   Township: "Township",
