@@ -220,8 +220,8 @@ export default function SaleDetail() {
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
-    filename: "Daily Sale Report",
-    sheet: "Daily Sale Report",
+    filename: "Sale Detail Report",
+    sheet: "Sale Detail Report",
   });
   console.log(tableRef, "this is ref");
 

@@ -184,7 +184,7 @@ function DailySaleCategoriesReport1() {
           </Button>
         </div>
       </InputContainer>
-      {datas?.result?.length > 0 && (
+      {okData?.length > 0 && (
         <>
           <CategoryTable
             language={language}

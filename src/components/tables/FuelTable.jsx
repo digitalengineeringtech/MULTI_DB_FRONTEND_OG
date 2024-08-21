@@ -15,8 +15,8 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tRef.current,
-    filename: `Fuel Balance Report`,
-    sheet: `Fuel Balance Report`,
+    filename: `Tank Report`,
+    sheet: `Tank Report`,
   });
 
   const { stationId } = okData[0];
@@ -120,7 +120,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
             <thead>
               <tr className="hidden">
                 <th className="text-center text-xl" colSpan={16}>
-                  Sale Detail Report Table of {stationId?.name + " " + state[0]}
+                  Tank Report Table of {stationId?.name + " " + state[0]}
                 </th>
               </tr>
               <tr className="hidden">

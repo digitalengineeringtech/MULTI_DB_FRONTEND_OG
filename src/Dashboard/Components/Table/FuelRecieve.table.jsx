@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useDownloadExcel } from "react-export-table-to-excel";
+import { AiFillPrinter } from "react-icons/ai";
+import { RiFileExcel2Fill } from "react-icons/ri";
+import { useReactToPrint } from "react-to-print";
 
 function FuelRecieveTableLittle({
   okData,
-  tableRef,
+  // tableRef,
+  language,
   selectedFuelType,
   selectedNozzle,
 }) {
   console.log(okData, "reff");
   const fuelArr = okData.map((e) => e.fuel_type);
+  const tableRef = useRef();
 
   const n2 = okData?.filter((ea) => ea.fuel_type == "001-Octane Ron(92)");
   const n5 = okData?.filter((ea) => ea.fuel_type == "002-Octane Ron(95)");
@@ -70,6 +76,17 @@ function FuelRecieveTableLittle({
     ?.filter((ea) => ea.fuel_type == "005-Premium Diesel")
     .map((e) => Number(e.other))
     .reduce((pv, cv) => pv + cv, 0);
+
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: "Fuel In Report",
+    sheet: "Fuel In Report",
+  });
+
+  const handlePrint = useReactToPrint({
+    content: () => tableRef.current,
+  });
+
   return (
     <div className="bg-white">
       <h3 className="mt-[30px]"></h3>
@@ -390,6 +407,22 @@ function FuelRecieveTableLittle({
           </tr>
         </tfoot>
       </table>
+      <div className="flex p-3  text-[16px] mt-[10px] mb-[50px] items-center justify-start gap-3">
+        <button
+          onClick={() => onDownload()}
+          className="flex items-center justify-center gap-2 text-md"
+        >
+          {language.toExcel}
+          <RiFileExcel2Fill size={30} />
+        </button>
+        <button
+          onClick={handlePrint}
+          className="flex items-center justify-center gap-2 text-md"
+        >
+          {language.toPrint}
+          <AiFillPrinter size={30} />
+        </button>
+      </div>
     </div>
   );
 }

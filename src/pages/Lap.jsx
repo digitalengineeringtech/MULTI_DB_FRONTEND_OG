@@ -302,8 +302,12 @@ function FuelBalanceReport() {
       {/* {okData?.length > 0 ? ( */}
       {okData?.length > 0 ? (
         <>
-          <FuelRecieveTableLittle tableRef={tableRef} okData={okData} />
-          <div className="flex p-3  text-[16px] mt-[10px] mb-[50px] items-center justify-start gap-3">
+          <FuelRecieveTableLittle
+            language={language}
+            tableRef={tableRef}
+            okData={okData}
+          />
+          {/* <div className="flex p-3  text-[16px] mt-[10px] mb-[50px] items-center justify-start gap-3">
             <button
               onClick={() => onDownload()}
               className="flex items-center justify-center gap-2 text-md"
@@ -318,7 +322,7 @@ function FuelBalanceReport() {
               {language.toPrint}
               <AiFillPrinter size={30} />
             </button>
-          </div>
+          </div> */}
         </>
       ) : (
         click && (

@@ -1737,7 +1737,7 @@ function CategoryTable({
         <table id="category_table" ref={tableRef}>
           <tr className="hidden">
             <th className="text-center text-xl" colSpan={13}>
-              Sale Detail Report Table of{" "}
+              Daily Sale Categories Report Table of{" "}
               {okData[0]?.stationDetailId.name +
                 " " +
                 okData[0]?.stationDetailId.location.split(",")[0]}

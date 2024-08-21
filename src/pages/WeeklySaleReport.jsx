@@ -243,7 +243,7 @@ function WeeklySaleReport() {
       ?.map((g) => g.tankBalance)
       ?.reduce((pv, cv) => pv + cv, 0);
 
-      // const tank_type = 
+    // const tank_type =
 
     const last_test = data_g?.result
       ?.filter((c) => c.fuelType == e.name)
@@ -298,12 +298,35 @@ function WeeklySaleReport() {
       ?.map((g) => g.volume)
       ?.reduce((pv, cv) => pv + cv, 0);
 
+    const tankBalancesByTankNo = {}; // Object to store tankNo and last tankBalance
+
+    if (data_g?.result) {
+      data_g.result.forEach((entry) => {
+        const { tankNo, fuelType, dailyReportDate, tankBalance } = entry;
+
+        // Check if fuelType matches and dailyReportDate is last_date
+        if (fuelType === e.name && dailyReportDate === last_date) {
+          // Update the last tankBalance for this tankNo (if newer)
+          tankBalancesByTankNo[tankNo] = Math.max(
+            tankBalancesByTankNo[tankNo] || 0,
+            tankBalance
+          );
+        }
+      });
+    }
+
+    // Access last tankBalances for all tankNos
+    const allTankBalances = Object.values(tankBalancesByTankNo);
+    const balance_update = allTankBalances.reduce((pv, cv) => pv + cv, 0); // Extract all tankBalances as an array
+    const arr = allTankBalances.length;
+
     console.log(
       last,
       last_tankBalance,
       tankData,
       "khhhhhhhkkkkkkkkkkkkkkkkkkkkkkkkkk",
-      last_test
+      last_test,
+      allTankBalances
     );
 
     const uniqueDates = new Set();
@@ -332,7 +355,11 @@ function WeeklySaleReport() {
       // tank: e.id,
       fuelType: e.name,
       capacity:
-        e.name == "003-Octane Ron(97)" ? 0.0 : 14550 * tank_count?.length,
+        e.name == "003-Octane Ron(97)"
+          ? 0.0
+          : !last_tankBalance
+          ? 14550 * (arr > 0 ? arr : 1)
+          : 14550 * (tank_count?.length > 0 ? tank_count?.length : 1),
       balance: balance ? balance : tankBalance,
       cash: total,
       // fuelIn: data_g?.result
@@ -345,7 +372,7 @@ function WeeklySaleReport() {
       avg: dateCount ? total / dateCount : total,
       // avg: uniqueDates?.size == 0 ? total : total / uniqueDates?.size,
       // last_balance: last ? last : tankBalance,
-      last_balance: last_tankBalance ? last_tankBalance : last,
+      last_balance: last_tankBalance ? last_tankBalance : balance_update,
     };
   });
 
@@ -488,7 +515,7 @@ function WeeklySaleReport() {
             capacity={test}
             tableRef={tableRef}
           />
-          <div className="flex p-3  text-[16px] mt-[10px] mb-[50px] items-center justify-start gap-3">
+          {/* <div className="flex p-3  text-[16px] mt-[10px] mb-[50px] items-center justify-start gap-3">
             <button
               onClick={() => onDownload()}
               className="flex items-center justify-center gap-2 text-md"
@@ -503,7 +530,7 @@ function WeeklySaleReport() {
               {language.toPrint}
               <AiFillPrinter size={30} />
             </button>
-          </div>
+          </div> */}
         </>
       ) : (
         click && (

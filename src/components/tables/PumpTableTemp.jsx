@@ -33,8 +33,8 @@ function PumpTableTemp({
 
   const onDownloadTwo = useDownloadExcel({
     currentTableRef: tRef.current,
-    filename: `Different Totalizer by Station Nozzle Report`,
-    sheet: `Different Totalizer by Station Nozzle Report`,
+    filename: `Pump Report`,
+    sheet: `Pump Report`,
   });
 
   console.log(okData, "this is okData");
@@ -132,7 +132,7 @@ function PumpTableTemp({
       <table ref={tRef}>
         <tr className="hidden">
           <th className="text-center text-xl" colSpan={16}>
-            Sale Detail Report Table of {okData[0]?.stationId + " " + state[0]}
+            Pump Report Table of {okData[0]?.stationId + " " + state[0]}
           </th>
         </tr>
         <tr className="hidden">
