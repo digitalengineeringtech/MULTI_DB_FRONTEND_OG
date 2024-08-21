@@ -31,6 +31,7 @@ import { myanmarUserChoose } from "../Language/Myanmar/myanmarUserChoose";
 import { englishUserChoose } from "../Language/English/englishUserChoose";
 import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
 import { PiWarningCircleFill } from "react-icons/pi";
+import { SplitButton } from "primereact/splitbutton";
 
 function Header({ show = true }) {
   const location = useLocation();
@@ -142,6 +143,7 @@ function Header({ show = true }) {
     stationImg:
       "https://res.cloudinary.com/dibskb7pp/image/upload/v1699504458/qjan3ucvq8objd7wpjyt.png",
   });
+
   const list = {
     open: { y: "82px", opacity: 1 },
     close: { y: 0, opacity: 0 },
@@ -207,32 +209,43 @@ function Header({ show = true }) {
 
   const links = [
     {
-      name: "Sale Detail Report",
+      label: "Sale Detail Report",
       path: `/${user.accessDb}/saledetail`,
+      command: () => navigate(`/${user.accessDb}/saledetail`),
     },
     {
-      name: "Fuel In Report",
+      label: "Fuel In Report",
       path: `/${user.accessDb}/fueldatareport`,
+      command: () => navigate(`/${user.accessDb}/fueldatareport`),
     },
+    // {
+    //   name: "Fuel In Report",
+    //   path: `/${user.accessDb}/fueldatareport`,
+    // },
     {
-      name: "Daily Sale Report",
+      label: "Daily Sale Report",
       path: `/${user.accessDb}/dailysalereport`,
+      command: () => navigate(`/${user.accessDb}/dailysalereport`),
     },
     {
-      name: "Pump Report",
+      label: "Pump Report",
       path: `/${user.accessDb}/pumpreport`,
+      command: () => navigate(`/${user.accessDb}/pumpreport`),
     },
     {
-      name: "Tank Report",
+      label: "Tank Report",
       path: `/${user.accessDb}/real-tank`,
+      command: () => navigate(`/${user.accessDb}/real-tank`),
     },
     {
-      name: "Daily Sale Categories Report",
+      label: "Daily Sale Categories Report",
       path: `/${user.accessDb}/categoriesreport`,
+      command: () => navigate(`/${user.accessDb}/categoriesreport`),
     },
     {
-      name: "Weekly Report",
+      label: "Weekly Report",
       path: `/${user.accessDb}/weekly`,
+      command: () => navigate(`/${user.accessDb}/weekly`),
     },
   ];
 
@@ -313,7 +326,7 @@ function Header({ show = true }) {
         ref={headerRef}
         className="fixed  bg-white   top-0 left-0 right-0  z-50   flex items-center justify-center  bg-transparent shadow-[#007BFF20] shadow-lg"
       >
-        {pathName != "/" &&
+        {/* {pathName != "/" &&
           pathName != "/user/choose" &&
           pathName != `/${user.accessDb}/home` && (
             <motion.div
@@ -326,7 +339,7 @@ function Header({ show = true }) {
                 Hover here{" "}
               </div>
             </motion.div>
-          )}
+          )} */}
         <div className="w-[90%] flex z-30  flex-col justify-between items-center mx-auto">
           <div className="logo w-full flex items-center justify-between">
             <div className="text-lg font-bold bg-re pt-3 mb-2">
@@ -363,7 +376,7 @@ function Header({ show = true }) {
                   ""
                 )}
 
-                <Link
+                {/* <Link
                   to={
                     user.name === "kyaw san"
                       ? "/kyawsan/main-con/home"
@@ -374,7 +387,20 @@ function Header({ show = true }) {
                   <li>
                     <Button label={nativeLanguage.home} />
                   </li>
-                </Link>
+                </Link> */}
+                <Toast ref={toast}></Toast>
+                <SplitButton
+                  label="Home"
+                  // icon="pi pi-plus"
+                  onClick={() =>
+                    navigate(
+                      user.name === "kyaw san"
+                        ? "/kyawsan/main-con/home"
+                        : `/${user.accessDb}/home`
+                    )
+                  }
+                  model={links}
+                />
                 {/* <Link  to="/kyawsan/home" className='bg-white text-black px-3 py-2 rounded-lg'> <li>Dashboard</li></Link> */}
                 {user.name === "pprd" || user.name === "user" ? (
                   // <Link
@@ -611,7 +637,7 @@ function Header({ show = true }) {
                   </div> */}
         </div>
       </header>
-      {pathName != "/" &&
+      {/* {pathName != "/" &&
         pathName != "/user/choose" &&
         pathName != `/${user.accessDb}/home` && (
           <motion.div
@@ -644,7 +670,7 @@ function Header({ show = true }) {
               ))}
             </div>
           </motion.div>
-        )}
+        )} */}
     </div>
   );
 }

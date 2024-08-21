@@ -253,11 +253,18 @@ function WeeklySaleReport() {
       ?.map((g) => g.tankBalance)
       ?.reduce((pv, cv) => pv + cv, 0);
 
+    // const last = data_g?.result
+    //   ?.filter((c) => c.fuelType == e.name)
+    //   ?.filter((e) => e.dailyReportDate == last_date)
+    //   ?.map((g) => g.tankBalance)
+    //   ?.reduce((pv, cv) => pv + cv, 0);
+
     const last = data_g?.result
       ?.filter((c) => c.fuelType == e.name)
       ?.filter((e) => e.dailyReportDate == last_date)
-      ?.map((g) => g.tankBalance)
-      ?.reduce((pv, cv) => pv + cv, 0);
+      .reverse()[0]?.tankBalance;
+
+    // console.log(lastData, "./././/././../././././..//.");
 
     const last_tankBalance = tankData
       ?.filter((item) =>
