@@ -105,11 +105,24 @@ function WeeklyTableTemp({
                 <thead>
                   <tr className="hidden">
                     <th className="text-center text-xl" colSpan={30}>
-                      Weekly Sale Report Table of {station + " " + state[0]}
+                      Weekly Sale Report of {station + " " + state[0]}
                     </th>
                   </tr>
                   <tr className="hidden">
-                    <th className="text-center" colSpan={30}></th>
+                    <th className="text-center" colSpan={2} rowSpan={2}>
+                      Date & Time
+                    </th>
+                    <th className="text-center" colSpan={3}>
+                      From
+                    </th>
+                    <th className="text-center" colSpan={3}>
+                      To
+                    </th>
+                    <th className="text-center" colSpan={22} rowSpan={2}></th>
+                  </tr>
+                  <tr className="hidden">
+                    <th colSpan={3}>{format(calenderOne)}</th>
+                    <th colSpan={3}>{format(calenderTwo)}</th>
                   </tr>
                   <tr>
                     <th rowSpan={2}>Sr No.</th>

@@ -319,6 +319,8 @@ function DailySaleReportTemp() {
         <>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
           <FuelTableTemp
+            start={calenderOne}
+            end={calenderTwo}
             language={language}
             tableRef={tableRef}
             okData={combinedByFuelType}

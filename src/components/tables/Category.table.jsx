@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./table.css";
+import { RiFileExcel2Fill } from "react-icons/ri";
+import { AiFillPrinter } from "react-icons/ai";
+import { useReactToPrint } from "react-to-print";
+import { useDownloadExcel } from "react-export-table-to-excel";
 
 function CategoryTable({
   okData,
-  tableRef,
+  // tableRef,
   startDate,
   endDate,
   single,
@@ -1728,8 +1732,33 @@ function CategoryTable({
     return `${day}-${month}-${year}`;
   };
 
+    const format1 = (dateString) => {
+      const date = new Date(dateString);
+
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const year = date.getFullYear();
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      const seconds = String(date.getSeconds()).padStart(2, "0");
+
+      return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+    };
+
+  const tableRef = useRef();
+
   // console.log(okData[0].stationDetailId.name, "........");
   // console.log(okData[0].stationDetailId.location.split(",")[0], "........");
+
+  const handlePrint = useReactToPrint({
+    content: () => tableRef.current,
+  });
+
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: `Daily Sale Categories Report`,
+    sheet: `Daily Sale Categories Report`,
+  });
 
   return (
     <div className="mt-[50px]">
@@ -1737,14 +1766,27 @@ function CategoryTable({
         <table id="category_table" ref={tableRef}>
           <tr className="hidden">
             <th className="text-center text-xl" colSpan={13}>
-              Daily Sale Categories Report Table of{" "}
+              Daily Sale Categories Report of{" "}
               {okData[0]?.stationDetailId.name +
                 " " +
                 okData[0]?.stationDetailId.location.split(",")[0]}
             </th>
           </tr>
           <tr className="hidden">
-            <th className="text-center" colSpan={13}></th>
+            <th className="text-center" colSpan={2} rowSpan={2}>
+              Date & Time
+            </th>
+            <th className="text-center" colSpan={3}>
+              From
+            </th>
+            <th className="text-center" colSpan={3}>
+              To
+            </th>
+            <th className="text-center" colSpan={9} rowSpan={2}></th>
+          </tr>
+          <tr className="hidden">
+            <th colSpan={3}>{format1(startDate)}</th>
+            <th colSpan={3}>{format1(endDate)}</th>
           </tr>
           <tr>
             <th rowSpan={4}>{language.no}</th>
@@ -2617,6 +2659,21 @@ function CategoryTable({
           </tr>
         </table>
       )}
+      <div className="flex p-3  text-[16px] mt-[30px] mb-[50px] items-center justify-start gap-3">
+        <button
+          onClick={() => onDownload()}
+          className="flex items-center justify-center gap-2 text-md"
+        >
+          {language.toExcel} <RiFileExcel2Fill size={30} />
+        </button>
+        <button
+          onClick={handlePrint}
+          className="flex items-center justify-center gap-2 text-md"
+        >
+          {language.toPrint}
+          <AiFillPrinter size={30} />
+        </button>
+      </div>
     </div>
   );
 }

@@ -305,6 +305,8 @@ export default function SaleDetail() {
         {datas?.result?.length > 0 && (
           <>
             <DetailSaleReportTable
+              start={startDate}
+              end={endDate}
               pageNo={pageNo}
               language={language}
               stationName={selectedStation.name}

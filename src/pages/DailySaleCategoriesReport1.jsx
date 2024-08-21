@@ -194,7 +194,7 @@ function DailySaleCategoriesReport1() {
             okData={okData}
             single={one}
           />
-          <div className="flex p-3  text-[16px] mt-[30px] mb-[50px] items-center justify-start gap-3">
+          {/* <div className="flex p-3  text-[16px] mt-[30px] mb-[50px] items-center justify-start gap-3">
             <button
               onClick={() => onDownload()}
               className="flex items-center justify-center gap-2 text-md"
@@ -208,7 +208,7 @@ function DailySaleCategoriesReport1() {
               {language.toPrint}
               <AiFillPrinter size={30} />
             </button>
-          </div>
+          </div> */}
         </>
       )}
 

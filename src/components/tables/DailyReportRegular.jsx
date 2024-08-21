@@ -3,7 +3,7 @@ import React from 'react'
 function DailyReportRegularTable({currentData}) {
   return (
     <div class=" px-[20px] mt-[50px]">
-        <h2 className='mb-[30px] text-lg'>Daily Sale Report Table of </h2>
+        <h2 className='mb-[30px] text-lg'>Daily Sale Report of </h2>
 
   <table  class="text-md report-table">
       <thead>

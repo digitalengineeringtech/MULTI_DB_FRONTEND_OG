@@ -4,7 +4,7 @@ import { AiFillPrinter } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
 import { useDownloadExcel } from "react-export-table-to-excel";
 
-function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
+function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
   const tRef = useRef();
   let isoStartDate = sd.toLocaleDateString("fr-CA");
   let isoEndDate = ed.toLocaleDateString("fr-CA");
@@ -47,6 +47,19 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
     .map((e) => e.cash)
     .reduce((pv, cv) => pv + cv, 0);
 
+  const format = (dateString) => {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+
+    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+  };
+
   return (
     <>
       <div className="mb-[150px]">
@@ -55,11 +68,24 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
             <thead>
               <tr className="hidden">
                 <th className="text-center text-xl" colSpan={16}>
-                  Daily Sale Report Table of {stationId?.name}
+                  Daily Sale Report of {stationId?.name}
                 </th>
               </tr>
-              <tr className="hidden">
-                <th className="text-center" colSpan={16}></th>
+              <tr>
+                <th className="text-center" colSpan={2} rowSpan={2}>
+                  Date & Time
+                </th>
+                <th className="text-center" colSpan={3}>
+                  From
+                </th>
+                <th className="text-center" colSpan={3}>
+                  To
+                </th>
+                <th className="text-center" colSpan={9} rowSpan={2}></th>
+              </tr>
+              <tr>
+                <th colSpan={3}>{format(start)}</th>
+                <th colSpan={3}>{format(end)}</th>
               </tr>
               <tr>
                 <th>Sr No.</th>
@@ -80,11 +106,24 @@ function FuelTableTemp({ okData, tank, sd, ed, language, calcu }) {
             <thead>
               <tr className="hidden">
                 <th className="text-center text-xl" colSpan={16}>
-                  Sale Detail Report Table of {stationId?.name}
+                  Sale Detail Report of {stationId?.name}
                 </th>
               </tr>
               <tr className="hidden">
-                <th className="text-center" colSpan={16}></th>
+                <th className="text-center" colSpan={2} rowSpan={2}>
+                  Date & Time
+                </th>
+                <th className="text-center" colSpan={3}>
+                  From
+                </th>
+                <th className="text-center" colSpan={3}>
+                  To
+                </th>
+                <th className="text-center" colSpan={9} rowSpan={2}></th>
+              </tr>
+              <tr className="hidden">
+                <th colSpan={3}>{format(start)}</th>
+                <th colSpan={3}>{format(end)}</th>
               </tr>
               <tr>
                 <th>Sr No.</th>

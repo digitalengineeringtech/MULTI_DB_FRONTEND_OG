@@ -28,7 +28,7 @@ function DailySaleReportTable({
               {language.title}
             </p>
           ) : (
-            <p>Daily Sale Report Table of {stationName}</p>
+            <p>Daily Sale Report of {stationName}</p>
           )}
         </h2>
 

@@ -5,6 +5,8 @@ function DetailSaleReportTable({
   currentData,
   stationName,
   pageNo,
+  start,
+  end,
   tableRef,
   totalLength,
   language,
@@ -19,6 +21,19 @@ function DetailSaleReportTable({
 
   console.log(tableRef, "reff");
 
+  const format = (dateString) => {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+
+    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+  };
+
   return (
     <>
       <div class=" px-[20px] mt-[50px]">
@@ -29,7 +44,7 @@ function DetailSaleReportTable({
               {language.title}
             </p>
           ) : (
-            <p>Sale Detail Report Table of {stationName}</p>
+            <p>Sale Detail Report of {stationName}</p>
           )}
         </h2>
 
@@ -37,11 +52,24 @@ function DetailSaleReportTable({
           <thead className="hidden">
             <tr>
               <th className="text-center text-xl" colSpan={16}>
-                Sale Detail Report Table of {stationName}
+                Sale Detail Report of {stationName}
               </th>
             </tr>
             <tr>
-              <th className="text-center" colSpan={16}></th>
+              <th className="text-center" colSpan={2} rowSpan={2}>
+                Date & Time
+              </th>
+              <th className="text-center" colSpan={3}>
+                From
+              </th>
+              <th className="text-center" colSpan={3}>
+                To
+              </th>
+              <th className="text-center" colSpan={9} rowSpan={2}></th>
+            </tr>
+            <tr>
+              <th colSpan={3}>{format(start)}</th>
+              <th colSpan={3}>{format(end)}</th>
             </tr>
           </thead>
           <thead>

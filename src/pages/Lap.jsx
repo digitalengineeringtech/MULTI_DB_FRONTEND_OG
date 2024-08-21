@@ -303,6 +303,8 @@ function FuelBalanceReport() {
       {okData?.length > 0 ? (
         <>
           <FuelRecieveTableLittle
+            start={calenderOne}
+            end={calenderTwo}
             language={language}
             tableRef={tableRef}
             okData={okData}

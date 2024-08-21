@@ -7,6 +7,8 @@ import { useReactToPrint } from "react-to-print";
 function FuelRecieveTableLittle({
   okData,
   // tableRef,
+  start,
+  end,
   language,
   selectedFuelType,
   selectedNozzle,
@@ -87,6 +89,19 @@ function FuelRecieveTableLittle({
     content: () => tableRef.current,
   });
 
+  const format = (dateString) => {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+
+    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+  };
+
   return (
     <div className="bg-white">
       <h3 className="mt-[30px]"></h3>
@@ -94,14 +109,27 @@ function FuelRecieveTableLittle({
         <thead>
           <tr className="hidden">
             <th className="text-center text-xl" colSpan={16}>
-              Fuel In Report Table of{" "}
+              Fuel In Report of{" "}
               {okData[0].stationId.name +
                 " " +
                 okData[0].stationId.location.split(",")[0]}
             </th>
           </tr>
-          <tr className="hidden">
-            <th className="text-center" colSpan={16}></th>
+          <tr>
+            <th className="text-center" colSpan={2} rowSpan={2}>
+              Date & Time
+            </th>
+            <th className="text-center" colSpan={3}>
+              From
+            </th>
+            <th className="text-center" colSpan={3}>
+              To
+            </th>
+            <th className="text-center" colSpan={9} rowSpan={2}></th>
+          </tr>
+          <tr>
+            <th colSpan={3}>{format(start)}</th>
+            <th colSpan={3}>{format(end)}</th>
           </tr>
         </thead>
         <thead>
