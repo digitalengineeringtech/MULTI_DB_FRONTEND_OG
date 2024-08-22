@@ -13,7 +13,7 @@ export const EnglishTotalizerDifferent = {
   total_price: "Total Price",
   totalizer_opening: " Opening Totalizer No.",
   totalizer_closing: " Closing Totalizer No.",
-  totalizer_different: " Different",
+  totalizer_different: " Difference",
   toExcel: "To Excel",
   liter: "Li",
   kyat: "Kyats",

@@ -108,7 +108,7 @@ function WeeklyTableTemp({
                       Weekly Sale Report of {station + " " + state[0]}
                     </th>
                   </tr>
-                  <tr className="hidden">
+                  {/* <tr className="hidden">
                     <th className="text-center" colSpan={2} rowSpan={2}>
                       Date & Time
                     </th>
@@ -123,7 +123,7 @@ function WeeklyTableTemp({
                   <tr className="hidden">
                     <th colSpan={3}>{format(calenderOne)}</th>
                     <th colSpan={3}>{format(calenderTwo)}</th>
-                  </tr>
+                  </tr> */}
                   <tr>
                     <th rowSpan={2}>Sr No.</th>
                     <th rowSpan={2}>{language.import_company}</th>

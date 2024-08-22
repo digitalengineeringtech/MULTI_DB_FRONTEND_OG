@@ -1772,7 +1772,7 @@ function CategoryTable({
                 okData[0]?.stationDetailId.location.split(",")[0]}
             </th>
           </tr>
-          <tr className="hidden">
+          {/* <tr className="hidden">
             <th className="text-center" colSpan={2} rowSpan={2}>
               Date & Time
             </th>
@@ -1787,7 +1787,7 @@ function CategoryTable({
           <tr className="hidden">
             <th colSpan={3}>{format1(startDate)}</th>
             <th colSpan={3}>{format1(endDate)}</th>
-          </tr>
+          </tr> */}
           <tr>
             <th rowSpan={4}>{language.no}</th>
             <th rowSpan={4} colSpan={2}>

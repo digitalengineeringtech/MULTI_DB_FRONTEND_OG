@@ -115,7 +115,7 @@ function FuelRecieveTableLittle({
                 okData[0].stationId.location.split(",")[0]}
             </th>
           </tr>
-          <tr className="hidden">
+          {/* <tr className="hidden">
             <th className="text-center" colSpan={2} rowSpan={2}>
               Date & Time
             </th>
@@ -130,7 +130,7 @@ function FuelRecieveTableLittle({
           <tr className="hidden">
             <th colSpan={3}>{format(start)}</th>
             <th colSpan={3}>{format(end)}</th>
-          </tr>
+          </tr> */}
         </thead>
         <thead>
           <tr>
