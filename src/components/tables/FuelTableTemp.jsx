@@ -9,6 +9,8 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
   let isoStartDate = sd.toLocaleDateString("fr-CA");
   let isoEndDate = ed.toLocaleDateString("fr-CA");
 
+  console.log(okData, "this is okData");
+
   const handlePrint = useReactToPrint({
     content: () => tRef.current,
   });

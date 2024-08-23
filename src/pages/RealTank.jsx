@@ -434,7 +434,7 @@ function RealTank() {
       const data = {
         tankNo: i,
         fuelType:
-          fuelType == "Petrol 92"
+          fuelType == "92 Octane"
             ? "92 RON"
             : fuelType == "95 Octane"
             ? "95 RON"
