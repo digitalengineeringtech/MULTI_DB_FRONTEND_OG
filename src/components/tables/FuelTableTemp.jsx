@@ -9,8 +9,6 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
   let isoStartDate = sd.toLocaleDateString("fr-CA");
   let isoEndDate = ed.toLocaleDateString("fr-CA");
 
-  console.log(okData, "this is okData");
-
   const handlePrint = useReactToPrint({
     content: () => tRef.current,
   });
@@ -20,8 +18,6 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
     filename: `Daily Sale Report`,
     sheet: `Daily Sale Report`,
   });
-
-  console.log(okData, ".;;;;;;;;;;;;;;;;;;;;");
 
   const { stationId } = okData[0];
 
@@ -202,7 +198,8 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
                   <td className=" text-left">{isoEndDate}</td> */}
                   <td className="text-left">{ok?.fuelType}</td>
                   <td className="text-right">
-                    {(ok.opening / 4.546)?.toFixed(3)}
+                    {(ok.tankOpen / 4.546)?.toFixed(3)}
+                    {/* {(ok.opening )?.toFixed(3)} */}
                   </td>
                   <td className="text-right">
                     {ok.fuelIn === 0
@@ -214,12 +211,14 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
                   </td>{" "}
                   <td className="text-right">
                     {(
-                      (ok.balance - ok.opening - ok.fuelIn + ok.cash) /
+                      (ok.tankClosing - ok.tankOpen - ok.fuelIn + ok.cash) /
+                      // (ok.balance - ok.opening - ok.fuelIn + ok.cash) /
                       4.546
                     ).toFixed(3)}
                   </td>
                   <td className="text-right">
-                    {(ok.balance / 4.546)?.toFixed(3)}
+                    {(ok.tankClosing / 4.546)?.toFixed(3)}
+                    {/* {(ok.balance )?.toFixed(3)} */}
                   </td>
                   <td className="text-center">-</td>
                 </tr>

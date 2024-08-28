@@ -173,9 +173,9 @@ function Header({ show = true }) {
 
   // const cities = okData;
 
-  console.log("====================================");
-  console.log(selectedCity);
-  console.log("====================================");
+  // console.log("====================================");
+  // console.log(selectedCity);
+  // console.log("====================================");
 
   useEffect(() => {
     console.log("..gg...");
@@ -353,7 +353,7 @@ function Header({ show = true }) {
                 </div>
               </Link>
             </div>
-            <div
+            {/* <div
               onMouseEnter={() => {
                 setState(true);
               }}
@@ -361,7 +361,7 @@ function Header({ show = true }) {
                 setState(false);
               }}
               className="md:w-[40%] lg:w-[50%]  h-[87px]"
-            ></div>
+            ></div> */}
             {show && legit ? (
               <ul className="flex   items-center justify-start text-sm gap-4">
                 {user.name === "kyaw san" ? (

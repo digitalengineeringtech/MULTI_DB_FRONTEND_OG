@@ -46,10 +46,12 @@ end.setMinutes(59);
 end.setSeconds(59);
 end = new Date(end);
 
-function DailySaleReportTemp() {
+function DailySaleReportUpdate() {
   const user = useSelector((state) => state.login);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  let combinedByFuelType = [];
 
   const tableRef = useRef();
   const [loading, setloading] = useState(false);
@@ -75,7 +77,7 @@ function DailySaleReportTemp() {
 
   let isoStartDate = start.toLocaleDateString("fr-CA");
 
-  console.log(tankCount, "tank count", tankData);
+  console.log(okData, "...............");
 
   useEffect(() => {
     if (!user.login) {
@@ -97,6 +99,9 @@ function DailySaleReportTemp() {
   let ed = new Date(calenderTwo);
 
   const handleClick = () => {
+    calcu = [];
+    combinedByFuelType = [];
+    setOkData([]);
     if (calenderOne) {
       if (selectedStation.code === "Please") {
         setIsSelectedStation(true);
@@ -118,19 +123,19 @@ function DailySaleReportTemp() {
           )
           .then(function (response) {
             console.log(response, "this is response");
-            console.log(
-              `/fuelIn/pagi/by-date/1?stationId=${selectedStation?.code}&sDate=${calenderOne}&eDate=${calenderTwo} `
-            );
+            // console.log(
+            //   `/fuelIn/pagi/by-date/1?stationId=${selectedStation?.code}&sDate=${calenderOne}&eDate=${calenderTwo} `
+            // );
             let data = response.data.result;
             // data = data.splice(0, 3);
             setFuelIn(data.reverse());
-            setloading(false);
+            // setloading(false);
           })
           .catch(function (error) {
             console.log(error);
             // navigate('/')
             // dispatch(LogoutUser())
-            setloading(false);
+            // setloading(false);
           });
 
         const fetchData = async () => {
@@ -178,7 +183,7 @@ function DailySaleReportTemp() {
       let pureArray = data_get_1.result[0].tankCount;
       setTankCount(pureArray);
       setStation(data_get_1.result[0]);
-      setloading(false); // Update the state with the new sorted array
+      //   setloading(false); // Update the state with the new sorted array
     } else {
       setTankCount([]);
     }
@@ -186,7 +191,7 @@ function DailySaleReportTemp() {
     if (datas?.result?.length > 0) {
       let pureArray = datas?.result[0];
       setTankData(pureArray.data);
-      setloading(false); // Update the state with the new sorted array
+      //   setloading(false); // Update the state with the new sorted array
     } else {
       setTankData([]);
     }
@@ -211,20 +216,56 @@ function DailySaleReportTemp() {
   if (tankCount && okData) {
     console.log(tankCount, "this is tank Count");
     for (let i = 1; i <= tankCount; i++) {
+      const fuelReceive = fuelIn
+        ?.filter((e) => e.tankNo == i)
+        .map((e) => e.receive_balance)
+        .reduce((pv, cv) => pv + cv, 0);
+
+      ///update start
+      const start = okData?.filter((c) => i == c.tankNo).reverse();
+
+      const tankOpening = start[0]?.tankBalance + start[0]?.saleLiter;
+      const tankClosing = start[start.length - 1]?.tankBalance;
+      const tankDiff = Math.abs(
+        Math.abs(tankOpening - tankClosing) - fuelReceive
+      );
+      // .map((item) => item.saleLiter)
+
+      ///update end
       const combine = okData
         ?.filter((c) => i == c.tankNo)
         .map((item) => item.saleLiter)
         .reduce((pv, cv) => pv + cv, 0);
 
+      const test = okData?.filter((c) => i == c.tankNo);
+
+      const test1 = Object.values(
+        test.reduce((acc, curr) => {
+          const nozzleNo = curr.nozzleNo;
+
+          if (!(nozzleNo in acc)) {
+            acc[nozzleNo] = [];
+          }
+
+          acc[nozzleNo].push(curr);
+          return acc;
+        }, {})
+      );
+
+      const test2 = test1.map((e) => {
+        const arr = e.filter((item) => item.totalizer_liter != 0);
+        const totalizerOpen =
+          arr.reverse()[0]?.totalizer_liter -
+          arr.reverse()[arr.length - 1]?.saleLiter;
+
+        const totalizerClose = e[0].totalizer_liter;
+        return totalizerClose - totalizerOpen;
+      });
+
       const fuelType = tankData?.filter((c) => i == c.id)[0]?.oilType;
       const fuelType_vocono = okData?.filter((c) => i == c.tankNo)[0]?.fuelType;
-      console.log(fuelType_vocono, "....k..");
+      //   console.log(fuelType_vocono, "....k..");
       const normalTank = tankData?.filter((e) => e.id == i)[0]?.volume;
-
-      const fuelReceive = fuelIn
-        ?.filter((e) => e.tankNo == i)
-        .map((e) => e.receive_balance)
-        .reduce((pv, cv) => pv + cv, 0);
 
       const open = okData?.filter((c) => i == c.tankNo).reverse()[0];
       const opening_balance = open?.tankBalance - open?.saleLiter;
@@ -269,12 +310,17 @@ function DailySaleReportTemp() {
             : notInclude == "005-Premium Diesel"
             ? "PHSD"
             : "",
-        cash: combine || 0,
+        cash: test2.reduce((pv, cv) => pv + cv, 0) || 0,
+        // cash: combine || 0,
         fuelIn: fuelReceive || 0,
         opening: opening_balance || normalTank || 0,
         stationId: data_g_2.length != 0 ? data_g_2?.result[0]?.stationId : "-",
         balance: close || normalTank || 0,
         stationId: station,
+        open: start,
+        tankOpen: start.length > 0 ? tankOpening : 0,
+        tankClosing: start.length > 0 ? tankClosing : 0,
+        tankDif: start.length > 0 ? tankDiff : 0,
         fuelTypeVocono:
           fuelType_vocono == "92 Octane"
             ? "92 RON"
@@ -292,7 +338,7 @@ function DailySaleReportTemp() {
   }
 
   // Combine the data by fuelType
-  const combinedByFuelType = Object.values(
+  combinedByFuelType = Object.values(
     calcu.reduce((acc, curr) => {
       if (!acc[curr.fuelType]) {
         acc[curr.fuelType] = { ...curr };
@@ -301,7 +347,18 @@ function DailySaleReportTemp() {
         acc[curr.fuelType].fuelIn += curr.fuelIn;
         acc[curr.fuelType].opening += curr.opening;
         acc[curr.fuelType].balance += curr.balance;
+        acc[curr.fuelType].tankDif += curr.tankDif;
+        acc[curr.fuelType].tankOpen += curr.tankOpen;
+        acc[curr.fuelType].tankClosing += curr.tankClosing;
       }
+      //   } else {
+      //     acc[curr.fuelType].cash += curr.cash;
+      //     acc[curr.fuelType].fuelIn += curr.fuelIn;
+      //     acc[curr.fuelType].opening += curr.opening;
+      //     acc[curr.fuelType].balance += curr.balance;
+      //     acc[curr.fuelType].tankDif += curr.tankDif;
+      //   }
+      //   setloading(false);
       return acc;
     }, {})
   );
@@ -358,7 +415,7 @@ function DailySaleReportTemp() {
         </div>
       </InputContainer>
 
-      {calcu?.length > 0 ? (
+      {combinedByFuelType?.length > 0 ? (
         <>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
           <FuelTableTemp
@@ -380,4 +437,4 @@ function DailySaleReportTemp() {
   );
 }
 
-export default DailySaleReportTemp;
+export default DailySaleReportUpdate;

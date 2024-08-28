@@ -48,6 +48,7 @@ import DifferentTotalizer from "./pages/DifferentTotalizer";
 import PumpReport from "./pages/PumpReport";
 import DailySaleReportTemp from "./pages/DailySaleReportTemp";
 import RealTank from "./pages/RealTank";
+import DailySaleReportUpdate from "./pages/DaiySaleReportUpdate";
 
 function Routerdo() {
   const user = useSelector((state) => state.login);
@@ -107,8 +108,8 @@ function Routerdo() {
         <Route path={`/${user.accessDb}/home`} element={<Home />}></Route>
         <Route
           path={`/${user.accessDb}/dailysalereport`}
-          element={<DailySaleReportTemp />}
-          // element={<DailySaleReportOne />}
+          element={<DailySaleReportUpdate />}
+          // element={<DailySaleReportTemp />}
         ></Route>
         <Route
           path={`/${user.accessDb}/saledetail`}

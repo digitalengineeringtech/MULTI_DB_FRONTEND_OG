@@ -15,7 +15,7 @@ function CalenderComponent({
   // minute,
   // second,
 }) {
-  console.log(date, ".................");
+  // console.log(date, ".................");
   const [hour, setHour] = useState(start ? "00" : date.getHours());
   const [minute, setMinute] = useState(start ? "00" : date.getMinutes());
   const [second, setSecond] = useState(start ? "00" : date.getSeconds());
