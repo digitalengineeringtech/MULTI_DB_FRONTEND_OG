@@ -4,7 +4,7 @@ import { AiFillPrinter } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
 import { useDownloadExcel } from "react-export-table-to-excel";
 
-function FuelTable({ okData, tank, sd, ed, language, calcu }) {
+function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
   const tRef = useRef();
   let isoStartDate = sd.toLocaleDateString("fr-CA");
   let isoEndDate = ed.toLocaleDateString("fr-CA");
@@ -288,7 +288,9 @@ function FuelTable({ okData, tank, sd, ed, language, calcu }) {
                     )} */}
                     {ok?.gl ? ok?.gl.toFixed(3) : "0.000"}
                   </td>
-                  <td className="text-center">Tank Online</td>
+                  <td className="text-center">
+                    {status == 0 ? "Tank Offline" : "Tank Online"}
+                  </td>
                 </tr>
               ))}
           <tr className="bg-gray-200">

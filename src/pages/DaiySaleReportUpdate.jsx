@@ -292,6 +292,8 @@ function DailySaleReportUpdate() {
             ? "HSD"
             : fuelType == "Super Diesel"
             ? "PHSD"
+            : fuelType == "Petrol 92"
+            ? "92 RON"
             : fuelType_vocono == "001-Octane Ron(92)"
             ? "92 RON"
             : fuelType_vocono == "002-Octane Ron(95)"
@@ -300,6 +302,8 @@ function DailySaleReportUpdate() {
             ? "HSD"
             : fuelType_vocono == "005-Premium Diesel"
             ? "PHSD"
+            : fuelType_vocono == "Petrol 92"
+            ? "92 RON"
             : // : "" || "-",
             "" || notInclude == "001-Octane Ron(92)"
             ? "92 RON"
@@ -309,6 +313,8 @@ function DailySaleReportUpdate() {
             ? "HSD"
             : notInclude == "005-Premium Diesel"
             ? "PHSD"
+            : notInclude == "Petrol 92"
+            ? "92 RON"
             : "",
         cash: test2.reduce((pv, cv) => pv + cv, 0) || 0,
         // cash: combine || 0,
@@ -330,6 +336,8 @@ function DailySaleReportUpdate() {
             ? "HSD"
             : fuelType_vocono == "Super Diesel"
             ? "PHSD"
+            : fuelType_vocono == "Petrol 92"
+            ? "92 RON"
             : "" || "-",
         // fuelTypeVocono: fuelType_vocono,
       };

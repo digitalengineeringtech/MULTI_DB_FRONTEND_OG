@@ -411,6 +411,8 @@ function RealTank() {
       //   normalTank
       // );
 
+      console.log(tankData.length, "this is tank data");
+
       const close = okData?.filter((c) => i == c.tankNo)[0]?.tankBalance;
 
       // Get the nozzle numbers for the current tank
@@ -426,8 +428,8 @@ function RealTank() {
       const gain = Math.abs(opening_balance - close) - combine;
 
       const gain_rec =
-        Number(close) -
-        Number(opening_balance) -
+        Number(close || normalTank) -
+        Number(opening_balance || normalTank) -
         Number(fuelIn) +
         Number(combine);
 
@@ -442,6 +444,8 @@ function RealTank() {
             ? "HSD"
             : fuelType == "Super Diesel"
             ? "PHSD"
+            : fuelType == "Petrol 92"
+            ? "92 RON"
             : "" || "-",
         cash: combine || 0,
         fuelIn: fuelReceive || 0,
@@ -518,6 +522,7 @@ function RealTank() {
             language={language}
             tableRef={tableRef}
             okData={calcu}
+            status={tankData.length}
             sd={calenderOne}
             ed={calenderTwo}
           />
