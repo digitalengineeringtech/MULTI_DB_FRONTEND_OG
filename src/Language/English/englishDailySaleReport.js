@@ -8,7 +8,7 @@ export const englishDailySaleReport = {
   fuel_type: "Fuel Type",
   station: "Station",
   amount: "Amount",
-  casher: "Casher",
+  casher: "Cashier",
   toExcel: "To Excel",
   toPrint: "To PDF",
   search: "SEARCH",

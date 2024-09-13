@@ -397,8 +397,11 @@ function RealTank() {
         .map((e) => e.receive_balance)
         .reduce((pv, cv) => pv + cv, 0);
 
-      const open = okData?.filter((c) => i == c.tankNo).reverse()[0];
-      const opening_balance = open?.tankBalance - open?.saleLiter;
+      const open = okData
+        ?.filter((c) => i == c.tankNo)
+        .sort()
+        .reverse()[0];
+      const opening_balance = open?.tankBalance + open?.saleLiter;
 
       // console.log(
       //   okData?.filter((c) => i == c.tankNo),
@@ -411,7 +414,10 @@ function RealTank() {
       //   normalTank
       // );
 
-      console.log(tankData.length, "this is tank data");
+      console.log(
+        okData?.filter((c) => i == c.tankNo),
+        "this is tank data"
+      );
 
       const close = okData?.filter((c) => i == c.tankNo)[0]?.tankBalance;
 
@@ -428,8 +434,9 @@ function RealTank() {
       const gain = Math.abs(opening_balance - close) - combine;
 
       const gain_rec =
-        Number(close || normalTank) -
+        Number(normalTank || close) -
         Number(opening_balance || normalTank) -
+        // Number((normalTank || close) + combine) -
         Number(fuelIn) +
         Number(combine);
 
@@ -449,9 +456,10 @@ function RealTank() {
             : "" || "-",
         cash: combine || 0,
         fuelIn: fuelReceive || 0,
+        // opening: (normalTank || close) + combine,
         opening: opening_balance || normalTank || 0,
         stationId: data_g_2.length != 0 ? data_g_2?.result[0]?.stationId : "-",
-        balance: close || normalTank || 0,
+        balance: normalTank || close || 0,
         stationId: station,
         // gl: (fuelReceive == NaN ? gain_rec : gain) || 0,
         gl: gain_rec,

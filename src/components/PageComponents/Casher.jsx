@@ -45,7 +45,7 @@ function Casher({ value, setValue, title }) {
             // options={jj}
             optionLabel="name"
             className="!h-[30px] w-[180px] flex items-center justify-center"
-            placeholder="Cashers"
+            placeholder="Cashiers"
           />
         ) : (
           <Dropdown
@@ -55,7 +55,7 @@ function Casher({ value, setValue, title }) {
             options={pruposes}
             // optionLabel="name"
             className="!h-[30px] w-[180px] flex items-center justify-center"
-            placeholder="Cashers"
+            placeholder="Cashiers"
           />
         )}
       </div>

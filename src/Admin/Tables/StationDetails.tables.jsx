@@ -90,7 +90,7 @@ function StationDetailTable({
         <th className="w-[2%]">No</th>
         <th className="w-[18.2%]">Id</th>
         <th className="w-[14.2%]">Name</th>
-        <th className="w-[7.2%]">Liense No</th>
+        <th className="w-[7.2%]">License No</th>
         <th className="w-[20.2%]">Location</th>
         {isSetUp ? (
           ""

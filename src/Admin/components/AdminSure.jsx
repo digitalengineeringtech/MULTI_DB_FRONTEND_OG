@@ -45,7 +45,7 @@ function AdminSure({ setIsSure, stationName, stationLiense, stationLocation, sta
                 <p className='mb-[5px]'>Are You Sure?</p>
                 <div className=' w-full'>
                   <p>Name : {stationName}</p>
-                  <p>Liense No : {stationLiense}</p>
+                  <p>License No : {stationLiense}</p>
                   <p>Location : {stationLocation}</p>
                   <p>Device Count : {stationDeviceCount}</p>
                   <p>Nozzle Count : {stationNozzleCount}</p>

@@ -87,7 +87,7 @@ function StationComponent({ value, setValue, title }) {
           htmlFor="calendar-12h"
           className="font-bold block mb-2 ms-auto me-[80px]"
         >
-          Liense No.
+          License No.
         </label>
       </div>
       <div className="calendar-container">
