@@ -66,7 +66,7 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
             <thead>
               <tr className="hidden">
                 <th className="text-center text-xl" colSpan={16}>
-                  Daily Sale Report of {stationId?.name}
+                  Daily Sale Report of {stationId?.name} {state[0]}
                 </th>
               </tr>
               <tr>
@@ -86,7 +86,7 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
                 <th colSpan={3}>{format(end)}</th>
               </tr>
               <tr>
-                <th>Sr No.</th>
+                <th width="40">Sr No.</th>
                 <th>{language.Station_name}</th>
                 <th>{language.pprd_no}</th>
                 <th>{language.Township}</th>
@@ -104,7 +104,8 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
             <thead>
               <tr className="hidden">
                 <th className="text-center text-xl" colSpan={16}>
-                  Sale Detail Report of {stationId?.name}
+                  {/* //hk */}
+                  Daily Sale Report of {stationId?.name} {state[0]}
                 </th>
               </tr>
               <tr className="hidden">
@@ -124,7 +125,7 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
                 <th colSpan={3}>{format(end)}</th>
               </tr>
               <tr>
-                <th>Sr No.</th>
+                <th width="40">Sr No.</th>
                 <th>{language.Station_name}</th>
                 <th width="50">{language.pprd_no}</th>
                 <th>{language.Township}</th>

@@ -16,7 +16,7 @@ export const EnglishCompanyTables = {
   office_use: "Office Use ( Bowser Car )",
   station_use: "Station Use Tabel",
   station_tank_balance: "Station Tank Balance",
-  tank_no: "Tank No",
+  tank_no: "Tank No.",
   opening: "Opening",
   closing: "Closing",
   isue: "Isue",

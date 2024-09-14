@@ -2,7 +2,7 @@ export const EnglishStockBalance = {
   main_title: "Stock Balance Report",
   start_date: "From Date",
   end_date: "To Date",
-  tank_no: "Tank No",
+  tank_no: "Tank No.",
   station: "Station",
   search: "SEARCH",
   no: "No",

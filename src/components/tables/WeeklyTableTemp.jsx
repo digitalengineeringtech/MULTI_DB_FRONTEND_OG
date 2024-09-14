@@ -131,7 +131,7 @@ function WeeklyTableTemp({
                     <th rowSpan={2}>{language.station_name}</th>
                     {/* <th rowSpan={2}>Location</th> */}
                     <th rowSpan={2}>{language.Township}</th>
-                    <th rowSpan={2} width="20">
+                    <th rowSpan={2} width="130">
                       {language.State}
                     </th>
                     <th rowSpan={2}>{language.pprd_license}</th>
@@ -149,7 +149,7 @@ function WeeklyTableTemp({
                         </p>
                       ) : (
                         <p>
-                          From {format(calenderOne)} to {format(calenderTwo)}{" "}
+                          From {format(calenderOne)} To {format(calenderTwo)}{" "}
                           Total Sale Amount (Gallon)
                         </p>
                       )}

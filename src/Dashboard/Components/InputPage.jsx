@@ -162,7 +162,7 @@ function InputPage() {
           </div>
           {errMsg ? (
             <p className="flex  w-[100%]   justify-start px-5 items-center gap-3">
-              <FcInfo /> Please Select Tank No
+              <FcInfo /> Please Select Tank No.
             </p>
           ) : (
             ""

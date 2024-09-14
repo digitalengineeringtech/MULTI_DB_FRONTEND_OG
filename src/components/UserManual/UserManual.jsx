@@ -532,7 +532,7 @@ function UserManual() {
           </div>
           <div className="mt-[80px] container mx-auto">
             <h3 className="mb-5 text-xl text-[#d2d1d1]">
-              Tank No Filter Button
+              Tank No. Filter Button
             </h3>
             <div className="flex   items-start justify-between gap-5">
               <MacComponent>

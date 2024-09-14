@@ -371,7 +371,7 @@ function DailySaleReportUpdate() {
     }, {})
   );
 
-  console.log(combinedByFuelType, "...", calcu);
+  // console.log(combinedByFuelType, "...", calcu);
 
   return (
     <PageContainer language={false} title={language.title1}>

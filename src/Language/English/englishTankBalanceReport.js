@@ -1,7 +1,7 @@
 export const EnglishTankBalance = {
   main_title: "Tank Balance Report",
   date: "Date",
-  tank_no: "Tank No",
+  tank_no: "Tank No.",
   station: "Station",
   search: "SEARCH",
   fuel_type: "Fuel Type",

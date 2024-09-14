@@ -6,7 +6,7 @@ export const EnglishTotalizerDifferent = {
   fuel_type: "Fuel Type",
   search: "SEARCH",
   station_name: "Station Name",
-  nozzle_no: "Pump/Nozzle",
+  nozzle_no: "Pump/Nozzle No.",
   fuel_type: "Fuel Type",
   price_per_liter: "Price Per Liter",
   total_sale_liter: " Sale Liter",

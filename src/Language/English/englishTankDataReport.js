@@ -1,7 +1,7 @@
 export const EnglishTankData = {
   main_title: "Tank Report",
   date: "Date",
-  tank_no: "Tank No",
+  tank_no: "Tank No.",
   station: "Station",
   search: "SEARCH",
   pprd_license_no: "PPRD License No.",

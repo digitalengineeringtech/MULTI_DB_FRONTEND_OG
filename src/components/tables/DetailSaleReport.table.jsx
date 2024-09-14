@@ -52,7 +52,8 @@ function DetailSaleReportTable({
           <thead className="hidden">
             <tr>
               <th className="text-center text-xl" colSpan={16}>
-                Sale Detail Report of {stationName}
+                Sale Detail Report of {stationName}{" "}
+                {/* {currentData[0]?.stationDetailId.location.split(",")[1]} */}
               </th>
             </tr>
             <tr>
@@ -74,11 +75,7 @@ function DetailSaleReportTable({
           </thead>
           <thead>
             <tr>
-              <th>
-                Sr
-                <br />
-                No.
-              </th>
+              <th width="40">Sr No.</th>
               <th>{language.Station_name}</th>
               <th width="50">{language.pprd_no}</th>
               <th>{language.Township}</th>

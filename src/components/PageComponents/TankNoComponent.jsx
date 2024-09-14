@@ -25,7 +25,7 @@ function TankNoComponent({value,setValue}) {
   return (
      <div className="flex-3 ">
           <label htmlFor="calendar-12h" className="font-bold block mb-2">
-                    Tank No
+                    Tank No.
           </label>
           <div className="calendar-container">
                 <Dropdown  value={value} onChange={(e) => setValue(e.value)} options={fueltypes} optionLabel="name" 

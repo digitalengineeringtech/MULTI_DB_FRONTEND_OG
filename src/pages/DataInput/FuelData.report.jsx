@@ -230,7 +230,7 @@ const label = "w-[160px] mr-[10px] text-md";
             <h3 className='text-lg mx-auto font-semibold text-center w-[200px] border-dashed border-2 border-blue-500 mb-[50px]'>Manager Input</h3>
             <div className='first my-3 flex gap-6 justify-start items-center'>
                <div className={inputContainer}>
-                <h3 className={label}>Tank No</h3>
+                <h3 className={label}>Tank No.</h3>
                 <select value={tankNo} onChange={(e)=>setTankNo(e.target.value)}  name="tank_no" className={input}>
                   <option value="none">Please Select  Tank No...</option>
                <option value="1">1</option>

@@ -153,7 +153,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
                 <th colSpan={3}>{format(ed)}</th>
               </tr>
               <tr>
-                <th>Sr No.</th>
+                <th width="40">Sr No.</th>
                 <th>{language.Station_name}</th>
                 <th>{language.pprd_no}</th>
                 <th>{language.Township}</th>
@@ -191,7 +191,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
                 <th colSpan={3}>{format(ed)}</th>
               </tr>
               <tr>
-                <th>Sr No.</th>
+                <th width="40">Sr No.</th>
                 <th>{language.Station_name}</th>
                 <th width="50">{language.pprd_no}</th>
                 {/* <th>{language.Township}</th> */}
@@ -200,13 +200,13 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
                 {/* <th colSpan={2}>{language.date}</th> */}
                 <th>{language.fuel_type}</th>
                 <th className="w-[150px]">
-                  Opening <br /> Liter
+                  <div className="w-[80px] mx-auto ">Opening Liter</div>
                 </th>
                 <th>
-                  Received <br /> Liter
+                  <div className="w-[80px] mx-auto ">Received Liter</div>
                 </th>
                 <th className="w-[150px]">
-                  Closing <br /> Liter
+                  <div className="w-[80px] mx-auto ">Closing Liter</div>
                 </th>
                 <th className="w-[150px]">{language.dif}</th>
                 <th className="w-[150px]">Sale Liter</th>
@@ -259,7 +259,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
             : okData?.map((ok, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td className="text-left">{stationId?.name}</td>
+                  <td className="text-left">{stationId?.name +" "+ state[0]}</td>
                   <td className=" text-center">{stationId?.lienseNo}</td>
                   {/* <td className=" text-left">{state ? state[1] : "-"}</td> */}
                   <td className=" text-center">{state[state?.length - 1]}</td>
