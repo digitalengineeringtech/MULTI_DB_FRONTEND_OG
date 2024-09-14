@@ -242,6 +242,7 @@ function PumpReport() {
             title={language.endDate}
           />
           <NozzleComponent
+            title="Pump/Nozzle No."
             value={selectedNozzle}
             setValue={setSelectedNozzle}
           />
