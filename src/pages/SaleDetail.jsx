@@ -95,7 +95,6 @@ export default function SaleDetail() {
   const [loading, setloading] = useState(false);
   const [okData, setOkData] = useState([]);
   const tableRef = useRef();
-  const tableRef2 = useRef();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(50);
   const [amount, setAmount] = useState();
@@ -146,17 +145,28 @@ export default function SaleDetail() {
 
   const handleExcel = () => {
     getIt_1(
-      `/detail-sale/without-pagi/by-date?sDate=${startDate}&eDate=${endDate}`,
+      `/detail-sale/without-pagi/by-date?sDate=${startDate}&eDate=${endDate}&stationDetailId=${selectedStation.code}&accessDb=${user.accessDb}`,
       user.token
     );
   };
 
-  useEffect(() => {
-    setWithoutPagi(data_get_1?.result);
-    if (!loading_get_1 && data_get_1?.result?.length > 0) onDownloadDate();
-  }, [data_get_1]);
+  // useEffect(() => {
+  //   setWithoutPagi(data_get_1?.result);
+  //   if (
+  //     !loading_get_1 &&
+  //     data_get_1?.result?.length > 0 &&
+  //     tableRef2.current != undefined
+  //   ) {
+  //     onDownloadDate();
+  //   }
+  // }, [data_get_1]);
 
-  console.log("this is without pagi", loading_get_1, data_get_1);
+  // console.log(
+  //   "this is without pagi",
+  //   loading_get_1,
+  //   data_get_1,
+  //   tableRef2.current
+  // );
 
   const handleClick = () => {
     if (selectedStation.code === "Please") {
@@ -245,11 +255,6 @@ export default function SaleDetail() {
     sheet: "Sale Detail Report",
   });
 
-  const { onDownload: onDownloadDate } = useDownloadExcel({
-    currentTableRef: tableRef2.current,
-    filename: "Sale Detail Report",
-    sheet: "Sale Detail Report",
-  });
   console.log(tableRef, "this is ref");
 
   return (
@@ -338,10 +343,15 @@ export default function SaleDetail() {
               language={language}
               stationName={selectedStation.name}
               tableRef={tableRef}
+              loading_get_1={loading_get_1}
+              
               totalLength={totalLength}
               currentData={okData}
+              data_get_1={data_get_1}
+              // tableRef2={tableRef2}
+              excelData={data_get_1?.result}
             />
-            <div className="">
+            {/* <div className="">
               {data_get_1?.result?.length > 0 && (
                 <DetailSaleReportTable
                   start={startDate}
@@ -349,12 +359,12 @@ export default function SaleDetail() {
                   pageNo={pageNo}
                   language={language}
                   stationName={selectedStation.name}
-                  tableRef={tableRef2}
+                  tableRef2={tableRef2}
                   totalLength={totalLength}
-                  currentData={data_get_1?.result?.slice(0, 10)}
+                  currentData={data_get_1?.result}
                 />
               )}
-            </div>
+            </div> */}
             <PaginatorComponent
               language={language}
               totalPrice={totalPrice}

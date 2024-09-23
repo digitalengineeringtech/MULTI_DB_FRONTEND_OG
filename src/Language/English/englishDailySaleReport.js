@@ -10,7 +10,7 @@ export const englishDailySaleReport = {
   amount: "Amount",
   casher: "Cashier",
   toExcel: "To Excel",
-  toExcelDaily: "To Excel by Date",
+  toExcelDaily: "Export Excel by Date",
   toPrint: "To PDF",
   search: "SEARCH",
   title: "Daily Sale Report Tabel of ",
