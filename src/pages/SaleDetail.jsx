@@ -35,6 +35,9 @@ import AmountComponent from "../components/PageComponents/AmountComponent";
 import { FaEquals } from "react-icons/fa";
 import { Button } from "primereact/button";
 import { RiErrorWarningFill } from "react-icons/ri";
+import UseGet_1 from "../MainConDas/components/hooks/UseGet_1";
+import UsePost from "../MainConDas/components/hooks/UsePost";
+import UsePost_2 from "../MainConDas/components/hooks/UsePost_2";
 
 export default function SaleDetail() {
   // const [hour, setHour] = useState("00");
@@ -55,6 +58,9 @@ export default function SaleDetail() {
 
   const [endDate, setEndDate] = useState(end);
   const [startDate, setStartDate] = useState(start);
+  const [withoutPagi, setWithoutPagi] = useState();
+
+  const [{ data_get_1, loading_get_1, error_get_1 }, getIt_1] = UseGet_1();
 
   // useEffect(() => {
   //   let start = new Date(startDate);
@@ -89,6 +95,7 @@ export default function SaleDetail() {
   const [loading, setloading] = useState(false);
   const [okData, setOkData] = useState([]);
   const tableRef = useRef();
+  const tableRef2 = useRef();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(50);
   const [amount, setAmount] = useState();
@@ -136,6 +143,20 @@ export default function SaleDetail() {
   //   });
   //   data.con && setCasher(data.result);
   // }, []);
+
+  const handleExcel = () => {
+    getIt_1(
+      `/detail-sale/without-pagi/by-date?sDate=${startDate}&eDate=${endDate}`,
+      user.token
+    );
+  };
+
+  useEffect(() => {
+    setWithoutPagi(data_get_1?.result);
+    if (!loading_get_1 && data_get_1?.result?.length > 0) onDownloadDate();
+  }, [data_get_1]);
+
+  console.log("this is without pagi", loading_get_1, data_get_1);
 
   const handleClick = () => {
     if (selectedStation.code === "Please") {
@@ -220,6 +241,12 @@ export default function SaleDetail() {
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
+    filename: "Sale Detail Report",
+    sheet: "Sale Detail Report",
+  });
+
+  const { onDownload: onDownloadDate } = useDownloadExcel({
+    currentTableRef: tableRef2.current,
     filename: "Sale Detail Report",
     sheet: "Sale Detail Report",
   });
@@ -314,6 +341,20 @@ export default function SaleDetail() {
               totalLength={totalLength}
               currentData={okData}
             />
+            <div className="">
+              {data_get_1?.result?.length > 0 && (
+                <DetailSaleReportTable
+                  start={startDate}
+                  end={endDate}
+                  pageNo={pageNo}
+                  language={language}
+                  stationName={selectedStation.name}
+                  tableRef={tableRef2}
+                  totalLength={totalLength}
+                  currentData={data_get_1?.result?.slice(0, 10)}
+                />
+              )}
+            </div>
             <PaginatorComponent
               language={language}
               totalPrice={totalPrice}
@@ -332,6 +373,13 @@ export default function SaleDetail() {
                 <RiFileExcel2Fill size={30} />
               </button>
               <button
+                onClick={() => handleExcel()}
+                className="flex items-center justify-center gap-2 text-md"
+              >
+                {language.toExcelDaily}
+                <RiFileExcel2Fill size={30} />
+              </button>
+              <button
                 onClick={handlePrint}
                 className="flex items-center justify-center gap-2 text-md"
               >
@@ -342,7 +390,7 @@ export default function SaleDetail() {
           </>
         )}
 
-        {loading ? <Loading /> : ""}
+        {loading | loading_get_1 ? <Loading /> : ""}
       </PageContainer>
     </>
   );
