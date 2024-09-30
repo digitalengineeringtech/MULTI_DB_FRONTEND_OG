@@ -7,6 +7,8 @@ function DetailSaleReportTable({
   stationName,
   data_get_1,
   pageNo,
+  totalPrice,
+  totalLiter,
   loading_get_1,
   start,
   // tableRef2,
@@ -44,7 +46,7 @@ function DetailSaleReportTable({
   console.log(
     ".....................",
     loading_get_1,
-    data_get_1?.result,
+    data_get_1,
     tableRef2.current,
     ".................."
   );
@@ -198,10 +200,10 @@ function DetailSaleReportTable({
                   <td className=" text-left">{object?.vocono}</td>
                   <td className=" text-center">{object?.carNo}</td>
                   <td className=" text-start">{object?.vehicleType}</td>
-                  <td className=" text-center">Pump/{object?.nozzleNo}</td>
-                  {/* <td className=" text-center">
+                  {/* <td className=" text-center">Pump/{object?.nozzleNo}</td> */}
+                  <td className=" text-center">
                     {object?.depNo}/{object?.nozzleNo}
-                  </td> */}
+                  </td>
                   <td className=" text-center">
                     {object?.fuelType == "001-Octane Ron(92)"
                       ? "92 RON"
@@ -255,6 +257,27 @@ function DetailSaleReportTable({
                 </tr>
               );
             })}
+          </tbody>
+          <tbody className="">
+            <tr>
+              <td colSpan={16}></td>
+            </tr>
+            <tr>
+              <td colSpan={1}></td>
+              <td colSpan={1}>Total Amount</td>
+              <td colSpan={2}>
+                {totalPrice?.toLocaleString(undefined, {
+                  maximumFractionDigits: 3,
+                })}{" "}
+                MMK
+              </td>
+              <td colSpan={1}></td>
+              <td colSpan={1}>Total Liters</td>
+              <td colSpan={2}>{totalLiter?.toFixed(3)} Liters</td>
+              <td colSpan={5}></td>
+              <td colSpan={2}>Total Records</td>
+              <td colSpan={1}>{totalLength}</td>
+            </tr>
           </tbody>
         </table>
         <table ref={tableRef2} class="text-md report-table hidden">
@@ -374,10 +397,10 @@ function DetailSaleReportTable({
                   <td className=" text-left">{object?.vocono}</td>
                   <td className=" text-center">{object?.carNo}</td>
                   <td className=" text-start">{object?.vehicleType}</td>
-                  <td className=" text-center">Pump/{object?.nozzleNo}</td>
-                  {/* <td className=" text-center">
+                  {/* <td className=" text-center">Pump/{object?.nozzleNo}</td> */}
+                  <td className=" text-center">
                     {object?.depNo}/{object?.nozzleNo}
-                  </td> */}
+                  </td>
                   <td className=" text-center">
                     {object?.fuelType == "001-Octane Ron(92)"
                       ? "92 RON"
@@ -431,6 +454,26 @@ function DetailSaleReportTable({
                 </tr>
               );
             })}
+          </tbody>
+          <tbody>
+            <tr>
+              <td colSpan={16}></td>
+            </tr>
+            <tr>
+              <td colSpan={2}>Total Amount</td>
+              <td colSpan={2}>
+                {totalPrice?.toLocaleString(undefined, {
+                  maximumFractionDigits: 3,
+                })}{" "}
+                MMK
+              </td>
+              <td colSpan={1}></td>
+              <td colSpan={1}>Total Liters</td>
+              <td colSpan={2}>{totalLiter?.toFixed(3)} Liters</td>
+              <td colSpan={5}></td>
+              <td colSpan={2}>Total Records</td>
+              <td colSpan={1}>{totalLength}</td>
+            </tr>
           </tbody>
         </table>
       </div>

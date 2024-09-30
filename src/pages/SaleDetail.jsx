@@ -344,7 +344,8 @@ export default function SaleDetail() {
               stationName={selectedStation.name}
               tableRef={tableRef}
               loading_get_1={loading_get_1}
-              
+              totalPrice={totalPrice}
+              totalLiter={totalLiter}
               totalLength={totalLength}
               currentData={okData}
               data_get_1={data_get_1}
