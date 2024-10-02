@@ -63,7 +63,7 @@ function DailyReport({ okData, language }) {
                   {object.fuelData["001-Octane Ron(92)"]
                     ? object.fuelData[
                         "001-Octane Ron(92)"
-                      ][0].totalPrice.toLocaleString(undefined, {
+                      ][0].totalPrice?.toLocaleString(undefined, {
                         maximumFractionDigits: 3,
                       })
                     : "-"}
@@ -79,7 +79,7 @@ function DailyReport({ okData, language }) {
                   {object.fuelData["002-Octane Ron(95)"]
                     ? object.fuelData[
                         "002-Octane Ron(95)"
-                      ][0].totalPrice.toLocaleString(undefined, {
+                      ][0].totalPrice?.toLocaleString(undefined, {
                         maximumFractionDigits: 3,
                       })
                     : "-"}
@@ -93,7 +93,7 @@ function DailyReport({ okData, language }) {
                   {object.fuelData["004-Diesel"]
                     ? object.fuelData[
                         "004-Diesel"
-                      ][0].totalPrice.toLocaleString(undefined, {
+                      ][0].totalPrice?.toLocaleString(undefined, {
                         maximumFractionDigits: 3,
                       })
                     : "-"}
@@ -109,7 +109,7 @@ function DailyReport({ okData, language }) {
                   {object.fuelData["005-Premium Diesel"]
                     ? object.fuelData[
                         "005-Premium Diesel"
-                      ][0].totalPrice.toLocaleString(undefined, {
+                      ][0].totalPrice?.toLocaleString(undefined, {
                         maximumFractionDigits: 3,
                       })
                     : "-"}

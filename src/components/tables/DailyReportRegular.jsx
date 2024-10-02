@@ -30,7 +30,10 @@ function DailyReportRegularTable({currentData}) {
             currentData.map((object, index) => {
              
            const date = new Date(object.createAt);
-           const formattedDate = `${date.getDate()}-${date.toLocaleString('default', { month: 'short' })}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+           const formattedDate = `${date.getDate()}-${date?.toLocaleString(
+             "default",
+             { month: "short" }
+           )}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
               return <tr  key={index}>
                 {/* <th>{object.stationDetailId.}</th>

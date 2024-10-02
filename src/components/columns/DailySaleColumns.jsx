@@ -25,7 +25,7 @@ export const COLUMNS = [
         accessor: "createAt",
         Cell: ({ value }) => {
             const date = new Date(value);
-           const formattedDate = `${date.getDate()}-${date.toLocaleString('default', { month: 'short' })}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+           const formattedDate = `${date.getDate()}-${date?.toLocaleString('default', { month: 'short' })}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
             return formattedDate
         }
     },
@@ -71,7 +71,9 @@ export const COLUMNS = [
         Footer: "Sale Price",
         accessor: "salePrice",
         Cell: ({ value }) => {
-            const currency = value.toLocaleString(undefined, { maximumFractionDigits: 3 });
+            const currency = value?.toLocaleString(undefined, {
+              maximumFractionDigits: 3,
+            });
             return currency;
         }
     },
@@ -80,7 +82,9 @@ export const COLUMNS = [
         Footer: "Total Price",
         accessor: "totalPrice",
         Cell: ({ value }) => {
-            const currency = value.toLocaleString(undefined, { maximumFractionDigits: 3 });
+            const currency = value?.toLocaleString(undefined, {
+              maximumFractionDigits: 3,
+            });
             return currency;
         }
     },

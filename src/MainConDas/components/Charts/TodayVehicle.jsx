@@ -117,7 +117,7 @@ const [okData, setOkData] = useState([
      <div className='flex mt-2 px-3 justify-between items-center'>
         <p className='text-md text-[#333]'>{total_vehicles}</p>
         <p className='text-md text-purple-700'>Total Liter - {totalLiter.toFixed(3)}</p>
-        <p className='text-md text-purple-700'>Total Price - {totalprice.toLocaleString(undefined, { maximumFractionDigits: 3 })} MMK</p>
+        <p className='text-md text-purple-700'>Total Price - {totalprice?.toLocaleString(undefined, { maximumFractionDigits: 3 })} MMK</p>
      </div>
       <div className='mt-2 pb-3 overflow-y-scroll h-[220px]'>
       <div className='border-t-[0.5px] group px-3 hover:bg-blue-300 duration-300 text-md border-b-[0.5px]  flex justify-between items-center border-[#e3e3e3] h-[40px]'>

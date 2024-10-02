@@ -54,7 +54,7 @@ function DailyThisDay() {
 
     
 var currentDate = new Date();
-var localString = currentDate.toLocaleString();
+var localString = currentDate?.toLocaleString();
 
   
   const handleClick = () => {

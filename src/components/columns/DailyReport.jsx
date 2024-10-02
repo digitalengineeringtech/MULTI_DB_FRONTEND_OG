@@ -43,7 +43,7 @@ export const COLUMNS = [
                         // Footer: "Price",
                         accessor: "ninety-two.price",
                         Cell: ({ value }) => {
-                            const currency = value.toLocaleString(undefined, { maximumFractionDigits: 3 });
+                            const currency = value?.toLocaleString(undefined, { maximumFractionDigits: 3 });
                             return currency;
                         }
 
@@ -78,7 +78,9 @@ export const COLUMNS = [
                         // Footer: "Price",
                         accessor: "ninety-five.price",
                           Cell: ({ value }) => {
-                            const currency = value.toLocaleString(undefined, { maximumFractionDigits: 3 });
+                            const currency = value?.toLocaleString(undefined, {
+                              maximumFractionDigits: 3,
+                            });
                             return currency;
                         }
 
@@ -115,7 +117,9 @@ export const COLUMNS = [
                         // Footer: "Price",
                         accessor: "HSD.price",
                         Cell: ({ value }) => {
-                            const currency = value.toLocaleString(undefined, { maximumFractionDigits: 3 });
+                            const currency = value?.toLocaleString(undefined, {
+                              maximumFractionDigits: 3,
+                            });
                             return currency;
                         }
 
@@ -153,7 +157,7 @@ export const COLUMNS = [
                             // Footer: "Price",
                            accessor: "PHSD.price",
                             Cell: ({ value }) => {
-                            const currency = value.toLocaleString(undefined, { maximumFractionDigits: 3 });
+                            const currency = value?.toLocaleString(undefined, { maximumFractionDigits: 3 });
                             return currency;
                         }
 

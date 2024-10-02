@@ -15,7 +15,7 @@ function NozzlesOne({ no, totalizer, fuelType, number }) {
       </div>
       <div>
         <p className=" text-xl mt-10">
-          {number.toLocaleString(undefined, { maximumFractionDigits: 3 })}
+          {number?.toLocaleString(undefined, { maximumFractionDigits: 3 })}
         </p>
       </div>
     </div>

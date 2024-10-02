@@ -107,11 +107,11 @@ function StationUse({language}) {
       totalPrice += obj.totalPrice; 
          }
       })
-    SetNinety2LotalLiter(ninety2.toFixed(3));
-    SetNinety5LotalLiter(ninety5.toFixed(3));
-    SetDieselLotalLiter(diesel.toFixed(3));
-    SetphshLotalLiter(premium.toFixed(3));
-    SetTotalPrice(totalPrice.toFixed(3));
+    SetNinety2LotalLiter(ninety2?.toFixed(3));
+    SetNinety5LotalLiter(ninety5?.toFixed(3));
+    SetDieselLotalLiter(diesel?.toFixed(3));
+    SetphshLotalLiter(premium?.toFixed(3));
+    SetTotalPrice(totalPrice?.toFixed(3));
     setNinety2Price(ninety2_price);
     setNinety5Price(ninety5_price);
     setDieselPrice(diesel_price);

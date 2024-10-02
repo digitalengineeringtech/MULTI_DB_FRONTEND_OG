@@ -17,7 +17,7 @@ function PaginatorComponent({
           <p className="text-[16px] text-gray-500">
             {"Total Amount"} :{" "}
             <span className="text-[20px] font-semibold">
-              {totalPrice.toLocaleString(undefined, {
+              {totalPrice?.toLocaleString(undefined, {
                 maximumFractionDigits: 3,
               })}{" "}
             </span>{" "}

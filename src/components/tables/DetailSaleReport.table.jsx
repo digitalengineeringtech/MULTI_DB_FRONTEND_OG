@@ -216,12 +216,12 @@ function DetailSaleReportTable({
                       : ""}
                   </td>
                   <td className="text-right">
-                    {object?.salePrice.toLocaleString(undefined, {
+                    {object?.salePrice?.toLocaleString(undefined, {
                       maximumFractionDigits: 3,
                     })}
                   </td>
                   <td className="text-right">
-                    {object?.totalPrice.toLocaleString(undefined, {
+                    {object?.totalPrice?.toLocaleString(undefined, {
                       maximumFractionDigits: 3,
                     })}
                   </td>
@@ -258,7 +258,7 @@ function DetailSaleReportTable({
               );
             })}
           </tbody>
-          <tbody className="">
+          <tbody className="hidden">
             <tr>
               <td colSpan={16}></td>
             </tr>

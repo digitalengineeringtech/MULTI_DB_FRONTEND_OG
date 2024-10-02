@@ -17,7 +17,7 @@ function SaleSummaryFuel({tableRef,okData}) {
  function litersToGallons(liters) {
   const conversionFactor = 4.546;;
   const gallons = liters / conversionFactor;
-  return gallons.toFixed(3);
+  return gallons?.toFixed(3);
  }
   
   
@@ -55,10 +55,10 @@ function SaleSummaryFuel({tableRef,okData}) {
     });
     
  
-    SetDieselLotalLiter(diesel.toFixed(3));
-    SetphshLotalLiter(premium.toFixed(3));
-    SetNinety2LotalLiter(ninety2.toFixed(3));
-    SetNinety5LotalLiter(ninety5.toFixed(3));
+    SetDieselLotalLiter(diesel?.toFixed(3));
+    SetphshLotalLiter(premium?.toFixed(3));
+    SetNinety2LotalLiter(ninety2?.toFixed(3));
+    SetNinety5LotalLiter(ninety5?.toFixed(3));
 
     SetdieselPrice(dieselpricee);
     SetNinety2Price(ninety2pricee);

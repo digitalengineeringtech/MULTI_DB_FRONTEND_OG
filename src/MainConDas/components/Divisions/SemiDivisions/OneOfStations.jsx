@@ -147,7 +147,8 @@ function OneOfStations({ title, navigation, setNavigation }) {
   };
 
   useEffect(() => {
-    if (data_g.msg === "final data") {
+    // if (data_g.msg === "final data") {
+    if (data_g.con) {
       console.log("This is nozzle details", data_g.result);
       setNozzleLoading(loading_g);
       setPumpData(data_g.result);
@@ -207,12 +208,12 @@ function OneOfStations({ title, navigation, setNavigation }) {
         totalPrice += obj.totalPrice;
       });
 
-      SetNinety2LotalLiter(ninety2.toFixed(3));
-      SetNinety5LotalLiter(ninety5.toFixed(3));
-      SetDieselLotalLiter(diesel.toFixed(3));
-      SetphshLotalLiter(premium.toFixed(3));
-      SettotalLiter(totalLiter.toFixed(3));
-      SetTotalPrice(totalPrice.toFixed(3));
+      SetNinety2LotalLiter(ninety2?.toFixed(3));
+      SetNinety5LotalLiter(ninety5?.toFixed(3));
+      SetDieselLotalLiter(diesel?.toFixed(3));
+      SetphshLotalLiter(premium?.toFixed(3));
+      SettotalLiter(totalLiter?.toFixed(3));
+      SetTotalPrice(totalPrice?.toFixed(3));
 
       setStation({
         name: name,
@@ -221,6 +222,10 @@ function OneOfStations({ title, navigation, setNavigation }) {
       });
     }
   }, [stationTotalData]);
+
+  console.log("====================================");
+  console.log(fuelBalanceData);
+  console.log("====================================");
 
   return (
     <>
@@ -431,7 +436,7 @@ function OneOfStations({ title, navigation, setNavigation }) {
               ) : (
                 <div className="flex flex-wrap justify-center gap-4">
                   {fuelBalanceData.map((e, index) => (
-                    <FuelBalanceTankOne title={e.balance.toFixed(3)} />
+                    <FuelBalanceTankOne title={e.balance?.toFixed(3)} data={e} />
                   ))}
                 </div>
               )}

@@ -75,7 +75,7 @@ function Instructions() {
                   Total Price :{" "}
                   <span className="text-lg  font-extrabold text-">
                     {" "}
-                    {okData[date].totalSale.toLocaleString()}
+                    {okData[date].totalSale?.toLocaleString()}
                   </span>{" "}
                   MMK
                 </p>

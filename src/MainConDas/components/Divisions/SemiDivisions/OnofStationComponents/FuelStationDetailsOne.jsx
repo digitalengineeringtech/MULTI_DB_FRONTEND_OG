@@ -24,7 +24,7 @@ function FuelStationDetailsOne({
             <div className="font-bold text-[1.4rem] my-1 text-[#5EB1FA]">
               {/* {pdiesel ? Number(pdiesel).toFixed(2) : "0.00"} */}
               {pdiesel
-                ? pdiesel.toLocaleString(undefined, {
+                ? pdiesel?.toLocaleString(undefined, {
                     maximumFractionDigits: 3,
                   })
                 : "0.00"}
@@ -40,7 +40,7 @@ function FuelStationDetailsOne({
             <div className="font-bold text-[1.4rem] my-1 text-white">
               {/* {ninety2 ? Number(ninety2)?.toFixed(2) : "0.00"} */}
               {ninety2
-                ? ninety2.toLocaleString(undefined, {
+                ? ninety2?.toLocaleString(undefined, {
                     maximumFractionDigits: 3,
                   })
                 : "0.00"}
@@ -56,7 +56,7 @@ function FuelStationDetailsOne({
             <div className="font-bold text-[1.4rem] my-1 text-white">
               {/* {ninety5 ? Number(ninety5)?.toFixed(2) : "0.00"} */}
               {ninety5
-                ? ninety5.toLocaleString(undefined, {
+                ? ninety5?.toLocaleString(undefined, {
                     maximumFractionDigits: 3,
                   })
                 : "0.00"}
@@ -72,7 +72,7 @@ function FuelStationDetailsOne({
             <div className="font-bold text-[1.4rem] my-1 text-white">
               {/* {totalPrice ? Number(totalPrice)?.toFixed(2) : "0.00"} */}
               {totalPrice
-                ? totalPrice.toLocaleString(undefined, {
+                ? totalPrice?.toLocaleString(undefined, {
                     maximumFractionDigits: 3,
                   })
                 : "0.00"}
@@ -86,7 +86,7 @@ function FuelStationDetailsOne({
             <div className="font-bold text-[1.4rem] my-1 text-[#5EB1FA]">
               {/* {pdiesel ? Number(pdiesel).toFixed(2) : "0.00"} */}
               {pdiesel
-                ? pdiesel.toLocaleString(undefined, {
+                ? pdiesel?.toLocaleString(undefined, {
                     maximumFractionDigits: 3,
                   })
                 : "0.00"}

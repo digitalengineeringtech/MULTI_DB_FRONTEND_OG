@@ -12,7 +12,10 @@ export const COLUMNS = [
         accessor: "date",
         Cell: ({ value }) => {
             const date = new Date(value);
-           const formattedDate = `${date.getDate()}-${date.toLocaleString('default', { month: 'short' })}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+           const formattedDate = `${date.getDate()}-${date?.toLocaleString(
+             "default",
+             { month: "short" }
+           )}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
             return formattedDate
         }
     },

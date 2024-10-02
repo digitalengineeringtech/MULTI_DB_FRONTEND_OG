@@ -848,9 +848,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     })
 
 
-    setPump1SalePrice(nozzle1TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    setPump1SalePrice(nozzle1TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump1opening(nozzle1Opening.toFixed(3));
-    Setpump1price(nozzle1price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump1price(nozzle1price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump1SaleLiter(nozzle1SaleLiter.toFixed(3));
     setPump1FuelType(nozzle1FuelType);
     setPump1No(nozzle1No);
@@ -860,9 +860,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     Setpump1gallon(nozzle1SaleLiter)
 
 
-    SetPump2SalePrice(nozzle2TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump2SalePrice(nozzle2TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump2opening(nozzle2Opening.toFixed(3));
-    Setpump2price(nozzle2price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump2price(nozzle2price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump2SaleLiter(nozzle2SaleLiter.toFixed(3));
     setPump2FuelType(nozzle2FuelType);
     setPump2No(nozzle2No);
@@ -876,9 +876,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     setStation(stationNo);
 
 
-    SetPump3SalePrice(nozzle3TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump3SalePrice(nozzle3TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump3opening(nozzle3Opening.toFixed(3));
-    Setpump3price(nozzle3price.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    Setpump3price(nozzle3price?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     setPump3SaleLiter(nozzle3SaleLiter.toFixed(3));
     setPump3FuelType(nozzle3FuelType);
     setPump3No(nozzle3No);
@@ -888,9 +888,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     nozzle3SaleLiter = nozzle3SaleLiter.toFixed(3);
     Setpump3gallon(nozzle3SaleLiter)
 
-    SetPump4SalePrice(nozzle4TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    SetPump4SalePrice(nozzle4TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     Setpump4opening(nozzle4Opening.toFixed(3));
-    Setpump4price(nozzle4price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump4price(nozzle4price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump4SaleLiter(nozzle4SaleLiter.toFixed(3));
     setPump4FuelType(nozzle4FuelType);
     setPump4No(nozzle4No);
@@ -905,9 +905,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     //     Setpump4gallon(nozzle4Premium)
     // }
 
-    SetPump5SalePrice(nozzle5TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    SetPump5SalePrice(nozzle5TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     Setpump5opening(nozzle5Opening.toFixed(3));
-    Setpump5price(nozzle5price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump5price(nozzle5price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump5SaleLiter(nozzle5SaleLiter.toFixed(3));
     setPump5FuelType(nozzle5FuelType)
     setPump5No(nozzle5No);
@@ -922,9 +922,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     // }
 
 
-    SetPump6SalePrice(nozzle6TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump6SalePrice(nozzle6TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump6opening(nozzle6Opening.toFixed(3));
-    Setpump6price(nozzle6price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump6price(nozzle6price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump6SaleLiter(nozzle6SaleLiter.toFixed(3));
     setPump6FuelType(nozzle6FuelType);
     setPump6No(nozzle6No);
@@ -938,9 +938,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     //     Setpump6gallon(nozzle6Diesel)
     // }
 
-    SetPump7SalePrice(nozzle7TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    SetPump7SalePrice(nozzle7TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     Setpump7opening(nozzle7Opening.toFixed(3));
-    Setpump7price(nozzle7price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump7price(nozzle7price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump7SaleLiter(nozzle7SaleLiter.toFixed(3));
     setPump7FuelType(nozzle7FuelType);
     setPump7No(nozzle7No);
@@ -954,9 +954,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     //     Setpump7gallon(nozzle7Diesel)
     // }
 
-    SetPump8SalePrice(nozzle8TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump8SalePrice(nozzle8TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump8opening(nozzle8Opening.toFixed(3));
-    Setpump8price(nozzle8price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump8price(nozzle8price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump8SaleLiter(nozzle8SaleLiter.toFixed(3));
     setPump8FuelType(nozzle8FuelType);
     setPump8No(nozzle8No);
@@ -970,9 +970,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     //     Setpump8gallon(nozzle8Diesel)
     // }
 
-    SetPump9SalePrice(nozzle9TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump9SalePrice(nozzle9TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump9opening(nozzle9Opening.toFixed(3));
-    Setpump9price(nozzle9price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump9price(nozzle9price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump9SaleLiter(nozzle9SaleLiter.toFixed(3));
     setPump9FuelType(nozzle9FuelType);
     setPump9No(nozzle9No);
@@ -988,9 +988,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     //     Setpump9gallon(nozzle9Premium)
     // }
 
-    SetPump10SalePrice(nozzle10TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump10SalePrice(nozzle10TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump10opening(nozzle10Opening.toFixed(3));
-    Setpump10price(nozzle10price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump10price(nozzle10price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump10SaleLiter(nozzle10SaleLiter.toFixed(3));
     setPump10FuelType(nozzle10FuelType);
     setPump10No(nozzle10No);
@@ -1006,9 +1006,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     //     Setpump10gallon(nozzle10Diesel)
     // }
 
-    SetPump11SalePrice(nozzle11TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump11SalePrice(nozzle11TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump11opening(nozzle11Opening.toFixed(3));
-    Setpump11price(nozzle11price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump11price(nozzle11price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump11SaleLiter(nozzle11SaleLiter.toFixed(3));
     setPump11FuelType(nozzle11FuelType);
     setPump11No(nozzle11No);
@@ -1025,9 +1025,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     //     Setpump11gallon(nozzle11Diesel)
     // }
 
-    SetPump12SalePrice(nozzle12TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump12SalePrice(nozzle12TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump12opening(nozzle12Opening.toFixed(3));
-    Setpump12price(nozzle12price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump12price(nozzle12price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump12SaleLiter(nozzle12SaleLiter.toFixed(3));
     setPump12FuelType(nozzle12FuelType);
     setPump12No(nozzle12No);
@@ -1042,9 +1042,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     //     Setpump12gallon(nozzle12Premium)
     // }
 
-    SetPump13SalePrice(nozzle13TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump13SalePrice(nozzle13TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump13opening(nozzle13Opening.toFixed(3));
-    Setpump13price(nozzle13price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump13price(nozzle13price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump13SaleLiter(nozzle13SaleLiter.toFixed(3));
     setPump13FuelType(nozzle13FuelType);
     setPump13No(nozzle13No);
@@ -1063,9 +1063,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
 
 
 
-    SetPump14SalePrice(nozzle14TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump14SalePrice(nozzle14TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump14opening(nozzle14Opening.toFixed(3));
-    Setpump14price(nozzle14price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump14price(nozzle14price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump14SaleLiter(nozzle14SaleLiter.toFixed(3));
     setPump14FuelType(nozzle14FuelType);
     setPump14No(nozzle14No);
@@ -1080,9 +1080,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
     //     Setpump14gallon(nozzle1495)
     // }
 
-    SetPump15SalePrice(nozzle15TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump15SalePrice(nozzle15TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump15opening(nozzle15Opening.toFixed(3));
-    Setpump15price(nozzle15price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump15price(nozzle15price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump15SaleLiter(nozzle15SaleLiter.toFixed(3));
     setPump15FuelType(nozzle15FuelType);
     setPump15No(nozzle15No);
@@ -1100,9 +1100,9 @@ function ShiftLeader({ okData, tableRef, calenderTwo, isSearch,selectedStation }
 
 
 
-    SetPump16SalePrice(nozzle16TotalPrice.toLocaleString(undefined, { maximumFractionDigits: 3 }));
+    SetPump16SalePrice(nozzle16TotalPrice?.toLocaleString(undefined, { maximumFractionDigits: 3 }));
     Setpump16opening(nozzle16Opening.toFixed(3));
-    Setpump16price(nozzle16price.toLocaleString(undefined, { maximumFractionDigits: 3 }))
+    Setpump16price(nozzle16price?.toLocaleString(undefined, { maximumFractionDigits: 3 }))
     setPump16SaleLiter(nozzle16SaleLiter.toFixed(3));
     setPump16FuelType(nozzle16FuelType);
     setPump16No(nozzle16No);

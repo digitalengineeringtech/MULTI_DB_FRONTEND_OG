@@ -109,12 +109,12 @@ function DailySaleReportTable({
                   </td>
                   <td className="text-right">{object?.saleLiter}</td>
                   <td className="text-right">
-                    {object?.salePrice.toLocaleString(undefined, {
+                    {object?.salePrice?.toLocaleString(undefined, {
                       maximumFractionDigits: 3,
                     })}
                   </td>
                   <td className="text-right">
-                    {object?.totalPrice.toLocaleString(undefined, {
+                    {object?.totalPrice?.toLocaleString(undefined, {
                       maximumFractionDigits: 3,
                     })}
                   </td>

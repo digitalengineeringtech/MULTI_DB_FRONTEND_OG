@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import CalenderComponent from '../../../components/PageComponents/CalenderComponent';
-import PumpMeterTable from '../Tables/PumpMeter.table';
-import UsePost from '../hooks/UsePost';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { AiOutlineSearch } from 'react-icons/ai';
-import Loading from '../../../components/Loading';
-
-
+import React, { useEffect, useState } from "react";
+import CalenderComponent from "../../../components/PageComponents/CalenderComponent";
+import PumpMeterTable from "../Tables/PumpMeter.table";
+import UsePost from "../hooks/UsePost";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { AiOutlineSearch } from "react-icons/ai";
+import Loading from "../../../components/Loading";
 
 let start = new Date();
 start.setHours(0);
@@ -21,9 +19,8 @@ end.setMinutes(59);
 end.setSeconds(59);
 end = new Date(end);
 
-
-function PumpMeter({language}) {
-  const [endDate, setEndDate] = useState(end)
+function PumpMeter({ language }) {
+  const [endDate, setEndDate] = useState(end);
   const [startDate, setStartDate] = useState(start);
   const [station, setStation] = useState(0);
   const [okData, setOkData] = useState([]);
@@ -46,45 +43,49 @@ function PumpMeter({language}) {
   const [phsd_total_liter, setPhsd_total_liter] = useState(0);
 
   const [total_liter, setTotal_liter] = useState(0);
-   
+
   const user = useSelector((state) => state.login);
   const navigate = useNavigate();
 
   const [{ data_g, loading_g, error_g }, fetchIt] = UsePost();
 
+  console.log("====================================");
+  console.log(okData, okData?.totalSaleLiter);
+  console.log("====================================");
+
   useEffect(() => {
     if (!user.login) {
       navigate("/");
     }
-    
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const station = urlParams.get('station');
+    const station = urlParams.get("station");
     setStation(station);
-    
-    fetchIt(`/detail-sale/statement-report?sDate=${startDate}&eDate=${endDate}&stationDetailId=${station}`,user.token)
+
+    fetchIt(
+      `/detail-sale/statement-report?sDate=${startDate}&eDate=${endDate}&stationDetailId=${station}`,
+      user.token
+    );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   const handleSearch = () => {
-     fetchIt(`/detail-sale/statement-report?sDate=${startDate}&eDate=${endDate}&stationDetailId=${station}`,user.token)
-  }
-
+    fetchIt(
+      `/detail-sale/statement-report?sDate=${startDate}&eDate=${endDate}&stationDetailId=${station}`,
+      user.token
+    );
+  };
 
   useEffect(() => {
     if (data_g.result) {
       setOkData(data_g.result);
-
     }
     setPumpMeterLoading(loading_g);
-  }, [
-    data_g,loading_g,error_g
-  ]);
+  }, [data_g, loading_g, error_g]);
 
   useEffect(() => {
-
     let ninety2 = 0;
     let ninety2_closing = 0;
     let ninety2_opening = 0;
@@ -104,54 +105,49 @@ function PumpMeter({language}) {
     let totalPrice = 0;
 
     if (okData) {
-
       okData.forEach((obj) => {
-        
-      if (obj.fuelType === '001-Octane Ron(92)') {
-          ninety2 += obj.totalSaleLiter;
+        if (obj.fuelType === "001-Octane Ron(92)") {
+          ninety2 += Number(obj.totalSaleLiter);
           ninety2_closing += obj.totalizer_closing;
           ninety2_opening += obj.totalizer_opening;
         }
-      if (obj.fuelType === '002-Octane Ron(95)') {
-          ninety5 += obj.totalSaleLiter;
+        if (obj.fuelType === "002-Octane Ron(95)") {
+          ninety5 += Number(obj.totalSaleLiter);
           ninety5_closing += obj.totalizer_closing;
           ninety5_opening += obj.totalizer_closing;
-
         }
-      if (obj.fuelType === '004-Diesel') {
-          diesel += obj.totalSaleLiter;
+        if (obj.fuelType === "004-Diesel") {
+          diesel += Number(obj.totalSaleLiter);
           diesel_closing += obj.totalizer_closing;
           diesel_opening += obj.totalizer_opening;
         }
-      if (obj.fuelType === '005-Premium Diesel') {
-          premium += obj.totalSaleLiter;
+        if (obj.fuelType === "005-Premium Diesel") {
+          premium += Number(obj.totalSaleLiter);
           premium_closing += obj.totalizer_closing;
           premium_opening += obj.totalizer_opening;
         }
-        totalPrice += obj.totalSaleLiter;
+        totalPrice += Number(obj.totalSaleLiter);
       });
     }
 
-    setNinety2_total_liter(ninety2.toFixed(3));
-    setNinety2_closing(ninety2_closing.toFixed(3));
-    setNinety2_opening(ninety2_opening.toFixed(3));
+    setNinety2_total_liter(ninety2?.toFixed(3));
+    setNinety2_closing(ninety2_closing?.toFixed(3));
+    setNinety2_opening(ninety2_opening?.toFixed(3));
 
-    setNinety5_total_liter(ninety5.toFixed(3));
-    setNinety5_closing(ninety5_closing.toFixed(3));
-    setNinety5_opening(ninety5_opening.toFixed(3));
+    setNinety5_total_liter(ninety5?.toFixed(3));
+    setNinety5_closing(ninety5_closing?.toFixed(3));
+    setNinety5_opening(ninety5_opening?.toFixed(3));
 
-    setDiesel_total_liter(diesel.toFixed(3));
-    setDiesel_closing(diesel_closing.toFixed(3));
-    setDiesel_opening(diesel_opening.toFixed(3));
+    setDiesel_total_liter(diesel?.toFixed(3));
+    setDiesel_closing(diesel_closing?.toFixed(3));
+    setDiesel_opening(diesel_opening?.toFixed(3));
 
-    setPhsd_total_liter(premium.toFixed(3));
-    setPhsd_closing(premium_closing.toFixed(3));
-    setPhsd_opening(premium_opening.toFixed(3));
+    setPhsd_total_liter(premium?.toFixed(3));
+    setPhsd_closing(premium_closing?.toFixed(3));
+    setPhsd_opening(premium_opening?.toFixed(3));
 
-    setTotal_liter(totalPrice.toFixed(3));
-
+    setTotal_liter(totalPrice?.toFixed(3));
   }, [okData]);
-  
 
   return (
     <div className="w-[50%]">
@@ -210,4 +206,4 @@ function PumpMeter({language}) {
   );
 }
 
-export default PumpMeter
+export default PumpMeter;
