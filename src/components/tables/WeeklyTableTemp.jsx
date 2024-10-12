@@ -7,6 +7,10 @@ import "./table.css";
 
 function WeeklyTableTemp({
   calenderOne,
+  ninetyTwo,
+  ninetyFive,
+  diesel,
+  pDiesel,
   calenderTwo,
   okData,
   dateCount,
@@ -33,8 +37,6 @@ function WeeklyTableTemp({
     let premium = 0;
     let stationName = "";
     let license = "";
-
-    console.log(capacity, ".//.");
 
     const Time =
       new Date(calenderTwo.getDate()) - new Date(calenderOne.getDate());
@@ -68,6 +70,8 @@ function WeeklyTableTemp({
 
   const state = okData[0]?.stationDetailId.location.split(",");
 
+  console.log(ninetyTwo, ninetyFive, diesel, pDiesel, ".//.");
+
   const handlePrint = useReactToPrint({
     content: () => tRef.current,
   });
@@ -95,7 +99,7 @@ function WeeklyTableTemp({
     <div className="">
       {okData.length > 0 && (
         <>
-          <div className="mt-[60px] relative w-full overflow-x-scroll h-[240px]">
+          <div className="mt-[60px] relative w-full overflow-x-scroll h-[280px]">
             <div className="">
               <table
                 ref={tRef}
@@ -155,6 +159,8 @@ function WeeklyTableTemp({
                       )}
                     </th>
                     <th colSpan={5}>{language.average_sale_per_day}</th>
+                    <th colSpan={5}>Pump Test</th>
+                    <th colSpan={5}>Other </th>
                     <th rowSpan={2}>{language.req}</th>
                     <th rowSpan={2}>{language.Remark}</th>
                   </tr>
@@ -212,6 +218,32 @@ function WeeklyTableTemp({
                           : "97 RON"}
                       </th>
                     ))}
+                    {capacity?.map((e) => (
+                      <th>
+                        {e?.fuelType == "001-Octane Ron(92)"
+                          ? "92 RON"
+                          : e?.fuelType == "002-Octane Ron(95)"
+                          ? "95 RON"
+                          : e?.fuelType == "004-Diesel"
+                          ? "HSD"
+                          : e?.fuelType == "005-Premium Diesel"
+                          ? "PHSD"
+                          : "97 RON"}
+                      </th>
+                    ))}
+                    {capacity?.map((e) => (
+                      <th>
+                        {e?.fuelType == "001-Octane Ron(92)"
+                          ? "92 RON"
+                          : e?.fuelType == "002-Octane Ron(95)"
+                          ? "95 RON"
+                          : e?.fuelType == "004-Diesel"
+                          ? "HSD"
+                          : e?.fuelType == "005-Premium Diesel"
+                          ? "PHSD"
+                          : "97 RON"}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
@@ -242,6 +274,57 @@ function WeeklyTableTemp({
                     {capacity?.map((e) => (
                       <td>{(e.avg / 4.16).toFixed(3)}</td>
                     ))}
+                    <td>
+                      {ninetyTwo
+                        ?.map((e) => e.pumptest)
+                        ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                        .toFixed(3) || 0.0}
+                    </td>
+                    <td>
+                      {ninetyFive
+                        ?.map((e) => e.pumptest)
+                        ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                        .toFixed(3) || 0.0}
+                    </td>
+                    <td>0.000</td>
+                    <td>
+                      {diesel
+                        ?.map((e) => e.pumptest)
+                        ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                        .toFixed(3)}
+                    </td>
+                    <td>
+                      {pDiesel
+                        ?.map((e) => e.pumptest)
+                        ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                        .toFixed(3) || 0.0}
+                    </td>
+                    {/* sdf */}
+                    <td>
+                      {ninetyTwo
+                        ?.map((e) => e.other)
+                        ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                        .toFixed(3) || 0.0}
+                    </td>
+                    <td>
+                      {ninetyFive
+                        ?.map((e) => e.other)
+                        ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                        .toFixed(3) || 0.0}
+                    </td>
+                    <td>0.000</td>
+                    <td>
+                      {diesel
+                        ?.map((e) => e.other)
+                        ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                        .toFixed(3) || 0.0}
+                    </td>
+                    <td>
+                      {pDiesel
+                        ?.map((e) => e.other)
+                        ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                        .toFixed(3) || 0.0}
+                    </td>
                     {/* <td>{n2 ? (n2 / 4.16).toFixed(3) : "0.00"}</td>
                   <td>{n5 ? (n5 / 4.16).toFixed(3) : "0.00"}</td>
                   <td>{hsd ? (hsd / 4.16).toFixed(3) : "0.00"}</td>

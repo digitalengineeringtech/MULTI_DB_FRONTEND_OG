@@ -50,6 +50,7 @@ function WeeklySaleReport() {
     name: "All",
     code: "Please",
   });
+
   const [language, setLanguage] = useState(EnglishWeeklySaleReport);
   const [loading, setloading] = useState(false);
   const [fuel, setFuel] = useState();
@@ -74,6 +75,15 @@ function WeeklySaleReport() {
     filename: "Weekly Sale Report",
     sheet: "Weekly Sale Report",
   });
+
+  const [pump, setPump] = useState();
+
+  const ninetyTwo = pump?.filter((e) => e.fuelType == "001-Octane Ron(92)");
+  const ninetyFive = pump?.filter((e) => e.fuelType == "002-Octane Ron(95)");
+  const pDiesel = pump?.filter((e) => e.fuelType == "005-Premium Diesel");
+  const diesel = pump?.filter((e) => e.fuelType == "004-Diesel");
+
+  console.log(ninetyFive, ninetyTwo, diesel, pDiesel);
 
   useEffect(() => {
     if (!user.login) {
@@ -106,6 +116,35 @@ function WeeklySaleReport() {
         setloading(true);
         setIsSelectedStation(false);
         setDateCount(DateCount(startDate, endDate));
+
+        const fetchData1 = async () => {
+          // const bomb = [user, calenderOne, calenderTwo, selectedStation, accessDb];
+          const response = await instance
+            .get(
+              `/detail-sale/statement-report?sDate=${startDate}&eDate=${endDate}&stationDetailId=${selectedStation.code}&accessDb=${user.accessDb}`,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: "Bearer " + user.token,
+                },
+              }
+            )
+            .then(function (response) {
+              const data = response.data.result;
+              setPump(data);
+              // window.location.reload(true);
+              setloading(false);
+            })
+            .catch(function (error) {
+              console.log(error);
+              setloading(false);
+            });
+          // setPump(response.data);
+          // return response.data;
+          // setloading(false);
+          // setIsSearch(false);
+        };
+        fetchData1();
 
         const fetchData = async () => {
           // const bomb = [user.token, startDate, endDate, selectedStation,user.accessDb];
@@ -320,14 +359,7 @@ function WeeklySaleReport() {
     const balance_update = allTankBalances.reduce((pv, cv) => pv + cv, 0); // Extract all tankBalances as an array
     const arr = allTankBalances.length;
 
-    console.log(
-      last,
-      last_tankBalance,
-      tankData,
-      "khhhhhhhkkkkkkkkkkkkkkkkkkkkkkkkkk",
-      last_test,
-      allTankBalances
-    );
+    console.log(pump, "llllllllllllll..........");
 
     const uniqueDates = new Set();
 
@@ -505,6 +537,11 @@ function WeeklySaleReport() {
             tableRef={tableRef}
           /> */}
           <WeeklyTableTemp
+            ninetyFive={ninetyFive}
+            ninetyTwo={ninetyTwo}
+            diesel={diesel}
+            pDiesel={pDiesel}
+            pump={pump}
             language={language}
             selectedStation={selectedStation}
             isSearch={isSearch}

@@ -34,6 +34,7 @@ import instance from "../axios";
 import FuelTable from "../components/tables/FuelTable";
 import { Button } from "primereact/button";
 import { RiErrorWarningFill } from "react-icons/ri";
+import { Dropdown } from "primereact/dropdown";
 
 let start = new Date();
 start.setHours(0);
@@ -51,6 +52,9 @@ function RealTank() {
   const user = useSelector((state) => state.login);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [type, setType] = useState("Gallon");
+  const types = ["Liter", "Gallon"];
 
   const tableRef = useRef();
   const [loading, setloading] = useState(false);
@@ -525,8 +529,24 @@ function RealTank() {
 
       {calcu?.length > 0 ? (
         <>
+          <div className=" flex items-center justify-end gap-3 ms-auto">
+            <h1 className="text-[1rem]">Shown by :</h1>
+            <Dropdown
+              // title={language.station}
+              value={type}
+              onChange={(e) => {
+                setType(e.value);
+              }}
+              options={types}
+              placeholder="Liter or Kyat"
+              className=" w-[120px] md:w-14rem"
+              // checkmark={true}
+              // highlightOnSelect={false}
+            />
+          </div>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
           <FuelTable
+            type={type}
             language={language}
             tableRef={tableRef}
             okData={calcu}

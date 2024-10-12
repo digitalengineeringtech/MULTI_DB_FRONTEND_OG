@@ -4,7 +4,17 @@ import { AiFillPrinter } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
 import { useDownloadExcel } from "react-export-table-to-excel";
 
-function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
+function FuelTableTemp({
+  okData,
+  type,
+  tank,
+  start,
+  end,
+  sd,
+  ed,
+  language,
+  calcu,
+}) {
   const tRef = useRef();
   let isoStartDate = sd.toLocaleDateString("fr-CA");
   let isoEndDate = ed.toLocaleDateString("fr-CA");
@@ -61,7 +71,7 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
   return (
     <>
       <div className="mb-[150px]">
-        <table ref={tRef} className="mt-[40px]">
+        <table ref={tRef} className="mt-[20px]">
           {calcu ? (
             <thead>
               <tr className="hidden">
@@ -92,11 +102,26 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
                 <th>{language.Township}</th>
                 <th>{language.State}</th>
                 <th>{language.fuel_type}</th>
-                <th className="w-[150px]">{language.opening}</th>
-                <th>{language.receive_volume}</th>
-                <th className="w-[150px]">{language.sale}</th>
-                <th>{language.Adj}</th>
-                <th className="w-[150px]">{language.balance}</th>
+                <th className="w-[150px]">
+                  Opening stock <br />
+                  {type == "Liter" ? "( Liter )" : "( Gallon )"}
+                </th>
+                <th>
+                  Received <br />
+                  {type == "Liter" ? "( Liter )" : "( Gallon )"}
+                </th>
+                <th className="w-[150px]">
+                  Sale Volume <br />
+                  {type == "Liter" ? "( Liter )" : "( Gallon )"}
+                </th>
+                <th>
+                  Adjustment <br />
+                  {type == "Liter" ? "( Liter )" : "( Gallon )"}
+                </th>
+                <th className="w-[150px]">
+                  Closing Stock <br />
+                  {type == "Liter" ? "( Liter )" : "( Gallon )"}
+                </th>
                 <th className="w-[150px]">{language.Remark}</th>
               </tr>
             </thead>
@@ -132,11 +157,29 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
                 <th>{language.State}</th>
                 {/* <th colSpan={2}>{language.date}</th> */}
                 <th>{language.fuel_type}</th>
-                <th className="w-[150px]">{language.opening}</th>
-                <th>{language.receive_volume}</th>
-                <th className="w-[150px]">{language.sale}</th>
-                <th>{language.gl}</th>
-                <th className="w-[150px]">{language.closing_stk}</th>
+                <th className="w-[150px]">
+                  Opening stock <br />
+                  {type == "Liter" ? "( Liter )" : "( Gallon )"}
+                  {/* {language.opening} */}
+                </th>
+                <th>
+                  Received <br />
+                  {type == "Liter" ? "( Liter )" : "( Gallon )"}
+                </th>
+                <th className="w-[150px]">
+                  Sale Volume <br />
+                  {type == "Liter" ? "( Liter )" : "( Gallon )"}
+                </th>
+                <th>
+                  Adjustment <br />
+                  {type == "Liter" ? "( Liter )" : "( Gallon )"}
+                </th>
+                <th className="w-[150px]">
+                  Closing Stock <br />
+                  {type == "Liter" ? "( Liter )" : "( Gallon )"}
+                </th>
+                <th className="w-[150px]">Pump Test</th>
+                <th className="w-[150px]">Other</th>
                 <th className="w-[150px]">{language.Remark}</th>
               </tr>
             </thead>
@@ -199,28 +242,45 @@ function FuelTableTemp({ okData, tank, start, end, sd, ed, language, calcu }) {
                   <td className=" text-left">{isoEndDate}</td> */}
                   <td className="text-left">{ok?.fuelType}</td>
                   <td className="text-right">
-                    {(ok.tankOpen / 4.546)?.toFixed(3)}
+                    {type == "Liter"
+                      ? ok.tankOpen?.toFixed(3)
+                      : (ok.tankOpen / 4.546)?.toFixed(3)}
                     {/* {(ok.opening )?.toFixed(3)} */}
                   </td>
                   <td className="text-right">
                     {ok.fuelIn === 0
                       ? "0.000"
+                      : type == "Liter"
+                      ? ok.fuelIn?.toFixed(3)
                       : (ok.fuelIn / 4.546)?.toFixed(3)}
                   </td>
                   <td className="text-right">
-                    {(ok.cash / 4.546)?.toFixed(3)}
+                    {type == "Liter"
+                      ? ok.cash?.toFixed(3)
+                      : (ok.cash / 4.546)?.toFixed(3)}
                   </td>{" "}
                   <td className="text-right">
-                    {(
-                      (ok.tankClosing - ok.tankOpen - ok.fuelIn + ok.cash) /
-                      // (ok.balance - ok.opening - ok.fuelIn + ok.cash) /
-                      4.546
-                    ).toFixed(3)}
+                    {type == "Liter"
+                      ? (
+                          ok.tankClosing -
+                          ok.tankOpen -
+                          ok.fuelIn +
+                          ok.cash
+                        ).toFixed(3)
+                      : (
+                          (ok.tankClosing - ok.tankOpen - ok.fuelIn + ok.cash ) /
+                          // (ok.balance - ok.opening - ok.fuelIn + ok.cash) /
+                          4.546
+                        ).toFixed(3)}
                   </td>
                   <td className="text-right">
-                    {(ok.tankClosing / 4.546)?.toFixed(3)}
+                    {type == "Liter"
+                      ? ok.tankClosing?.toFixed(3)
+                      : (ok.tankClosing / 4.546)?.toFixed(3)}
                     {/* {(ok.balance )?.toFixed(3)} */}
                   </td>
+                  <td className="text-center">{ok.pumpTest}</td>
+                  <td className="text-center">{ok.other}</td>
                   <td className="text-center">-</td>
                 </tr>
               ))}

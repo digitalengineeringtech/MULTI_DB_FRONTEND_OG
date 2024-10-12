@@ -3,8 +3,9 @@ import { RiFileExcel2Fill } from "react-icons/ri";
 import { AiFillPrinter } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
 import { useDownloadExcel } from "react-export-table-to-excel";
+import clsx from "clsx";
 
-function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
+function FuelTable({ okData, type, tank, sd, ed, language, calcu, status }) {
   const tRef = useRef();
   let isoStartDate = sd.toLocaleDateString("fr-CA");
   let isoEndDate = ed.toLocaleDateString("fr-CA");
@@ -128,7 +129,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
   return (
     <>
       <div className="mb-[150px]">
-        <table ref={tRef} className="mt-[40px]">
+        <table ref={tRef} className="mt-[20px]">
           {calcu ? (
             <thead>
               <tr className="hidden">
@@ -146,7 +147,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
                 <th className="text-center" colSpan={3}>
                   To
                 </th>
-                <th className="text-center" colSpan={9} rowSpan={2}></th>
+                <th className="text-center" colSpan={10} rowSpan={2}></th>
               </tr>
               <tr>
                 <th colSpan={3}>{format(sd)}</th>
@@ -184,7 +185,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
                 <th className="text-center" colSpan={3}>
                   To
                 </th>
-                <th className="text-center" colSpan={9} rowSpan={2}></th>
+                <th className="text-center" colSpan={10} rowSpan={2}></th>
               </tr>
               <tr className="hidden">
                 <th colSpan={3}>{format(sd)}</th>
@@ -199,18 +200,35 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
                 <th>{language.tank_no}</th>
                 {/* <th colSpan={2}>{language.date}</th> */}
                 <th>{language.fuel_type}</th>
+                <th>
+                  Tank <br></br> Capacity
+                </th>
                 <th className="w-[150px]">
-                  <div className="w-[80px] mx-auto ">Opening Liter</div>
+                  <div className="w-[80px] mx-auto ">
+                    Opening {type == "Liter" ? "Liter" : "Gallon"}
+                  </div>
                 </th>
                 <th>
-                  <div className="w-[80px] mx-auto ">Received Liter</div>
+                  <div className="w-[80px] mx-auto ">
+                    Received {type == "Liter" ? "Liter" : "Gallon"}
+                  </div>
                 </th>
                 <th className="w-[150px]">
-                  <div className="w-[80px] mx-auto ">Closing Liter</div>
+                  <div className="w-[80px] mx-auto ">
+                    Closing {type == "Liter" ? "Liter" : "Gallon"}
+                  </div>
                 </th>
-                <th className="w-[150px]">{language.dif}</th>
-                <th className="w-[150px]">Sale Liter</th>
-                <th>{language.gl1}</th>
+                <th className="w-[150px]">
+                  Difference {type == "Liter" ? "Liter" : "Gallon"}
+                </th>
+                <th className="w-[150px]">
+                  Sale {type == "Liter" ? "Liter" : "Gallon"}
+                </th>
+                <th>
+                  {language.gl1}
+                  <br></br>
+                  {type == "Liter" ? "Liter" : "Gallon"}
+                </th>
                 <th>{language.Remark}</th>
               </tr>
             </thead>
@@ -257,9 +275,14 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
                 </tr>
               ))
             : okData?.map((ok, index) => (
-                <tr key={index}>
+                <tr
+                  key={index}
+                  className={clsx({ "!bg-yellow-100": ok.balance > 14580 })}
+                >
                   <td>{index + 1}</td>
-                  <td className="text-left">{stationId?.name +" "+ state[0]}</td>
+                  <td className="text-left">
+                    {stationId?.name + " " + state[0]}
+                  </td>
                   <td className=" text-center">{stationId?.lienseNo}</td>
                   {/* <td className=" text-left">{state ? state[1] : "-"}</td> */}
                   <td className=" text-center">{state[state?.length - 1]}</td>
@@ -267,17 +290,46 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
                   {/* <td className=" text-left">{isoStartDate}</td>
                   <td className=" text-left">{isoEndDate}</td> */}
                   <td className="text-left">{ok?.fuelType}</td>
-                  <td className="text-right">{ok.opening?.toFixed(3)}</td>
+                  <td className="text-center">14580</td>
                   <td className="text-right">
-                    {ok.fuelIn === 0 ? "0.000" : ok.fuelIn?.toFixed(3)}
+                    {type == "Liter"
+                      ? ok.opening?.toFixed(3)
+                      : (ok.opening / 4.546)?.toFixed(3)}
                   </td>
-                  <td className="text-right">{ok.balance?.toFixed(3)}</td>
                   <td className="text-right">
-                    {Math.abs(
-                      ok.opening?.toFixed(3) - ok.balance?.toFixed(3)
-                    ).toFixed(3)}
+                    {ok.fuelIn === 0
+                      ? "0.000"
+                      : type == "Liter"
+                      ? ok.fuelIn?.toFixed(3)
+                      : (ok.fuelIn / 4.546)?.toFixed(3)}
                   </td>
-                  <td className="text-right">{ok.cash?.toFixed(3)}</td>{" "}
+                  <td className="text-right">
+                    {type == "Liter"
+                      ? ok.balance?.toFixed(3)
+                      : (ok.balance / 4.546)?.toFixed(3)}
+                  </td>
+                  <td className="text-right">
+                    {type != "Liter"
+                      ? (
+                          Math.abs(
+                            ok.opening?.toFixed(3) - ok.balance?.toFixed(3)
+                          ) / 4.546
+                        ).toFixed(3)
+                      : Math.abs(
+                          ok.opening?.toFixed(3) - ok.balance?.toFixed(3)
+                        ).toFixed(3)}
+                  </td>
+                  <td className="text-right">
+                    {type != "Liter"
+                      ? (
+                          Math.abs(
+                            ok.opening?.toFixed(3) - ok.balance?.toFixed(3)
+                          ) / 4.546
+                        ).toFixed(3)
+                      : Math.abs(
+                          ok.opening?.toFixed(3) - ok.balance?.toFixed(3)
+                        ).toFixed(3)}
+                  </td>{" "}
                   <td className="text-right">
                     {/* {Math.abs(
                       (
@@ -286,7 +338,11 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
                         ).toFixed(3) - ok.cash?.toFixed(3)
                       ).toFixed(3)
                     )} */}
-                    {ok?.gl ? ok?.gl.toFixed(3) : "0.000"}
+                    {ok?.gl
+                      ? type == "Liter"
+                        ? ok.gl?.toFixed(3)
+                        : (ok.gl / 4.546)?.toFixed(3)
+                      : "0.000"}
                   </td>
                   <td className="text-center">
                     {status == 0 ? "Tank Offline" : "Tank Online"}
@@ -294,7 +350,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
                 </tr>
               ))}
           <tr className="bg-gray-200">
-            <td colSpan={9} className="text-center">
+            <td colSpan={10} className="text-center">
               SubTotal 92 Ron
             </td>
             <td colSpan={1} className="text-right">
@@ -312,7 +368,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={9} className="text-center">
+            <td colSpan={10} className="text-center">
               SubTotal 95 Ron
             </td>
             <td colSpan={1} className="text-right">
@@ -330,7 +386,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={9} className="text-center">
+            <td colSpan={10} className="text-center">
               SubTotal 97 Ron
             </td>
             <td colSpan={1} className="text-right">
@@ -348,7 +404,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={9} className="text-center">
+            <td colSpan={10} className="text-center">
               SubTotal HSD
             </td>
             <td colSpan={1} className="text-right">
@@ -366,7 +422,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={9} className="text-center">
+            <td colSpan={10} className="text-center">
               SubTotal C-HSD
             </td>
             <td colSpan={1} className="text-right">
@@ -384,7 +440,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={9} className="text-center">
+            <td colSpan={10} className="text-center">
               SubTotal PHSD
             </td>
             <td colSpan={1} className="text-right">
@@ -402,7 +458,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={9} className="text-center">
+            <td colSpan={10} className="text-center">
               SubTotal C-PHSD
             </td>
             <td colSpan={1} className="text-right">
@@ -420,7 +476,7 @@ function FuelTable({ okData, tank, sd, ed, language, calcu, status }) {
             <td colSpan={13} className="text-center"></td>
           </tr>
           <tr className="bg-gray-200">
-            <td colSpan={9} className="text-center">
+            <td colSpan={10} className="text-center">
               Grand Total
             </td>
             <td colSpan={1} className="text-right">

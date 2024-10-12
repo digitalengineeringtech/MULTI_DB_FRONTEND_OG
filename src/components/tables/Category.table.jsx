@@ -4,15 +4,34 @@ import { RiFileExcel2Fill } from "react-icons/ri";
 import { AiFillPrinter } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
 import { useDownloadExcel } from "react-export-table-to-excel";
+import {
+  fetchDynamicNozzles,
+  getAllKyawSan027DailySaleReports,
+} from "../../redux/slices/KyawSan027Slice";
+import { useDispatch, useSelector } from "react-redux";
+import instance from "../../axios";
 
 function CategoryTable({
   okData,
   // tableRef,
+  accessDb,
+  user,
+  calenderOne,
+  calenderTwo,
+  selectedStation,
   startDate,
+  pump,
   endDate,
   single,
   language,
 }) {
+  const datas = useSelector(getAllKyawSan027DailySaleReports);
+
+  const ninetyTwo = pump?.filter((e) => e.fuelType == "001-Octane Ron(92)");
+  const ninetyFive = pump?.filter((e) => e.fuelType == "002-Octane Ron(95)");
+  const pDiesel = pump?.filter((e) => e.fuelType == "005-Premium Diesel");
+  const diesel = pump?.filter((e) => e.fuelType == "004-Diesel");
+
   const [cyclePremium, SetcyclePremium] = useState(0);
   const [cycleDiesel, SetcycleDiesel] = useState(0);
   const [cycle92, setcycle92] = useState(0);
@@ -166,6 +185,8 @@ function CategoryTable({
   const [stra92Count, setstra92Count] = useState(0);
   const [stra95Count, setstra95Count] = useState(0);
   const [straTotalPrice, setstraTotalPrice] = useState(0);
+
+  const dispatch = useDispatch();
 
   const [hmPremium, SethmPremium] = useState(0);
   const [hmDiesel, SethmDiesel] = useState(0);
@@ -1705,7 +1726,7 @@ function CategoryTable({
     );
   }, [okData]);
 
-  console.log(okData, "..................");
+  console.log(datas, ".....data.............");
 
   // const format = (date) => {
   //   const dateObj = new Date(date);
@@ -1732,18 +1753,18 @@ function CategoryTable({
     return `${day}-${month}-${year}`;
   };
 
-    const format1 = (dateString) => {
-      const date = new Date(dateString);
+  const format1 = (dateString) => {
+    const date = new Date(dateString);
 
-      const day = String(date.getDate()).padStart(2, "0");
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const year = date.getFullYear();
-      const hours = String(date.getHours()).padStart(2, "0");
-      const minutes = String(date.getMinutes()).padStart(2, "0");
-      const seconds = String(date.getSeconds()).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
 
-      return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-    };
+    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+  };
 
   const tableRef = useRef();
 
@@ -1767,7 +1788,7 @@ function CategoryTable({
           <tr className="hidden">
             <th className="text-center text-xl" colSpan={13}>
               Daily Sale Categories Report of{" "}
-              {okData[0]?.stationDetailId.name +
+              {okData[0]?.stationDetailId?.name +
                 " " +
                 okData[0]?.stationDetailId.location.split(",")[0]}
             </th>
@@ -2543,6 +2564,82 @@ function CategoryTable({
             </td>
             {/* <td>{bcount ? bcount : "00.000"}</td>
                   <td>{(b92 + b95 + bDiesel + bPremium).toFixed(3)} </td> */}
+            <td></td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td colSpan={2}>Pump Test</td>
+            <td className=" text-right">0</td>
+            <td className=" text-right">
+              {ninetyTwo
+                ?.map((e) => e.pumptest)
+                ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                .toFixed(3)}
+            </td>
+            <td className=" text-right">0</td>
+            <td className=" text-right">
+              {" "}
+              {ninetyFive
+                ?.map((e) => e.pumptest)
+                ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                .toFixed(3)}
+            </td>
+            <td className=" text-right">0</td>
+            <td className=" text-right">00.000</td>
+            <td className=" text-right">0</td>
+            <td className=" text-right">
+              {" "}
+              {pDiesel
+                ?.map((e) => e.pumptest)
+                ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                .toFixed(3)}
+            </td>
+            <td className=" text-right">0</td>
+            <td className=" text-right">
+              {" "}
+              {diesel
+                ?.map((e) => e.pumptest)
+                ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                .toFixed(3)}
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td colSpan={2}>Other</td>
+            <td className=" text-right">0</td>
+            <td className=" text-right">
+              {ninetyTwo
+                ?.map((e) => e.other)
+                ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                .toFixed(3)}
+            </td>
+            <td className=" text-right">0</td>
+            <td className=" text-right">
+              {" "}
+              {ninetyFive
+                ?.map((e) => e.other)
+                ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                .toFixed(3)}
+            </td>
+            <td className=" text-right">0</td>
+            <td className=" text-right">00.000</td>
+            <td className=" text-right">0</td>
+            <td className=" text-right">
+              {" "}
+              {pDiesel
+                ?.map((e) => e.other)
+                ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                .toFixed(3)}
+            </td>
+            <td className=" text-right">0</td>
+            <td className=" text-right">
+              {" "}
+              {diesel
+                ?.map((e) => e.other)
+                ?.reduce((pv, cv) => Number(pv) + Number(cv), 0)
+                .toFixed(3)}
+            </td>
             <td></td>
           </tr>
           <tr>

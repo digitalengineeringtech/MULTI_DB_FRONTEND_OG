@@ -34,6 +34,7 @@ import { RiErrorWarningFill, RiFileExcel2Fill } from "react-icons/ri";
 import { AiFillPrinter } from "react-icons/ai";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
 
 let start = new Date();
 start.setHours(0);
@@ -54,6 +55,8 @@ function FuelBalanceReport() {
 
   const tableRef = useRef();
   const [loading, setloading] = useState(false);
+  const [type, setType] = useState("Gallon");
+  const types = ["Liter", "Gallon"];
   const [okData, setOkData] = useState();
   const [click, setClick] = useState(false);
   const [number, setNumber] = useState();
@@ -246,7 +249,7 @@ function FuelBalanceReport() {
   // console.log(calcu, okData);
   // console.log("====sssss================================");
 
-  // console.log(okData, "this is okData");
+  console.log(type, "this is okData .........");
 
   return (
     <PageContainer language={false} title={language.title}>
@@ -288,6 +291,7 @@ function FuelBalanceReport() {
             Station
           </div>
         )}
+
         <div className="flex-2 mt-2">
           <Button
             onClick={handleClick}
@@ -302,7 +306,23 @@ function FuelBalanceReport() {
       {/* {okData?.length > 0 ? ( */}
       {okData?.length > 0 ? (
         <>
+          <div className=" flex items-center justify-end gap-3 ms-auto">
+            <h1 className="text-[1rem]">Shown by :</h1>
+            <Dropdown
+              title={language.station}
+              value={type}
+              onChange={(e) => {
+                setType(e.value);
+              }}
+              options={types}
+              placeholder="Liter or Kyat"
+              className=" w-[120px] md:w-14rem"
+              // checkmark={true}
+              // highlightOnSelect={false}
+            />
+          </div>
           <FuelRecieveTableLittle
+            type={type}
             start={calenderOne}
             end={calenderTwo}
             language={language}

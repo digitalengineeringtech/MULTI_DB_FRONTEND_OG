@@ -18,6 +18,7 @@ import { FiSearch } from "react-icons/fi";
 import FuelBalanceReportTable from "../components/tables/FuelBalanceReport.table";
 import {
   fetchATGTanks,
+  fetchDynamicNozzles,
   fetchFuelBalanceByTimeRange,
   getAllKyawSan027DailySaleReports,
   removeOldDats,
@@ -33,6 +34,7 @@ import UseGet_1 from "../MainConDas/components/hooks/UseGet_1";
 import instance from "../axios";
 import { Button } from "primereact/button";
 import { RiErrorWarningFill } from "react-icons/ri";
+import { Dropdown } from "primereact/dropdown";
 
 let start = new Date();
 start.setHours(0);
@@ -60,6 +62,8 @@ function DailySaleReportUpdate() {
   const [calenderTwo, setCalenderTwo] = useState(end);
   const [fuelType, setFuelType] = useState({ name: "All", code: "Please" });
   const [tankName, setTankName] = useState({ name: "All", code: "Please" });
+  const [type, setType] = useState("Gallon");
+  const types = ["Liter", "Gallon"];
   const [selectedStation, setSelectedStation] = useState({
     name: "All",
     code: "Please",
@@ -77,7 +81,7 @@ function DailySaleReportUpdate() {
 
   let isoStartDate = start.toLocaleDateString("fr-CA");
 
-  console.log(okData, "...............");
+  console.log(datas, "...........hhhhh.....", data_g_2);
 
   useEffect(() => {
     if (!user.login) {
@@ -138,19 +142,34 @@ function DailySaleReportUpdate() {
             // setloading(false);
           });
 
-        const fetchData = async () => {
+        // const fetchData = async () => {
+        //   const bomb = [
+        //     user.token,
+        //     calenderOne,
+        //     calenderTwo,
+        //     selectedStation,
+        //     // selectedFuelType.code,
+        //     tankName.code,
+        //     user.accessDb,
+        //   ];
+        //   await dispatch(fetchATGTanks(bomb));
+        // };
+        // fetchData();
+
+        const fetchData1 = async () => {
           const bomb = [
             user.token,
             calenderOne,
             calenderTwo,
             selectedStation,
-            // selectedFuelType.code,
-            tankName.code,
             user.accessDb,
           ];
-          await dispatch(fetchATGTanks(bomb));
+          setloading(true);
+          await dispatch(fetchDynamicNozzles(bomb));
+          setloading(false);
+          // setIsSearch(false);
         };
-        fetchData();
+        fetchData1();
 
         getIt_1(
           `/station-detail/get/single?_id=${selectedStation.code}`,
@@ -174,7 +193,7 @@ function DailySaleReportUpdate() {
       let pureArray = [...data_g_2.result]; // Create a shallow copy of the array
       //pureArray.sort((a, b) => a.tankNo - b.tankNo); // Sort the new array
       setOkData(pureArray);
-      setloading(false); // Update the state with the new sorted array
+      datas?.result?.length > 0 && setloading(false); // Update the state with the new sorted array
     } else {
       setOkData([]);
     }
@@ -188,13 +207,13 @@ function DailySaleReportUpdate() {
       setTankCount([]);
     }
 
-    if (datas?.result?.length > 0) {
-      let pureArray = datas?.result[0];
-      setTankData(pureArray.data);
-      //   setloading(false); // Update the state with the new sorted array
-    } else {
-      setTankData([]);
-    }
+    // if (datas?.result?.length > 0) {
+    //   let pureArray = datas?.result[0];
+    //   setTankData(pureArray.data);
+    //   //   setloading(false); // Update the state with the new sorted array
+    // } else {
+    //   setTankData([]);
+    // }
   }, [data_g_2, data_get_1, datas, dispatch]);
 
   const fuelData = [
@@ -262,10 +281,20 @@ function DailySaleReportUpdate() {
         return totalizerClose - totalizerOpen;
       });
 
+      // const newSale = datas?.result.
+
       const fuelType = tankData?.filter((c) => i == c.id)[0]?.oilType;
       const fuelType_vocono = okData?.filter((c) => i == c.tankNo)[0]?.fuelType;
       //   console.log(fuelType_vocono, "....k..");
       const normalTank = tankData?.filter((e) => e.id == i)[0]?.volume;
+
+      const newSale =
+        datas?.result
+          ?.filter((e) => e.fuelType == fuelType_vocono)
+          ?.map((e) => e.totalSaleLiter)
+          .reduce((pv, cv) => Number(pv) + Number(cv), 0) || 0;
+
+      console.log(newSale, fuelType_vocono, "this is console.log");
 
       const open = okData?.filter((c) => i == c.tankNo).reverse()[0];
       const opening_balance = open?.tankBalance - open?.saleLiter;
@@ -316,7 +345,10 @@ function DailySaleReportUpdate() {
             : notInclude == "Petrol 92"
             ? "92 RON"
             : "",
-        cash: test2.reduce((pv, cv) => pv + cv, 0) || 0,
+        cash: newSale,
+        //new
+        // cash: test2.reduce((pv, cv) => pv + cv, 0) || 0,
+        //old
         // cash: combine || 0,
         fuelIn: fuelReceive || 0,
         opening: opening_balance || normalTank || 0,
@@ -327,6 +359,19 @@ function DailySaleReportUpdate() {
         tankOpen: start.length > 0 ? tankOpening : 0,
         tankClosing: start.length > 0 ? tankClosing : 0,
         tankDif: start.length > 0 ? tankDiff : 0,
+        pumpTest:
+          datas?.result
+            ?.filter((e) => e.fuelType == fuelType_vocono)
+            ?.map((e) => e.pumptest)
+            .reduce((pv, cv) => Number(pv) + Number(cv), 0)
+            .toFixed(3) || 0.0,
+        other:
+          datas?.result
+            ?.filter((e) => e.fuelType == fuelType_vocono)
+            ?.map((e) => e.other)
+            .reduce((pv, cv) => Number(pv) + Number(cv), 0)
+            .toFixed(3) || 0,
+
         fuelTypeVocono:
           fuelType_vocono == "92 Octane"
             ? "92 RON"
@@ -423,10 +468,26 @@ function DailySaleReportUpdate() {
         </div>
       </InputContainer>
 
-      {combinedByFuelType?.length > 0 ? (
+      {combinedByFuelType?.length > 0 && datas?.result?.length > 0 ? (
         <>
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
+          <div className=" flex items-center justify-end gap-3 ms-auto">
+            <h1 className="text-[1rem]">Shown by :</h1>
+            <Dropdown
+              // title={language.station}
+              value={type}
+              onChange={(e) => {
+                setType(e.value);
+              }}
+              options={types}
+              placeholder="Liter or Kyat"
+              className=" w-[120px] md:w-14rem"
+              // checkmark={true}
+              // highlightOnSelect={false}
+            />
+          </div>
           <FuelTableTemp
+            type={type}
             start={calenderOne}
             end={calenderTwo}
             language={language}

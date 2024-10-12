@@ -27,6 +27,7 @@ import UsePost_2 from "../MainConDas/components/hooks/UsePost_2";
 import PumpTableTemp from "../components/tables/PumpTableTemp";
 import { Button } from "primereact/button";
 import { RiErrorWarningFill } from "react-icons/ri";
+import PumpComponent from "../components/PageComponents/PumpComponent";
 
 let start = new Date();
 start.setHours(0);
@@ -46,6 +47,10 @@ function PumpReport() {
   const [language, setLanguage] = useState(EnglishTotalizerDifferent);
   const [changeLanguage, setChangeLanguage] = useState();
   const [selectedNozzle, setSelectedNozzle] = useState({
+    name: "All",
+    code: "Please",
+  });
+  const [selectedPump, setSelectedPump] = useState({
     name: "All",
     code: "Please",
   });
@@ -74,6 +79,7 @@ function PumpReport() {
   const user = useSelector((state) => state.login);
 
   const [twoFilter, setTwoFilter] = useState();
+  const [pumpChg, setPumpChg] = useState();
 
   useEffect(() => {
     if (!user.login) {
@@ -91,6 +97,14 @@ function PumpReport() {
     };
   }, [navigate, user, endDate, startDate, dispatch]);
 
+  //start
+
+  useEffect(() => {
+    const condi = selectedPump.code !== "Please" ? true : false;
+    setPumpChg(condi);
+  }, [selectedPump]);
+
+  //old version
   useEffect(() => {
     const condition =
       (selectedFuelType.code !== "Please") & (selectedNozzle.code !== "Please")
@@ -190,23 +204,53 @@ function PumpReport() {
 
       if (datas?.result?.length > 0) {
         if (twoFilter) {
-          const fuelTypeData = datas.result
-            .filter((item) => item.fuelType === selectedFuelType.code)
-            .filter((item) => item.nozzle === selectedNozzle.code);
-          setOkData(fuelTypeData);
+          if (pumpChg) {
+            setOkData(
+              datas.result
+                .filter((item) => item.depNo === selectedPump.code)
+                .filter((item) => item.fuelType === selectedFuelType.code)
+                .filter((item) => item.nozzle === selectedNozzle.code)
+            );
+          } else {
+            const fuelTypeData = datas.result
+              .filter((item) => item.fuelType === selectedFuelType.code)
+              .filter((item) => item.nozzle === selectedNozzle.code);
+            setOkData(fuelTypeData);
+          }
         } else {
           if (selectedFuelType.code !== "Please") {
-            const fuelTypeData = datas.result.filter(
-              (item) => item.fuelType === selectedFuelType.code
-            );
-            setOkData(fuelTypeData);
+            if (pumpChg) {
+              const pumpData = datas.result
+                .filter((item) => item.depNo === selectedPump.code)
+                .filter((item) => item.fuelType === selectedFuelType.code);
+              setOkData(pumpData);
+            } else {
+              const fuelTypeData = datas.result.filter(
+                (item) => item.fuelType === selectedFuelType.code
+              );
+              setOkData(fuelTypeData);
+            }
           } else if (selectedNozzle.code !== "Please") {
-            const nozzleData = datas.result.filter(
-              (item) => item.nozzle === selectedNozzle.code
-            );
-            setOkData(nozzleData);
+            if (pumpChg) {
+              const pumpData = datas.result
+                .filter((item) => item.depNo === selectedPump.code)
+                .filter((item) => item.nozzle === selectedNozzle.code);
+              setOkData(pumpData);
+            } else {
+              const nozzleData = datas.result.filter(
+                (item) => item.nozzle === selectedNozzle.code
+              );
+              setOkData(nozzleData);
+            }
           } else {
-            setOkData(datas.result);
+            if (pumpChg) {
+              const pumpData = datas.result.filter(
+                (item) => item.depNo === selectedPump.code
+              );
+              setOkData(pumpData);
+            } else {
+              setOkData(datas.result);
+            }
           }
         }
       }
@@ -242,9 +286,14 @@ function PumpReport() {
             title={language.endDate}
           />
           <NozzleComponent
-            title="Pump/Nozzle No."
+            title="Nozzle No."
             value={selectedNozzle}
             setValue={setSelectedNozzle}
+          />
+          <PumpComponent
+            title="Pump No."
+            value={selectedPump}
+            setValue={setSelectedPump}
           />
           <FuelTypeComponent
             title={language.fuel_type}

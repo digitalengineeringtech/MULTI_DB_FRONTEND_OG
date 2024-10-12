@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React, { useRef } from "react";
 import { useDownloadExcel } from "react-export-table-to-excel";
 import { AiFillPrinter } from "react-icons/ai";
@@ -8,6 +9,7 @@ function FuelRecieveTableLittle({
   okData,
   // tableRef,
   start,
+  type,
   end,
   language,
   selectedFuelType,
@@ -156,22 +158,27 @@ function FuelRecieveTableLittle({
               Tank <br /> No.
             </th>
             <th width="85">
-              Tank <br /> Capacity <br /> ( Gallon )
+              Tank <br /> Capacity <br />{" "}
+              {type == "Liter" ? "( Liter )" : "( Gallon )"}
             </th>
             <th width="85">
-              Tank <br /> Opening <br /> ( Gallon )
+              Tank <br /> Opening <br />{" "}
+              {type == "Liter" ? "( Liter )" : "( Gallon )"}
             </th>
             <th width="85">
-              Tank <br /> Received <br /> ( Gallon )
+              Tank <br /> Received <br />{" "}
+              {type == "Liter" ? "( Liter )" : "( Gallon )"}
             </th>
             <th width="85">
-              Sale <br /> ( Gallon )
+              Sale <br /> {type == "Liter" ? "( Liter )" : "( Gallon )"}
             </th>
             <th width="85">
-              Tank <br /> Closing <br /> ( Gallon )
+              Tank <br /> Closing <br />{" "}
+              {type == "Liter" ? "( Liter )" : "( Gallon )"}
             </th>
             <th width="85">
-              Gain/ <br /> Lose <br /> ( Gallon )
+              Gain/ <br /> Loss <br />{" "}
+              {type == "Liter" ? "( Liter )" : "( Gallon )"}
             </th>
           </tr>
         </thead>
@@ -197,7 +204,12 @@ function FuelRecieveTableLittle({
             const formattedDate = `${day}-${month}-${year} ${time}`;
 
             return (
-              <tr key={index}>
+              <tr
+                key={index}
+                className={clsx({
+                  "!bg-yellow-100": item.tank_balance > 14580,
+                })}
+              >
                 <td>{index + 1}</td>
                 <td>
                   {item.stationId.name +
@@ -222,13 +234,33 @@ function FuelRecieveTableLittle({
                     : ""}
                 </td>
                 <td>{item.tankNo}</td>
-                <td>{(14580 / 4.546).toFixed(3)}</td>
                 <td>
-                  {item.opening ? (item.opening / 4.546)?.toFixed(3) : "00.0"}
+                  {" "}
+                  {type == "Liter"
+                    ? (14580).toFixed(3)
+                    : (14580 / 4.546).toFixed(3)}
                 </td>
-                <td>{(item.receive_balance / 4.546)?.toFixed(3)}</td>
+                <td>
+                  {/* {item.opening ? (item.opening / 4.546)?.toFixed(3) : "00.0"} */}
+                  {item.opening
+                    ? type == "Liter"
+                      ? item.opening?.toFixed(3)
+                      : (item.opening / 4.546)?.toFixed(3)
+                    : "00.0"}
+                </td>
+                <td>
+                  {type == "Liter"
+                    ? item.receive_balance?.toFixed(3)
+                    : (item.receive_balance / 4.546)?.toFixed(3)}
+                  {/* {(item.receive_balance / 4.546)?.toFixed(3)} */}
+                </td>
                 <td>00.0</td>
-                <td>{(item.tank_balance / 4.546)?.toFixed(3)}</td>
+                <td>
+                  {type == "Liter"
+                    ? item.tank_balance?.toFixed(3)
+                    : (item.tank_balance / 4.546)?.toFixed(3)}
+                  {/* {(item.tank_balance / 4.546)?.toFixed(3)} */}
+                </td>
                 <td>00.0</td>
               </tr>
             );

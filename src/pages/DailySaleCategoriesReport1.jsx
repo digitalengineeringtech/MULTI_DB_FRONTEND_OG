@@ -23,6 +23,7 @@ import {
 import { FcInfo } from "react-icons/fc";
 import PurposeOfUseComponent from "../components/PageComponents/PurposeOfUseComponent";
 import { Button } from "primereact/button";
+import instance from "../axios";
 
 let start = new Date();
 start.setHours(0);
@@ -77,11 +78,42 @@ function DailySaleCategoriesReport1() {
     code: "Please",
   });
 
-  const handleClick = () => {
+  const [pump, setPump] = useState();
+  console.log(pump, "this is pump");
+
+  const handleClick = async () => {
     setOne(selectedNodeKeys.code);
     if (selectedStation.code === "Please") {
       setIsSelectedStation(true);
     } else {
+      const fetchData1 = async () => {
+        // const bomb = [user, calenderOne, calenderTwo, selectedStation, accessDb];
+        const response = await instance
+          .get(
+            `/detail-sale/statement-report?sDate=${startDate}&eDate=${endDate}&stationDetailId=${selectedStation.code}&accessDb=${user.accessDb}`,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: "Bearer " + user.token,
+              },
+            }
+          )
+          .then(function (response) {
+            const data = response.data.result;
+            setPump(data);
+            // window.location.reload(true);
+            setloading(false);
+          })
+          .catch(function (error) {
+            console.log(error);
+            setloading(false);
+          });
+        // setPump(response.data);
+        // return response.data;
+        // setloading(false);
+        // setIsSearch(false);
+      };
+      fetchData1();
       setIsSelectedStation(false);
       const fetchData = async () => {
         const bomb = [
@@ -94,7 +126,7 @@ function DailySaleCategoriesReport1() {
         ];
         setloading(true);
         await dispatch(fetchDailySaleReportByTimeRange(bomb));
-        setloading(false);
+        // setloading(false);
       };
       fetchData();
     }
@@ -187,6 +219,12 @@ function DailySaleCategoriesReport1() {
       {okData?.length > 0 && (
         <>
           <CategoryTable
+            pump={pump}
+            user={user.token}
+            accessDb={user.accessDb}
+            calenderOne={startDate}
+            calenderTwo={endDate}
+            selectedStation={selectedStation}
             language={language}
             startDate={startDate.toLocaleDateString()}
             endDate={endDate.toLocaleDateString()}

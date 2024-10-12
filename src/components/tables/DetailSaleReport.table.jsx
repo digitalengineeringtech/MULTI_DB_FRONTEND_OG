@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import { useDownloadExcel } from "react-export-table-to-excel";
 import { useSelector } from "react-redux";
@@ -180,9 +181,16 @@ function DetailSaleReportTable({
               //   `fr-CA`
               // )} ${time}`;
 
+              console.log(typeof object?.saleLiter);
+
               const state = currentData[0]?.stationDetailId.location.split(",");
               return (
-                <tr key={index}>
+                <tr
+                  key={index}
+                  className={clsx({
+                    "!bg-yellow-100": object?.saleLiter >= 100,
+                  })}
+                >
                   {/* <th>{object.stationDetailId.}</th>
                    */}
                   <td className=" text-left">
