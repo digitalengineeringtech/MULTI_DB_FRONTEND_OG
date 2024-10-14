@@ -274,11 +274,17 @@ function FuelRecieveTableLittle({
                   Sub Total 92 Ron
                 </td>
                 <td className="text-right font-semibold">
-                  {Number(n2Total)?.toFixed(3)}
+                  {type == "Liter"
+                    ? Number(n2Total)?.toFixed(3)
+                    : (Number(n2Total) / 4.165)?.toFixed(3)}
                 </td>
                 <td className="text-right font-semibold">0.00</td>
                 <td></td>
-                <td>{n2Other?.toFixed(3) || "0"}</td>
+                <td>
+                  {type == "Liter"
+                    ? Number(n2Other)?.toFixed(3) || "0"
+                    : (Number(n2Other) / 4.165)?.toFixed(3) || "0"}
+                </td>
               </tr>
               <tr>
                 <td className="text-left" colSpan={16}></td>
@@ -307,7 +313,9 @@ function FuelRecieveTableLittle({
                   Sub Total 95 Ron
                 </td>
                 <td className="text-right font-semibold">
-                  {n5Total?.toFixed(3)}
+                  {type == "Liter"
+                    ? Number(n5Total)?.toFixed(3)
+                    : (Number(n5Total) / 4.165)?.toFixed(3)}
                 </td>
                 <td className="text-right font-semibold">0.00</td>
                 <td></td>
@@ -356,7 +364,9 @@ function FuelRecieveTableLittle({
                   Sub Total HSD
                 </td>
                 <td className="text-right font-semibold">
-                  {Number(hsdTotal)?.toFixed(3)}
+                  {type == "Liter"
+                    ? Number(hsdTotal)?.toFixed(3)
+                    : (Number(hsdTotal) / 4.165)?.toFixed(3)}
                 </td>
                 <td className="text-right font-semibold">0.00</td>
                 <td></td>
@@ -389,7 +399,9 @@ function FuelRecieveTableLittle({
                   Sub Total PHSD
                 </td>
                 <td className="text-right font-semibold">
-                  {Number(phsdTotal)?.toFixed(3)}
+                  {type == "Liter"
+                    ? Number(phsdTotal)?.toFixed(3)
+                    : (Number(phsdTotal) / 4.165)?.toFixed(3)}
                 </td>
                 <td className="text-right font-semibold">0.00</td>
                 <td></td>
@@ -452,10 +464,17 @@ function FuelRecieveTableLittle({
               Grand Total
             </td>
             <td colspan={1} className="text-center text-lg font-semibold">
-              {okData
-                .map((e) => Number(e.receive_balance))
-                .reduce((pv, cv) => pv + cv, 0)
-                ?.toFixed(3)}
+              {}
+              {type == "Liter"
+                ? okData
+                    .map((e) => Number(e.receive_balance))
+                    .reduce((pv, cv) => pv + cv, 0)
+                    ?.toFixed(3)
+                : (
+                    okData
+                      .map((e) => Number(e.receive_balance))
+                      .reduce((pv, cv) => pv + cv, 0) / 1.465
+                  )?.toFixed(3)}
             </td>
             <td colspan={1} className="text-end  text-lg font-semibold">
               0.00

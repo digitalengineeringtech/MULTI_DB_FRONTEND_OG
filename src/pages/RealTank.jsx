@@ -509,6 +509,23 @@ function RealTank() {
             value={selectedStation}
             setValue={setSelectedStation}
           />
+          <div className="flex flex-col">
+            <label htmlFor="calendar-12h" className="font-bold block mb-2">
+              Shown by
+            </label>
+            <Dropdown
+              // title={"Shown by"}
+              value={type}
+              onChange={(e) => {
+                setType(e.value);
+              }}
+              options={types}
+              placeholder="Liter or Kyat"
+              className="!h-[30px] w-[150px] flex items-center justify-center "
+              // checkmark={true}
+              // highlightOnSelect={false}
+            />
+          </div>
         </div>
         {isSelectedStation && (
           <div className="flex mt-3 animate-[translate-y-6]   duration-200 text-red-400 gap-[10px] justify-start text-[16px] items-center">
@@ -529,7 +546,7 @@ function RealTank() {
 
       {calcu?.length > 0 ? (
         <>
-          <div className=" flex items-center justify-end gap-3 ms-auto">
+          {/* <div className=" flex items-center justify-end gap-3 ms-auto">
             <h1 className="text-[1rem]">Shown by :</h1>
             <Dropdown
               // title={language.station}
@@ -543,7 +560,7 @@ function RealTank() {
               // checkmark={true}
               // highlightOnSelect={false}
             />
-          </div>
+          </div> */}
           {/* <FuelBalanceTable okData={okData} tableRef={tableRef} setOkData={setOkData} /> */}
           <FuelTable
             type={type}
