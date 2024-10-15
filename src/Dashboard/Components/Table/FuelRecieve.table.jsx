@@ -241,12 +241,12 @@ function FuelRecieveTableLittle({
                     : (14580 / 4.546).toFixed(3)}
                 </td>
                 <td>
-                  {/* {item.opening ? (item.opening / 4.546)?.toFixed(3) : "00.0"} */}
+                  {/* {item.opening ? (item.opening / 4.546)?.toFixed(3) : "0.000"} */}
                   {item.opening
                     ? type == "Liter"
                       ? item.opening?.toFixed(3)
                       : (item.opening / 4.546)?.toFixed(3)
-                    : "00.0"}
+                    : "0.000"}
                 </td>
                 <td>
                   {type == "Liter"
@@ -254,14 +254,14 @@ function FuelRecieveTableLittle({
                     : (item.receive_balance / 4.546)?.toFixed(3)}
                   {/* {(item.receive_balance / 4.546)?.toFixed(3)} */}
                 </td>
-                <td>00.0</td>
+                <td>0.000</td>
                 <td>
                   {type == "Liter"
                     ? item.tank_balance?.toFixed(3)
                     : (item.tank_balance / 4.546)?.toFixed(3)}
                   {/* {(item.tank_balance / 4.546)?.toFixed(3)} */}
                 </td>
-                <td>00.0</td>
+                <td>0.000</td>
               </tr>
             );
           })}
@@ -278,13 +278,9 @@ function FuelRecieveTableLittle({
                     ? Number(n2Total)?.toFixed(3)
                     : (Number(n2Total) / 4.165)?.toFixed(3)}
                 </td>
-                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.000</td>
                 <td></td>
-                <td>
-                  {type == "Liter"
-                    ? Number(n2Other)?.toFixed(3) || "0"
-                    : (Number(n2Other) / 4.165)?.toFixed(3) || "0"}
-                </td>
+                <td>0.000</td>
               </tr>
               <tr>
                 <td className="text-left" colSpan={16}></td>
@@ -296,10 +292,10 @@ function FuelRecieveTableLittle({
                 <td colspan={12} className="text-lg">
                   Sub Total 92 Ron
                 </td>
-                <td className="text-right font-semibold">0.00</td>
-                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.000</td>
+                <td className="text-right font-semibold">0.000</td>
                 <td> </td>
-                <td> 0.00</td>
+                <td> 0.000</td>
               </tr>
               <tr>
                 <td className="text-left" colSpan={16}></td>
@@ -317,9 +313,9 @@ function FuelRecieveTableLittle({
                     ? Number(n5Total)?.toFixed(3)
                     : (Number(n5Total) / 4.165)?.toFixed(3)}
                 </td>
-                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.000</td>
                 <td></td>
-                <td>0.00</td>
+                <td>0.000</td>
               </tr>{" "}
               <tr>
                 <td className="text-left" colSpan={16}></td>
@@ -331,10 +327,10 @@ function FuelRecieveTableLittle({
                 <td colspan={12} className="text-lg">
                   Sub Total 95 Ron
                 </td>
-                <td className="text-right font-semibold">0.00</td>
-                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.000</td>
+                <td className="text-right font-semibold">0.000</td>
                 <td> </td>
-                <td> 0.00</td>
+                <td> 0.000</td>
               </tr>
               <tr>
                 <td className="text-left" colSpan={16}></td>
@@ -368,9 +364,9 @@ function FuelRecieveTableLittle({
                     ? Number(hsdTotal)?.toFixed(3)
                     : (Number(hsdTotal) / 4.165)?.toFixed(3)}
                 </td>
-                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.000</td>
                 <td></td>
-                <td>0.00</td>
+                <td>0.000</td>
               </tr>
               <tr>
                 <td className="text-left" colSpan={16}></td>
@@ -382,10 +378,10 @@ function FuelRecieveTableLittle({
                 <td colspan={12} className="text-lg">
                   Sub Total HSD
                 </td>
-                <td className="text-right font-semibold">0.00</td>
-                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.000</td>
+                <td className="text-right font-semibold">0.000</td>
                 <td> </td>
-                <td> 0.00</td>
+                <td> 0.000</td>
               </tr>
               <tr>
                 <td className="text-left" colSpan={16}></td>
@@ -403,9 +399,9 @@ function FuelRecieveTableLittle({
                     ? Number(phsdTotal)?.toFixed(3)
                     : (Number(phsdTotal) / 4.165)?.toFixed(3)}
                 </td>
-                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.000</td>
                 <td></td>
-                <td>0.00</td>
+                <td>0.000</td>
               </tr>
               <tr>
                 <td className="text-left" colSpan={16}></td>
@@ -417,10 +413,10 @@ function FuelRecieveTableLittle({
                 <td colspan={12} className="text-lg">
                   Sub Total PHSD
                 </td>
-                <td className="text-right font-semibold">0.00</td>
-                <td className="text-right font-semibold">0.00</td>
+                <td className="text-right font-semibold">0.000</td>
+                <td className="text-right font-semibold">0.000</td>
                 <td> </td>
-                <td> 0.00</td>
+                <td> 0.000</td>
               </tr>
               <tr>
                 <td className="text-left" colSpan={16}></td>
@@ -477,11 +473,11 @@ function FuelRecieveTableLittle({
                   )?.toFixed(3)}
             </td>
             <td colspan={1} className="text-end  text-lg font-semibold">
-              0.00
+              0.000
             </td>
             <td colspan={1} className="text-center text-lg font-semibold"></td>
             <td colspan={1} className="text-center text-lg font-semibold">
-              0.00
+              0.000
             </td>
           </tr>
         </tfoot>
