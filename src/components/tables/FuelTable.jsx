@@ -319,7 +319,7 @@ function FuelTable({ okData, type, tank, sd, ed, language, calcu, status }) {
                           ok.opening?.toFixed(3) - ok.balance?.toFixed(3)
                         ).toFixed(3)}
                   </td>
-                  <td className="text-right">
+                  {/* <td className="text-right">
                     {type != "Liter"
                       ? (
                           Math.abs(
@@ -329,6 +329,11 @@ function FuelTable({ okData, type, tank, sd, ed, language, calcu, status }) {
                       : Math.abs(
                           ok.opening?.toFixed(3) - ok.balance?.toFixed(3)
                         ).toFixed(3)}
+                  </td>{" "} */}
+                  <td className="text-right">
+                    {type != "Liter"
+                      ? (ok.cash / 4.546).toFixed(3)
+                      : ok?.cash.toFixed(3)}
                   </td>{" "}
                   <td className="text-right">
                     {/* {Math.abs(
