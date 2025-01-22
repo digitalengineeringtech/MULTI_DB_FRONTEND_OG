@@ -27,6 +27,7 @@ function StationSetUpAd() {
   const [stationName, setStationName] = useState([]);
   const [stationLiense, setStationLiense] = useState([]);
   const [stationLocation, setStationLocation] = useState([]);
+  const [stationTankCount, setStationTankCount] = useState([]);
   const [stationDeviceCount, setStationDeviceCount] = useState([]);
   const [stationNozzleCount, setStationNozzleCount] = useState([]);
   const [stationSetup, setStationSetUp] = useState({
@@ -35,12 +36,17 @@ function StationSetUpAd() {
     lienseNo: "",
     deviceCount: "",
     nozzleCount: "",
+    tankCount: "",
+    startDate: "",
+    expireDate: "",
   });
   const [stationError, setStationError] = useState("");
   const [stationLoading, setStationLoading] = useState(false);
   const [deleteSure, setDeleteSure] = useState(false);
   const [deleteStationName, setDeleteStationName] = useState("");
   const [deleteStationCode, setDeleteStationCode] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [expireDate, setExpireDate] = useState(null);
 
   const [{ data_p_11, loading_p_11, error_p_11 }, fetchIt_11] = UsePost_11();
   const user = useSelector((state) => state.login);
@@ -50,12 +56,16 @@ function StationSetUpAd() {
   const navigate = useNavigate();
 
   const handleEdit = (e) => {
+    // console.log(e);
     setStationCode(e._id);
     setStationName(e.name);
     setStationLiense(e.lienseNo);
     setStationLocation(e.location);
+    setStationTankCount(e.tankCount);
     setStationDeviceCount(e.deviceCount);
     setStationNozzleCount(e.nozzleCount);
+    setStartDate(e.startDate);
+    setExpireDate(e.expireDate);
     setData((prevData) => {
       // Toggle between e._id and false
       return prevData === e._id ? 11 : e._id;
@@ -63,6 +73,14 @@ function StationSetUpAd() {
   };
 
   const addStation = (e) => {
+    const sD = stationSetup.startDate
+      ? new Date(stationSetup.startDate)
+      : new Date();
+    const sDate = sD.toLocaleString("fr-CA").split(" ")[0];
+    const eD = stationSetup.expireDate
+      ? new Date(stationSetup.expireDate)
+      : new Date();
+    const eDate = eD.toLocaleString("fr-CA").split(" ")[0];
     e.preventDefault();
     const obj = {
       name: stationSetup.name,
@@ -70,7 +88,11 @@ function StationSetUpAd() {
       location: stationSetup.location,
       deviceCount: Number(stationSetup.deviceCount),
       nozzleCount: Number(stationSetup.nozzleCount),
+      tankCount: Number(stationSetup.tankCount),
+      startDate: sDate,
+      expireDate: eDate,
     };
+    // console.log(obj);
     fetchIt_11(`/station-detail?accessDb=${name}`, obj, user.token);
   };
 
@@ -91,6 +113,9 @@ function StationSetUpAd() {
         lienseNo: "",
         deviceCount: "",
         nozzleCount: "",
+        tankCount: "",
+        startDate: "",
+        expireDate: "",
       });
       setStationError("");
     }
@@ -148,14 +173,18 @@ function StationSetUpAd() {
                 setStationName("");
                 setStationLiense("");
                 setStationLocation("");
+                setStationTankCount("");
                 setStationDeviceCount("");
                 setStationNozzleCount("");
+                setStartDate("");
+                setExpireDate("");
               }}
               className="p-2 text-white bg-red-300  w-[80px] hover:bg-red-400 flex items-center justify-center py-3"
             >
               <FcCancel className=" scale-150" />
             </button>
           </div>
+          {/* {console.log(data)} */}
           <StationDetailTable
             setIsSure={setIsSure}
             handleEdit={handleEdit}
@@ -168,10 +197,16 @@ function StationSetUpAd() {
             setStationLiense={setStationLiense}
             stationLocation={stationLocation}
             setStationLocation={setStationLocation}
+            stationTankCount={stationTankCount}
+            setStationTankCount={setStationTankCount}
             stationDeviceCount={stationDeviceCount}
             setStationDeviceCount={setStationDeviceCount}
             stationNozzleCount={stationNozzleCount}
             setStationNozzleCount={setStationNozzleCount}
+            startDate={startDate}
+            setStartDate={setStartDate}
+            expireDate={expireDate}
+            setExpireDate={setExpireDate}
             stationLoading={stationLoading}
             deleteStation={deleteStation}
           />
@@ -180,8 +215,11 @@ function StationSetUpAd() {
               stationName={stationName}
               stationLiense={stationLiense}
               stationLocation={stationLocation}
+              stationTankCount={stationTankCount}
               stationDeviceCount={stationDeviceCount}
               stationNozzleCount={stationNozzleCount}
+              startDate={startDate}
+              expireDate={expireDate}
               setIsSure={setIsSure}
               stationCode={stationCode}
               setStationLoading={setStationLoading}

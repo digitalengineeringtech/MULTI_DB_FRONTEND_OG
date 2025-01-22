@@ -12,6 +12,7 @@ import { MdFileDownloadDone } from "react-icons/md";
 import { StationPermits } from "../components/StationPermits";
 import UsePatch_1 from "../../MainConDas/components/hooks/UsePatch";
 import instance from "../../axios";
+import { Calendar } from "primereact/calendar";
 function StationDetailTable({
   station,
   isSetUp,
@@ -23,10 +24,16 @@ function StationDetailTable({
   setStationLiense,
   stationLocation,
   setStationLocation,
+  stationTankCount,
+  setStationTankCount,
   stationDeviceCount,
   setStationDeviceCount,
   stationNozzleCount,
   setStationNozzleCount,
+  startDate,
+  setStartDate,
+  expireDate,
+  setExpireDate,
   stationName,
   stationLoading,
   deleteStation,
@@ -84,6 +91,8 @@ function StationDetailTable({
       });
   };
 
+  // console.log(data_g_11, "this is station name data")
+
   return (
     <table id="detailSale_table" className=" bg-white text-xs">
       <tr>
@@ -98,6 +107,9 @@ function StationDetailTable({
           <>
             <th className="w-[5.4%]">Device Count</th>
             <th className="w-[5.4%]">Nozzle Count</th>
+            <th className="w-[5%]">Tank Count</th>
+            <th className="w-[10.9%]">Cloud Serv Start Date</th>
+            <th className="w-[10.9%]">Cloud Serv Expire Date</th>
             <th className="w-[5.4%]">Permit</th>
             <th className="w-[5.2%]">Edit</th>
             <th className="w-[5.2%]">Delete</th>
@@ -112,7 +124,7 @@ function StationDetailTable({
             {data === e._id ? (
               <input
                 onChange={(e) => setStationName(e.target.value)}
-                className="border-[1px] h-full px-2  border-black"
+                className="border-[1px] w-[90px] h-full px-2  border-black"
                 value={stationName}
               />
             ) : (
@@ -123,7 +135,7 @@ function StationDetailTable({
             {data === e._id ? (
               <input
                 onChange={(e) => setStationLiense(e.target.value)}
-                className="border-[1px] h-full px-2 border-black"
+                className="border-[1px] w-[50px] h-full px-2 border-black"
                 value={stationLiense}
               />
             ) : (
@@ -169,6 +181,51 @@ function StationDetailTable({
                   <p>{e.nozzleCount}</p>
                 )}
               </td>
+              <td>
+                {data === e._id ? (
+                  <input
+                    type="number"
+                    onChange={(e) => setStationTankCount(e.target.value)}
+                    className="border-[1px] h-full w-[50px] px-2 border-black"
+                    value={stationTankCount}
+                  />
+                ) : (
+                  <p>{e.tankCount || 0}</p>
+                )}
+              </td>
+
+              <td>
+                {data === e._id ? (
+                  <Calendar
+                    placeholder={e.startDate.split("T")[0]}
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.value)}
+                    dateFormat="dd/mm/yy"
+                    className="w-[110px]"
+                  />
+                ) : (
+                  <p>
+                    {e.startDate.split("T")[0].split("-").reverse().join("-")}
+                  </p>
+                )}
+              </td>
+
+              <td>
+                {data === e._id ? (
+                  <Calendar
+                    placeholder={e.expireDate.split("T")[0]}
+                    value={expireDate}
+                    onChange={(e) => setExpireDate(e.value)}
+                    dateFormat="dd/mm/yy"
+                    className="w-[110px]"
+                  />
+                ) : (
+                  <p>
+                    {e.expireDate.split("T")[0].split("-").reverse().join("-")}
+                  </p>
+                )}
+              </td>
+
               <td className="bg-blue-300">
                 <ul className="bg-blue-300 relative font-bold h-full flex items-center justify-center w-full group">
                   Hover <MdArrowDropDown />
