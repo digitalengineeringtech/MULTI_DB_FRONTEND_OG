@@ -197,7 +197,7 @@ function StationDetailTable({
               <td>
                 {data === e._id ? (
                   <Calendar
-                    placeholder={e.startDate.split("T")[0]}
+                    placeholder={e.startDate?.split("T")[0]}
                     value={startDate}
                     onChange={(e) => setStartDate(e.value)}
                     dateFormat="dd/mm/yy"
@@ -205,7 +205,7 @@ function StationDetailTable({
                   />
                 ) : (
                   <p>
-                    {e.startDate.split("T")[0].split("-").reverse().join("-")}
+                    {e.startDate?.split("T")[0]?.split("-")?.reverse()?.join("-")}
                   </p>
                 )}
               </td>
@@ -213,7 +213,7 @@ function StationDetailTable({
               <td>
                 {data === e._id ? (
                   <Calendar
-                    placeholder={e.expireDate.split("T")[0]}
+                    placeholder={e.expireDate?.split("T")[0]}
                     value={expireDate}
                     onChange={(e) => setExpireDate(e.value)}
                     dateFormat="dd/mm/yy"
@@ -221,7 +221,7 @@ function StationDetailTable({
                   />
                 ) : (
                   <p>
-                    {e.expireDate.split("T")[0].split("-").reverse().join("-")}
+                    {e.expireDate?.split("T")[0]?.split("-")?.reverse()?.join("-")}
                   </p>
                 )}
               </td>
