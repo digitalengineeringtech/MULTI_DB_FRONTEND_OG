@@ -95,6 +95,8 @@ function RealTank() {
     };
   }, [navigate, user, dispatch]);
 
+  // console.log(user.accessDb, "lllllllllllllllllllllllllllllllllllll")
+
   let sd = new Date(calenderOne);
   let ed = new Date(calenderTwo);
 
@@ -151,9 +153,11 @@ function RealTank() {
         fetchData();
 
         getIt_1(
-          `/station-detail/get/single?_id=${selectedStation.code}`,
+          `/station-detail/get/single?_id=${selectedStation.code}&accessDb=${user.accessDb}`,
           user.token
         );
+
+        
         fetchIt_2(
           // `/fuel-balance/pagi/1?sDate=${isoStartDate}&stationId=${selectedStation?.code}`,
           `/detail-sale/by-date/?sDate=${calenderOne}&eDate=${calenderTwo}&stationDetailId=${selectedStation.code}&accessDb=${user.accessDb}`,
@@ -380,6 +384,7 @@ function RealTank() {
   const totalizerDifferences = getTotalizerDifferences(okData);
   console.log(data_get_1, tankCount, okData);
 
+
   if (tankCount && okData) {
     for (let i = 1; i <= tankCount; i++) {
       // Filter okData for the current tank number
@@ -470,7 +475,6 @@ function RealTank() {
         totalizerDifference, // Add the totalizer difference here
         // capacity: capacity,
       };
-
       calcu.push(data);
     }
   }
@@ -543,7 +547,6 @@ function RealTank() {
           </Button>
         </div>
       </InputContainer>
-
       {calcu?.length > 0 ? (
         <>
           {/* <div className=" flex items-center justify-end gap-3 ms-auto">
